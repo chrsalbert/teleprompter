@@ -5,30 +5,30 @@
       <div class="c-nav__divi"></div>
       <div>
         <transition mode="out-in">
-          <ClickButton icon="toggleOff" v-bind:darkmode="true" v-on:click.native="setPrompterMode('speech')" v-if="prompterMode === 'marquee'" key="speech" />
-          <ClickButton icon="toggleOn" v-bind:darkmode="true" v-on:click.native="setPrompterMode('marquee')" v-if="prompterMode === 'speech'" key="marquee" />
+          <ClickButton 
+            icon="toggleOff" 
+            v-bind:darkmode="true" 
+            v-on:click.native="enableSpeechRegocnition()" 
+            v-if="isSpeechRecognitionEnabled === false" 
+            key="off" />
+          <ClickButton 
+            icon="toggleOn" 
+            v-bind:darkmode="true" 
+            v-on:click.native="disableSpeechRegocnition()" 
+            v-if="isSpeechRecognitionEnabled === true" 
+            key="on" />
         </transition>
         <span class="span">Spracherkennung</span>
       </div>
+      <div class="c-nav__divi"></div>
+      <div class="c-nav__group">
+        <ClickButton icon="reload" v-bind:darkmode="true" v-on:click.native="reset()" />
+        <transition mode="out-in">
+          <ClickButton v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphone' : 'play'" v-bind:darkmode="true" v-on:click.native="play()" v-if="!isPlaying" key="play" />
+          <ClickButton v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphoneOff' : 'pause'" v-bind:darkmode="true" v-on:click.native="pause()" v-if="isPlaying" key="pause" />
+        </transition>
+      </div>
     </div>
-    <transition mode="out-in">
-      <div class="c-nav__group" v-if="prompterMode === 'marquee'">
-        <ClickButton icon="reload" v-bind:darkmode="true" v-on:click.native="reset()" />
-        <div>{{ readingTime }}</div>
-        <transition mode="out-in">
-          <ClickButton icon="play" v-bind:darkmode="true" v-on:click.native="play()" v-if="!isPlaying" key="played" />
-          <ClickButton icon="pause" v-bind:darkmode="true" v-on:click.native="pause()" v-if="isPlaying" key="played" />
-        </transition>
-      </div>
-      <div class="c-nav__group" v-if="prompterMode === 'speech'">
-        <ClickButton icon="reload" v-bind:darkmode="true" v-on:click.native="reset()" />
-        <div>{{ readingTime }}</div>
-        <transition mode="out-in">
-          <ClickButton icon="microphone" v-bind:darkmode="true" v-on:click.native="setSpeechRecognition(true)" v-if="!isSpeechRecognizing" key="played" />
-          <ClickButton icon="microphoneOff" v-bind:darkmode="true" v-on:click.native="setSpeechRecognition(false)" v-if="isSpeechRecognizing" key="played" />
-        </transition>
-      </div>
-    </transition>
     <div class="c-nav__group">
       <ClickButton icon="documents" v-bind:darkmode="true" v-on:click.native="openDocuments()" />
       <ClickButton icon="settings" v-bind:darkmode="true" v-on:click.native="openSettings()" />
@@ -66,39 +66,23 @@ export default {
     }
   },
   computed: {
-    isPlaying() {
-        return this.$store.state.prompter.isPlaying
+    isPlaying() { 
+      return this.$store.state.prompter.isPlaying 
     },
-    isSpeechRecognizing() {
-        return this.$store.state.prompter.isSpeechRecognizing
+    isListening() { 
+      return this.$store.state.prompter.isListening 
     },
-    prompterMode() {
-        return this.$store.state.prompter.prompter.mode
+    isSpeechRecognitionEnabled() { 
+      return this.$store.state.prompter.isSpeechRecognitionEnabled 
     },
-    readingTime() {
-      return new Date(this.$store.state.prompter.readingTimeInSec * 1000).toISOString().substr(11, 8)
+    prompterMode() { 
+      return this.$store.state.prompter.prompter.mode 
+    },
+    readingTime() { 
+      return new Date(this.$store.state.prompter.readingTimeInSec * 1000).toISOString().substr(11, 8) 
     }
   },
   methods: {
-    play() {
-      this.$store.commit('prompter/play')
-    },
-    pause() {
-      this.$store.commit('prompter/pause')
-    },
-    togglePlay() {
-      this.$store.commit('prompter/togglePlay')
-    },
-    setPrompterMode(mode) {
-      if(mode === 'speech') {
-        this.$store.commit('prompter/setPrompterMode', 'speech')
-      } else {
-        this.$store.commit('prompter/setPrompterMode', 'marquee')
-      }
-    },
-    setSpeechRecognition(boolean) {
-      this.$store.commit('prompter/setSpeechRecognition', boolean)
-    },
     openSettings() {
       this.$refs.settingsPopup.toggleOpen()
     },
@@ -106,7 +90,12 @@ export default {
       this.$refs.documentsPopup.toggleOpen()
     },
     ...mapActions({
-      reset: 'prompter/reset'
+      play: 'prompter/play',
+      pause: 'prompter/pause',
+      reset: 'prompter/reset',
+      togglePlay: 'prompter/togglePlay',
+      enableSpeechRegocnition: 'prompter/enableSpeechRecognition',
+      disableSpeechRegocnition: 'prompter/disableSpeechRecognition'
     })
   },
   mounted() {
@@ -124,7 +113,8 @@ export default {
 <style scoped>
   .span {
     font-size: .8rem;
-    font-weight: 600
+    font-weight: 600;
+    margin-right: 8px;
   }
   .controls {
     position: absolute;
