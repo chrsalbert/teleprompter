@@ -1,5 +1,13 @@
 <template>
-    <button class="c-button" :class="{ 'c-button--border': hasBorder, 'is-toggle': hasToggleIcon, 'is-dark': hasDarkmode, 'is-on': ishighlighted, 'c-button--icon': hasIcon, 'transparent': isTransparent }"><slot ></slot><span v-html="getIcon"></span></button>
+    <button class="c-button" :class="{ 
+        'c-button--border': hasBorder, 
+        'c-button--toggle': hasToggleIcon, 
+        'c-button--dark': hasDarkmode, 
+        'c-button--highlighted': isHighlighted, 
+        'c-button--off': isOff, 
+        'c-button--icon': hasIcon, 
+        'transparent': isTransparent }">
+        <slot ></slot><span v-html="getIcon"></span></button>
 </template>
 <script>
 import iconPause from "~/assets/images/icons/pause.svg?raw"
@@ -19,7 +27,14 @@ export default {
         classes: String,
         icon: String,
         type: String,
-        highlighted: Boolean,
+        highlighted: {
+            type: Boolean,
+            default: false
+        },
+        off: {
+            type: Boolean,
+            default: false
+        },
         border: {
             type: Boolean,
             default: false
@@ -53,8 +68,11 @@ export default {
         hasToggleIcon() {
             return this.icon === 'toggleOn' || this.icon === 'toggleOff'
         },
-        ishighlighted() {
+        isHighlighted() {
             return this.highlighted
+        },
+        isOff() {
+            return this.off
         },
         hasDarkmode() {
             return this.darkmode ? true : false
@@ -105,15 +123,19 @@ export default {
         border: 1px rgba(255,255,255,.4) solid;
     }
 
-    .c-button.is-dark svg {
+    .c-button--dark svg {
         fill: white
     }
 
-    .c-button.is-on svg {
+    .c-button--highlighted svg {
         fill: #7FFF00
     }
 
-    .c-button.is-toggle svg {
+    .c-button--off svg {
+        fill: #FF6347
+    }
+
+    .c-button--toggle svg {
         width: 24px;
         height: 24px;
     }

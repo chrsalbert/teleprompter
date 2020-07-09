@@ -24,8 +24,8 @@
       <div class="c-nav__group">
         <ClickButton icon="reload" v-bind:darkmode="true" v-on:click.native="reset()" />
         <transition mode="out-in">
-          <ClickButton v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphone' : 'play'" v-bind:darkmode="true" v-on:click.native="play()" v-if="!isPlaying" key="play" />
-          <ClickButton v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphoneOff' : 'pause'" v-bind:darkmode="true" v-on:click.native="pause()" v-if="isPlaying" key="pause" />
+          <ClickButton v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphone' : 'play'" v-bind:darkmode="true" v-bind:highlighted="true" v-on:click.native="play()" v-if="!isPlaying" key="play" />
+          <ClickButton v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphoneOff' : 'pause'" v-bind:darkmode="true" v-bind:off="true" v-on:click.native="pause()" v-if="isPlaying" key="pause" />
         </transition>
       </div>
     </div>
