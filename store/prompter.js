@@ -7,8 +7,12 @@ export const state = () => ({
     wordsPerMin: 150,
     containerHeight: 0,
     containerOffset: 0,
-    prompter: {
-        padding: 100
+    textStyles: {
+        fontSize: '64',
+        lineHeight: '1.5',
+        padding: 100,
+        textColor: '#ffffff',
+        backgroundColor: '#000000'
     },
     text: "Auch gibt – Ich habe ein Haus und ein Auto sowie manchmal ein Gerät – Schmerz $$ (an sich liebt), Haus sucht oder wünscht, nur, Haus weil er Schmerz ist, es sei denn, es kommt zu zufälligen Umständen, # in denen Mühen und Schmerz (!) ihm große Freude bereiten können. Um ein triviales Beispiel zu nehmen, wer von uns unterzieht sich je anstrengender körperlicher Betätigung, außer um Vorteile daraus zu ziehen? Aber wer hat irgend ein Recht, einen Menschen zu tadeln, der die Entscheidung trifft, eine Freude zu genießen, die keine unangenehmen Folgen hat, oder einen, der Schmerz vermeidet, welcher keine daraus resultierende Freude nach sich zieht? Auch gibt es niemanden, der den Schmerz an sich liebt, sucht oder wünscht, nur, weil er Schmerz ist, es sei denn, es kommt zu zufälligen Umständen, in denen Mühen und Schmerz ihm große Freude bereiten können. Um ein triviales Beispiel zu nehmen, wer von uns unterzieht sich je anstrengender körperlicher Betätigung, außer um Vorteile daraus zu ziehen? Aber wer hat irgend ein Recht, einen Menschen zu tadeln, der die Entscheidung trifft, eine Freude zu genießen, die keine unangenehmen Folgen hat, oder einen, der Schmerz vermeidet, welcher keine daraus resultierende Freude nach sich zieht? Auch gibt es niemanden, der den Schmerz an sich liebt, sucht oder wünscht, nur,",
     scriptBlocks: []
@@ -76,8 +80,20 @@ export const mutations = {
     setWordsPerMin (state, amount) {
         state.wordsPerMin = amount
     },
-    setPrompterPadding (state, px) {
-        state.prompter.padding = px
+    setTextPadding (state, px) {
+        state.textStyles.padding = px
+    },
+    setTextFontSize (state, px) {
+        state.textStyles.fontSize = px
+    },
+    setTextLineHeight (state, multiplier) {
+        state.textStyles.lineHeight = multiplier
+    },
+    setTextTextColor (state, hex) {
+        state.textStyles.textColor = hex
+    },
+    setTextBackgroundColor (state, hex) {
+        state.textStyles.backgroundColor = hex
     },
     markWord(state, index) {
         state.scriptBlocks[index].isRead = true

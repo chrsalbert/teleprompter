@@ -29,6 +29,9 @@ export default {
 }
 </script>
 <style scoped>
+  div {
+    padding: 16px
+  }
   p {
     font-size: .9rem;
     color: #999;

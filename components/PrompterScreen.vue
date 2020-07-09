@@ -1,5 +1,11 @@
 <template>
-    <div class="c-teleprompter" v-bind:style="{ '--padding': `${padding}px`}">
+    <div class="c-teleprompter" v-bind:style="{ 
+        '--padding': `${textStyles.padding}px`,
+        '--fontSize': `${textStyles.fontSize}px`,
+        '--lineHeight': `${textStyles.lineHeight}`,
+        '--textColor': `${textStyles.textColor}`,
+        '--backgroundColor': `${textStyles.backgroundColor}`
+        }">
         <div class="c-teleprompter__middleLine" v-show="!isSpeechRecognizingEnabled"></div>
         <div id="telepromoter-content" class="c-teleprompter__content" ref="content" v-bind:style="{ 
             '--height': `-${containerHeight}px`, 
@@ -29,8 +35,8 @@
             containerOffset() { 
                 return this.$store.state.prompter.containerOffset
             },
-            padding() { 
-                return this.$store.state.prompter.prompter.padding
+            textStyles() { 
+                return this.$store.state.prompter.textStyles
             },
             isSpeechRecognizingEnabled() { 
                 return this.$store.state.prompter.isSpeechRecognitionEnabled
@@ -66,9 +72,9 @@
 </script>
 <style>
     .c-teleprompter {
-        padding: calc(50vh - 3rem) var(--padding) 0;
+        padding: calc(50vh - calc(var(--fontSize) * var(--lineHeight) / 2)) var(--padding) 0;
         min-height: 100vh;
-        background-color: #000;
+        background-color: var(--backgroundColor);
         color: #fff;
         font-family: 'Arial';
         font-weight: bold;
@@ -97,9 +103,10 @@
         border-bottom: 16px solid transparent;
     }
     .c-teleprompter__content {
-        font-size: 4rem;
-        line-height: 1.5;
         position: relative;
+        font-size: var(--fontSize);
+        color: var(--textColor);
+        line-height: var(--lineHeight);
         transform: translateY(var(--offset));
         animation: scroll var(--animation-duration) linear 1 forwards var(--animation-play-state);
         transition: transform .3s linear

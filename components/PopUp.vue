@@ -69,7 +69,4 @@ export default {
         padding: 8px 16px;
         font-weight: 600;
     }
-    .body {
-        padding: 16px
-    }
 </style>
