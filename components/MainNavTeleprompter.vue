@@ -8,7 +8,7 @@
           <ClickButton 
             icon="toggleOff" 
             v-bind:darkmode="true" 
-            v-on:click.native="enableSpeechRegocnition()" 
+            v-on:click.native="checkSpeechRegocnition()" 
             v-if="isSpeechRecognitionEnabled === false" 
             key="off" />
           <ClickButton 
@@ -37,6 +37,17 @@
       </PopUp>
       <PopUp ref="documentsPopup" title="Transkript" width="40rem">
         <PrompterDocuments />
+      </PopUp>
+      <PopUp ref="browserSupportDialog" title="Die Spracherkennung wird nicht unterstützt" width="30rem">
+        <div class="c-richtext" style="padding:16px">
+          <p>Die Spracherkennung im Browser ist aktuell noch in einer experimentellen Phase. Dein Browser unterstützt diese Funktion leider noch nicht. Du kannst stattdessen den Lauftext-Teleprompter starten oder die Spracherkennung mit einem der folgenden Browser ausprobieren:</p>
+          <ul>
+            <li>Edge</li>
+            <li>Chrome (Desktop … Android)</li>
+            <li>Android Browser</li>
+            <li>Samsung Internet</li>
+          </ul>
+        </div>
       </PopUp>
       <div class="c-nav__divi"></div>
       <ClickButton icon="fullscreen" v-bind:darkmode="true" v-on:click.native="toggleFullscreen()"/>
@@ -75,8 +86,8 @@ export default {
     isSpeechRecognitionEnabled() { 
       return this.$store.state.prompter.isSpeechRecognitionEnabled 
     },
-    prompterMode() { 
-      return this.$store.state.prompter.prompter.mode 
+    isSupportingSpeechRecognition() { 
+      return this.$store.state.prompter.isSupportingSpeechRecognition 
     },
     readingTime() { 
       return new Date(this.$store.state.prompter.readingTimeInSec * 1000).toISOString().substr(11, 8) 
@@ -88,6 +99,9 @@ export default {
     },
     openDocuments() {
       this.$refs.documentsPopup.toggleOpen()
+    },
+    checkSpeechRegocnition() {
+        this.isSupportingSpeechRecognition ? this.enableSpeechRegocnition() : this.$refs.browserSupportDialog.toggleOpen()
     },
     ...mapActions({
       play: 'prompter/play',

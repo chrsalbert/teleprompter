@@ -7,7 +7,7 @@
         'c-button--off': isOff, 
         'c-button--icon': hasIcon, 
         'transparent': isTransparent }">
-        <slot ></slot><span v-html="getIcon"></span></button>
+        <slot></slot><span v-html="getIcon"></span></button>
 </template>
 <script>
 import iconPause from "~/assets/images/icons/pause.svg?raw"

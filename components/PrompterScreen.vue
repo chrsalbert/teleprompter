@@ -13,7 +13,7 @@
             '--animation-play-state': `${animationPlayState}`,
             '--offset': `-${containerOffset}px`,
         }">
-            <span v-for="(block, index) in scriptBlocks" :key="index" ref="script" v-bind:class="{ read: block.isRead }">
+            <span v-for="(block, index) in scriptBlocks" v-bind:key="`block-${index}`" ref="script" v-bind:class="{ 'is-read': block.isRead }">
                 {{ block.block }}
             </span>
         </div>
@@ -57,7 +57,10 @@
             }),
         },
         beforeMount() {
-            this.$store.commit('prompter/setRecognition')
+            if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+                this.$store.commit('prompter/setIsSupportingSpeechRecognition', true)
+                this.$store.commit('prompter/setRecognition')
+            }
         },
         mounted() {
             this.init()
@@ -114,7 +117,7 @@
     .c-teleprompter__content span {
         transition: color .1s
     }
-    .c-teleprompter__content span.read {
+    .c-teleprompter__content span.is-read {
         color: #333
     }
     @keyframes scroll {

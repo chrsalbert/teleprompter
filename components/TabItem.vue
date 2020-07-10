@@ -17,9 +17,6 @@ export default {
     computed: {
         href() {
             return '#' + this.name.toLowerCase().replace(/ /g, '-');
-        },
-        isActive() {
-            return this.selected
         }
     },
     mounted() {

@@ -4,7 +4,7 @@
             <nuxt-link to="/" id="logo" class="c-nav__logo" v-html="logo"></nuxt-link>
         </li>
         <li>
-            <nuxt-link to="/teleprompter" class="c-button c-button--border">Start App</nuxt-link>
+            <nuxt-link to="/player" class="c-button c-button--border">Start App</nuxt-link>
         </li>
     </ul>
 </template>

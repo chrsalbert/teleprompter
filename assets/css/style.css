@@ -35,3 +35,17 @@
   border-radius: 0 3px 3px 0;
   background: rgba(0,0,0,.1);
 }
+
+
+.c-richtext {
+  line-height: 1.6
+}
+
+.c-richtext li {
+  list-style-type: disc;
+  margin-left: 2rem
+}
+
+.c-richtext p {
+  margin: 1rem 0;
+}

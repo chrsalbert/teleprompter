@@ -2,6 +2,7 @@ export const state = () => ({
     isPlaying: false,
     isListening: false,
     isSpeechRecognitionEnabled: false,
+    isSupportingSpeechRecognition: false,
     recognition: null,
     readingTimeInSec: null,
     wordsPerMin: 150,
@@ -49,6 +50,9 @@ export const mutations = {
         state.isPlaying = false
         state.isListening = false
     },
+    setIsSupportingSpeechRecognition (state, boolean) {
+        state.isSupportingSpeechRecognition = boolean
+    },
     setIsSpeechRecognitionEnabled (state, boolean) {
         state.isSpeechRecognitionEnabled = boolean
     },
@@ -64,18 +68,8 @@ export const mutations = {
     setRecognition(state) {
         state.recognition = new webkitSpeechRecognition()
     },
-    initScriptBlocks (state) {
-        const scriptBlocks = []
-        state.text.split(' ').forEach(function(block, index) {
-            var word = block.match(/\b([äöüÄÖÜß\w]+)'?(\w+)?\b/g)
-            var word = word === null ? '' : word[0]
-            scriptBlocks.push({
-                block: block,
-                word: word,
-                isRead: false
-            })
-        })
-        state.scriptBlocks = scriptBlocks
+    setScriptBlocks (state, array) {
+        state.scriptBlocks = array
     },
     setWordsPerMin (state, amount) {
         state.wordsPerMin = amount
@@ -111,8 +105,10 @@ export const actions = {
         commit('play')
     },
     pause ({ commit, dispatch }) {
+        if(state.isSpeechRecognitionEnabled) {
+            dispatch('mute')
+        }
         commit('pause')
-        dispatch('mute')
     },
     reset ({ commit, state }) {
         commit('pause')
@@ -160,7 +156,6 @@ export const actions = {
         dispatch('reset')
     },
     markWord({ commit, state }, searchWord) {
-        console.log(searchWord)
         let firstUnreadChar = state.scriptBlocks.findIndex(item => item.isRead === false)
         // last index of
         let firstUnread = state.scriptBlocks.findIndex(item => item.isRead === false && item.word != '')
@@ -170,21 +165,43 @@ export const actions = {
                 state.scriptBlocks.slice(firstUnreadChar, firstUnread + index + 1).forEach((item, index) => {
                     setTimeout(function(){ 
                         commit('markWord', firstUnreadChar + index)
-                        let elements = document.getElementsByClassName('read')
+                        let elements = document.getElementsByClassName('is-read')
                         let element = elements[elements.length - 1]
-                        commit('setContainerOffset', element.offsetTop)
+                        if(element) {
+                            commit('setContainerOffset', element.offsetTop)
+                        }
                     }, 100 * index)
                 })
                 match = true
             }
         })
     },
-    initContainerHeight({ commit, state }) {
+    initScriptBlocks({ state, commit }) {
+        const scriptBlocks = []
+        state.text.split(' ').forEach(function(block, index) {
+            var word = block.match(/\b([äöüÄÖÜß\w]+)'?(\w+)?\b/g)
+            var word = word === null ? '' : word[0]
+            scriptBlocks.push({
+                block: block,
+                word: word,
+                isRead: false
+            })
+        })
+        commit('setScriptBlocks', scriptBlocks)
+    },
+    initAnimation() {
+        const el = document.getElementById('telepromoter-content')
+        el.style.animation = 'none'
+        el.offsetHeight
+        el.style.animation = null
+    },
+    initContainerHeight({ commit, dispatch }) {
         commit('setContainerHeight', document.getElementById('telepromoter-content').offsetHeight)
+        dispatch('initAnimation')
     },
     init({ commit, dispatch, state }) {
         let load = new Promise((resolve) => {
-            commit('initScriptBlocks')
+            dispatch('initScriptBlocks')
             resolve()
         })
         load.then(() => {

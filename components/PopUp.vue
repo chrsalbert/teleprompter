@@ -30,7 +30,7 @@ export default {
     },
     data() {
         return {
-            isOpen: false
+            isOpen: this.open
         }
     },
     methods: {
