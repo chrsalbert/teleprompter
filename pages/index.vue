@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MainNav region="default" />
+    <AppHeader region="default" />
     <div style="padding: 5rem 0">
       <h1>Hallo</h1>
     </div>
@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import MainNav from '~/components/MainNav'
+import AppHeader from '~/components/layout/AppHeader'
 
 export default {
   components: {
-    MainNav
+    AppHeader
   }
 }
 </script>

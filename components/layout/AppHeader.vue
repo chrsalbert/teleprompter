@@ -1,17 +1,15 @@
 <template>
   <header class="c-head">
-    <MainNavTeleprompter v-if="region == 'teleprompter'" />
-    <MainNavDefault v-if="region == 'default'" />
+    <slot v-if="slotPassed"></slot>
+    <AppNav v-else />
   </header>
 </template>
 <script>
-import MainNavTeleprompter from '~/components/MainNavTeleprompter'
-import MainNavDefault from '~/components/MainNavDefault'
+import AppNav from '~/components/common/AppNav'
 
 export default {
   components: {
-    MainNavTeleprompter,
-    MainNavDefault
+    AppNav
   },
   props: {
     region: {
@@ -19,10 +17,10 @@ export default {
       default: 'default'
     }
   },
-  data () {
-      return {
-          
-      }
+  computed: {
+    slotPassed() {
+      return !!(this.$slots.default || [])[0]
+    }
   }
 }
 </script>

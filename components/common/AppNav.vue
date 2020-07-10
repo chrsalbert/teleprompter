@@ -1,12 +1,12 @@
 <template>
-    <ul>
-        <li>
+    <nav class="c-nav">
+        <div class="c-nav__group">
             <nuxt-link to="/" id="logo" class="c-nav__logo" v-html="logo"></nuxt-link>
-        </li>
-        <li>
-            <nuxt-link to="/player" class="c-button c-button--border">Start App</nuxt-link>
-        </li>
-    </ul>
+        </div>
+        <div class="c-nav__group">
+            <nuxt-link to="/player" class="c-button">Start App</nuxt-link>
+        </div>
+    </nav>
 </template>
 <script>
 import logoSymbol from "~/assets/images/logo-symbol.svg?raw"

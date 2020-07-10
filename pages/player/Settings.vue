@@ -40,8 +40,8 @@
     </div>
 </template>
 <script>
-import TabContainer from '~/components/TabContainer'
-import TabItem from '~/components/TabItem'
+import TabContainer from '~/components/ui/TabContainer'
+import TabItem from '~/components/ui/TabItem'
 
 export default {
   components: {

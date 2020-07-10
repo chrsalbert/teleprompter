@@ -33,10 +33,10 @@
       <ClickButton icon="documents" v-bind:darkmode="true" v-on:click.native="openDocuments()" />
       <ClickButton icon="settings" v-bind:darkmode="true" v-on:click.native="openSettings()" />
       <PopUp ref="settingsPopup" title="Einstellungen">
-        <PrompterSettings />
+        <PlayerSettings />
       </PopUp>
       <PopUp ref="documentsPopup" title="Transkript" width="40rem">
-        <PrompterDocuments />
+        <PlayerDocuments />
       </PopUp>
       <PopUp ref="browserSupportDialog" title="Die Spracherkennung wird nicht unterstützt" width="30rem">
         <div class="c-richtext" style="padding:16px">
@@ -56,10 +56,10 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
-import ClickButton from '~/components/ClickButton'
-import PrompterSettings from '~/components/PrompterSettings'
-import PrompterDocuments from '~/components/PrompterDocuments'
-import PopUp from '~/components/PopUp'
+import ClickButton from '~/components/ui/ClickButton'
+import PopUp from '~/components/ui/PopUp'
+import PlayerSettings from '~/pages/player/Settings'
+import PlayerDocuments from '~/pages/player/Documents'
 import logoSymbol from "~/assets/images/logo-symbol.svg?raw"
 import fullscreenFunctions from '~/mixins/fullscreenFunctions.js'
 
@@ -67,8 +67,8 @@ export default {
   components: {
     ClickButton,
     PopUp,
-    PrompterSettings,
-    PrompterDocuments
+    PlayerSettings,
+    PlayerDocuments
   },
   mixins: [fullscreenFunctions],
   data () {
