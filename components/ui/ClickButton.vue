@@ -108,8 +108,8 @@ export default {
     }
 
     .c-button svg {
-        width: 16px;
-        height: 16px;
+        width: 24px;
+        height: 24px;
         vertical-align: middle;
     }
 
@@ -124,15 +124,15 @@ export default {
     }
 
     .c-button--dark svg {
-        fill: white
+        stroke: white
     }
 
     .c-button--highlighted svg {
-        fill: #7FFF00
+        stroke: #7FFF00
     }
 
     .c-button--off svg {
-        fill: #FF6347
+        stroke: #FF6347
     }
 
     .c-button--toggle svg {
