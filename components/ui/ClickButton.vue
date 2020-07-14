@@ -1,144 +1,107 @@
 <template>
-    <button class="c-button" :class="{ 
-        'c-button--border': hasBorder, 
-        'c-button--toggle': hasToggleIcon, 
-        'c-button--dark': hasDarkmode, 
-        'c-button--highlighted': isHighlighted, 
-        'c-button--off': isOff, 
-        'c-button--icon': hasIcon, 
-        'transparent': isTransparent }">
-        <slot></slot><span v-html="getIcon"></span></button>
+  <nuxt-link 
+    class="c-button" 
+    v-bind="{ to: href, tag: buttonType, class: {
+        'c-button--inverted': isInverted, 
+        'c-button--icon': hasIcon && !hasSlot,
+        'c-button--hasIcon': hasIcon && hasSlot
+      }, style: { '--color': color } 
+    }">
+    <AppIcon v-bind:icon="icon" />
+    <slot></slot>
+  </nuxt-link>
 </template>
 <script>
-import iconMenu from "~/assets/images/icons/menu.svg?raw"
-import iconPause from "~/assets/images/icons/pause.svg?raw"
-import iconDocuments from "~/assets/images/icons/documents.svg?raw"
-import iconReload from "~/assets/images/icons/reload.svg?raw"
-import iconPlay from "~/assets/images/icons/play.svg?raw"
-import iconClose from "~/assets/images/icons/close.svg?raw"
-import iconSettings from "~/assets/images/icons/settings.svg?raw"
-import iconFullscreen from "~/assets/images/icons/fullscreen.svg?raw"
-import iconMicrophone from "~/assets/images/icons/microphone.svg?raw"
-import iconMicrophoneOff from "~/assets/images/icons/microphoneOff.svg?raw"
-import iconToggleOn from "~/assets/images/icons/toggleOn.svg?raw"
-import iconToggleOff from "~/assets/images/icons/toggleOff.svg?raw"
+import AppIcon from '~/components/ui/AppIcon'
 
 export default {
-    props: {
-        classes: String,
-        icon: String,
-        type: String,
-        highlighted: {
-            type: Boolean,
-            default: false
-        },
-        off: {
-            type: Boolean,
-            default: false
-        },
-        border: {
-            type: Boolean,
-            default: false
-        },
-        darkmode: {
-            type: Boolean,
-            default: false
-        }
+    components: {
+        AppIcon
     },
-    data () {
-        return {
-            icons: {
-                menu: iconMenu,
-                pause: iconPause,
-                documents: iconDocuments,
-                reload: iconReload,
-                play: iconPlay,
-                close: iconClose,
-                settings: iconSettings,
-                fullscreen: iconFullscreen,
-                microphone: iconMicrophone,
-                microphoneOff: iconMicrophoneOff,
-                toggleOn: iconToggleOn,
-                toggleOff: iconToggleOff,
-            }
-        }
+    props: {
+      classes: String,
+      icon: String,
+      type: String,
+      color: {
+        type: String,
+        default: '#000'
+      },
+      inverted: {
+        type: Boolean,
+        default: false
+      },
+      href: {
+        type: String,
+        default: '#'
+      }
     },
     computed: {
-        hasIcon() {
-            return this.icon ? true : false
-        },
-        hasToggleIcon() {
-            return this.icon === 'toggleOn' || this.icon === 'toggleOff'
-        },
-        isHighlighted() {
-            return this.highlighted
-        },
-        isOff() {
-            return this.off
-        },
-        hasDarkmode() {
-            return this.darkmode ? true : false
-        },
-        hasBorder() {
-            return this.border ? true : false
-        },
-        getIcon() {
-            return this.icons[this.icon]
-        },
-        isTransparent() {
-            return this.type == 'transparent'
-        }
+      hasIcon() {
+          return !!this.icon ? true : false
+      },
+      hasSlot() {
+          return !!this.$slots.default
+      },
+      buttonType() {
+          return this.href != '#' ? 'a' : 'button'
+      },
+      isInverted() {
+          return this.inverted ? true : false
+      }
     }
 }
 </script>
 <style>
-    .c-button {
-        display: inline-block;
-        height: 40px;
-        padding: 0 8px;
-        line-height: 40px;
-        background: transparent;
-        border: none;
-        color: #fff;
-        font-weight: 600;
-        text-decoration: none;
-        border-radius: 2px;
-    }
+  .c-button {
+    display: inline-block;
+    height: 40px;
+    padding: 0 12px;
+    line-height: 40px;
+    background: transparent;
+    border: none;
+    color: var(--color);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 2px;
+    font-size: .9rem;
+  }
 
-    .c-button:hover {
-        background: rgba(255,255,255,.1)
-    }
+  .c-button:hover {
+    background: rgba(0,0,0,.1)
+  }
 
-    .c-button svg {
-        width: 24px;
-        height: 24px;
-        vertical-align: middle;
-    }
+  .c-button svg {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    stroke: var(--color)
+  }
 
-    .c-button--icon {
-        width: 40px;
-        padding: 0;
-        text-align: center;
-    }
+  .c-button > .c-icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    text-align: center;
+  }
 
-    .c-button--border {
-        border: 1px rgba(255,255,255,.4) solid;
-    }
+  .c-button--inverted {
+    color: #fff
+  }
 
-    .c-button--dark svg {
-        stroke: white
-    }
+  .c-button--inverted svg {
+    stroke: white
+  }
 
-    .c-button--highlighted svg {
-        stroke: #7FFF00
-    }
+  .c-button--inverted:hover {
+    background: rgba(255,255,255,.1)
+  }
 
-    .c-button--off svg {
-        stroke: #FF6347
-    }
+  .c-button--hasIcon {
+    padding-left: 0
+  }
 
-    .c-button--toggle svg {
-        width: 24px;
-        height: 24px;
-    }
+  .c-button--icon {
+    padding: 0
+  }
 </style>

@@ -1,18 +1,22 @@
 <template>
   <div>
-    <AppHeader region="default" />
-    <div style="padding: 5rem 0">
-      <h1>Hallo</h1>
-    </div>
+    <AppHeader>
+      <AppNav />
+    </AppHeader>
+    <PlayerScreen />
   </div>
 </template>
 
 <script>
 import AppHeader from '~/components/layout/AppHeader'
+import AppNav from '~/components/player/AppNav'
+import PlayerScreen from '~/pages/player/Screen'
 
 export default {
   components: {
-    AppHeader
+    AppHeader,
+    AppNav,
+    PlayerScreen
   }
 }
 </script>

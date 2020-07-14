@@ -1,7 +1,7 @@
 <template>
   <nav class="c-nav">
     <div class="c-nav__group">
-      <ClickButton icon="menu" v-bind:darkmode="true" v-on:click.native="openMenu()" />
+      <ClickButton icon="menu" inverted="true" v-on:click.native="openMenu()" />
       <AppMenu ref="appMenu">
       </AppMenu>
       <div class="c-nav__divi"></div>
@@ -9,31 +9,34 @@
         <transition mode="out-in">
           <ClickButton 
             icon="toggleOff" 
-            v-bind:darkmode="true" 
+            inverted="true" 
             v-on:click.native="checkSpeechRegocnition()" 
             v-if="isSpeechRecognitionEnabled === false" 
-            key="off" />
+            key="off">
+            Spracherkennung
+          </ClickButton>
           <ClickButton 
             icon="toggleOn" 
-            v-bind:darkmode="true" 
+            inverted="true" 
             v-on:click.native="disableSpeechRegocnition()" 
             v-if="isSpeechRecognitionEnabled === true" 
-            key="on" />
+            key="on">
+            Spracherkennung
+          </ClickButton>
         </transition>
-        <span class="span">Spracherkennung</span>
       </div>
       <div class="c-nav__divi"></div>
       <div class="c-nav__group">
-        <ClickButton icon="reload" v-bind:darkmode="true" v-on:click.native="reset()" />
+        <ClickButton icon="reload" inverted="true" v-on:click.native="reset()" />
         <transition mode="out-in">
-          <ClickButton v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphone' : 'play'" v-bind:darkmode="true" v-bind:highlighted="true" v-on:click.native="play()" v-if="!isPlaying" key="play" />
-          <ClickButton v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphoneOff' : 'pause'" v-bind:darkmode="true" v-bind:off="true" v-on:click.native="pause()" v-if="isPlaying" key="pause" />
+          <ClickButton v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphone' : 'play'" color="#7FFF00" v-on:click.native="play()" v-if="!isPlaying" key="play" />
+          <ClickButton v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphoneOff' : 'pause'" color="#FF6347" v-on:click.native="pause()" v-if="isPlaying" key="pause" />
         </transition>
       </div>
     </div>
     <div class="c-nav__group">
-      <ClickButton icon="documents" v-bind:darkmode="true" v-on:click.native="openDocuments()" />
-      <ClickButton icon="settings" v-bind:darkmode="true" v-on:click.native="openSettings()" />
+      <ClickButton icon="documents" inverted="true" v-on:click.native="openDocuments()" />
+      <ClickButton icon="settings" inverted="true" v-on:click.native="openSettings()" />
       <PopUp ref="settingsPopup" title="Einstellungen">
         <PlayerSettings />
       </PopUp>
@@ -49,7 +52,7 @@
         </div>
       </PopUp>
       <div class="c-nav__divi"></div>
-      <ClickButton icon="fullscreen" v-bind:darkmode="true" v-on:click.native="toggleFullscreen()"/>
+      <ClickButton icon="fullscreen" inverted="true" v-on:click.native="toggleFullscreen()"/>
     </div>
   </nav>
 </template>

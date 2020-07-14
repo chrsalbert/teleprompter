@@ -3,6 +3,7 @@
         <p>
             Dies ist ein kostenloser Online-Teleprompter mit Spracherkennungs-Funktion* und klassischem Lauftext. Wähle <span v-html="icons.document" class="c-menu__helper"></span> um dein Transkript einzufügen und <span v-html="icons.play" class="c-menu__helper"></span> zum Starten der Lauftext-Funktion. Aktiviere alternativ die Spracherkennung und wähle <span v-html="icons.microphone" class="c-menu__helper"></span> um den Zugriff auf dein Mikrofon zu aktivieren und dein Transkript durch Spracherkennung automatisch mitlaufen zu lassen.</p>
         <p class="c-menu__footnote">* Aktuell nur in folgenden Browsern: <span v-for="(browser, index) in supportedBrowsers" :key="index">{{ browserWithComma(index) }}</span></p>
+        <p class="c-menu__footer"><nuxt-link to="/">Teleprompter</nuxt-link> | <nuxt-link to="/imprint">Impressum</nuxt-link></p>
     </div>
 </template>
 <script>
@@ -77,7 +78,21 @@ export default {
     }
     .c-menu__footnote {
         font-size: .8rem;
+        color: #666
+    }
+    .c-menu__footer {
+        border-top: 1px #ddd solid;
+        padding-top: 16px;
+        font-size: .7rem;
         color: #999
+    }
+    .c-menu__footer a {
+        text-decoration: none;
+        text-transform: uppercase;
+        color: #666
+    }
+    .c-menu__footer a:hover {
+        color: #000
     }
     .c-menu__helper {
         display: inline-flex;
