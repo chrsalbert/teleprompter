@@ -1,7 +1,9 @@
 <template>
   <nav class="c-nav">
     <div class="c-nav__group">
-      <nuxt-link to="/" id="logo" class="c-nav__logo" v-html="logo"></nuxt-link>
+      <ClickButton icon="menu" v-bind:darkmode="true" v-on:click.native="openMenu()" />
+      <AppMenu ref="appMenu">
+      </AppMenu>
       <div class="c-nav__divi"></div>
       <div>
         <transition mode="out-in">
@@ -42,10 +44,7 @@
         <div class="c-richtext" style="padding:16px">
           <p>Die Spracherkennung im Browser ist aktuell noch in einer experimentellen Phase. Dein Browser unterstützt diese Funktion leider noch nicht. Du kannst stattdessen den Lauftext-Teleprompter starten oder die Spracherkennung mit einem der folgenden Browser ausprobieren:</p>
           <ul>
-            <li>Edge</li>
-            <li>Chrome (Desktop … Android)</li>
-            <li>Android Browser</li>
-            <li>Samsung Internet</li>
+            <li v-for="(browser, index) in supportedBrowsers" :key="index">{{ browser }}</li>
           </ul>
         </div>
       </PopUp>
@@ -56,21 +55,26 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
+import AppMenu from '~/components/common/AppMenu'
 import ClickButton from '~/components/ui/ClickButton'
 import PopUp from '~/components/ui/PopUp'
 import PlayerSettings from '~/pages/player/Settings'
 import PlayerDocuments from '~/pages/player/Documents'
 import logoSymbol from "~/assets/images/logo-symbol.svg?raw"
 import fullscreenFunctions from '~/mixins/fullscreenFunctions.js'
+import getSupport from '~/mixins/getSupport.js'
+
+
 
 export default {
   components: {
     ClickButton,
     PopUp,
+    AppMenu,
     PlayerSettings,
     PlayerDocuments
   },
-  mixins: [fullscreenFunctions],
+  mixins: [fullscreenFunctions, getSupport],
   data () {
     return {
       logo: logoSymbol
@@ -91,6 +95,9 @@ export default {
     },
     readingTime() { 
       return new Date(this.$store.state.prompter.readingTimeInSec * 1000).toISOString().substr(11, 8) 
+    },
+    supportedBrowsers() {
+      return this.getSupport('speech-recognition')
     }
   },
   methods: {
@@ -99,6 +106,9 @@ export default {
     },
     openDocuments() {
       this.$refs.documentsPopup.toggleOpen()
+    },
+    openMenu() {
+      this.$refs.appMenu.toggleOpen()
     },
     checkSpeechRegocnition() {
         this.isSupportingSpeechRecognition ? this.enableSpeechRegocnition() : this.$refs.browserSupportDialog.toggleOpen()

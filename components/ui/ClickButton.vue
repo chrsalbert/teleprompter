@@ -10,6 +10,7 @@
         <slot></slot><span v-html="getIcon"></span></button>
 </template>
 <script>
+import iconMenu from "~/assets/images/icons/menu.svg?raw"
 import iconPause from "~/assets/images/icons/pause.svg?raw"
 import iconDocuments from "~/assets/images/icons/documents.svg?raw"
 import iconReload from "~/assets/images/icons/reload.svg?raw"
@@ -47,6 +48,7 @@ export default {
     data () {
         return {
             icons: {
+                menu: iconMenu,
                 pause: iconPause,
                 documents: iconDocuments,
                 reload: iconReload,
