@@ -1,24 +1,33 @@
 <template>
-  <div class="c-richtext">
-    <slot></slot>
-  </div>
+	<div class="c-richtext">
+		<slot></slot>
+	</div>
 </template>
-<style>
+<style scoped>
 .c-richtext {
-  line-height: 1.6
+	line-height: 1.6
 }
 
 .c-richtext h1 {
-  font-size: 36px;
-  margin: 48px 0 24px
+	font-size: 36px;
+	margin: 48px 0 24px
 }
 
 .c-richtext li {
-  list-style-type: disc;
-  margin-left: 2rem
+	list-style-type: disc;
+	margin-left: 2rem
 }
 
 .c-richtext p {
-  margin: 1rem 0;
+  	margin: 1rem 0;
+}
+
+.c-richtext a {
+	color: var(--color-link);
+	text-decoration: none;
+}
+
+.c-richtext a:hover {
+  	color: var(--color-link-hover)
 }
 </style>

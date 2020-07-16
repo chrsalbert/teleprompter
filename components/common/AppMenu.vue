@@ -1,22 +1,21 @@
 <template>
     <div class="c-menu" v-bind:class="{ 'c-menu--open': isOpen }" v-bind:style="{ '--width': width }">
         <p>
-            Dies ist ein kostenloser Online-Teleprompter mit Spracherkennungs-Funktion* und klassischem Lauftext. Wähle <span v-html="icons.document" class="c-menu__helper"></span> um dein Transkript einzufügen und <span v-html="icons.play" class="c-menu__helper"></span> zum Starten der Lauftext-Funktion. Aktiviere alternativ die Spracherkennung und wähle <span v-html="icons.microphone" class="c-menu__helper"></span> um den Zugriff auf dein Mikrofon zu aktivieren und dein Transkript durch Spracherkennung automatisch mitlaufen zu lassen.</p>
+            Dies ist ein kostenloser Online-Teleprompter mit Spracherkennungs-Funktion* und klassischem Lauftext. Wähle <AppIcon icon="documents" class="c-menu__helper" /> um dein Transkript einzufügen und <AppIcon icon="play" class="c-menu__helper" /> zum Starten der Lauftext-Funktion. Aktiviere alternativ die Spracherkennung und wähle <AppIcon icon="microphone" class="c-menu__helper" /> um den Zugriff auf dein Mikrofon zu aktivieren und dein Transkript durch Spracherkennung automatisch mitlaufen zu lassen.</p>
         <p class="c-menu__footnote">* Aktuell nur in folgenden Browsern: <span v-for="(browser, index) in supportedBrowsers" :key="index">{{ browserWithComma(index) }}</span></p>
         <p class="c-menu__footer"><nuxt-link to="/">Teleprompter</nuxt-link> | <nuxt-link to="/imprint">Impressum</nuxt-link></p>
     </div>
 </template>
 <script>
 import ClickButton from '~/components/ui/ClickButton'
-import iconDocuments from "~/assets/images/icons/documents.svg?raw"
-import iconMicrophone from "~/assets/images/icons/microphone.svg?raw"
-import iconPlay from "~/assets/images/icons/play.svg?raw"
-import getSupport from '~/mixins/getSupport.js'
+import AppIcon from '~/components/ui/AppIcon'
+import getSupport from '~/mixins/getSupport'
 
 export default {
     mixins: [getSupport],
     components: {
-        ClickButton
+        ClickButton,
+        AppIcon
     },
     props: {
         title: String,
@@ -31,12 +30,7 @@ export default {
     },
     data() {
         return {
-            isOpen: this.open,
-            icons: {
-                document: iconDocuments,
-                microphone: iconMicrophone,
-                play: iconPlay
-            }
+            isOpen: this.open
         }
     },
     computed: {

@@ -64,7 +64,7 @@
         },
         mounted() {
             this.init()
-            window.addEventListener('resize', this.initContainerHeight)
+			window.addEventListener('resize', this.initContainerHeight)
         },
         watch: {
             text: function (val) {

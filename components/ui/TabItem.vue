@@ -1,26 +1,27 @@
 <template>
-    <div class="c-tabs__item" v-show="isActive">
-        <slot></slot>
-    </div>
+	<section class="c-tabs__item" v-show="isActive">
+		<slot></slot>
+	</section>
 </template>
 <script>
 export default {
-    props: {
-        title: { required: true },
-        selected: { default: false }
-    },
-    data () {
-        return {
-            isActive: false
-        }
-    },
-    computed: {
-        href() {
-            return '#' + this.name.toLowerCase().replace(/ /g, '-');
-        }
-    },
-    mounted() {
-        this.isActive = this.selected
-    }
+	props: {
+		title: { 
+			type: String,
+			required: true 
+		},
+		selected: { 
+			type: Boolean,
+			default: false 
+		}
+	},
+	data () {
+		return {
+			isActive: false
+		}
+	},
+	mounted() {
+		this.isActive = this.selected
+	}
 }
 </script>

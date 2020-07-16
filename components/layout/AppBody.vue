@@ -1,10 +1,10 @@
 <template>
-  <div class="c-body">
-    <slot></slot>
-  </div>
+	<div class="c-body">
+		<slot></slot>
+	</div>
 </template>
-<style>
+<style scoped>
 .c-body {
-  padding-top: 48px
+	padding-top: var(--header-height)
 }
 </style>

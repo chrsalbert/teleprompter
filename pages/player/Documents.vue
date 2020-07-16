@@ -1,40 +1,27 @@
 <template>
-    <div>
-      <p>
-        Geschätzte Lesezeit: {{ readingTime }} (200 Wörter/min)
-      </p>
-      <div class="c-row">
-        <textarea v-model="text" class="c-control c-control--textarea">
-        </textarea>
-      </div>
-    </div>
+	<div>
+		<FormRow direction="vertical" label="Transkript" labelFor="text">
+			<FormTextarea id="text" v-model="text" />
+		</FormRow>
+	</div>
 </template>
 <script>
 import { mapActions } from 'vuex'
+import FormTextarea from '~/components/ui/FormTextarea'
 
 export default {
-  computed: {
-    text: {
-      get() {
-        return this.$store.state.prompter.text
-      },
-      set(val) {
-        this.$store.commit('prompter/setText', val)
-      }
-    },
-    readingTime() {
-      return new Date(this.$store.state.prompter.readingTimeInSec * 1000).toISOString().substr(11, 8)
-    }
-  }
+	components: {
+		FormTextarea
+	},
+	computed: {
+		text: {
+			get() {
+				return this.$store.state.prompter.text
+			},
+			set(val) {
+				this.$store.commit('prompter/setText', val)
+			}
+		}
+	}
 }
 </script>
-<style scoped>
-  div {
-    padding: 16px
-  }
-  p {
-    font-size: .9rem;
-    color: #999;
-    margin-bottom: 16px
-  }
-</style>

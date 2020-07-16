@@ -1,5 +1,5 @@
 <template>
-    <span class="c-icon" v-html="icons[icon]"></span>
+	<span class="c-icon" v-html="icons[icon]"></span>
 </template>
 <script>
 import iconMenu from "~/assets/images/icons/menu.svg?raw"
@@ -17,33 +17,33 @@ import iconToggleOn from "~/assets/images/icons/toggleOn.svg?raw"
 import iconToggleOff from "~/assets/images/icons/toggleOff.svg?raw"
 
 export default {
-    props: {
-        icon: {
-            type: String,
-            default: false
-        }
-    },
-    data () {
-        return {
-            icons: {
-                arrowLeft: iconArrowLeft,
-                menu: iconMenu,
-                pause: iconPause,
-                documents: iconDocuments,
-                reload: iconReload,
-                play: iconPlay,
-                close: iconClose,
-                settings: iconSettings,
-                fullscreen: iconFullscreen,
-                microphone: iconMicrophone,
-                microphoneOff: iconMicrophoneOff,
-                toggleOn: iconToggleOn,
-                toggleOff: iconToggleOff,
-            }
-        }
-    }
+	props: {
+		icon: String
+	},
+	data () {
+		return {
+			icons: {
+				arrowLeft: iconArrowLeft,
+				menu: iconMenu,
+				pause: iconPause,
+				documents: iconDocuments,
+				reload: iconReload,
+				play: iconPlay,
+				close: iconClose,
+				settings: iconSettings,
+				fullscreen: iconFullscreen,
+				microphone: iconMicrophone,
+				microphoneOff: iconMicrophoneOff,
+				toggleOn: iconToggleOn,
+				toggleOff: iconToggleOff,
+			}
+		}
+	}
 }
 </script>
-<style>
-
+<style scoped>
+.c-icon {
+	max-width: 100%;
+	max-height: 100%;
+}
 </style>

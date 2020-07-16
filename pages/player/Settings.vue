@@ -1,56 +1,47 @@
 <template>
-    <div>
-      <TabContainer>
-        <TabItem title="Aufnahme" :selected="true">
-          <div class="c-row">
-            <label class="c-row__label">Wörter pro Minute</label>
-            <input type="number" step="10" v-model="wordsPerMin" class="c-control">
-          </div>
-        </TabItem>
-        <TabItem title="Text">
-          <div class="c-row">
-            <label class="c-row__label">Schriftgröße</label>
-            <div class="c-richControl">
-              <input type="number" v-model="fontSize" class="c-richControl__control c-control">
-              <div class="c-richControl__label">px</div>
-            </div>
-          </div>
-          <div class="c-row">
-            <label class="c-row__label">Zeilenhöhe</label>
-            <input type="number" step=".1" v-model="lineHeight" class="c-control">
-          </div>
-          <div class="c-row">
-            <label class="c-row__label">Textfarbe</label>
-            <input type="color" v-model="textColor" class="c-control">
-          </div>
-          <div class="c-row">
-            <label class="c-row__label">Hintergrundfarbe</label>
-            <input type="color" v-model="backgroundColor" class="c-control">
-          </div>
-          <div class="c-row">
-            <label class="c-row__label">Abstand zur Seite</label>
-            <div class="c-richControl">
-              <input type="number" step="10" v-model="padding" class="c-richControl__control c-control">
-              <div class="c-richControl__label">px</div>
-            </div>
-          </div>
-        </TabItem>
-      </TabContainer>
-
-    </div>
+  <TabContainer>
+    <TabItem title="Aufnahme" :selected="true">
+      <FormRow label="Wörter / Minute" labelFor="wordsPerMin">
+        <FormInput id="wordsPerMin" type="number" :step="10" v-model="wordsPerMin" />
+      </FormRow>
+    </TabItem>
+    <TabItem title="Text">
+      <FormRow label="Schriftgröße" labelFor="fontSize">
+        <FormRichInput append="px">
+          <FormInput id="fontSize" type="number" v-model="fontSize" />
+        </FormRichInput>
+      </FormRow>
+      <FormRow label="Zeilenhöhe" labelFor="lineHeight">
+        <FormInput id="lineHeight" type="number" :step=".1" v-model="lineHeight" />
+      </FormRow>
+      <FormRow label="Textfarbe" labelFor="textColor">
+        <FormInput id="textColor" type="color" v-model="textColor" />
+      </FormRow>
+      <FormRow label="Hintergrundfarbe" labelFor="backgroundColor">
+        <FormInput id="backgroundColor" type="color" v-model="backgroundColor" />
+      </FormRow>
+      <FormRow label="Abstand zur Seite" labelFor="fontSize">
+        <FormRichInput append="px">
+          <FormInput id="fontSize" type="number" :step="10" v-model="padding" />
+        </FormRichInput>
+      </FormRow>
+    </TabItem>
+  </TabContainer>
 </template>
 <script>
 import TabContainer from '~/components/ui/TabContainer'
 import TabItem from '~/components/ui/TabItem'
+import FormRow from '~/components/ui/FormRow'
+import FormInput from '~/components/ui/FormInput'
+import FormRichInput from '~/components/ui/FormRichInput'
 
 export default {
   components: {
     TabContainer,
-    TabItem
-  },
-  data () {
-    return {
-    }
+    TabItem,
+    FormRow,
+    FormInput,
+    FormRichInput
   },
   computed: {
     wordsPerMin: {
@@ -101,32 +92,6 @@ export default {
         this.$store.commit('prompter/setTextBackgroundColor', val)
       }
     }
-  },
-  methods: {
-  },
-  mounted() {
   }
 }
 </script>
-<style>
-.c-row {
-  display: flex;
-  align-items: center;
-  padding: 8px 0;
-}
-
-.c-row:not(:last-child) {
-  border-bottom: 1px #eee solid
-}
-
-.c-row__label {
-  flex-shrink: 0;
-  width: 40%;
-  min-width: 6rem;
-  font-size: .9rem;
-  font-weight: 600;
-  margin-right: 16px;
-}
-
-
-</style>

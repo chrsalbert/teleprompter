@@ -1,7 +1,7 @@
 <template>
   <div>
     <AppHeader>
-      <AppNav />
+      <PlayerNav />
     </AppHeader>
     <PlayerScreen />
   </div>
@@ -9,13 +9,13 @@
 
 <script>
 import AppHeader from '~/components/layout/AppHeader'
-import AppNav from '~/components/player/AppNav'
+import PlayerNav from '~/components/player/PlayerNav'
 import PlayerScreen from '~/pages/player/Screen'
 
 export default {
   components: {
     AppHeader,
-    AppNav,
+    PlayerNav,
     PlayerScreen
   }
 }

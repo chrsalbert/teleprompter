@@ -1,57 +1,71 @@
 <template>
-    <div class="c-tabs">
-        <nav class="c-tabs__nav">
-            <a href="#" v-for="(tab, index) in tabs" :key="index" v-on:click="selectTab(tab)" class="c-tabs__link" v-bind:class="{ 'c-tabs__link--active': tab.isActive }">{{ tab.title }}</a>
-        </nav>
-        <section class="c-tabs__content">
-            <slot>
-
-            </slot>
-        </section>
-    </div>
+	<div class="c-tabs">
+		<nav class="c-tabs__nav">
+			<button
+				v-for="(tab, index) in tabs" 
+				v-bind:key="index"
+				v-bind:class="{ 'c-tabs__button--active': tab.isActive }"
+				v-on:click="selectTab(tab)"
+				class="c-tabs__button"
+			>{{ tab.title }}</button>
+		</nav>
+		<div class="c-tabs__content">
+			<slot>
+			</slot>
+		</div>
+	</div>
 </template>
 <script>
+import ClickButton from '~/components/ui/ClickButton'
+
 export default {
-    data () {
-        return {
-            tabs: []
-        }
-    },
-    methods: {
-        selectTab(selectedTab) {
-            this.tabs.forEach(tab => {
-                tab.isActive = (tab.title == selectedTab.title)
-            })
-        }
-    },
-    created() {
-        this.tabs = this.$children
-    }
+	components: {
+		ClickButton
+	},
+	data () {
+		return {
+			tabs: []
+		}
+	},
+	methods: {
+		selectTab(selectedTab) {
+			this.tabs.forEach(tab => {
+				tab.isActive = (tab.title == selectedTab.title)
+			})
+		}
+	},
+	created() {
+		this.tabs = this.$children
+	}
 }
 </script>
 <style>
 .c-tabs__nav {
-    display: flex;
-    border-bottom: 1px #eee solid;
+	display: flex;
+	border-bottom: 1px solid var(--color-gray-lighter);
 }
-.c-tabs__link {
-    display: inline-block;
-    height: 40px;
-    line-height: 40px;
-    padding: 0 16px;
-    text-decoration: none;
-    color: #666;
-    font-size: .9rem;
-    text-transform: uppercase;
-    border-bottom: 2px transparent solid;
-    margin-right: -1px;
+.c-tabs__button {
+	display: inline-block;
+	height: var(--control-height);
+	line-height: var(--control-height);
+	padding: 0 var(--space-sm);
+	text-decoration: none;
+	color: var(--color-gray);
+	font-size: var(--font-size-sm);
+	font-weight: 600;
+	text-transform: uppercase;
+	border: none;
+	background: none;
+	border-bottom: 2px transparent solid;
 }
-.c-tabs__link--active {
-    border-color: blue;
-    font-weight: 600;
-    color: #000
+.c-tabs__button:hover {
+	color: var(--color-text)
+}
+.c-tabs__button--active {
+	border-color: var(--color-primary);
+	color: var(--color-text)
 }
 .c-tabs__content {
-    padding: 16px
+	padding: var(--space-sm)
 }
 </style>
