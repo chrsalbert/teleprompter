@@ -1,21 +1,13 @@
 <template>
-  <div>
-    <AppHeader>
-      <PlayerNav />
-    </AppHeader>
-    <PlayerScreen />
-  </div>
+  <PlayerScreen />
 </template>
 
 <script>
-import AppHeader from '~/components/layout/AppHeader'
-import PlayerNav from '~/components/player/PlayerNav'
-import PlayerScreen from '~/pages/player/Screen'
+import PlayerScreen from '~/components/player/PlayerScreen'
 
 export default {
+  layout: 'player',
   components: {
-    AppHeader,
-    PlayerNav,
     PlayerScreen
   }
 }

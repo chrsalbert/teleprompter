@@ -6,7 +6,6 @@
 	</div>
 </template>
 <script>
-import { mapActions } from 'vuex'
 import FormTextarea from '~/components/ui/FormTextarea'
 
 export default {

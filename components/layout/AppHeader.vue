@@ -29,7 +29,7 @@ export default {
 	right: 0;
 	height: 48px;
 	padding: 0 var(--space-md);
-	background: rgba(0,0,0,.9);
+	background: #000;
 	border-bottom: 1px rgba(255,255,255,.2) solid;
 	color: #fff;
 }

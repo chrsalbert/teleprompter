@@ -13,22 +13,21 @@
             '--animation-play-state': `${animationPlayState}`,
             '--offset': `-${containerOffset}px`,
         }">
-            <span v-for="(block, index) in scriptBlocks" v-bind:key="`block-${index}`" ref="script" v-bind:class="{ 'is-read': block.isRead }">
-                {{ block.block }}
-            </span>
+			<ScriptBlock />
         </div>
     </div>
 </template>
 <script>
     import { mapMutations } from 'vuex'
     import { mapGetters } from 'vuex'
-    import { mapActions } from 'vuex'
+	import { mapActions } from 'vuex'
+	import ScriptBlock from '~/components/player/ScriptBlocks'
 
     export default {
+		components: {
+			ScriptBlock
+		},
         computed: {
-            scriptBlocks() { 
-                return this.$store.state.prompter.scriptBlocks
-            },
             containerHeight() { 
                 return this.$store.state.prompter.containerHeight
             },
@@ -46,8 +45,8 @@
             },
             ...mapGetters({
                 animationDuration: 'prompter/animationDuration',
-                animationPlayState: 'prompter/animationPlayState'
-            }),
+				animationPlayState: 'prompter/animationPlayState'
+            })
         },
         methods: {
             ...mapActions({
@@ -55,37 +54,22 @@
                 init: 'prompter/init',
                 initContainerHeight: 'prompter/initContainerHeight'
             }),
-        },
-        beforeMount() {
-            if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-                this.$store.commit('prompter/setIsSupportingSpeechRecognition', true)
-                this.$store.commit('prompter/setRecognition')
-            }
-        },
-        mounted() {
-            this.init()
-			window.addEventListener('resize', this.initContainerHeight)
-        },
-        watch: {
-            text: function (val) {
-                this.init()
-            }
         }
     }
 </script>
 <style>
     .c-teleprompter {
-        padding: calc(50vh - calc(var(--fontSize) * var(--lineHeight) / 2)) var(--padding) 0;
-        min-height: 100vh;
+		position: relative;
+        height: 100%;
+        overflow: hidden;
+        padding: 0 var(--padding) 0;
         background-color: var(--backgroundColor);
         color: #fff;
         font-family: 'Arial';
         font-weight: bold;
-        height: 100vh;
-        overflow: hidden;
     }
     .c-teleprompter__middleLine {
-        position: fixed;
+        position: absolute;
         top: 50%;
         transform: translateY(-50%);
         left: 0;
@@ -106,7 +90,8 @@
         border-bottom: 16px solid transparent;
     }
     .c-teleprompter__content {
-        position: relative;
+		position: relative;
+		top: calc(50% - calc(1em * var(--line-height) / 2));
         font-size: var(--fontSize);
         color: var(--textColor);
         line-height: var(--lineHeight);

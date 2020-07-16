@@ -8,7 +8,7 @@
 				<ClickButton 
 				icon="toggleOff" 
 				inverted 
-				v-on:click.native="checkSpeechRegocnition()" 
+				v-on:click.native="enableSpeechRecognition()" 
 				v-if="isSpeechRecognitionEnabled === false" 
 				key="off">
 				Spracherkennung
@@ -16,7 +16,7 @@
 				<ClickButton 
 				icon="toggleOn" 
 				inverted 
-				v-on:click.native="disableSpeechRegocnition()" 
+				v-on:click.native="disableSpeechRecognition()" 
 				v-if="isSpeechRecognitionEnabled === true" 
 				key="on">
 				Spracherkennung
@@ -26,8 +26,8 @@
 			<AppNavGroup>
 				<ClickButton icon="reload" inverted v-on:click.native="reset()" />
 				<transition mode="out-in">
-					<ClickButton v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphone' : 'play'" color="#7FFF00" v-on:click.native="play()" v-if="!isPlaying" key="play" />
-					<ClickButton v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphoneOff' : 'pause'" color="#FF6347" v-on:click.native="pause()" v-if="isPlaying" key="pause" />
+					<ClickButton v-if="isPlaying" v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphoneOff' : 'pause'" color="#FF6347" inverted v-on:click.native="pause()" key="pause" />
+					<ClickButton v-else v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphone' : 'play'" color="#7FFF00" inverted v-on:click.native="play()" key="play" />
 				</transition>
 			</AppNavGroup>
 		</AppNavGroup>
@@ -69,74 +69,76 @@ import fullscreenFunctions from '~/mixins/fullscreenFunctions.js'
 import getSupport from '~/mixins/getSupport.js'
 
 export default {
-  components: {
-	ClickButton,
-	PopUp,
-	AppMenu,
-	AppNav,
-	AppNavDivi,
-	RichText,
-	PlayerSettings,
-	PlayerDocuments
-  },
-  mixins: [fullscreenFunctions, getSupport],
-  data () {
-	return {
-	  logo: logoSymbol
+	components: {
+		ClickButton,
+		PopUp,
+		AppMenu,
+		AppNav,
+		AppNavDivi,
+		RichText,
+		PlayerSettings,
+		PlayerDocuments
+	},
+	mixins: [fullscreenFunctions, getSupport],
+	data () {
+		return {
+			logo: logoSymbol
+		}
+	},
+	computed: {
+		isPlaying() { 
+			return this.$store.state.prompter.isPlaying 
+		},
+		isListening() { 
+			return this.$store.state.prompter.isListening 
+		},
+		isSpeechRecognitionEnabled() { 
+			return this.$store.state.prompter.isSpeechRecognitionEnabled 
+		},
+		isSupportingSpeechRecognition() { 
+			return this.$store.state.prompter.isSupportingSpeechRecognition 
+		},
+		supportedBrowsers() {
+			return this.getSupport('speech-recognition')
+		}
+	},
+	methods: {
+		openSettings() {
+			this.$refs.settingsPopup.toggleOpen()
+		},
+		openDocuments() {
+			this.$refs.documentsPopup.toggleOpen()
+		},
+		openMenu() {
+			this.$refs.appMenu.toggleOpen()
+		},
+		enableSpeechRecognition() {
+			this.isSupportingSpeechRecognition ? this.enableSpeechRecognition() : this.$refs.browserSupportDialog.toggleOpen()
+		},
+		...mapActions({
+			play: 'prompter/play',
+			pause: 'prompter/pause',
+			reset: 'prompter/reset',
+			initBrowserSupport: 'prompter/initBrowserSupport',
+			enableSpeechRecognition: 'prompter/enableSpeechRecognition',
+			disableSpeechRecognition: 'prompter/disableSpeechRecognition'
+		})
+	},
+	mounted() {
+		document.addEventListener("keydown", function(event) {
+		// console.log('key' + event.which);
+		switch (event.which) {
+			case 32:
+			this.isPlaying ? this.pause() : this.play()
+			break
+		}
+		}.bind(this), false )
+	},
+	beforeMount() {
+		if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+			this.initBrowserSupport()
+		}
 	}
-  },
-  computed: {
-	isPlaying() { 
-	  return this.$store.state.prompter.isPlaying 
-	},
-	isListening() { 
-	  return this.$store.state.prompter.isListening 
-	},
-	isSpeechRecognitionEnabled() { 
-	  return this.$store.state.prompter.isSpeechRecognitionEnabled 
-	},
-	isSupportingSpeechRecognition() { 
-	  return this.$store.state.prompter.isSupportingSpeechRecognition 
-	},
-	readingTime() { 
-	  return new Date(this.$store.state.prompter.readingTimeInSec * 1000).toISOString().substr(11, 8) 
-	},
-	supportedBrowsers() {
-	  return this.getSupport('speech-recognition')
-	}
-  },
-  methods: {
-	openSettings() {
-	  this.$refs.settingsPopup.toggleOpen()
-	},
-	openDocuments() {
-	  this.$refs.documentsPopup.toggleOpen()
-	},
-	openMenu() {
-	  this.$refs.appMenu.toggleOpen()
-	},
-	checkSpeechRegocnition() {
-		this.isSupportingSpeechRecognition ? this.enableSpeechRegocnition() : this.$refs.browserSupportDialog.toggleOpen()
-	},
-	...mapActions({
-	  play: 'prompter/play',
-	  pause: 'prompter/pause',
-	  reset: 'prompter/reset',
-	  togglePlay: 'prompter/togglePlay',
-	  enableSpeechRegocnition: 'prompter/enableSpeechRecognition',
-	  disableSpeechRegocnition: 'prompter/disableSpeechRecognition'
-	})
-  },
-  mounted() {
-	document.addEventListener("keydown", function(event) {
-	  // console.log('key' + event.which);
-	  switch (event.which) {
-		case 32:
-		  this.togglePlay()
-		break
-	  }
-	}.bind(this), false )
-  }
 }
 </script>
 <style scoped>

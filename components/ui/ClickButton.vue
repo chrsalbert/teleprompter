@@ -6,7 +6,8 @@
 			class: { 
 				'c-button--inverted': isInverted, 
 				'c-button--icon': hasIcon && !hasSlot, 
-				'c-button--hasIcon': hasIcon && hasSlot 
+				'c-button--hasIcon': hasIcon && hasSlot,
+				'c-button--colored': hasColor
 			}, style: { 
 				'--color': color 
 			} 
@@ -27,10 +28,7 @@ export default {
 		icon: String,
 		type: String,
 		inverted: Boolean,
-		color: {
-			type: String,
-			default: '#000'
-	  	},
+		color: String,
 		href: {
 			type: String,
 			default: '#'
@@ -39,6 +37,9 @@ export default {
 	computed: {
 		hasIcon() {
 			return !!this.icon ? true : false
+		},
+		hasColor() {
+			return !!this.color ? true : false
 		},
 		hasSlot() {
 			return !!this.$slots.default
@@ -86,16 +87,20 @@ export default {
 	text-align: center;
 }
 
-.c-button--inverted {
-	color: #fff
-}
-
+.c-button--inverted,
 .c-button--inverted >>> svg {
-	stroke: white
+	stroke: white;
+	color: #fff
 }
 
 .c-button--inverted:hover {
 	background: rgba(255,255,255,.1)
+}
+
+.c-button--colored,
+.c-button--colored >>> svg {
+	color: var(--color);
+	stroke: var(--color)
 }
 
 .c-button--hasIcon {

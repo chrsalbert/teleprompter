@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" stroke-width="1" stroke="" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
-  <rect id="Rectangle-path" transform="translate(8, 12) rotate(90) translate(-8, -12) " x="1.77635684e-15" y="10" width="16" height="4" rx="2"></rect>
-  <rect id="Rectangle-path" transform="translate(16, 12) rotate(90) translate(-16, -12) " x="8" y="10" width="16" height="4" rx="2"></rect>
+  <rect transform="translate(8, 12) rotate(90) translate(-8, -12) " x="1.77635684e-15" y="10" width="16" height="4" rx="2"></rect>
+  <rect transform="translate(16, 12) rotate(90) translate(-16, -12) " x="8" y="10" width="16" height="4" rx="2"></rect>
 </svg>
