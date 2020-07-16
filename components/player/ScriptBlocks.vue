@@ -6,24 +6,23 @@
 	</div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 
 export default {
     computed: {
-        ...mapGetters({
-            scriptBlocks: 'prompter/scriptBlocks'
-        }),
+        scriptBlocks() { 
+            return this.$store.state.prompter.scriptBlocks
+        }
     },
     methods: {
         ...mapActions({
+            initScriptBlocks: 'prompter/initScriptBlocks',
             reset: 'prompter/reset',
             initContainerHeight: 'prompter/initContainerHeight'
         }),
     },
-    updated() {
-        this.reset()
-        this.initContainerHeight()
+    beforeMount() {
+        this.initScriptBlocks()
     },
     mounted() {
         this.reset()
@@ -33,4 +32,10 @@ export default {
 }
 </script>
 <style scoped>
+    span {
+        transition: color .1s
+    }
+    span.is-read {
+        color: #333
+    }
 </style>

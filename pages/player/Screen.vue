@@ -99,12 +99,6 @@
         animation: scroll var(--animation-duration) linear 1 forwards var(--animation-play-state);
         transition: transform .3s linear
     }
-    .c-teleprompter__content span {
-        transition: color .1s
-    }
-    .c-teleprompter__content span.is-read {
-        color: #333
-    }
     @keyframes scroll {
         from { transform: translateY(0) }
         to { transform: translateY(var(--height)) }

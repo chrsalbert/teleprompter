@@ -6,11 +6,17 @@
 	</div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 import FormTextarea from '~/components/ui/FormTextarea'
 
 export default {
 	components: {
 		FormTextarea
+	},
+	methods: {
+        ...mapActions({
+            updateScript: 'prompter/updateScript'
+        }),
 	},
 	computed: {
 		text: {
@@ -18,7 +24,7 @@ export default {
 				return this.$store.state.prompter.text
 			},
 			set(val) {
-				this.$store.commit('prompter/setText', val)
+				this.updateScript(val)
 			}
 		}
 	}
