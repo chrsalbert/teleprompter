@@ -20,7 +20,7 @@ export default {
         containerHeight() { 
             return this.$store.state.prompter.containerHeight
         },
-        containerOffset() { 
+        containerOffset() {
             return this.$store.state.prompter.containerOffset
         },
         ...mapGetters({
@@ -33,6 +33,7 @@ export default {
 <style scoped>
 .c-playerScreen__content {
     position: relative;
+    z-index: 1;
     top: calc(50% - calc(1em * var(--lineHeight) / 2));
     font-size: var(--fontSize);
     color: var(--textColor);

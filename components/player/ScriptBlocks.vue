@@ -1,11 +1,12 @@
 <template>
 	<div>
-        <span v-for="(block, index) in scriptBlocks" v-bind:key="`block-${index}`" ref="script" v-bind:class="{ 'is-read': block.isRead }">
-            {{ block.block }}
-        </span>
+        <template v-for="(block, index) in scriptBlocks">
+            <span v-bind:class="{ 'is-read': block.isRead }" v-bind:key="`block-${index}`" ref="script">{{ block.block }}</span>{{ ' ' }}
+        </template>
 	</div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 
 export default {
@@ -20,9 +21,17 @@ export default {
             reset: 'prompter/reset',
             initContainerHeight: 'prompter/initContainerHeight'
         }),
+        updateOffset() {
+            let wordBlockId = this.scriptBlocks.findIndex(item => item.isRead === false)
+            let wordBlock = this.$refs.script[wordBlockId]
+            this.$store.commit('prompter/setContainerOffset', wordBlock.offsetTop)
+        },
     },
     beforeMount() {
         this.initScriptBlocks()
+    },
+    updated() {
+        this.updateOffset()
     },
     mounted() {
         this.reset()
@@ -33,9 +42,11 @@ export default {
 </script>
 <style scoped>
     span {
-        transition: color .1s
+        display: inline-block;
+        transition: color .1s, transform .1s
     }
     span.is-read {
+        transform: scale(.9);
         color: #333
     }
 </style>

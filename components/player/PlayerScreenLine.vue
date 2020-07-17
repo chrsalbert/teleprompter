@@ -1,23 +1,6 @@
 <template>
-    <div class="c-teleprompter__middleLine" v-show="!isSpeechRecognizingEnabled"></div>
+    <div class="c-teleprompter__middleLine"></div>
 </template>
-<script>
-import { mapGetters } from 'vuex'
-import { mapActions } from 'vuex'
-import ScriptBlock from '~/components/player/ScriptBlocks'
-
-export default {
-    computed: {
-        isSpeechRecognizingEnabled() { 
-            return this.$store.state.prompter.isSpeechRecognitionEnabled
-        },
-    },
-    methods: {
-        ...mapActions({
-        }),
-    }
-}
-</script>
 <style scoped>
 .c-teleprompter__middleLine {
     position: absolute;

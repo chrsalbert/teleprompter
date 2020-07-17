@@ -9,8 +9,4 @@
 	align-items: center;
 	height: 32px;
 }
-
-.c-nav__group > * {
-  	margin: 0 2px
-}
 </style>

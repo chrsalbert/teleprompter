@@ -14,7 +14,7 @@ export const state = () => ({
         textColor: '#ffffff',
         backgroundColor: '#000000'
     },
-    text: "Auch gibt – Ich habe ein Haus und ein Auto sowie manchmal ein Gerät – Schmerz $$ (an sich liebt), Haus sucht oder wünscht, nur, Haus weil er Schmerz ist, es sei denn, es kommt zu zufälligen Umständen, # in denen Mühen und Schmerz (!) ihm große Freude bereiten können. Um ein triviales Beispiel zu nehmen, wer von uns unterzieht sich je anstrengender körperlicher Betätigung, außer um Vorteile daraus zu ziehen? Aber wer hat irgend ein Recht, einen Menschen zu tadeln, der die Entscheidung trifft, eine Freude zu genießen, die keine unangenehmen Folgen hat, oder einen, der Schmerz vermeidet, welcher keine daraus resultierende Freude nach sich zieht? Auch gibt es niemanden, der den Schmerz an sich liebt, sucht oder wünscht, nur, weil er Schmerz ist, es sei denn, es kommt zu zufälligen Umständen, in denen Mühen und Schmerz ihm große Freude bereiten können. Um ein triviales Beispiel zu nehmen, wer von uns unterzieht sich je anstrengender körperlicher Betätigung, außer um Vorteile daraus zu ziehen? Aber wer hat irgend ein Recht, einen Menschen zu tadeln, der die Entscheidung trifft, eine Freude zu genießen, die keine unangenehmen Folgen hat, oder einen, der Schmerz vermeidet, welcher keine daraus resultierende Freude nach sich zieht? Auch gibt es niemanden, der den Schmerz an sich liebt, sucht oder wünscht, nur",
+    text: "Das ist ein Substantiv Beispiel-Text und er testet den Text im Lauftext. Eins zwei drei, das ist ein Test, hier geht es darum, ob der Text auch ordentlich mitscrollt – manchmal tut er dies nicht – dies ist aber ok. Auch gibt – Ich habe ein Haus und ein Auto sowie manchmal ein Gerät – Schmerz $$ (an sich liebt), Haus sucht oder wünscht, nur, Haus weil er Schmerz ist, es sei denn, es kommt zu zufälligen Umständen, # in denen Mühen und Schmerz (!) ihm große Freude bereiten können. Um ein triviales Beispiel zu nehmen, wer von uns unterzieht sich je anstrengender körperlicher Betätigung, außer um Vorteile daraus zu ziehen? Aber wer hat irgend ein Recht, einen Menschen zu tadeln, der die Entscheidung trifft, eine Freude zu genießen, die keine unangenehmen Folgen hat, oder einen, der Schmerz vermeidet, welcher keine daraus resultierende Freude nach sich zieht? Auch gibt es niemanden, der den Schmerz an sich liebt, sucht oder wünscht, nur, weil er Schmerz ist, es sei denn, es kommt zu zufälligen Umständen, in denen Mühen und Schmerz ihm große Freude bereiten können. Um ein triviales Beispiel zu nehmen, wer von uns unterzieht sich je anstrengender körperlicher Betätigung, außer um Vorteile daraus zu ziehen? Aber wer hat irgend ein Recht, einen Menschen zu tadeln, der die Entscheidung trifft, eine Freude zu genießen, die keine unangenehmen Folgen hat, oder einen, der Schmerz vermeidet, welcher keine daraus resultierende Freude nach sich zieht? Auch gibt es niemanden, der den Schmerz an sich liebt, sucht oder wünscht, nur",
     scriptBlocks: []
 })
 
@@ -24,7 +24,6 @@ export const getters = {
         let readingDuration = ((nWords / state.wordsPerMin) / state.textStyles.lineHeight).toFixed(2)
         let minutes = readingDuration.toString().split('.')
         let seconds = Math.floor(minutes[1] * 0.6 + minutes[0] * 60)
-        debugger
         return seconds
     },
     animationPlayState: (state) => {
@@ -33,18 +32,14 @@ export const getters = {
 }
 
 export const mutations = {
-    play (state) {
-        state.isPlaying = true
+    setPlay (state, boolean) {
+        state.isPlaying = boolean
     },
-    listen (state) {
-        state.isListening = true
+    setListening (state, boolean) {
+        state.isListening = boolean
     },
     toggleListen (state) {
         state.isListening = !state.isListening
-    },
-    pause (state) {
-        state.isPlaying = false
-        state.isListening = false
     },
     setScriptBlocks(state, array) {
         state.scriptBlocks = array
@@ -64,10 +59,12 @@ export const mutations = {
     setContainerOffset(state, px) {
         state.containerOffset = px
     },
-    initRecognition(state) {
+    setRecognition(state, result) {
         state.recognition = new webkitSpeechRecognition()
         state.recognition.continuous = true
         state.recognition.interimResults = true
+        state.recognition.onresult = result
+        state.recognition.maxAlternatives = 2
     },
     setWordsPerMin (state, amount) {
         state.wordsPerMin = amount
@@ -88,9 +85,7 @@ export const mutations = {
         state.textStyles.backgroundColor = hex
     },
     markWord(state, index) {
-        console.log(state.scriptBlocks[index])
         state.scriptBlocks[index].isRead = true
-        console.log(state.scriptBlocks[index])
     },
     unmarkWord(state, index) {
         state.scriptBlocks[index].isRead = false
@@ -99,44 +94,31 @@ export const mutations = {
 
 export const actions = {
     play ({ commit, dispatch, state }) {
-        commit('play')
+        commit('setPlay', true)
         if (state.isSpeechRecognitionEnabled) {
-            dispatch('listen')
+            commit('setListening', true)
+            state.recognition.start()
         }
     },
     pause ({ commit, dispatch, state }) {
-        commit('pause')
+        commit('setPlay', false)
         if (state.isSpeechRecognitionEnabled) {
-            dispatch('mute')
+            commit('setListening', false)
+            state.recognition.stop()
         }
     },
     reset ({ dispatch }) {
         dispatch('pause')
         dispatch('rewindScript')
     },
-    listen({ commit, dispatch, state }) {
-        commit('listen')
-        state.recognition.onresult = function(event) { 
-            console.log(event)
-            for(var i = 0; i < event.results.length; i++) {
-                let result = event.results[i][0]
-                if(result.confidence >= 0.8 && event.results[i].isFinal === false) {
-                    dispatch('markWord', result.transcript.split(' ').pop())
-                }
-            }
-        }
-        state.recognition.start()
-    },
-    mute({ state }) {
-        state.recognition.stop()
-    },
     updateScript({ commit, dispatch, state }, text) {
         commit('setText', text)
         let scriptBlocks = []
         state.text.split(' ').forEach(function (block, index) {
             let word = block.match(/\b([äöüÄÖÜß\w]+)'?(\w+)?\b/g)
-            word = word === null ? '' : word[0]
+            word = word === null ? '' : word[0].toLowerCase()
             scriptBlocks.push({
+                id: index,
                 block: block,
                 word: word,
                 isRead: false
@@ -163,9 +145,40 @@ export const actions = {
     initScriptBlocks({ state, dispatch }) {
         dispatch('updateScript', state.text)
     },
-    initBrowserSupport({ commit }) {
+    initRecognition({ state, commit }) {
+        commit('setRecognition', function(event) {
+            for (var i = 0; i < event.results.length; i++) {
+                let result = event.results[i][0]
+                if (result.confidence >= 0.89 && event.results[i].isFinal === false) {
+                    let recognizedWord = result.transcript.split(' ').pop()
+                    console.log('reco:' + recognizedWord)
+                    checkRecognizedWord(recognizedWord)
+                }
+            }
+            function checkRecognizedWord(recognizedWord) {
+                recognizedWord = recognizedWord.toLowerCase()
+                let firstUnread = state.scriptBlocks.map(el => el.isRead).lastIndexOf(true) + 1
+                let wordsToCompare = state.scriptBlocks.slice(firstUnread, firstUnread + 6)
+                let markTo = wordsToCompare.map(el => el.word).indexOf(recognizedWord)
+                if (markTo > -1) {
+                    console.log('mark:' + recognizedWord)
+                    markWords(firstUnread, firstUnread + markTo)
+                }
+            }
+            function markWords(from, to) {
+                let stagger = 0
+                for (let i = from; i <= to; i++) {
+                    setTimeout(function () {
+                        commit('markWord', i)
+                    }, 30 * stagger)
+                    stagger++
+                }
+            }
+        })
+    },
+    initBrowserSupport({ commit, dispatch }) {
         commit('setIsSupportingSpeechRecognition', true)
-        commit('initRecognition')
+        dispatch('initRecognition')
     },
     initContainerHeight({ commit, dispatch }) {
         commit('setContainerHeight', document.getElementById('telepromoter-content').offsetHeight)
@@ -178,26 +191,5 @@ export const actions = {
     disableSpeechRecognition ({ commit, dispatch }) {
         dispatch('reset')
         commit('setIsSpeechRecognitionEnabled', false)
-    },
-    markWord({ commit, state }, searchWord) {
-        let firstUnreadChar = state.scriptBlocks.findIndex(item => item.isRead === false)
-        // last index of
-        let firstUnread = state.scriptBlocks.findIndex(item => item.isRead === false && item.word != '')
-        var match = false
-        state.scriptBlocks.slice(firstUnread, firstUnread + 6).forEach((item, index) => {
-            if(match === false && searchWord.toLowerCase() === item.word.toLowerCase()) {
-                state.scriptBlocks.slice(firstUnreadChar, firstUnread + index + 1).forEach((item, index) => {
-                    setTimeout(function(){ 
-                        commit('markWord', firstUnreadChar + index)
-                        let elements = document.getElementsByClassName('is-read')
-                        let element = elements[elements.length - 1]
-                        if(element) {
-                            commit('setContainerOffset', element.offsetTop)
-                        }
-                    }, 100 * index)
-                })
-                match = true
-            }
-        })
     }
 }

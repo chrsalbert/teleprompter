@@ -5,31 +5,19 @@
 			<AppMenu ref="appMenu" />
 			<AppNavDivi />
 			<transition mode="out-in">
-				<ClickButton 
-				icon="toggleOff" 
-				inverted 
-				v-on:click.native="enableSpeechRecognition()" 
-				v-if="isSpeechRecognitionEnabled === false" 
-				key="off">
-				Spracherkennung
+				<ClickButton v-if="isSpeechRecognitionEnabled === false" icon="toggleOff" inverted v-on:click.native="enableSpeechRecognition()" key="off">
+					Spracherkennung
 				</ClickButton>
-				<ClickButton 
-				icon="toggleOn" 
-				inverted 
-				v-on:click.native="disableSpeechRecognition()" 
-				v-if="isSpeechRecognitionEnabled === true" 
-				key="on">
-				Spracherkennung
+				<ClickButton v-else icon="toggleOn" inverted v-on:click.native="disableSpeechRecognition()" key="on">
+					Spracherkennung
 				</ClickButton>
 			</transition>
 			<AppNavDivi />
-			<AppNavGroup>
-				<ClickButton icon="reload" inverted v-on:click.native="reset()" />
-				<transition mode="out-in">
-					<ClickButton v-if="isPlaying" v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphoneOff' : 'pause'" color="#FF6347" inverted v-on:click.native="pause()" key="pause" />
-					<ClickButton v-else v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphone' : 'play'" color="#7FFF00" inverted v-on:click.native="play()" key="play" />
-				</transition>
-			</AppNavGroup>
+			<ClickButton icon="reload" inverted v-on:click.native="reset()" />
+			<transition mode="out-in">
+				<ClickButton v-if="isPlaying" v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphoneOff' : 'pause'" color="#FF6347" inverted v-on:click.native="pause()" key="pause" />
+				<ClickButton v-else v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphone' : 'play'" color="#7FFF00" inverted v-on:click.native="play()" key="play" />
+			</transition>
 		</AppNavGroup>
 		<AppNavGroup>
 			<ClickButton icon="documents" inverted v-on:click.native="openDocuments()" />
