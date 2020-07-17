@@ -76,7 +76,7 @@ export default {
 	width: calc(var(--control-height) / 1.6);
 	height: calc(var(--control-height) / 1.6);
 	vertical-align: middle;
-	stroke: var(--color)
+	stroke: var(--color-text);
 }
 
 .c-button > .c-icon {

@@ -33,7 +33,7 @@ export default {
 <style scoped>
 .c-playerScreen__content {
     position: relative;
-    top: calc(50% - calc(1em * var(--line-height) / 2));
+    top: calc(50% - calc(1em * var(--lineHeight) / 2));
     font-size: var(--fontSize);
     color: var(--textColor);
     line-height: var(--lineHeight);
