@@ -8,8 +8,8 @@ export const state = () => ({
     containerHeight: 0,
     containerOffset: 0,
     textStyles: {
-        fontSize: '64',
-        lineHeight: '1.5',
+        fontSize: 64,
+        lineHeight: 1.5,
         padding: 100,
         textColor: '#ffffff',
         backgroundColor: '#000000'
@@ -20,10 +20,12 @@ export const state = () => ({
 
 export const getters = {
     animationDuration: (state) => {
-        let wordCount = state.text.split(' ').length
-        let readingDuration = (wordCount / state.wordsPerMin).toFixed(2)
-        let seconds = readingDuration.toString().split('.')
-        return Math.floor(seconds[1] * 0.6 + seconds[0] * 60)
+        let nWords = state.text.split(' ').length
+        let readingDuration = ((nWords / state.wordsPerMin) / state.textStyles.lineHeight).toFixed(2)
+        let minutes = readingDuration.toString().split('.')
+        let seconds = Math.floor(minutes[1] * 0.6 + minutes[0] * 60)
+        debugger
+        return seconds
     },
     animationPlayState: (state) => {
         return state.isPlaying === true && state.isListening === false ? 'running' : 'paused'
