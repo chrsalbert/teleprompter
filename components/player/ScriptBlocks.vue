@@ -22,6 +22,15 @@ export default {
         scriptBlocks() { 
             return this.$store.state.prompter.scriptBlocks
         }
+    },
+    updated() {
+        if(this.hasScriptBlocks) {
+            const lastReadIndex = this.$refs.script.map(el => el.className).lastIndexOf('is-read')
+            if(lastReadIndex >= 0) {
+                const offsetTop = this.$refs.script[lastReadIndex].offsetTop
+                this.$store.commit('prompter/setContainerOffset', offsetTop)
+            }
+        }
     }
 }
 </script>

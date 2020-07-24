@@ -18,6 +18,9 @@ export default {
         ScriptBlocks
     },
     computed: {
+        isSpeechRecognitionEnabled() {
+            return this.$store.state.prompter.isSpeechRecognitionEnabled
+        },
         isResetAnimation() {
             return this.$store.state.prompter.resetAnimation
         },
@@ -38,8 +41,10 @@ export default {
         },
         resetAnimation() {
             this.$refs.container.style.animation = 'none'
-            this.$refs.container.offsetHeight
-            this.$refs.container.style.animation = null
+            this.$refs.container.offsetHeight // forces paint
+            if(!this.isSpeechRecognitionEnabled) {
+                this.$refs.container.style.animation = null
+            }
         },
         ...mapActions({
             reset: 'prompter/reset'
