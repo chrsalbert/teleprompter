@@ -92,16 +92,16 @@ export default {
 	},
 	methods: {
 		openSettings() {
-			this.$refs.settingsPopup.toggleOpen()
+			this.$refs.settingsPopup.open()
 		},
 		openDocuments() {
-			this.$refs.documentsPopup.toggleOpen()
+			this.$refs.documentsPopup.open()
 		},
 		openMenu() {
-			this.$refs.appMenu.toggleOpen()
+			this.$refs.appMenu.open()
 		},
 		checkSpeechRecognition() {
-			this.isSupportingSpeechRecognition === true ? this.enableSpeechRecognition() : this.$refs.browserSupportDialog.toggleOpen()
+			this.isSupportingSpeechRecognition === true ? this.enableSpeechRecognition() : this.$refs.browserSupportDialog.open()
 		},
 		...mapActions({
 			play: 'player/play',
@@ -112,7 +112,7 @@ export default {
 		})
 	},
 	mounted() {
-		document.addEventListener("keydown", function(event) {
+		document.addEventListener('keydown', function(event) {
 		// console.log('key' + event.which);
 		switch (event.which) {
 			case 32:

@@ -4,7 +4,7 @@
 			<div class="c-popup__container">
 				<header class="c-popup__head">
 					{{ title }}
-					<ClickButton icon="close" v-on:click.native="toggleOpen()" />
+					<ClickButton icon="close" v-on:click.native="close()" />
 				</header>
 				<div class="c-popup__body">
 					<slot></slot>
@@ -26,20 +26,32 @@ export default {
 			type: String,
 			default: '400px'
 		},
-		open: {
+		opened: {
 			type: Boolean,
 			default: false
 		}
 	},
 	data() {
 		return {
-			isOpen: this.open
+			isOpen: this.opened
 		}
 	},
 	methods: {
-		toggleOpen() {
-			this.isOpen = !this.isOpen
+		close() {
+			this.isOpen = false
+		},
+		open() {
+			this.isOpen = true
 		}
+	},
+	mounted() {
+		document.addEventListener("keydown", function(event) {
+		switch (event.which) {
+			case 27:
+				this.close()
+			break
+		}
+		}.bind(this), false )
 	}
 }
 </script>
