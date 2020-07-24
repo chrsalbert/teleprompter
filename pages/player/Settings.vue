@@ -46,50 +46,50 @@ export default {
   computed: {
     wordsPerMin: {
       get() {
-        return this.$store.state.prompter.wordsPerMin
+        return this.$store.state.player.wordsPerMin
       },
       set(val) {
-        this.$store.commit('prompter/setWordsPerMin', val)
+        this.$store.commit('player/setWordsPerMin', val)
       }
     },
     padding: {
       get() {
-        return this.$store.state.prompter.textStyles.padding
+        return this.$store.state.player.textStyles.padding
       },
       set(val) {
-        this.$store.commit('prompter/setTextPadding', val)
+        this.$store.commit('player/setTextPadding', val)
       }
     },
     fontSize: {
       get() {
-        return this.$store.state.prompter.textStyles.fontSize
+        return this.$store.state.player.textStyles.fontSize
       },
       set(val) {
-        this.$store.commit('prompter/setTextFontSize', val)
+        this.$store.commit('player/setTextFontSize', val)
       }
     },
     lineHeight: {
       get() {
-        return this.$store.state.prompter.textStyles.lineHeight
+        return this.$store.state.player.textStyles.lineHeight
       },
       set(val) {
-        this.$store.commit('prompter/setTextLineHeight', val)
+        this.$store.commit('player/setTextLineHeight', val)
       }
     },
     textColor: {
       get() {
-        return this.$store.state.prompter.textStyles.textColor
+        return this.$store.state.player.textStyles.textColor
       },
       set(val) {
-        this.$store.commit('prompter/setTextTextColor', val)
+        this.$store.commit('player/setTextTextColor', val)
       }
     },
     backgroundColor: {
       get() {
-        return this.$store.state.prompter.textStyles.backgroundColor
+        return this.$store.state.player.textStyles.backgroundColor
       },
       set(val) {
-        this.$store.commit('prompter/setTextBackgroundColor', val)
+        this.$store.commit('player/setTextBackgroundColor', val)
       }
     }
   }

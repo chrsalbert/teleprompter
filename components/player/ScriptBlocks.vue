@@ -14,13 +14,13 @@ import { mapActions } from 'vuex'
 export default {
     computed: {
         text() {
-            return this.$store.state.prompter.text
+            return this.$store.state.player.text
         },
         hasScriptBlocks() {
             return this.scriptBlocks.length > 0
         },
         scriptBlocks() { 
-            return this.$store.state.prompter.scriptBlocks
+            return this.$store.state.player.scriptBlocks
         }
     },
     updated() {
@@ -28,7 +28,7 @@ export default {
             const lastReadIndex = this.$refs.script.map(el => el.className).lastIndexOf('is-read')
             if(lastReadIndex >= 0) {
                 const offsetTop = this.$refs.script[lastReadIndex].offsetTop
-                this.$store.commit('prompter/setContainerOffset', offsetTop)
+                this.$store.commit('player/setContainerOffset', offsetTop)
             }
         }
     }

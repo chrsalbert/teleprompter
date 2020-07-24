@@ -75,16 +75,16 @@ export default {
 	},
 	computed: {
 		isPlaying() { 
-			return this.$store.state.prompter.isPlaying 
+			return this.$store.state.player.isPlaying 
 		},
 		isRecognizing() { 
-			return this.$store.state.prompter.isRecognizing 
+			return this.$store.state.player.isRecognizing 
 		},
 		isSpeechRecognitionEnabled() { 
-			return this.$store.state.prompter.isSpeechRecognitionEnabled 
+			return this.$store.state.player.isSpeechRecognitionEnabled 
 		},
 		isSupportingSpeechRecognition() { 
-			return this.$store.state.prompter.isSupportingSpeechRecognition 
+			return this.$store.state.player.isSupportingSpeechRecognition 
 		},
 		supportedBrowsers() {
 			return this.getSupport('speech-recognition')
@@ -104,11 +104,11 @@ export default {
 			this.isSupportingSpeechRecognition === true ? this.enableSpeechRecognition() : this.$refs.browserSupportDialog.toggleOpen()
 		},
 		...mapActions({
-			play: 'prompter/play',
-			pause: 'prompter/pause',
-			reset: 'prompter/reset',
-			enableSpeechRecognition: 'prompter/enableSpeechRecognition',
-			disableSpeechRecognition: 'prompter/disableSpeechRecognition'
+			play: 'player/play',
+			pause: 'player/pause',
+			reset: 'player/reset',
+			enableSpeechRecognition: 'player/enableSpeechRecognition',
+			disableSpeechRecognition: 'player/disableSpeechRecognition'
 		})
 	},
 	mounted() {

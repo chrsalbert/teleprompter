@@ -19,25 +19,25 @@ export default {
     },
     computed: {
         isSpeechRecognitionEnabled() {
-            return this.$store.state.prompter.isSpeechRecognitionEnabled
+            return this.$store.state.player.isSpeechRecognitionEnabled
         },
         isResetAnimation() {
-            return this.$store.state.prompter.resetAnimation
+            return this.$store.state.player.resetAnimation
         },
         containerHeight() { 
-            return this.$store.state.prompter.containerHeight
+            return this.$store.state.player.containerHeight
         },
         containerOffset() {
-            return this.$store.state.prompter.containerOffset
+            return this.$store.state.player.containerOffset
         },
         ...mapGetters({
-            animationDuration: 'prompter/animationDuration',
-            animationPlayState: 'prompter/animationPlayState'
+            animationDuration: 'player/animationDuration',
+            animationPlayState: 'player/animationPlayState'
         })
     },
     methods: {
         updateContainerHeight() {
-            this.$store.commit('prompter/setContainerHeight', this.$refs.container.offsetHeight)
+            this.$store.commit('player/setContainerHeight', this.$refs.container.offsetHeight)
         },
         resetAnimation() {
             this.$refs.container.style.animation = 'none'
@@ -47,7 +47,7 @@ export default {
             }
         },
         ...mapActions({
-            reset: 'prompter/reset'
+            reset: 'player/reset'
         })
     },
     mounted() {
@@ -60,7 +60,7 @@ export default {
     watch: {
         isResetAnimation: function (newVal, oldVal) {
             this.resetAnimation()
-            this.$store.commit('prompter/setResetAnimation', false)
+            this.$store.commit('player/setResetAnimation', false)
         }
     },
 }

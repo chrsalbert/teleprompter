@@ -15,13 +15,13 @@ export default {
 	},
 	methods: {
         ...mapActions({
-            buildScriptBlocks: 'prompter/buildScriptBlocks'
+            buildScriptBlocks: 'player/buildScriptBlocks'
         }),
 	},
 	computed: {
 		text: {
 			get() {
-				return this.$store.state.prompter.text
+				return this.$store.state.player.text
 			},
 			set(val) {
 				this.buildScriptBlocks(val)

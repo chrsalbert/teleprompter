@@ -21,12 +21,12 @@ export default {
     },
     computed: {
         textStyles() { 
-            return this.$store.state.prompter.textStyles
+            return this.$store.state.player.textStyles
         }
     },
 	beforeMount() {
 		if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-			this.$store.commit('prompter/setIsSupportingSpeechRecognition', true)
+			this.$store.commit('player/setIsSupportingSpeechRecognition', true)
 		}
 	}
 }
