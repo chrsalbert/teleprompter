@@ -9,8 +9,25 @@
 }
 
 .c-richtext h1 {
-	font-size: 36px;
+	font-size: var(--font-size-3xl);
+	font-weight: 600;
 	margin: 48px 0 24px
+}
+
+.c-richtext h2 {
+	font-size: var(--font-size-2xl);
+}
+
+.c-richtext h3 {
+	font-size: var(--font-size-3xl);
+}
+
+.c-richtext h4 {
+	font-size: var(--font-size-xl);
+}
+
+.c-richtext h5 {
+	font-size: var(--font-size-lg);
 }
 
 .c-richtext li {

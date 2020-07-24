@@ -52,15 +52,15 @@ export default {
 		bottom: 0;
 		left: 0;
 		background-color: rgba(0,0,0,.8);
-		transition: background-color .3s;
+		transition: background-color .2s;
 	}
 	.c-popup__container {
 		position: absolute;
-		top: 50%;
+		top: 48px;
 		left: 50%;
 		width: var(--width);
 		max-width: 90%;
-		transform: translate3d(-50%, -50%, 0) scale(1);
+		transform: translate3d(-50%, 0, 0) scale(1);
 		opacity: 1;
 		background: #fff;
 		border-radius: var(--border-radius);
@@ -87,7 +87,7 @@ export default {
 
 	.c-popup-enter .c-popup__container,	
 	.c-popup-leave-to .c-popup__container {
-		transform: translate3d(-50%, -50%, 0) scale(.95);
+		transform: translate3d(-50%, -24px, 0) scale(.95);
 		opacity: 0;
 	}
 </style>

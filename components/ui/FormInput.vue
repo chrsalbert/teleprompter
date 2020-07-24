@@ -42,6 +42,10 @@ export default {
 	border-radius: var(--border-radius-xs)
 }
 
+.c-input:focus {
+	border-color: var(--color-primary)
+}
+
 .c-input--color {
 	padding: 2px;
 	background: #fff

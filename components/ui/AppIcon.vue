@@ -43,7 +43,10 @@ export default {
 </script>
 <style scoped>
 .c-icon {
-	max-width: 100%;
-	max-height: 100%;
+	display: inline-block
+}
+.c-icon >>> svg {
+	width: 100%;
+	height: 100%;
 }
 </style>

@@ -13,7 +13,7 @@
 			} 
 		}">
 		<AppIcon v-bind:icon="icon" v-if="hasIcon" />
-		<slot></slot>
+		<span><slot></slot></span>
 	</nuxt-link>
 </template>
 <script>
@@ -57,34 +57,34 @@ export default {
 .c-button {
 	display: inline-block;
 	height: var(--control-height);
+	line-height: calc(var(--control-height) - 4px);
 	padding: 0 var(--space-sm);
-	line-height: var(--control-height);
 	background: transparent;
 	border-radius: var(--border-radius-xs);
-	border: none;
+	border: 2px transparent solid;
 	color: var(--color);
 	font-weight: 600;
 	text-decoration: none;
 	font-size: var(--font-size-sm);
 }
 
-.c-button:hover {
-	background: rgba(0,0,0,.1)
+.c-button:focus {
+	border-color: var(--color-primary)
 }
 
-.c-button >>> svg {
+.c-button:hover {
+	background: rgba(0,0,0,.1);
+	outline: none
+}
+
+.c-button >>> .c-icon {
 	width: calc(var(--control-height) / 1.6);
 	height: calc(var(--control-height) / 1.6);
 	vertical-align: middle;
-	stroke: var(--color-text);
 }
 
-.c-button > .c-icon {
-	display: inline-block;
-	width: var(--control-height);
-	height: var(--control-height);
-	padding: 0;
-	text-align: center;
+button >>> .c-icon {
+	margin-top: -2px
 }
 
 .c-button--inverted,
@@ -108,6 +108,7 @@ export default {
 }
 
 .c-button--icon {
-	padding: 0
+	padding: 0;
+	width: var(--control-height);
 }
 </style>
