@@ -8,6 +8,9 @@ export const state = () => ({
     wordsPerMin: 150,
     containerHeight: 0,
     containerOffset: 0,
+    display: {
+        mirror: false
+    },
     textStyles: {
         fontSize: 64,
         lineHeight: 1.5,
@@ -87,6 +90,9 @@ export const mutations = {
     },
     setTextBackgroundColor (state, hex) {
         state.textStyles.backgroundColor = hex
+    },
+    setDisplayMirror(state, boolean) {
+        state.display.mirror = boolean
     },
     markWord(state, index) {
         state.scriptBlocks[index].isRead = true
@@ -177,6 +183,7 @@ export const actions = {
         }
         const onerror = function (event) {
             commit('setRecognizing', false)
+            console.log('error', event)
         }
         commit('setRecognition', { onstart, onend, onresult, onerror })
     },

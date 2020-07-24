@@ -5,7 +5,8 @@
         '--lineHeight': `${textStyles.lineHeight}`,
         '--textColor': `${textStyles.textColor}`,
         '--backgroundColor': `${textStyles.backgroundColor}`
-        }">
+        }"
+        v-bind:class="{ 'c-playerScreen--mirrored': isMirrored }">
         <PlayerScreenContent ref="screenContent" />
         <PlayerScreenLine />
     </div>
@@ -20,6 +21,9 @@ export default {
         PlayerScreenLine
     },
     computed: {
+        isMirrored() {
+            return this.$store.state.player.display.mirror
+        },
         textStyles() { 
             return this.$store.state.player.textStyles
         }
@@ -41,5 +45,8 @@ export default {
     color: #fff;
     font-family: 'Arial';
     font-weight: bold;
+}
+.c-playerScreen--mirrored {
+    transform: scale(-1, 1);
 }
 </style>

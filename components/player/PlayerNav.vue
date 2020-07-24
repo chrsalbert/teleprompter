@@ -4,22 +4,6 @@
 			<ClickButton icon="menu" inverted v-on:click.native="openMenu()" />
 			<AppMenu ref="appMenu" />
 			<AppNavDivi />
-			<transition mode="out-in">
-				<ClickButton v-if="isSpeechRecognitionEnabled === false" icon="toggleOff" inverted v-on:click.native="checkSpeechRecognition()" key="off">
-					Spracherkennung
-				</ClickButton>
-				<ClickButton v-else icon="toggleOn" inverted v-on:click.native="disableSpeechRecognition()" key="on">
-					Spracherkennung
-				</ClickButton>
-			</transition>
-			<AppNavDivi />
-			<ClickButton icon="reload" inverted v-on:click.native="reset()" />
-			<transition mode="out-in">
-				<ClickButton v-if="isPlaying || isRecognizing" v-bind:icon="isRecognizing === true ? 'microphoneOff' : 'pause'" color="#FF6347" inverted v-on:click.native="pause()" key="pause" />
-				<ClickButton v-else v-bind:icon="isSpeechRecognitionEnabled && isRecognizing === false ? 'microphone' : 'play'" color="#7FFF00" inverted v-on:click.native="play()" key="play" />
-			</transition>
-		</AppNavGroup>
-		<AppNavGroup>
 			<ClickButton icon="documents" inverted v-on:click.native="openDocuments()" />
 			<ClickButton icon="settings" inverted v-on:click.native="openSettings()" />
 			<PopUp ref="settingsPopup" title="Einstellungen">
@@ -37,6 +21,22 @@
 				</RichText>
 			</PopUp>
 			<AppNavDivi />
+			<transition mode="out-in">
+				<ClickButton v-if="isSpeechRecognitionEnabled === false" icon="toggleOff" inverted v-on:click.native="checkSpeechRecognition()" key="off">
+					Spracherkennung
+				</ClickButton>
+				<ClickButton v-else icon="toggleOn" inverted v-on:click.native="disableSpeechRecognition()" key="on">
+					Spracherkennung
+				</ClickButton>
+			</transition>
+			<AppNavDivi />
+			<ClickButton icon="reload" inverted v-on:click.native="reset()" />
+			<transition mode="out-in">
+				<ClickButton v-if="isPlaying || isRecognizing" v-bind:icon="isRecognizing === true ? 'microphoneOff' : 'pause'" color="#FF6347" inverted v-on:click.native="pause()" key="pause" />
+				<ClickButton v-else v-bind:icon="isSpeechRecognitionEnabled && isRecognizing === false ? 'microphone' : 'play'" color="#7FFF00" inverted v-on:click.native="play()" key="play" />
+			</transition>
+		</AppNavGroup>
+		<AppNavGroup>
 			<ClickButton icon="fullscreen" inverted v-on:click.native="toggleFullscreen()"/>
 		</AppNavGroup>
 	</AppNav>
@@ -98,7 +98,7 @@ export default {
 			this.$refs.documentsPopup.open()
 		},
 		openMenu() {
-			this.$refs.appMenu.open()
+			this.$refs.appMenu.toggleOpen()
 		},
 		checkSpeechRecognition() {
 			this.isSupportingSpeechRecognition === true ? this.enableSpeechRecognition() : this.$refs.browserSupportDialog.open()

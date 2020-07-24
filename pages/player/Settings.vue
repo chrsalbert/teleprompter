@@ -4,6 +4,9 @@
       <FormRow label="Wörter / Minute" labelFor="wordsPerMin">
         <FormInput id="wordsPerMin" type="number" :step="10" v-model="wordsPerMin" />
       </FormRow>
+      <FormRow label="Bildschirm spiegeln" labelFor="mirror">
+        <FormSwitch id="mirror" v-model="mirror" />
+      </FormRow>
     </TabItem>
     <TabItem title="Text">
       <FormRow label="Schriftgröße" labelFor="fontSize">
@@ -33,6 +36,7 @@ import TabContainer from '~/components/ui/TabContainer'
 import TabItem from '~/components/ui/TabItem'
 import FormRow from '~/components/ui/FormRow'
 import FormInput from '~/components/ui/FormInput'
+import FormSwitch from '~/components/ui/FormSwitch'
 import FormRichInput from '~/components/ui/FormRichInput'
 
 export default {
@@ -50,6 +54,14 @@ export default {
       },
       set(val) {
         this.$store.commit('player/setWordsPerMin', val)
+      }
+    },
+    mirror: {
+      get() {
+        return this.$store.state.player.display.mirror
+      },
+      set(val) {
+        this.$store.commit('player/setDisplayMirror', val)
       }
     },
     padding: {
