@@ -5,7 +5,7 @@
 			<AppMenu ref="appMenu" />
 			<AppNavDivi />
 			<transition mode="out-in">
-				<ClickButton v-if="isSpeechRecognitionEnabled === false" icon="toggleOff" inverted v-on:click.native="enableSpeechRecognition()" key="off">
+				<ClickButton v-if="isSpeechRecognitionEnabled === false" icon="toggleOff" inverted v-on:click.native="checkSpeechRecognition()" key="off">
 					Spracherkennung
 				</ClickButton>
 				<ClickButton v-else icon="toggleOn" inverted v-on:click.native="disableSpeechRecognition()" key="on">
@@ -15,8 +15,8 @@
 			<AppNavDivi />
 			<ClickButton icon="reload" inverted v-on:click.native="reset()" />
 			<transition mode="out-in">
-				<ClickButton v-if="isPlaying" v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphoneOff' : 'pause'" color="#FF6347" inverted v-on:click.native="pause()" key="pause" />
-				<ClickButton v-else v-bind:icon="isSpeechRecognitionEnabled === true ? 'microphone' : 'play'" color="#7FFF00" inverted v-on:click.native="play()" key="play" />
+				<ClickButton v-if="isPlaying || isRecognizing" v-bind:icon="isRecognizing === true ? 'microphoneOff' : 'pause'" color="#FF6347" inverted v-on:click.native="pause()" key="pause" />
+				<ClickButton v-else v-bind:icon="isSpeechRecognitionEnabled && isRecognizing === false ? 'microphone' : 'play'" color="#7FFF00" inverted v-on:click.native="play()" key="play" />
 			</transition>
 		</AppNavGroup>
 		<AppNavGroup>
@@ -77,8 +77,8 @@ export default {
 		isPlaying() { 
 			return this.$store.state.prompter.isPlaying 
 		},
-		isListening() { 
-			return this.$store.state.prompter.isListening 
+		isRecognizing() { 
+			return this.$store.state.prompter.isRecognizing 
 		},
 		isSpeechRecognitionEnabled() { 
 			return this.$store.state.prompter.isSpeechRecognitionEnabled 
@@ -100,14 +100,13 @@ export default {
 		openMenu() {
 			this.$refs.appMenu.toggleOpen()
 		},
-		enableSpeechRecognition() {
-			this.isSupportingSpeechRecognition ? this.enableSpeechRecognition() : this.$refs.browserSupportDialog.toggleOpen()
+		checkSpeechRecognition() {
+			this.isSupportingSpeechRecognition === true ? this.enableSpeechRecognition() : this.$refs.browserSupportDialog.toggleOpen()
 		},
 		...mapActions({
 			play: 'prompter/play',
 			pause: 'prompter/pause',
 			reset: 'prompter/reset',
-			initBrowserSupport: 'prompter/initBrowserSupport',
 			enableSpeechRecognition: 'prompter/enableSpeechRecognition',
 			disableSpeechRecognition: 'prompter/disableSpeechRecognition'
 		})
@@ -121,11 +120,6 @@ export default {
 			break
 		}
 		}.bind(this), false )
-	},
-	beforeMount() {
-		if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-			this.initBrowserSupport()
-		}
 	}
 }
 </script>

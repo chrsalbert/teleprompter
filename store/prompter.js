@@ -1,9 +1,10 @@
 export const state = () => ({
     isPlaying: false,
-    isListening: false,
+    isRecognizing: false,
     isSpeechRecognitionEnabled: false,
     isSupportingSpeechRecognition: false,
     recognition: null,
+    resetAnimation: false,
     wordsPerMin: 150,
     containerHeight: 0,
     containerOffset: 0,
@@ -27,7 +28,7 @@ export const getters = {
         return seconds
     },
     animationPlayState: (state) => {
-        return state.isPlaying === true && state.isListening === false ? 'running' : 'paused'
+        return state.isPlaying === true && state.isRecognizing === false ? 'running' : 'paused'
     }
 }
 
@@ -35,11 +36,8 @@ export const mutations = {
     setPlay (state, boolean) {
         state.isPlaying = boolean
     },
-    setListening (state, boolean) {
-        state.isListening = boolean
-    },
-    toggleListen (state) {
-        state.isListening = !state.isListening
+    setRecognizing (state, boolean) {
+        state.isRecognizing = boolean
     },
     setScriptBlocks(state, array) {
         state.scriptBlocks = array
@@ -47,11 +45,14 @@ export const mutations = {
     setIsSupportingSpeechRecognition (state, boolean) {
         state.isSupportingSpeechRecognition = boolean
     },
-    setIsSpeechRecognitionEnabled (state, boolean) {
+    setSpeechRecognitionEnabled (state, boolean) {
         state.isSpeechRecognitionEnabled = boolean
     },
-    setText (state, content) {
-        state.text = content
+    setText (state, text) {
+        state.text = text
+    },
+    setResetAnimation(state, boolean) {
+        state.resetAnimation = boolean
     },
     setContainerHeight(state, px) {
         state.containerHeight = px
@@ -59,11 +60,14 @@ export const mutations = {
     setContainerOffset(state, px) {
         state.containerOffset = px
     },
-    setRecognition(state, result) {
+    setRecognition(state, { onstart, onend, onresult, onerror }) {
         state.recognition = new webkitSpeechRecognition()
         state.recognition.continuous = true
         state.recognition.interimResults = true
-        state.recognition.onresult = result
+        state.recognition.onresult = onresult
+        state.recognition.onstart = onstart
+        state.recognition.onend = onend
+        state.recognition.onerror = onerror
         state.recognition.maxAlternatives = 2
     },
     setWordsPerMin (state, amount) {
@@ -93,25 +97,26 @@ export const mutations = {
 }
 
 export const actions = {
-    play ({ commit, dispatch, state }) {
-        commit('setPlay', true)
-        if (state.isSpeechRecognitionEnabled) {
-            commit('setListening', true)
+    play({ commit, state }) {
+        if(state.isSpeechRecognitionEnabled) {
             state.recognition.start()
+        } else {
+            commit('setPlay', true)
         }
     },
-    pause ({ commit, dispatch, state }) {
-        commit('setPlay', false)
-        if (state.isSpeechRecognitionEnabled) {
-            commit('setListening', false)
+    pause({ commit, state }) {
+        if (state.isRecognizing) {
             state.recognition.stop()
+        } else {
+            commit('setPlay', false)
         }
     },
-    reset ({ dispatch }) {
+    reset({ commit, dispatch }) {
         dispatch('pause')
         dispatch('rewindScript')
+        commit('setResetAnimation', true)
     },
-    updateScript({ commit, dispatch, state }, text) {
+    buildScriptBlocks({ commit, state }, text = state.text) {
         commit('setText', text)
         let scriptBlocks = []
         state.text.split(' ').forEach(function (block, index) {
@@ -125,16 +130,10 @@ export const actions = {
             })
         })
         commit('setScriptBlocks', scriptBlocks)
-        dispatch('reset')
     },
     rewindScript({ commit, state }) {
-        commit('setContainerOffset', 0)
-        const el = document.getElementById('telepromoter-content')
-        el.style.animation = 'none'
-        if (!state.isSpeechRecognitionEnabled) {
-            el.offsetHeight
-            el.style.animation = null
-        } else {
+        if (state.scriptBlocks.length > 0) {
+            commit('setContainerOffset', 0)
             state.scriptBlocks.forEach((block, index) => {
                 if (block.isRead === true) {
                     commit('unmarkWord', index)
@@ -142,16 +141,12 @@ export const actions = {
             })
         }
     },
-    initScriptBlocks({ state, dispatch }) {
-        dispatch('updateScript', state.text)
-    },
-    initRecognition({ state, commit }) {
-        commit('setRecognition', function(event) {
+    initSpeechRecognition({ state, commit }) {
+        const onresult = function(event) {
             for (var i = 0; i < event.results.length; i++) {
                 let result = event.results[i][0]
                 if (result.confidence >= 0.89 && event.results[i].isFinal === false) {
                     let recognizedWord = result.transcript.split(' ').pop()
-                    console.log('reco:' + recognizedWord)
                     checkRecognizedWord(recognizedWord)
                 }
             }
@@ -161,7 +156,6 @@ export const actions = {
                 let wordsToCompare = state.scriptBlocks.slice(firstUnread, firstUnread + 6)
                 let markTo = wordsToCompare.map(el => el.word).indexOf(recognizedWord)
                 if (markTo > -1) {
-                    console.log('mark:' + recognizedWord)
                     markWords(firstUnread, firstUnread + markTo)
                 }
             }
@@ -174,22 +168,29 @@ export const actions = {
                     stagger++
                 }
             }
-        })
+        }
+        const onstart = function(event) {
+            commit('setRecognizing', true)
+        }
+        const onend = function(event) {
+            commit('setRecognizing', false)
+        }
+        const onerror = function (event) {
+            commit('setRecognizing', false)
+        }
+        commit('setRecognition', { onstart, onend, onresult, onerror })
     },
-    initBrowserSupport({ commit, dispatch }) {
-        commit('setIsSupportingSpeechRecognition', true)
-        dispatch('initRecognition')
-    },
-    initContainerHeight({ commit, dispatch }) {
-        commit('setContainerHeight', document.getElementById('telepromoter-content').offsetHeight)
-        dispatch('rewindScript')
-    },
-    enableSpeechRecognition ({ commit, dispatch }) {
-        commit('setIsSpeechRecognitionEnabled', true)
+    enableSpeechRecognition({ commit, state, dispatch }) {
+        commit('setSpeechRecognitionEnabled', true)
         dispatch('reset')
+        dispatch('buildScriptBlocks')
+        if(state.recognition === null) {
+            dispatch('initSpeechRecognition')
+        }
     },
-    disableSpeechRecognition ({ commit, dispatch }) {
+    disableSpeechRecognition({ commit, dispatch }) {
+        commit('setSpeechRecognitionEnabled', false)
         dispatch('reset')
-        commit('setIsSpeechRecognitionEnabled', false)
+        commit('setScriptBlocks', [])
     }
 }

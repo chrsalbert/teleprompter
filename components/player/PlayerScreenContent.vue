@@ -1,22 +1,26 @@
 <template>
-    <div id="telepromoter-content" class="c-playerScreen__content" ref="content" v-bind:style="{ 
+    <div class="c-playerScreen__content" ref="container" v-bind:style="{ 
         '--height': `-${containerHeight}px`, 
         '--animation-duration': `${animationDuration}s`, 
         '--animation-play-state': `${animationPlayState}`,
         '--offset': `-${containerOffset}px`,
     }">
-        <ScriptBlock />
+        <ScriptBlocks />
     </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import ScriptBlock from '~/components/player/ScriptBlocks'
+import { mapActions } from 'vuex'
+import ScriptBlocks from '~/components/player/ScriptBlocks'
 
 export default {
     components: {
-        ScriptBlock
+        ScriptBlocks
     },
     computed: {
+        isResetAnimation() {
+            return this.$store.state.prompter.resetAnimation
+        },
         containerHeight() { 
             return this.$store.state.prompter.containerHeight
         },
@@ -27,7 +31,33 @@ export default {
             animationDuration: 'prompter/animationDuration',
             animationPlayState: 'prompter/animationPlayState'
         })
-    }
+    },
+    methods: {
+        updateContainerHeight() {
+            this.$store.commit('prompter/setContainerHeight', this.$refs.container.offsetHeight)
+        },
+        resetAnimation() {
+            this.$refs.container.style.animation = 'none'
+            this.$refs.container.offsetHeight
+            this.$refs.container.style.animation = null
+        },
+        ...mapActions({
+            reset: 'prompter/reset'
+        })
+    },
+    mounted() {
+        this.updateContainerHeight()
+        window.addEventListener('resize', this.reset)
+    },
+    updated() {
+        this.updateContainerHeight()
+    },
+    watch: {
+        isResetAnimation: function (newVal, oldVal) {
+            this.resetAnimation()
+            this.$store.commit('prompter/setResetAnimation', false)
+        }
+    },
 }
 </script>
 <style scoped>

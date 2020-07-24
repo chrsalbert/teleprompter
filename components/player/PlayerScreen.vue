@@ -6,7 +6,7 @@
         '--textColor': `${textStyles.textColor}`,
         '--backgroundColor': `${textStyles.backgroundColor}`
         }">
-        <PlayerScreenContent />
+        <PlayerScreenContent ref="screenContent" />
         <PlayerScreenLine />
     </div>
 </template>
@@ -23,7 +23,12 @@ export default {
         textStyles() { 
             return this.$store.state.prompter.textStyles
         }
-    }
+    },
+	beforeMount() {
+		if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+			this.$store.commit('prompter/setIsSupportingSpeechRecognition', true)
+		}
+	}
 }
 </script>
 <style scoped>

@@ -15,7 +15,7 @@ export default {
 	},
 	methods: {
         ...mapActions({
-            updateScript: 'prompter/updateScript'
+            buildScriptBlocks: 'prompter/buildScriptBlocks'
         }),
 	},
 	computed: {
@@ -24,7 +24,7 @@ export default {
 				return this.$store.state.prompter.text
 			},
 			set(val) {
-				this.updateScript(val)
+				this.buildScriptBlocks(val)
 			}
 		}
 	}

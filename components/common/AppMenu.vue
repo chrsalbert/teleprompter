@@ -1,5 +1,5 @@
 <template>
-    <div class="c-menu" v-bind:class="{ 'c-menu--open': isOpen }" v-bind:style="{ '--width': width }">
+    <div class="c-menu" v-show="isOpen" v-bind:style="{ '--width': width }">
         <p>
             Dies ist ein kostenloser Online-Teleprompter mit Spracherkennungs-Funktion* und klassischem Lauftext. Wähle <AppIcon icon="documents" class="c-menu__helper" /> um dein Transkript einzufügen und <AppIcon icon="play" class="c-menu__helper" /> zum Starten der Lauftext-Funktion. Aktiviere alternativ die Spracherkennung und wähle <AppIcon icon="microphone" class="c-menu__helper" /> um den Zugriff auf dein Mikrofon zu aktivieren und dein Transkript durch Spracherkennung automatisch mitlaufen zu lassen.</p>
         <p class="c-menu__footnote">* Aktuell nur in folgenden Browsern: <span v-for="(browser, index) in supportedBrowsers" :key="index">{{ browserWithComma(index) }}</span></p>
@@ -62,13 +62,9 @@ export default {
         left: 8px;
         width: var(--width);
         background: #fff;
-        opacity: 0;
         transition: left .3s ease-in-out;
         color: black;
         padding: 16px;
-    }
-    .c-menu--open {
-        opacity: 1
     }
     .c-menu__footnote {
         font-size: .8rem;

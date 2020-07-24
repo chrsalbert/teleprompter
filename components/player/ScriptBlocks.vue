@@ -3,40 +3,25 @@
         <template v-for="(block, index) in scriptBlocks">
             <span v-bind:class="{ 'is-read': block.isRead }" v-bind:key="`block-${index}`" ref="script">{{ block.block }}</span>{{ ' ' }}
         </template>
+        <template v-if="!hasScriptBlocks">
+            {{ text }}
+        </template>
 	</div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 
 export default {
     computed: {
+        text() {
+            return this.$store.state.prompter.text
+        },
+        hasScriptBlocks() {
+            return this.scriptBlocks.length > 0
+        },
         scriptBlocks() { 
             return this.$store.state.prompter.scriptBlocks
         }
-    },
-    methods: {
-        ...mapActions({
-            initScriptBlocks: 'prompter/initScriptBlocks',
-            reset: 'prompter/reset',
-            initContainerHeight: 'prompter/initContainerHeight'
-        }),
-        updateOffset() {
-            let wordBlockId = this.scriptBlocks.findIndex(item => item.isRead === false)
-            let wordBlock = this.$refs.script[wordBlockId]
-            this.$store.commit('prompter/setContainerOffset', wordBlock.offsetTop)
-        },
-    },
-    beforeMount() {
-        this.initScriptBlocks()
-    },
-    updated() {
-        this.updateOffset()
-    },
-    mounted() {
-        this.reset()
-        this.initContainerHeight()
-        window.addEventListener('resize', this.initContainerHeight)
     }
 }
 </script>
