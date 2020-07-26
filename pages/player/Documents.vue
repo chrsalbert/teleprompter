@@ -27,6 +27,11 @@ export default {
 				this.buildScriptBlocks(val)
 			}
 		}
+	},
+	watch: {
+		text(newValue, oldValue) {
+			localStorage.setItem('text', newValue)
+		}
 	}
 }
 </script>

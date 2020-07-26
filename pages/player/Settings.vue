@@ -48,9 +48,12 @@ export default {
 		FormRichInput
 	},
 	computed: {
+		settings() {
+			return this.$store.state.player.settings
+		},
 		wordsPerMin: {
 			get() {
-				return this.$store.state.player.display.wordsPerMin
+				return this.$store.state.player.settings.wordsPerMin
 			},
 			set(val) {
 				this.$store.commit('player/SET_WORDS_PER_MIN', val)
@@ -58,7 +61,7 @@ export default {
 		},
 		mirror: {
 			get() {
-				return this.$store.state.player.display.mirror
+				return this.$store.state.player.settings.mirror
 			},
 			set(val) {
 				this.$store.commit('player/SET_DISPLAY_MIRRORING_STATE', val)
@@ -66,7 +69,7 @@ export default {
 		},
 		padding: {
 			get() {
-				return this.$store.state.player.display.padding
+				return this.$store.state.player.settings.padding
 			},
 			set(val) {
 				this.$store.commit('player/SET_DISPLAY_PADDING', val)
@@ -74,7 +77,7 @@ export default {
 		},
 		fontSize: {
 			get() {
-				return this.$store.state.player.textStyles.fontSize
+				return this.$store.state.player.settings.fontSize
 			},
 			set(val) {
 				this.$store.commit('player/SET_FONT_SIZE', val)
@@ -82,7 +85,7 @@ export default {
 		},
 		lineHeight: {
 			get() {
-				return this.$store.state.player.textStyles.lineHeight
+				return this.$store.state.player.settings.lineHeight
 			},
 			set(val) {
 				this.$store.commit('player/SET_LINE_HEIGHT', val)
@@ -90,7 +93,7 @@ export default {
 		},
 		textColor: {
 			get() {
-				return this.$store.state.player.textStyles.textColor
+				return this.$store.state.player.settings.textColor
 			},
 			set(val) {
 				this.$store.commit('player/SET_TEXT_COLOR', val)
@@ -98,10 +101,18 @@ export default {
 		},
 		backgroundColor: {
 			get() {
-				return this.$store.state.player.textStyles.backgroundColor
+				return this.$store.state.player.settings.backgroundColor
 			},
 			set(val) {
 				this.$store.commit('player/SET_BACKGROUND_COLOR', val)
+			}
+		}
+	},
+	watch: {
+		settings: {
+			deep: true,
+			handler(newValue, oldValue) {
+				localStorage.setItem('settings', JSON.stringify(newValue))
 			}
 		}
 	}

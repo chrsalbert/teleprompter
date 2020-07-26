@@ -1,10 +1,10 @@
 <template>
     <div class="c-playerScreen" v-bind:style="{ 
-        '--padding': `${display.padding}px`,
-        '--fontSize': `${textStyles.fontSize}px`,
-        '--lineHeight': `${textStyles.lineHeight}`,
-        '--textColor': `${textStyles.textColor}`,
-        '--backgroundColor': `${textStyles.backgroundColor}`
+        '--padding': `${settings.padding}px`,
+        '--fontSize': `${settings.fontSize}px`,
+        '--lineHeight': `${settings.lineHeight}`,
+        '--textColor': `${settings.textColor}`,
+        '--backgroundColor': `${settings.backgroundColor}`
         }"
         v-bind:class="{ 'c-playerScreen--mirrored': isMirrored }">
         <PlayerScreenContent ref="screenContent" />
@@ -12,6 +12,7 @@
     </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 import PlayerScreenContent from '~/components/player/PlayerScreenContent'
 import PlayerScreenLine from '~/components/player/PlayerScreenLine'
 
@@ -22,15 +23,22 @@ export default {
     },
     computed: {
         isMirrored() {
-            return this.$store.state.player.display.mirror
+            return this.$store.state.player.settings.mirror
         },
-        textStyles() { 
-            return this.$store.state.player.textStyles
-        },
-        display() { 
-            return this.$store.state.player.display
+        settings() { 
+            return this.$store.state.player.settings
         }
     },
+	methods: {
+        ...mapActions({
+			initSettings: 'player/initSettings',
+			initText: 'player/initText'
+        })
+	},
+	mounted() {
+		this.initSettings()
+		this.initText()
+	},
 	beforeMount() {
 		if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
 			this.$store.commit('player/SET_SPEECH_RECOGNITION_SUPPORT', true)

@@ -7,25 +7,23 @@ export const state = () => ({
     resetAnimation: false,
     containerHeight: 0,
     containerOffset: 0,
-    display: {
+    settings: {
         wordsPerMin: 150,
         mirror: false,
-        padding: 100
-    },
-    textStyles: {
+        padding: 100,
         fontSize: 64,
         lineHeight: 1.5,
         textColor: '#ffffff',
         backgroundColor: '#000000'
     },
-    text: "Das ist ein Substantiv Beispiel-Text und er testet den Text im Lauftext. Eins zwei drei, das ist ein Test, hier geht es darum, ob der Text auch ordentlich mitscrollt – manchmal tut er dies nicht – dies ist aber ok. Auch gibt – Ich habe ein Haus und ein Auto sowie manchmal ein Gerät – Schmerz $$ (an sich liebt), Haus sucht oder wünscht, nur, Haus weil er Schmerz ist, es sei denn, es kommt zu zufälligen Umständen, # in denen Mühen und Schmerz (!) ihm große Freude bereiten können. Um ein triviales Beispiel zu nehmen, wer von uns unterzieht sich je anstrengender körperlicher Betätigung, außer um Vorteile daraus zu ziehen? Aber wer hat irgend ein Recht, einen Menschen zu tadeln, der die Entscheidung trifft, eine Freude zu genießen, die keine unangenehmen Folgen hat, oder einen, der Schmerz vermeidet, welcher keine daraus resultierende Freude nach sich zieht? Auch gibt es niemanden, der den Schmerz an sich liebt, sucht oder wünscht, nur, weil er Schmerz ist, es sei denn, es kommt zu zufälligen Umständen, in denen Mühen und Schmerz ihm große Freude bereiten können. Um ein triviales Beispiel zu nehmen, wer von uns unterzieht sich je anstrengender körperlicher Betätigung, außer um Vorteile daraus zu ziehen? Aber wer hat irgend ein Recht, einen Menschen zu tadeln, der die Entscheidung trifft, eine Freude zu genießen, die keine unangenehmen Folgen hat, oder einen, der Schmerz vermeidet, welcher keine daraus resultierende Freude nach sich zieht? Auch gibt es niemanden, der den Schmerz an sich liebt, sucht oder wünscht, nur",
+    text: "",
     scriptBlocks: []
 })
 
 export const getters = {
     getAnimationDuration: (state) => {
         let nWords = state.text.split(' ').length
-        let readingDuration = ((nWords / state.display.wordsPerMin) / state.textStyles.lineHeight).toFixed(2)
+        let readingDuration = ((nWords / state.settings.wordsPerMin) / state.settings.lineHeight).toFixed(2)
         let minutes = readingDuration.toString().split('.')
         let seconds = Math.floor(minutes[1] * 0.6 + minutes[0] * 60)
         return seconds
@@ -74,39 +72,38 @@ export const mutations = {
         state.recognition.maxAlternatives = 2
     },
     SET_WORDS_PER_MIN(state, amount) {
-        state.display.wordsPerMin = amount
+        state.settings.wordsPerMin = amount
         localStorage.setItem('wordsPerMin', amount)
     },
     SET_DISPLAY_PADDING (state, px) {
-        state.display.padding = px
+        state.settings.padding = px
     },
     SET_FONT_SIZE (state, px) {
-        state.textStyles.fontSize = px
+        state.settings.fontSize = px
     },
     SET_LINE_HEIGHT (state, multiplier) {
-        state.textStyles.lineHeight = multiplier
+        state.settings.lineHeight = multiplier
     },
     SET_TEXT_COLOR (state, hex) {
-        state.textStyles.textColor = hex
+        state.settings.textColor = hex
     },
     SET_BACKGROUND_COLOR (state, hex) {
-        state.textStyles.backgroundColor = hex
+        state.settings.backgroundColor = hex
     },
     SET_DISPLAY_MIRRORING_STATE(state, boolean) {
-        state.display.mirror = boolean
+        state.settings.mirror = boolean
+    },
+    SET_SETTINGS(state, object) {
+        state.settings = object
+    },
+    SET_TEXT(state, string) {
+        state.text = string
     },
     ADD_MARKED_WORD(state, index) {
         state.scriptBlocks[index].isRead = true
     },
     REMOVE_MARKED_WORD(state, index) {
         state.scriptBlocks[index].isRead = false
-    },
-    initCustomSettings(state) {
-        if (localStorage.getItem('wordsPerMin')) {
-            console.log('store found: ' + localStorage.getItem('wordsPerMin'))
-        } else {
-            console.log('no store found')
-        }
     }
 }
 
@@ -154,6 +151,16 @@ export const actions = {
                 }
             })
         }
+    },
+    initSettings({ commit }) {
+        if (localStorage.getItem('settings'))
+            commit('SET_SETTINGS', JSON.parse(localStorage.getItem('settings')))
+    },
+    initText({ commit }) {
+        if (localStorage.getItem('text'))
+            commit('SET_TEXT', localStorage.getItem('text'))
+        else
+            commit('SET_TEXT', 'Hi! Starte, indem du ein Transskript hinzufügst, die Darstellung nach Belieben änderst und Play drückst.')
     },
     initSpeechRecognition({ state, commit }) {
         const onresult = function(event) {
