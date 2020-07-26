@@ -1,17 +1,21 @@
 :root {
+    --color-primary-lighter: #ccccff;
+    --color-primary-light: #6666ff;
     --color-primary: #00F;
-    --color-light: #70707C;
-    --color-secondary: #151e30;
-    --color-third: #bbcfff;
+    --color-primary-dark: #000099;
+    --color-primary-darker: #000033;
+
+    --color-text-lightr: #cfcfcf;
+    --color-text-light: #707070;
     --color-text: #111;
-    --color-text-light: #8a8f98;
-    --color-link: #00c;
-    --color-link-hover: #00f;
 
     --color-gray-lighter: #ddd;
     --color-gray-light: #ccc;
     --color-gray: #999;
     --color-gray-dark: #333;
+
+    --color-link: var(--color-primary);
+    --color-link-hover: var(--color-primary-dark);
 
     --space-2xs: .25rem;
     --space-xs: .5rem;
@@ -22,14 +26,6 @@
     --space-xl: 4rem;
     --space-2xl: 5rem;
     --space-3xl: 6rem;
-    
-    --size-sm: 1rem;
-    --size: 1.5rem;
-    --size-md: 1.75rem;
-    --size-lg: 2rem;
-    --size-xl: 2.5rem;
-    --size-2xl: 3rem;
-    --size-3xl: 4rem;
     
     --font-family-scale: 1.414;
     --font-family: 'Arial', 'Sans-Serif';
@@ -54,7 +50,7 @@
     --border-radius-sm: .3rem;
     --border-radius: .45rem;
 
-    --control-height: 2.5rem;
+    --control-height: 40px;
     --control-border: 2px solid var(--color-gray-light);
     
     --shadow: 0 1px 3px 0 rgba(6,0,14,.3), 0 1px 2px 0 rgba(6,0,14,.09);

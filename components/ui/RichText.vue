@@ -11,23 +11,32 @@
 .c-richtext h1 {
 	font-size: var(--font-size-3xl);
 	font-weight: 600;
-	margin: 48px 0 24px
+	margin: var(--space-lg) 0 var(--space-md)
 }
 
 .c-richtext h2 {
 	font-size: var(--font-size-2xl);
+	margin: var(--space-md) 0 var(--space-sm)
 }
 
 .c-richtext h3 {
-	font-size: var(--font-size-3xl);
+	font-size: var(--font-size-xl);
+	margin: var(--space-sm) 0 var(--space)
 }
 
 .c-richtext h4 {
-	font-size: var(--font-size-xl);
+	font-size: var(--font-size-lg);
+	margin: var(--space) 0 var(--space-xs)
 }
 
 .c-richtext h5 {
-	font-size: var(--font-size-lg);
+	font-size: var(--font-size-md);
+	margin: var(--space-xs) 0 var(--space-2xs)
+}
+
+.c-richtext h6 {
+	font-size: var(--font-size);
+	margin: 0
 }
 
 .c-richtext li {

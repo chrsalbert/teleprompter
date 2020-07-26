@@ -1,11 +1,11 @@
 <template>
   <AppNav>
     <AppNavGroup>
-      <ClickButton icon="menu" inverted v-on:click.native="openMenu()" />
+      <ClickButton icon="menu" type="inverted" v-on:click.native="openMenu()" />
       <AppMenu ref="appMenu">
       </AppMenu>
       <AppNavDivi />
-      <ClickButton inverted icon="arrowLeft" href="/">
+      <ClickButton type="inverted" icon="arrowLeft" href="/">
 				Teleprompter
       </ClickButton>
     </AppNavGroup>

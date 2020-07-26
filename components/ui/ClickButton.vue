@@ -4,13 +4,16 @@
 			to: href, 
 			tag: buttonType, 
 			class: { 
-				'c-button--inverted': isInverted, 
 				'c-button--icon': hasIcon && !hasSlot, 
 				'c-button--hasIcon': hasIcon && hasSlot,
-				'c-button--colored': hasColor
-			}, style: { 
+				'c-button--colored': hasColor,
+				'c-button--secondary': this.type === 'secondary',
+				'c-button--optional': this.type === 'optional',
+				'c-button--inverted': this.type === 'inverted' 
+			}, 
+			style: { 
 				'--color': color 
-			} 
+			}
 		}">
 		<AppIcon v-bind:icon="icon" v-if="hasIcon" />
 		<span><slot></slot></span>
@@ -27,7 +30,6 @@ export default {
 		classes: String,
 		icon: String,
 		type: String,
-		inverted: Boolean,
 		color: String,
 		href: {
 			type: String,
@@ -46,9 +48,6 @@ export default {
 		},
 		buttonType() {
 			return this.href != '#' ? 'a' : 'button'
-		},
-		isInverted() {
-			return this.inverted ? true : false
 		}
 	}
 }
@@ -59,13 +58,14 @@ export default {
 	height: var(--control-height);
 	line-height: calc(var(--control-height) - 4px);
 	padding: 0 var(--space-sm);
-	background: transparent;
+	background: var(--color-gray-lighter);
 	border-radius: var(--border-radius-xs);
 	border: 2px transparent solid;
-	color: var(--color);
+	color: var(--color-primary);
 	font-weight: 600;
 	text-decoration: none;
 	font-size: var(--font-size-sm);
+	transition: background .1s
 }
 
 .c-button:focus {
@@ -73,7 +73,8 @@ export default {
 }
 
 .c-button:hover {
-	background: rgba(0,0,0,.1);
+	background: var(--color-primary-lighter);
+	border-color: var(--color-primary-lighter);
 	outline: none
 }
 
@@ -81,21 +82,78 @@ export default {
 	width: calc(var(--control-height) / 1.6);
 	height: calc(var(--control-height) / 1.6);
 	vertical-align: middle;
-}
-
-button >>> .c-icon {
 	margin-top: -2px
 }
 
-.c-button--inverted,
+.c-button >>> svg {
+	stroke: var(--color-primary);
+	color: var(--color-primary)
+}
+
+/* secondary */
+
+.c-button--secondary {
+	background: var(--color-gray-lighter);
+	color: var(--color-text)
+}
+
+.c-button--secondary >>> svg {
+	stroke: var(--color-text);
+	color: var(--color-text)
+}
+
+.c-button--secondary:hover {
+	background: var(--color-gray-light);
+	border-color: var(--color-gray-light)
+}
+
+/* optional */
+
+.c-button--optional {
+	background: transparent;
+	color: var(--color-text-light)
+}
+
+.c-button--optional >>> svg {
+	stroke: var(--color-text-light);
+	color: var(--color-text-light)
+}
+
+.c-button--optional:hover {
+	background: transparent;
+	border-color: transparent;
+	color: var(--color-text)
+}
+
+.c-button--optional:hover >>> svg  {
+	stroke: var(--color-text);
+	color: var(--color-text)
+}
+
+/* inverted */
+
+.c-button--inverted {
+	background: transparent;
+	color: #fff
+}
+
 .c-button--inverted >>> svg {
-	stroke: white;
+	stroke: #fff;
 	color: #fff
 }
 
 .c-button--inverted:hover {
-	background: rgba(255,255,255,.1)
+	background: rgba(255,255,255,.15);
+	border-color: transparent;
+	color: #fff
 }
+
+.c-button--inverted:hover >>> svg  {
+	stroke: #fff;
+	color: #fff
+}
+
+/* misc */
 
 .c-button--colored,
 .c-button--colored >>> svg {
@@ -104,7 +162,7 @@ button >>> .c-icon {
 }
 
 .c-button--hasIcon {
-	padding-left: 0
+	padding-left: var(--space-xs)
 }
 
 .c-button--icon {

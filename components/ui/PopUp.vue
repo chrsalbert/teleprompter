@@ -1,10 +1,10 @@
 <template>
 	<transition name="c-popup">
-		<aside class="c-popup" v-bind:style="{ '--width': width }" v-show="isOpen">
+		<aside ref="backdrop" class="c-popup" v-bind:style="{ '--width': width }" v-show="isOpen" v-on:click="backdropClose()">
 			<div class="c-popup__container">
 				<header class="c-popup__head">
 					{{ title }}
-					<ClickButton icon="close" v-on:click.native="close()" />
+					<ClickButton type="optional" icon="close" v-on:click.native="close()" />
 				</header>
 				<div class="c-popup__body">
 					<slot></slot>
@@ -40,6 +40,9 @@ export default {
 		close() {
 			this.isOpen = false
 		},
+		backdropClose() {
+			event.target === this.$refs.backdrop ? this.close() : event.stopPropagation()
+		},
 		open() {
 			this.isOpen = true
 		}
@@ -57,46 +60,44 @@ export default {
 </script>
 <style scoped>
 	.c-popup {
-		z-index: 999;
+		z-index: 9;
 		position: fixed;
 		top: 0;
 		right: 0;
 		bottom: 0;
 		left: 0;
-		background-color: rgba(0,0,0,.8);
+		background-color: rgba(0,0,0,.9);
 		transition: background-color .2s;
 	}
 	.c-popup__container {
 		position: absolute;
-		top: 48px;
+		top: var(--header-height);
 		left: 50%;
 		width: var(--width);
 		max-width: 90%;
-		transform: translate3d(-50%, 0, 0) scale(1);
 		opacity: 1;
 		background: #fff;
 		border-radius: var(--border-radius);
 		box-shadow: var(--shadow-xl);
 		color: var(--color-text);
+		transform: translate3d(-50%, 0, 0) scale(1);
 		transition: all .2s;
 	}
 	.c-popup__head {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: var(--space-xs) var(--space-sm);
+		padding: var(--space-xs) var(--space);
 		font-weight: 600;
+		font-size: var(--font-size-md)
 	}
-
 	.c-popup__body {
-		padding: 16px
+		padding: var(--space)
 	}
-
 	.c-popup-enter,	
 	.c-popup-leave-to {
 		background-color: rgba(0,0,0,0)
 	}
-
 	.c-popup-enter .c-popup__container,	
 	.c-popup-leave-to .c-popup__container {
 		transform: translate3d(-50%, -24px, 0) scale(.95);
