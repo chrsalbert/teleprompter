@@ -40,60 +40,49 @@ import FormSwitch from '~/components/ui/FormSwitch'
 import FormRichInput from '~/components/ui/FormRichInput'
 
 export default {
-      },
-      set(val) {
-        this.$store.commit('player/setWordsPerMin', val)
-      }
-    },
-    mirror: {
-      get() {
-        return this.$store.state.player.display.mirror
-      },
-      set(val) {
-        this.$store.commit('player/setDisplayMirror', val)
-      }
-    },
-    padding: {
-      get() {
-        return this.$store.state.player.textStyles.padding
-      },
-      set(val) {
-        this.$store.commit('player/setTextPadding', val)
-      }
-    },
-    fontSize: {
-      get() {
-        return this.$store.state.player.textStyles.fontSize
-      },
-      set(val) {
-        this.$store.commit('player/setTextFontSize', val)
-      }
-    },
-    lineHeight: {
-      get() {
-        return this.$store.state.player.textStyles.lineHeight
-      },
-      set(val) {
-        this.$store.commit('player/setTextLineHeight', val)
-      }
-    },
-    textColor: {
-      get() {
-        return this.$store.state.player.textStyles.textColor
-      },
-      set(val) {
-        this.$store.commit('player/setTextTextColor', val)
-      }
-    },
-    backgroundColor: {
-      get() {
-        return this.$store.state.player.textStyles.backgroundColor
-      },
-      set(val) {
-        this.$store.commit('player/setTextBackgroundColor', val)
-      }
-    }
-  }
+	components: {
+		TabContainer,
+		TabItem,
+		FormRow,
+		FormInput,
+		FormRichInput
+	},
+	data() {
+		return {
+			form: {
+				wordsPerMin: this.$store.state.player.wordsPerMin,
+				mirror: this.$store.state.player.display.mirror,
+				padding: this.$store.state.player.textStyles.padding,
+				fontSize: this.$store.state.player.textStyles.fontSize,
+				lineHeight: this.$store.state.player.textStyles.lineHeight,
+				textColor: this.$store.state.player.textStyles.textColor,
+				backgroundColor: this.$store.state.player.textStyles.backgroundColor
+			}
+		}
+	},
+	computed: {
+		wordsPerMin: {
+			get() {
+				return this.$store.state.player.wordsPerMin
+			},
+			set(val) {
+				this.$store.commit('player/setWordsPerMin', val)
+			}
+		},
+		mirror: {
+			get() {
+				return this.$store.state.player.display.mirror
+			},
+			set(val) {
+				this.$store.commit('player/setDisplayMirror', val)
+			}
+		},
+		padding: {
+			get() {
+				return this.$store.state.player.textStyles.padding
+			},
+			set(val) {
+				this.$store.commit('player/setTextPadding', val)
 			}
 		},
 		fontSize: {
