@@ -1,6 +1,6 @@
 <template>
     <div class="c-playerScreen" v-bind:style="{ 
-        '--padding': `${textStyles.padding}px`,
+        '--padding': `${display.padding}px`,
         '--fontSize': `${textStyles.fontSize}px`,
         '--lineHeight': `${textStyles.lineHeight}`,
         '--textColor': `${textStyles.textColor}`,
@@ -26,11 +26,14 @@ export default {
         },
         textStyles() { 
             return this.$store.state.player.textStyles
+        },
+        display() { 
+            return this.$store.state.player.display
         }
     },
 	beforeMount() {
 		if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-			this.$store.commit('player/setIsSupportingSpeechRecognition', true)
+			this.$store.commit('player/SET_SPEECH_RECOGNITION_SUPPORT', true)
 		}
 	}
 }

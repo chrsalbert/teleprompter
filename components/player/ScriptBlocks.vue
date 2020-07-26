@@ -28,7 +28,7 @@ export default {
             const lastReadIndex = this.$refs.script.map(el => el.className).lastIndexOf('is-read')
             if(lastReadIndex >= 0) {
                 const offsetTop = this.$refs.script[lastReadIndex].offsetTop
-                this.$store.commit('player/setContainerOffset', offsetTop)
+                this.$store.commit('player/SET_CONTAINER_OFFSET', offsetTop)
             }
         }
     }

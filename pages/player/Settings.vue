@@ -47,26 +47,13 @@ export default {
 		FormInput,
 		FormRichInput
 	},
-	data() {
-		return {
-			form: {
-				wordsPerMin: this.$store.state.player.wordsPerMin,
-				mirror: this.$store.state.player.display.mirror,
-				padding: this.$store.state.player.textStyles.padding,
-				fontSize: this.$store.state.player.textStyles.fontSize,
-				lineHeight: this.$store.state.player.textStyles.lineHeight,
-				textColor: this.$store.state.player.textStyles.textColor,
-				backgroundColor: this.$store.state.player.textStyles.backgroundColor
-			}
-		}
-	},
 	computed: {
 		wordsPerMin: {
 			get() {
-				return this.$store.state.player.wordsPerMin
+				return this.$store.state.player.display.wordsPerMin
 			},
 			set(val) {
-				this.$store.commit('player/setWordsPerMin', val)
+				this.$store.commit('player/SET_WORDS_PER_MIN', val)
 			}
 		},
 		mirror: {
@@ -74,15 +61,15 @@ export default {
 				return this.$store.state.player.display.mirror
 			},
 			set(val) {
-				this.$store.commit('player/setDisplayMirror', val)
+				this.$store.commit('player/SET_DISPLAY_MIRRORING_STATE', val)
 			}
 		},
 		padding: {
 			get() {
-				return this.$store.state.player.textStyles.padding
+				return this.$store.state.player.display.padding
 			},
 			set(val) {
-				this.$store.commit('player/setTextPadding', val)
+				this.$store.commit('player/SET_DISPLAY_PADDING', val)
 			}
 		},
 		fontSize: {
@@ -90,7 +77,7 @@ export default {
 				return this.$store.state.player.textStyles.fontSize
 			},
 			set(val) {
-				this.$store.commit('player/setTextFontSize', val)
+				this.$store.commit('player/SET_FONT_SIZE', val)
 			}
 		},
 		lineHeight: {
@@ -98,7 +85,7 @@ export default {
 				return this.$store.state.player.textStyles.lineHeight
 			},
 			set(val) {
-				this.$store.commit('player/setTextLineHeight', val)
+				this.$store.commit('player/SET_LINE_HEIGHT', val)
 			}
 		},
 		textColor: {
@@ -106,7 +93,7 @@ export default {
 				return this.$store.state.player.textStyles.textColor
 			},
 			set(val) {
-				this.$store.commit('player/setTextTextColor', val)
+				this.$store.commit('player/SET_TEXT_COLOR', val)
 			}
 		},
 		backgroundColor: {
@@ -114,21 +101,9 @@ export default {
 				return this.$store.state.player.textStyles.backgroundColor
 			},
 			set(val) {
-				this.$store.commit('player/setTextBackgroundColor', val)
+				this.$store.commit('player/SET_BACKGROUND_COLOR', val)
 			}
 		}
 	}
-	// ,
-	// methods: {
-	// 	submitForm() {
-	// 		this.$store.commit('player/setWordsPerMin', this.form.wordsPerMin)
-	// 		this.$store.commit('player/setDisplayMirror', this.form.mirror)
-	// 		this.$store.commit('player/setTextPadding', this.form.padding)
-	// 		this.$store.commit('player/setTextFontSize', this.form.fontSize)
-	// 		this.$store.commit('player/setTextLineHeight', this.form.lineHeight)
-	// 		this.$store.commit('player/setTextTextColor', this.form.textColor)
-	// 		this.$store.commit('player/setTextBackgroundColor', this.form.backgroundColor)
-	// 	}
-	// }
 }
 </script>

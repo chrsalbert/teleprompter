@@ -31,13 +31,13 @@ export default {
             return this.$store.state.player.containerOffset
         },
         ...mapGetters({
-            animationDuration: 'player/animationDuration',
-            animationPlayState: 'player/animationPlayState'
+            animationDuration: 'player/getAnimationDuration',
+            animationPlayState: 'player/getAnimationPlayState'
         })
     },
     methods: {
         updateContainerHeight() {
-            this.$store.commit('player/setContainerHeight', this.$refs.container.offsetHeight)
+            this.$store.commit('player/SET_CONTAINER_HEIGHT', this.$refs.container.offsetHeight)
         },
         resetAnimation() {
             this.$refs.container.style.animation = 'none'
@@ -60,7 +60,7 @@ export default {
     watch: {
         isResetAnimation: function (newVal, oldVal) {
             this.resetAnimation()
-            this.$store.commit('player/setResetAnimation', false)
+            this.$store.commit('player/SET_RESET_ANIMATION_STATE', false)
         }
     },
 }
