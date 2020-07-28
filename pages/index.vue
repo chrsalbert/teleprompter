@@ -1,5 +1,5 @@
 <template>
   <div>
-    <p>Fix</p>
+    <p>Fix!</p>
   </div>
 </template>
