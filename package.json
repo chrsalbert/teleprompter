@@ -8,7 +8,7 @@
     "start": "nuxt start",
     "export": "nuxt export",
     "serve": "nuxt serve",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build && npm run start"
   },
   "dependencies": {
     "@nuxtjs/pwa": "^3.0.0-beta.20",
