@@ -55,7 +55,6 @@ export default {
   */
   modules: [
     '@nuxtjs/pwa',
-    '@nuxtjs/svg',
     '~/io'
   ],
   env: {
