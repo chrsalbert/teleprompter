@@ -55,8 +55,12 @@ export default {
   */
   modules: [
     '@nuxtjs/pwa',
-    '@nuxtjs/svg'
+    '@nuxtjs/svg',
+    '~/io'
   ],
+  env: {
+    WS_URL: process.env.WS_URL || 'http://localhost:3000'
+  },
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
