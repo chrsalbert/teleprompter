@@ -57,6 +57,9 @@ export default {
     '@nuxtjs/pwa',
     '~/io'
   ],
+  env: {
+    WS_URL: process.env.WS_URL || 'http://localhost:3000'
+  },
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
