@@ -13,9 +13,7 @@
   "dependencies": {
     "@nuxtjs/pwa": "^3.0.0-beta.20",
     "caniuse-api": "^3.0.0",
-    "nuxt": "^2.13.0"
-  },
-  "devDependencies": {
+    "nuxt": "^2.13.0",
     "@nuxtjs/svg": "^0.1.11"
   }
 }
