@@ -67,6 +67,6 @@ export default {
   build: {
   },
   server: {
-    port: 8000
+    port: process.env.PORT || 8000
   }
 }
