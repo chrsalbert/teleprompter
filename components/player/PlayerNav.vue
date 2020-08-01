@@ -6,6 +6,10 @@
 			<AppNavDivi />
 			<ClickButton icon="documents" type="inverted" v-on:click.native="openDocuments()" />
 			<ClickButton icon="settings" type="inverted" v-on:click.native="openSettings()" />
+			<ClickButton icon="close" type="inverted" v-on:click.native="openController()" />
+			<PopUp ref="controllerPopup" title="Remote control" width="26rem">
+				<PlayerController />
+			</PopUp>
 			<PopUp ref="settingsPopup" title="Einstellungen" width="26rem">
 				<PlayerSettings />
 			</PopUp>
@@ -50,6 +54,7 @@ import AppNavDivi from '~/components/ui/AppNavDivi'
 import ClickButton from '~/components/ui/ClickButton'
 import PopUp from '~/components/ui/PopUp'
 import RichText from '~/components/ui/RichText'
+import PlayerController from '~/pages/player/PlayerController'
 import PlayerSettings from '~/pages/player/Settings'
 import PlayerDocuments from '~/pages/player/Documents'
 import logoSymbol from "~/assets/images/logo-symbol.svg?raw"
@@ -65,7 +70,8 @@ export default {
 		AppNavDivi,
 		RichText,
 		PlayerSettings,
-		PlayerDocuments
+		PlayerDocuments,
+		PlayerController
 	},
 	mixins: [fullscreenFunctions, getSupport],
 	data () {
@@ -91,6 +97,9 @@ export default {
 		}
 	},
 	methods: {
+		openController() {
+			this.$refs.controllerPopup.open()
+		},
 		openSettings() {
 			this.$refs.settingsPopup.open()
 		},

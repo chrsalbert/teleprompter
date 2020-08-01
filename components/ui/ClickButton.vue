@@ -9,7 +9,8 @@
 				'c-button--colored': hasColor,
 				'c-button--secondary': this.type === 'secondary',
 				'c-button--optional': this.type === 'optional',
-				'c-button--inverted': this.type === 'inverted' 
+				'c-button--inverted': this.type === 'inverted',
+				'c-button--large': this.size === 'large'
 			}, 
 			style: { 
 				'--color': color 
@@ -30,6 +31,7 @@ export default {
 		classes: String,
 		icon: String,
 		type: String,
+		size: String,
 		color: String,
 		href: {
 			type: String,
@@ -167,6 +169,18 @@ export default {
 	color: var(--color)
 }
 
+/* controller */
+
+.c-button--large {
+	height: var(--control-height-large);
+}
+
+.c-button--large >>> .c-icon {
+	width: calc(var(--control-height-large) / 1.6);
+	height: calc(var(--control-height-large) / 1.6);
+	margin-top: 0
+}
+
 /* misc */
 
 .c-button--hasIcon {
@@ -176,5 +190,9 @@ export default {
 .c-button--icon {
 	padding: 0;
 	width: var(--control-height);
+}
+
+.c-button--icon.c-button--large {
+	width: var(--control-height-large);
 }
 </style>
