@@ -23,16 +23,15 @@ app.use(nuxt.render)
 server.listen(port, '0.0.0.0')
 console.log('Server listening on localhost:' + port) // eslint-disable-line no-console
 
-io.on('connection', socket => {
-    console.log('Socket Connect:', { id: socket.id })
-    io.emit('chat-message', 'enter')
-    socket.on('disconnect', message => {
-        console.log({ id: socket.id, message })
-        socket.broadcast.emit('chat-message', 'leave')
+// Socket.io
+io.on('connection', async (socket) => {
+    socket.on('joinRoom', function (room) {
+        socket.join(room)
     })
-
-    socket.on('chat-message', msg => {
-        console.log('chat-message:', msg)
-        io.emit('chat-message', msg)
+    socket.on('play', function (room) {
+        io.to(room).emit('action', 'play')
+    })
+    socket.on('pause', function (room) {
+        io.to(room).emit('action', 'pause')
     })
 })
