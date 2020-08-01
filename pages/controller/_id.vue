@@ -5,17 +5,13 @@
     </div>
 </template>
 <script>
-let socket
+import io from 'socket.io-client'
+
+let socket = io()
 
 export default {
     layout: 'player',
-	head() {
-		return {
-			script: [{ src: '/socket.io/socket.io.js' }]
-		}
-	},
  	mounted () {
-        socket = io()
         const room = this.$route.params.id
 		socket.on('connect', function() {
             socket.emit('joinRoom', room)

@@ -2,18 +2,14 @@
  	 <PlayerScreen />
 </template>
 <script>
+import io from 'socket.io-client'
 import { mapActions } from 'vuex'
 import PlayerScreen from '~/components/player/PlayerScreen'
 
-let socket
+let socket = io()
 
 export default {
 	layout: 'player',
-	head() {
-		return {
-			script: [{ src: '/socket.io/socket.io.js' }]
-		}
-	},
 	components: {
 		PlayerScreen
 	},
@@ -24,7 +20,6 @@ export default {
         })
 	},
  	mounted() {
-		socket = io()
 		const room = this.$route.params.id
 		const _this = this
 		socket.on('connect', function() {
