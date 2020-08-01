@@ -19,7 +19,7 @@ export default {
 	},
 	mounted() {
 		const room = this.$route.params.id
-		const domain = process.env.HOST || 'http://localhost:3000'
+		const domain = window.location.origin
 		this.url = `${domain}/controller/${room}`
 	}
 }
