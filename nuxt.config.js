@@ -54,6 +54,7 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/svg',
     '@nuxtjs/pwa'
   ],
   env: {

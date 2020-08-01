@@ -19,6 +19,7 @@
     "socket.io-client": "^2.3.0"
   },
   "devDependencies": {
+    "@nuxtjs/svg": "^0.1.11",
     "nodemon": "^1.11.0"
   }
 }
