@@ -13,28 +13,59 @@ export default {
 	components: {
 		PlayerScreen
 	},
-	methods: {
-        ...mapActions({
-			play: 'player/play',
-			pause: 'player/pause'
-        })
+	data() {
+		return {
+			room: ''
+		}
 	},
- 	mounted() {
-		const room = this.$route.params.id
-		const _this = this
+ 	beforeMount() {
+		this.room = this.$route.params.id
+		const context = this
 		socket.on('connect', function() {
-		  socket.emit('joinRoom', room)
+		  	socket.emit('joinRoom', context.room)
 		})
 		socket.on('action', function(action) {
 			switch(action) {
 				case 'play':
-					_this.play()
+					context.play()
 				break
 				case 'pause':
-					_this.pause()
+					context.pause()
+				break
+				case 'reset':
+					context.reset()
 				break
 			}
 		})
-	 }
+	},
+	computed: {
+		isPlaying() { 
+			return this.$store.state.player.isPlaying 
+		},
+		isRecognizing() { 
+			return this.$store.state.player.isRecognizing 
+		},
+		isSpeechRecognitionEnabled() { 
+			return this.$store.state.player.isSpeechRecognitionEnabled 
+		}
+	},
+	methods: {
+        ...mapActions({
+			play: 'player/play',
+			pause: 'player/pause',
+			reset: 'player/reset'
+        })
+	},
+	watch: {
+		isPlaying(val) {
+			socket.emit('isPlaying', this.room, val)
+		},
+		isRecognizing(val) {
+			socket.emit('isRecognizing', this.room, val)
+		},
+		isSpeechRecognitionEnabled(val) {
+			socket.emit('isSpeechRecognitionEnabled', this.room, val)
+		}
+	}
 }
 </script>

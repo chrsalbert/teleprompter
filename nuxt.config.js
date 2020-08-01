@@ -65,5 +65,6 @@ module.exports = {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
-  }
+  },
+  telemetry: false
 }

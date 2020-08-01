@@ -153,13 +153,21 @@ export default {
 	color: #fff
 }
 
-/* misc */
+/* colored */
 
 .c-button--colored,
 .c-button--colored >>> svg {
-	color: var(--color);
-	stroke: var(--color)
+	stroke: var(--color);
+	color: var(--color)
 }
+
+.c-button--colored:hover,
+.c-button--colored:hover >>> svg  {
+	stroke: var(--color);
+	color: var(--color)
+}
+
+/* misc */
 
 .c-button--hasIcon {
 	padding-left: var(--space-xs)
