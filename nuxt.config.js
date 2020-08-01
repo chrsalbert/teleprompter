@@ -1,5 +1,5 @@
 
-export default {
+module.exports = {
   /*
   ** Nuxt rendering mode
   ** See https://nuxtjs.org/api/configuration-mode
@@ -54,7 +54,7 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    '~/io'
+    '@nuxtjs/pwa'
   ],
   env: {
     WS_URL: process.env.WS_URL || 'http://localhost:3000'

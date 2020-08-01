@@ -3,11 +3,17 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
-import socket from '~/plugins/socket.io.js'
 import PlayerScreen from '~/components/player/PlayerScreen'
+
+let socket
 
 export default {
 	layout: 'player',
+	head() {
+		return {
+			script: [{ src: '/socket.io/socket.io.js' }]
+		}
+	},
 	components: {
 		PlayerScreen
 	},
@@ -17,7 +23,8 @@ export default {
 			pause: 'player/pause'
         })
 	},
- 	beforeMount () {
+ 	mounted() {
+		socket = io()
 		const room = this.$route.params.id
 		const _this = this
 		socket.on('connect', function() {
