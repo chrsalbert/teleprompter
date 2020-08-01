@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<p>Open a remote control on your mobile device. Scan the qr code or copy the address below.</p>
+		<p>To open a remote control on your mobile device, simply scan the qr code or copy the address below.</p>
 		<p><qrcode-vue :value="url"></qrcode-vue></p>
 		<p><span class="url">{{ url }}</span></p>
 	</div>
@@ -28,7 +28,8 @@ export default {
 	.url {
 		display: inline-block;
 		background: var(--color-gray-lighter);
-		padding: var(--space-xs)
+		padding: var(--space-xs);
+		word-break: break-all;
 	}
 	.menu {
 		display: flex;

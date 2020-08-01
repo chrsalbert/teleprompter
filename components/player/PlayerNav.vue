@@ -6,7 +6,7 @@
 			<AppNavDivi />
 			<ClickButton icon="documents" type="inverted" v-on:click.native="openDocuments()" />
 			<ClickButton icon="settings" type="inverted" v-on:click.native="openSettings()" />
-			<ClickButton icon="close" type="inverted" v-on:click.native="openController()" />
+			<ClickButton icon="devices" type="inverted" v-on:click.native="openController()" />
 			<PopUp ref="controllerPopup" title="Remote control" width="26rem">
 				<PlayerController />
 			</PopUp>

@@ -3,6 +3,7 @@
 </template>
 <script>
 import iconMenu from "~/assets/images/icons/menu.svg?raw"
+import iconDevices from "~/assets/images/icons/devices.svg?raw"
 import iconArrowLeft from "~/assets/images/icons/arrow-left.svg?raw"
 import iconPause from "~/assets/images/icons/pause.svg?raw"
 import iconDocuments from "~/assets/images/icons/documents.svg?raw"
@@ -23,6 +24,7 @@ export default {
 	data () {
 		return {
 			icons: {
+				devices: iconDevices,
 				arrowLeft: iconArrowLeft,
 				menu: iconMenu,
 				pause: iconPause,

@@ -15,7 +15,8 @@
 			style: { 
 				'--color': color 
 			}
-		}">
+		}"
+		v-on:click="$event.target.blur()">
 		<AppIcon v-bind:icon="icon" v-if="hasIcon" />
 		<span><slot></slot></span>
 	</nuxt-link>
