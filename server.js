@@ -25,25 +25,33 @@ console.log('Server listening on localhost:' + port) // eslint-disable-line no-c
 
 // Socket.io
 io.on('connection', async (socket) => {
-    socket.on('joinRoom', function (room) {
-        socket.join(room)
+    socket.on('createPlayer', function (playerId) {
+        socket.join(playerId)
     })
-    socket.on('isPlaying', function (room, val) {
-        io.to(room).emit('isPlaying', val)
+    socket.on('connectToPlayer', function (playerId) {
+        if (socket.adapter.rooms[playerId]) {
+            socket.join(playerId)
+            socket.emit('isConntectedToPlayer', true)
+        } else {
+            socket.emit('isConntectedToPlayer', false)
+        }
     })
-    socket.on('isRecognizing', function (room, val) {
-        io.to(room).emit('isRecognizing', val)
+    socket.on('isPlaying', function (playerId, val) {
+        io.to(playerId).emit('isPlaying', val)
     })
-    socket.on('isSpeechRecognitionEnabled', function (room, val) {
-        io.to(room).emit('isSpeechRecognitionEnabled', val)
+    socket.on('isRecognizing', function (playerId, val) {
+        io.to(playerId).emit('isRecognizing', val)
     })
-    socket.on('play', function (room) {
-        io.to(room).emit('action', 'play')
+    socket.on('isSpeechRecognitionEnabled', function (playerId, val) {
+        io.to(playerId).emit('isSpeechRecognitionEnabled', val)
     })
-    socket.on('pause', function (room) {
-        io.to(room).emit('action', 'pause')
+    socket.on('play', function (playerId) {
+        io.to(playerId).emit('action', 'play')
     })
-    socket.on('reset', function (room) {
-        io.to(room).emit('action', 'reset')
+    socket.on('pause', function (playerId) {
+        io.to(playerId).emit('action', 'pause')
+    })
+    socket.on('reset', function (playerId) {
+        io.to(playerId).emit('action', 'reset')
     })
 })

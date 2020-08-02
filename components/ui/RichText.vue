@@ -1,8 +1,23 @@
 <template>
-	<div class="c-richtext">
+	<div class="c-richtext" v-bind:class="{ 'c-richtext--darkmode': hasDarkmode }">
 		<slot></slot>
 	</div>
 </template>
+<script>
+export default {
+	props: {
+		darkmode: {
+			type: Boolean,
+			default: false
+		}
+	},
+	computed: {
+		hasDarkmode() {
+			return this.darkmode
+		}
+	}
+}
+</script>
 <style scoped>
 .c-richtext {
 	line-height: 1.6
@@ -39,8 +54,13 @@
 	margin: 0
 }
 
-.c-richtext li {
+.c-richtext ul > li {
 	list-style-type: disc;
+	margin-left: 2rem
+}
+
+.c-richtext ol > li {
+	list-style-type: decimal;
 	margin-left: 2rem
 }
 
@@ -55,5 +75,18 @@
 
 .c-richtext a:hover {
   	color: var(--color-link-hover)
+}
+
+.c-richtext--darkmode {
+	color: #fff;
+}
+
+.c-richtext--darkmode a {
+	color: #aaf;
+}
+
+.c-richtext--darkmode a:hover {
+	color: #aaf;
+	text-decoration: underline;
 }
 </style>

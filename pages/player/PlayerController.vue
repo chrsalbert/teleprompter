@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<p>To open a remote control on your mobile device, simply scan the qr code or copy the address below.</p>
-		<p><qrcode-vue :value="url"></qrcode-vue></p>
-		<p><span class="url">{{ url }}</span></p>
+		<div>To open a remote control on your mobile device, simply scan the qr code or copy the address below.</div>
+		<div><qrcode-vue :value="url"></qrcode-vue></div>
+		<div><span class="url">{{ url }}</span></div>
 	</div>
 </template>
 <script>
@@ -14,11 +14,11 @@ export default {
 	},
 	data() {
 		return {
-			url: 'http://google.de'
+			url: ''
 		}
 	},
 	mounted() {
-		const room = this.$route.params.id
+		const room = this.$cookies.get('room')
 		const domain = window.location.origin
 		this.url = `${domain}/controller/${room}`
 	}
@@ -34,7 +34,7 @@ export default {
 	.menu {
 		display: flex;
 	}
-	p:not(:first-child) {
+	div:not(:first-child) {
 		margin-top: var(--space-md);
 		text-align: center
 	}

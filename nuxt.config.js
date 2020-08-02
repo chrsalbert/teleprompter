@@ -55,7 +55,8 @@ module.exports = {
   */
   modules: [
     '@nuxtjs/svg',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    'cookie-universal-nuxt'
   ],
   env: {
     WS_URL: process.env.WS_URL || 'http://localhost:3000'

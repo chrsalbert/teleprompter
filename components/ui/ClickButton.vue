@@ -34,6 +34,7 @@ export default {
 		type: String,
 		size: String,
 		color: String,
+		submit: Boolean,
 		href: {
 			type: String,
 			default: '#'
@@ -51,6 +52,9 @@ export default {
 		},
 		buttonType() {
 			return this.href != '#' ? 'a' : 'button'
+		},
+		isSubmit() {
+			return this.submit ? 'submit' : ''
 		}
 	}
 }
