@@ -1,16 +1,18 @@
 <template>
 	<div>
-		<FormRow direction="vertical" label="Transkript" labelFor="text">
-			<FormTextarea id="text" v-model="text" />
-		</FormRow>
+		<form-row direction="vertical" label="Transcript" labelFor="text">
+			<form-textarea id="text" v-model="text" />
+		</form-row>
 	</div>
 </template>
 <script>
 import { mapActions } from 'vuex'
+import FormRow from '~/components/ui/FormRow'
 import FormTextarea from '~/components/ui/FormTextarea'
 
 export default {
 	components: {
+		FormRow,
 		FormTextarea
 	},
 	methods: {
@@ -29,8 +31,8 @@ export default {
 		}
 	},
 	watch: {
-		text(newValue, oldValue) {
-			localStorage.setItem('text', newValue)
+		text(val) {
+			localStorage.setItem('text', val)
 		}
 	}
 }

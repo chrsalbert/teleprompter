@@ -1,31 +1,31 @@
 <template>
 	<TabContainer>
-		<TabItem title="Ansicht" :selected="true">
-			<FormRow label="Wörter / Minute" labelFor="wordsPerMin">
+		<TabItem title="Display" :selected="true">
+			<FormRow label="Words per min." labelFor="wordsPerMin">
 				<FormInput id="wordsPerMin" type="number" :step="10" v-model="wordsPerMin" />
 			</FormRow>
-			<FormRow label="Abstand zur Seite" labelFor="fontSize">
+			<FormRow label="Text margin" labelFor="fontSize">
 				<FormRichInput append="px">
 					<FormInput id="fontSize" type="number" :step="10" v-model="padding" />
 				</FormRichInput>
 			</FormRow>
-			<FormRow label="Bildschirm spiegeln" labelFor="mirror">
+			<FormRow label="Mirror screen" labelFor="mirror">
 				<FormSwitch id="mirror" v-model="mirror" />
 			</FormRow>
 		</TabItem>
-		<TabItem title="Schrift">
-			<FormRow label="Schriftgröße" labelFor="fontSize">
+		<TabItem title="Font style">
+			<FormRow label="Font size" labelFor="fontSize">
 				<FormRichInput append="px">
 					<FormInput id="fontSize" type="number" v-model="fontSize" />
 				</FormRichInput>
 			</FormRow>
-			<FormRow label="Zeilenhöhe" labelFor="lineHeight">
+			<FormRow label="Line height" labelFor="lineHeight">
 				<FormInput id="lineHeight" type="number" :step=".1" v-model="lineHeight" />
 			</FormRow>
-			<FormRow label="Textfarbe" labelFor="textColor">
+			<FormRow label="Text color" labelFor="textColor">
 				<FormInput id="textColor" type="color" v-model="textColor" />
 			</FormRow>
-			<FormRow label="Hintergrundfarbe" labelFor="backgroundColor">
+			<FormRow label="Background color" labelFor="backgroundColor">
 				<FormInput id="backgroundColor" type="color" v-model="backgroundColor" />
 			</FormRow>
 		</TabItem>

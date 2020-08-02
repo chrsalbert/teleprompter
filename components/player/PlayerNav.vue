@@ -10,11 +10,11 @@
 			<PopUp ref="controllerPopup" title="Remote control" width="26rem">
 				<PlayerController />
 			</PopUp>
-			<PopUp ref="settingsPopup" title="Einstellungen" width="26rem">
+			<PopUp ref="settingsPopup" title="Settings" width="26rem">
 				<PlayerSettings />
 			</PopUp>
-			<PopUp ref="documentsPopup" title="Transkript bearbeiten" width="40rem">
-				<PlayerDocuments />
+			<PopUp ref="transcriptPopup" title="Edit transcript" width="40rem">
+				<PlayerTranscript />
 			</PopUp>
 			<PopUp ref="browserSupportDialog" title="Die Spracherkennung wird nicht unterstützt" width="30rem">
 				<RichText>
@@ -54,9 +54,9 @@ import AppNavDivi from '~/components/ui/AppNavDivi'
 import ClickButton from '~/components/ui/ClickButton'
 import PopUp from '~/components/ui/PopUp'
 import RichText from '~/components/ui/RichText'
-import PlayerController from '~/pages/player/PlayerController'
-import PlayerSettings from '~/pages/player/Settings'
-import PlayerDocuments from '~/pages/player/Documents'
+import PlayerTranscript from '~/components/player/PlayerTranscript'
+import PlayerSettings from '~/components/player/PlayerSettings'
+import PlayerController from '~/components/player/PlayerController'
 import logoSymbol from "~/assets/images/logo-symbol.svg?raw"
 import fullscreenFunctions from '~/mixins/fullscreenFunctions.js'
 import getSupport from '~/mixins/getSupport.js'
@@ -70,7 +70,7 @@ export default {
 		AppNavDivi,
 		RichText,
 		PlayerSettings,
-		PlayerDocuments,
+		PlayerTranscript,
 		PlayerController
 	},
 	mixins: [fullscreenFunctions, getSupport],
@@ -104,7 +104,7 @@ export default {
 			this.$refs.settingsPopup.open()
 		},
 		openDocuments() {
-			this.$refs.documentsPopup.open()
+			this.$refs.transcriptPopup.open()
 		},
 		openMenu() {
 			this.$refs.appMenu.toggleOpen()

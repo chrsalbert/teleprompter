@@ -1,7 +1,7 @@
 <template>
 	<transition name="c-popup">
-		<aside ref="backdrop" class="c-popup" v-bind:style="{ '--width': width }" v-show="isOpen" v-on:click="backdropClose()">
-			<div class="c-popup__container">
+		<aside ref="backdrop" class="c-popup" v-show="isOpen" v-on:click="backdropClose()">
+			<div class="c-popup__container" v-bind:style="{ '--width': width }" >
 				<header class="c-popup__head">
 					{{ title }}
 					<ClickButton type="optional" icon="close" v-on:click.native="close()" />
@@ -73,8 +73,8 @@ export default {
 		position: absolute;
 		top: var(--header-height);
 		left: 50%;
-		width: var(--width);
-		max-width: 90%;
+		width: 100%;
+		max-width: var(--width);
 		opacity: 1;
 		background: #fff;
 		border-radius: var(--border-radius);
