@@ -18,7 +18,7 @@ export default {
 		}
 	},
 	mounted() {
-		const room = this.$cookies.get('room')
+		const room = this.$cookies.get('playerId')
 		const domain = window.location.origin
 		this.url = `${domain}/controller/${room}`
 	}
