@@ -1,15 +1,15 @@
 <template>
 	<header class="c-head">
 		<slot v-if="slotPassed"></slot>
-		<AppNav v-else />
+		<main-nav v-else />
 	</header>
 </template>
 <script>
-import AppNav from '~/components/common/AppNav'
+import MainNav from '~/components/common/MainNav'
 
 export default {
 	components: {
-		AppNav
+		MainNav
 	},
 	computed: {
 		slotPassed() {
@@ -20,17 +20,10 @@ export default {
 </script>
 <style scoped>
 .c-head {
-	position: fixed;
 	display: flex;
 	align-items: center;
-	z-index: 999;
-	top: 0;
-	left: 0;
-	right: 0;
-	height: 48px;
-	padding: 0 var(--space-md);
+	padding: var(--space-sm) var(--space-md);
 	background: #000;
-	border-bottom: 1px rgba(255,255,255,.2) solid;
 	color: #fff;
 }
 </style>

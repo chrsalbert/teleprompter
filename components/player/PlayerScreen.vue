@@ -1,5 +1,6 @@
 <template>
-    <div class="c-playerScreen" v-bind:style="{ 
+    <div ref="screen" class="c-playerScreen" v-bind:style="{ 
+        '--paddingTop': `${paddingTop}px`,
         '--padding': `${settings.padding}px`,
         '--fontSize': `${settings.fontSize}px`,
         '--lineHeight': `${settings.lineHeight}`,
@@ -21,6 +22,11 @@ export default {
         PlayerScreenContent,
         PlayerScreenLine
     },
+    data() {
+        return {
+            paddingTop: 0
+        }
+    },
     computed: {
         isMirrored() {
             return this.$store.state.player.settings.mirror
@@ -33,11 +39,15 @@ export default {
         ...mapActions({
 			initSettings: 'player/initSettings',
 			initText: 'player/initText'
-        })
+        }),
+        setPaddingTop() {
+            this.paddingTop = this.$refs.screen.offsetHeight / 2
+        },
 	},
 	mounted() {
 		this.initSettings()
-		this.initText()
+        this.initText()
+        this.setPaddingTop()
 	},
 	beforeMount() {
 		if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
@@ -51,7 +61,9 @@ export default {
     position: relative;
     height: 100%;
     overflow: hidden;
-    padding: 0 var(--padding) 0;
+    padding-top: var(--paddingTop);
+    padding-right: var(--padding);
+    padding-left: var(--padding);
     background-color: var(--backgroundColor);
     color: #fff;
     font-family: 'Arial';

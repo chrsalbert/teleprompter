@@ -50,6 +50,10 @@
     --border-radius-sm: .3rem;
     --border-radius: .45rem;
 
+    --border-color: #333;
+
+    --body-background-color: #000;
+
     --control-height: 40px;
     --control-height-large: 80px;
     --control-border: 2px solid var(--color-gray-light);

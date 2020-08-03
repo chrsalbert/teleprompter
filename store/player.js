@@ -10,8 +10,8 @@ export const state = () => ({
     settings: {
         wordsPerMin: 150,
         mirror: false,
-        padding: 100,
-        fontSize: 64,
+        padding: 30,
+        fontSize: 40,
         lineHeight: 1.5,
         textColor: '#ffffff',
         backgroundColor: '#000000'

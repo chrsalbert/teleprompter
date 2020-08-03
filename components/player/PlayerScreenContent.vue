@@ -69,7 +69,7 @@ export default {
 .c-playerScreen__content {
     position: relative;
     z-index: 1;
-    top: calc(50% - calc(1em * var(--lineHeight) / 2));
+    /* top: calc(50% - calc(1em * var(--lineHeight) / 2)); */
     font-size: var(--fontSize);
     color: var(--textColor);
     line-height: var(--lineHeight);

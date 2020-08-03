@@ -25,6 +25,7 @@ export default {
 
 .c-richtext h1 {
 	font-size: var(--font-size-3xl);
+	line-height: calc(var(--font-size-3xl) + var(--space-xs));
 	font-weight: 600;
 	margin: var(--space-lg) 0 var(--space-md)
 }

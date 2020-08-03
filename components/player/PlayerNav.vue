@@ -1,12 +1,12 @@
 <template>
-	<AppNav>
-		<AppNavGroup>
-			<ClickButton icon="menu" type="inverted" v-on:click.native="openMenu()" />
-			<AppMenu ref="appMenu" />
-			<AppNavDivi />
-			<ClickButton icon="documents" type="inverted" v-on:click.native="openDocuments()" />
-			<ClickButton icon="settings" type="inverted" v-on:click.native="openSettings()" />
-			<ClickButton icon="devices" type="inverted" v-on:click.native="openController()" />
+	<nav-container>
+		<nav-group>
+			<click-button icon="menu" type="inverted" v-on:click.native="openSidebar()" />
+		</nav-group>
+		<nav-group>
+			<click-button icon="documents" type="inverted" v-on:click.native="openDocuments()" />
+			<click-button icon="settings" type="inverted" v-on:click.native="openSettings()" />
+			<click-button icon="devices" type="inverted" v-on:click.native="openController()" />
 			<PopUp ref="controllerPopup" title="Remote control" width="26rem">
 				<PlayerController />
 			</PopUp>
@@ -24,32 +24,22 @@
 					</ul>
 				</RichText>
 			</PopUp>
-			<AppNavDivi />
-			<transition mode="out-in">
-				<ClickButton v-if="isSpeechRecognitionEnabled === false" icon="toggleOff" type="inverted" v-on:click.native="checkSpeechRecognition()" key="off">
+			<!-- <transition mode="out-in">
+				<click-button v-if="isSpeechRecognitionEnabled === false" icon="toggleOff" type="inverted" v-on:click.native="checkSpeechRecognition()" key="off">
 					Spracherkennung
-				</ClickButton>
-				<ClickButton v-else icon="toggleOn" type="inverted" v-on:click.native="disableSpeechRecognition()" key="on">
+				</click-button>
+				<click-button v-else icon="toggleOn" type="inverted" v-on:click.native="disableSpeechRecognition()" key="on">
 					Spracherkennung
-				</ClickButton>
-			</transition>
-			<AppNavDivi />
-			<ClickButton icon="reload" type="inverted" v-on:click.native="reset()" />
-			<transition mode="out-in">
-				<ClickButton v-if="isPlaying || isRecognizing" v-bind:icon="isRecognizing === true ? 'microphoneOff' : 'pause'" color="#FF6347" type="inverted" v-on:click.native="pause()" key="pause" />
-				<ClickButton v-else v-bind:icon="isSpeechRecognitionEnabled && isRecognizing === false ? 'microphone' : 'play'" color="#7FFF00" type="inverted" v-on:click.native="play()" key="play" />
-			</transition>
-		</AppNavGroup>
-		<AppNavGroup>
-			<ClickButton icon="fullscreen" type="inverted" v-on:click.native="toggleFullscreen()"/>
-		</AppNavGroup>
-	</AppNav>
+				</click-button>
+			</transition> -->
+			<!-- <click-button icon="fullscreen" type="inverted" v-on:click.native="toggleFullscreen()"/> -->
+		</nav-group>
+	</nav-container>
 </template>
 <script>
 import { mapActions } from 'vuex'
-import AppMenu from '~/components/common/AppMenu'
-import AppNav from '~/components/ui/AppNav'
-import AppNavGroup from '~/components/ui/AppNavGroup'
+import NavContainer from '~/components/ui/nav/NavContainer'
+import NavGroup from '~/components/ui/nav/NavGroup'
 import AppNavDivi from '~/components/ui/AppNavDivi'
 import ClickButton from '~/components/ui/ClickButton'
 import PopUp from '~/components/ui/PopUp'
@@ -65,8 +55,7 @@ export default {
 	components: {
 		ClickButton,
 		PopUp,
-		AppMenu,
-		AppNav,
+		NavContainer,
 		AppNavDivi,
 		RichText,
 		PlayerSettings,
@@ -80,12 +69,6 @@ export default {
 		}
 	},
 	computed: {
-		isPlaying() { 
-			return this.$store.state.player.isPlaying 
-		},
-		isRecognizing() { 
-			return this.$store.state.player.isRecognizing 
-		},
 		isSpeechRecognitionEnabled() { 
 			return this.$store.state.player.isSpeechRecognitionEnabled 
 		},
@@ -106,8 +89,8 @@ export default {
 		openDocuments() {
 			this.$refs.transcriptPopup.open()
 		},
-		openMenu() {
-			this.$refs.appMenu.toggleOpen()
+		openSidebar() {
+			this.$store.commit('SET_SIDEBAR_OPEN', true)
 		},
 		checkSpeechRecognition() {
 			this.isSupportingSpeechRecognition === true ? this.enableSpeechRecognition() : this.$refs.browserSupportDialog.open()
@@ -119,16 +102,6 @@ export default {
 			enableSpeechRecognition: 'player/enableSpeechRecognition',
 			disableSpeechRecognition: 'player/disableSpeechRecognition'
 		})
-	},
-	mounted() {
-		document.addEventListener('keydown', function(event) {
-		// console.log('key' + event.which);
-		switch (event.which) {
-			case 32:
-			this.isPlaying ? this.pause() : this.play()
-			break
-		}
-		}.bind(this), false )
 	}
 }
 </script>

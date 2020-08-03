@@ -73,8 +73,8 @@ export default {
 		position: absolute;
 		top: var(--header-height);
 		left: 50%;
-		width: 100%;
-		max-width: var(--width);
+		width: var(--width);
+		max-width: calc(100% - var(--space-md));
 		opacity: 1;
 		background: #fff;
 		border-radius: var(--border-radius);

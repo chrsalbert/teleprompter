@@ -14,7 +14,8 @@ html {
 
 body {
   font: 1rem/var(--line-height) Arial, Helvetica, sans-serif;
-  color: var(--color-text);
+  color: #fff;
+  background: var(--body-background-color);
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;

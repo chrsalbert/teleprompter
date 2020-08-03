@@ -1,31 +1,28 @@
 <template>
-	<div class="c-player">
-		<AppHeader>
-            <PlayerNav />
-		</AppHeader>
-		<div class="c-player__body">
-			<Nuxt />
-		</div>
-	</div>
+	<app-layout modifier="player">
+		<template v-slot:header>
+			<player-nav />
+		</template>
+		<Nuxt />
+		<template v-slot:footer>
+			<app-header>
+				<player-menu />
+			</app-header>
+		</template>
+	</app-layout>
 </template>
 <script>
 import AppHeader from '~/components/layout/AppHeader'
+import AppLayout from '~/components/layout/AppLayout'
 import PlayerNav from '~/components/player/PlayerNav'
+import PlayerMenu from '~/components/player/PlayerMenu'
 
 export default {
 	components: {
-        AppHeader,
-        PlayerNav
-    }
+		AppHeader,
+		AppLayout,
+		PlayerNav,
+		PlayerMenu
+	}
 }
 </script>
-<style scoped>
-.c-player {
-    background: #000
-}
-.c-player__body {
-	height: 100vh;
-    padding-top: var(--header-height);
-	margin: 0 auto
-}
-</style>
