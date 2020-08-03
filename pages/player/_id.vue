@@ -3,7 +3,6 @@
 </template>
 <script>
 import io from 'socket.io-client'
-import customId from 'custom-id'
 import { mapActions } from 'vuex'
 import { mapGetters } from 'vuex'
 import PlayerScreen from '~/components/player/PlayerScreen'
@@ -12,25 +11,13 @@ let socket = io()
 
 export default {
 	layout: 'player',
+	middleware: ['player'],
 	components: {
 		PlayerScreen
 	},
 	data() {
 		return {
 			playerId: this.$cookies.get('playerId')
-		}
-	},
-    middleware({ app, route, redirect }) {
-		if(process.server) {
-			let playerId = app.$cookies.get('playerId')
-			if(route.params.id !== undefined && route.params.id === playerId) return
-			if(playerId !== undefined) return redirect(`/player/${playerId}`)
-			playerId = customId({})
-			app.$cookies.set('playerId', playerId, {
-				path: '/',
-				maxAge: 60 * 60 * 24
-			})
-			redirect(`/player/${playerId}`)
 		}
 	},
  	beforeMount() {
