@@ -15,7 +15,7 @@
 			<click-button icon="settings" type="inverted" v-on:click.native="openSettings()" />
 			<click-button icon="devices" type="inverted" v-on:click.native="openController()" />
 			<pop-up ref="controllerPopup" title="Remote control" width="26rem">
-				<player-controller />
+				<player-controller v-on:close="closeController()"/>
 			</pop-up>
 			<pop-up ref="settingsPopup" title="Settings" width="26rem">
 				<player-settings />
@@ -49,6 +49,10 @@ export default {
 	methods: {
 		openController() {
 			this.$refs.controllerPopup.open()
+		},
+		closeController() {
+			console.log('close')
+			this.$refs.controllerPopup.close()
 		},
 		openSettings() {
 			this.$refs.settingsPopup.open()

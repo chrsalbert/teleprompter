@@ -1,31 +1,21 @@
 <template>
- 	 <PlayerScreen />
+ 	 <player-screen />
 </template>
 <script>
-import io from 'socket.io-client'
 import { mapActions } from 'vuex'
 import { mapGetters } from 'vuex'
-import PlayerScreen from '~/components/player/PlayerScreen'
-
-let socket = io()
 
 export default {
 	layout: 'player',
 	middleware: ['player'],
-	components: {
-		PlayerScreen
-	},
 	data() {
 		return {
 			playerId: this.$cookies.get('playerId')
 		}
 	},
- 	beforeMount() {
-		const context = this
-		socket.on('connect', function() {
-		  	socket.emit('createPlayer', context.playerId)
-		})
-		socket.on('action', function(action) {
+ 	beforeMount(context = this) {
+		this.$socket.emit('createPlayer', this.playerId)
+		this.$socket.on('action', function(action) {
 			switch(action) {
 				case 'play':
 					context.play()
@@ -52,7 +42,6 @@ export default {
 	},
 	methods: {
         ...mapActions({
-			initRoom: 'player/initRoom',
 			play: 'player/play',
 			pause: 'player/pause',
 			reset: 'player/reset'
@@ -60,13 +49,13 @@ export default {
 	},
 	watch: {
 		isPlaying(val) {
-			socket.emit('isPlaying', this.playerId, val)
+			this.$socket.emit('isPlaying', this.playerId, val)
 		},
 		isRecognizing(val) {
-			socket.emit('isRecognizing', this.playerId, val)
+			this.$socket.emit('isRecognizing', this.playerId, val)
 		},
 		isSpeechRecognitionEnabled(val) {
-			socket.emit('isSpeechRecognitionEnabled', this.playerId, val)
+			this.$socket.emit('isSpeechRecognitionEnabled', this.playerId, val)
 		}
 	}
 }
