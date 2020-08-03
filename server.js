@@ -31,6 +31,7 @@ io.on('connection', async (socket) => {
     socket.on('connectToPlayer', function (playerId) {
         if (socket.adapter.rooms[playerId]) {
             socket.join(playerId)
+            socket.to(playerId).emit('close-popup')
             socket.emit('isConntectedToPlayer', true)
         } else {
             socket.emit('isConntectedToPlayer', false)

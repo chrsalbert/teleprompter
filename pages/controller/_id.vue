@@ -32,11 +32,9 @@ export default {
     },
     computed: {
 		isPlaying() { 
-            console.log(this.$store.state.player.isPlaying)
 			return this.$store.state.player.isPlaying 
 		},
 		isRecognizing() { 
-            console.log(this.$store.state.player.isRecognizing)
 			return this.$store.state.player.isRecognizing 
 		},
 		isSpeechRecognitionEnabled() { 

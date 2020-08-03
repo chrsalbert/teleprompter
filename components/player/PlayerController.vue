@@ -18,14 +18,13 @@ export default {
 		}
 	},
 	mounted() {
-		this.$emit('is-loaded')
 		const room = this.$cookies.get('playerId')
 		const domain = window.location.origin
 		this.url = `${domain}/controller/${room}`
 	},
 	beforeMount() {
 		const context = this
-		this.$socket.on('closePopup', function () {
+		this.$socket.on('close-popup', function () {
 			context.$emit('close')
 		})
 	}
