@@ -7,7 +7,7 @@
 <script>
 export default {
 	props: {
-		value: [String, Boolean],
+		value: [Number, String, Boolean],
 		id: {
 			type: String,
 			required: true

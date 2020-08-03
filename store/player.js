@@ -73,7 +73,6 @@ export const mutations = {
     },
     SET_WORDS_PER_MIN(state, amount) {
         state.settings.wordsPerMin = amount
-        localStorage.setItem('wordsPerMin', amount)
     },
     SET_DISPLAY_PADDING (state, px) {
         state.settings.padding = px

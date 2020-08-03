@@ -77,7 +77,7 @@ export default {
 				return this.$store.state.player.settings.wordsPerMin
 			},
 			set(val) {
-				this.$store.commit('player/SET_WORDS_PER_MIN', val)
+				this.$store.commit('player/SET_WORDS_PER_MIN', parseInt(val))
 			}
 		},
 		mirror: {
@@ -104,7 +104,7 @@ export default {
 				return this.$store.state.player.settings.padding
 			},
 			set(val) {
-				this.$store.commit('player/SET_DISPLAY_PADDING', val)
+				this.$store.commit('player/SET_DISPLAY_PADDING', parseInt(val))
 			}
 		},
 		fontSize: {
@@ -112,7 +112,7 @@ export default {
 				return this.$store.state.player.settings.fontSize
 			},
 			set(val) {
-				this.$store.commit('player/SET_FONT_SIZE', val)
+				this.$store.commit('player/SET_FONT_SIZE', parseInt(val))
 			}
 		},
 		lineHeight: {
@@ -120,7 +120,7 @@ export default {
 				return this.$store.state.player.settings.lineHeight
 			},
 			set(val) {
-				this.$store.commit('player/SET_LINE_HEIGHT', val)
+				this.$store.commit('player/SET_LINE_HEIGHT', parseInt(val))
 			}
 		},
 		textColor: {
