@@ -23,8 +23,8 @@
 			<pop-up ref="transcriptPopup" title="Edit transcript" width="40rem">
 				<player-transcript />
 			</pop-up>
-			<nav-divi />
-			<click-button icon="fullscreen" type="inverted" v-on:click.native="toggleFullscreen()"/>
+			<nav-divi  v-if="$device.isMobile"/>
+			<click-button v-if="$device.isMobile" icon="fullscreen" type="inverted" v-on:click.native="toggleFullscreen()"/>
 		</nav-group>
 	</nav-container>
 </template>

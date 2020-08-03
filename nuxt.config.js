@@ -56,6 +56,7 @@ module.exports = {
   modules: [
     '@nuxtjs/svg',
     '@nuxtjs/pwa',
+    '@nuxtjs/device',
     'cookie-universal-nuxt'
   ],
   env: {
