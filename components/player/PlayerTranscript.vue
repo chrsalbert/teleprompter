@@ -7,14 +7,8 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
-import FormRow from '~/components/ui/FormRow'
-import FormTextarea from '~/components/ui/FormTextarea'
 
 export default {
-	components: {
-		FormRow,
-		FormTextarea
-	},
 	methods: {
         ...mapActions({
             buildScriptBlocks: 'player/buildScriptBlocks'

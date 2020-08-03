@@ -2,6 +2,7 @@
 	<span class="c-icon" v-html="icons[icon]"></span>
 </template>
 <script>
+import iconHome from "~/assets/images/icons/home.svg?raw"
 import iconMenu from "~/assets/images/icons/menu.svg?raw"
 import iconDevices from "~/assets/images/icons/devices.svg?raw"
 import iconArrowLeft from "~/assets/images/icons/arrow-left.svg?raw"
@@ -24,6 +25,7 @@ export default {
 	data () {
 		return {
 			icons: {
+				home: iconHome,
 				devices: iconDevices,
 				arrowLeft: iconArrowLeft,
 				menu: iconMenu,

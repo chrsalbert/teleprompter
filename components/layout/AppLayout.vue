@@ -7,9 +7,7 @@
             <app-sidebar />
         </div>
         <div class="c-layout__header">
-            <app-header>
-                <slot name="header"></slot>
-            </app-header>
+			<slot name="header"></slot>
         </div>
         <div class="c-layout__body">
             <slot></slot>
@@ -57,6 +55,10 @@ export default {
 	border-bottom: 1px solid var(--border-color)
 }
 
+.c-layout__header:empty {
+	display: none;
+}
+
 .c-layout__body {
 	position: relative;
 	flex: 1;
@@ -66,6 +68,10 @@ export default {
 .c-layout__footer {
 	position: relative;
 	border-top: 1px solid var(--border-color)
+}
+
+.c-layout__footer:empty {
+	display: none;
 }
 
 .c-layout__header::before,

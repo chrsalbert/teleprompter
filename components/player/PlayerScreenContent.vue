@@ -11,12 +11,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
-import ScriptBlocks from '~/components/player/ScriptBlocks'
 
 export default {
-    components: {
-        ScriptBlocks
-    },
     computed: {
         isSpeechRecognitionEnabled() {
             return this.$store.state.player.isSpeechRecognitionEnabled

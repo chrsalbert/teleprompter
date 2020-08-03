@@ -36,18 +36,7 @@
 	</div>
 </template>
 <script>
-import FormRow from "~/components/ui/FormRow"
-import FormInput from "~/components/ui/FormInput"
-import RichText from "~/components/ui/RichText"
-import IconHint from "~/components/ui/AppIconHint"
-
 export default {
-	components: {
-        FormRow,
-        FormInput,
-        RichText,
-        IconHint
-    },
     props: {
         playerId: String
     },

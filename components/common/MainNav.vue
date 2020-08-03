@@ -1,23 +1,16 @@
 <template>
 	<nav-container>
 		<nav-group>
-			<click-button icon="menu" type="inverted" v-on:click.native="openSidebar()" />
+			<click-button icon="home" type="inverted" href="/" />
+		</nav-group>
+		<nav-group>
+			<click-button href="/player" type="inverted" target="_blank">Player</click-button>
+			<click-button href="/controller" type="inverted" target="_blank">Remote</click-button>
 		</nav-group>
 	</nav-container>
 </template>
 <script>
-import NavContainer from '~/components/ui/nav/NavContainer'
-import NavGroup from '~/components/ui/nav/NavGroup'
-import AppNavDivi from '~/components/ui/AppNavDivi'
-import ClickButton from '~/components/ui/ClickButton'
-
 export default {
-	components: {
-		ClickButton,
-		NavContainer,
-		NavGroup,
-		AppNavDivi
-	},
 	methods: {
 		openSidebar() {
 			this.$store.commit('SET_SIDEBAR_OPEN', true)

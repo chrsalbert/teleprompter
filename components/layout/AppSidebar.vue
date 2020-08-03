@@ -18,20 +18,7 @@
     </div>
 </template>
 <script>
-import AppHeader from '~/components/layout/AppHeader'
-import NavContainer from '~/components/ui/nav/NavContainer'
-import NavGroup from '~/components/ui/nav/NavGroup'
-import AppNavDivi from '~/components/ui/AppNavDivi'
-import ClickButton from '~/components/ui/ClickButton'
-
 export default {
-    components: {
-        AppHeader,
-        NavContainer,
-        NavGroup,
-        AppNavDivi,
-        ClickButton
-    },
 	methods: {
 		closeSidebar() {
 			this.$store.commit('SET_SIDEBAR_OPEN', false)

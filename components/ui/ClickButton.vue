@@ -71,8 +71,9 @@ export default {
 	color: var(--color-primary);
 	font-weight: 600;
 	text-decoration: none;
+	text-align: center;
 	font-size: var(--font-size-sm);
-	transition: background .1s
+	transition: background .1s;
 }
 
 .c-button:focus {

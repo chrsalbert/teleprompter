@@ -69,7 +69,7 @@ export default {
 			play: 'player/play',
 			pause: 'player/pause',
 			reset: 'player/reset'
-        })
+		})
 	},
 	watch: {
 		isPlaying(val) {

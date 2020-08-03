@@ -1,7 +1,6 @@
 <template>
 	<header class="c-head">
-		<slot v-if="slotPassed"></slot>
-		<main-nav v-else />
+		<slot></slot>
 	</header>
 </template>
 <script>

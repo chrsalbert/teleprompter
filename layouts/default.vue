@@ -1,14 +1,10 @@
 <template>
 	<app-layout>
 		<Nuxt />
+		<template v-slot:header>
+			<app-header>
+				<main-nav />
+			</app-header>
+		</template>
 	</app-layout>
 </template>
-<script>
-import AppLayout from '~/components/layout/AppLayout'
-
-export default {
-	components: {
-		AppLayout
-	}
-}
-</script>

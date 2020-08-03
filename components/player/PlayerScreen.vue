@@ -14,14 +14,8 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
-import PlayerScreenContent from '~/components/player/PlayerScreenContent'
-import PlayerScreenLine from '~/components/player/PlayerScreenLine'
 
 export default {
-    components: {
-        PlayerScreenContent,
-        PlayerScreenLine
-    },
     data() {
         return {
             paddingTop: 0
