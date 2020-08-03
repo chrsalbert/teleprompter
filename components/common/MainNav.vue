@@ -5,7 +5,7 @@
 		</nav-group>
 		<nav-group>
 			<click-button href="/player" type="inverted" target="_blank">Player</click-button>
-			<click-button href="/controller" type="inverted" target="_blank">Remote</click-button>
+			<click-button href="/remote" type="inverted" target="_blank">Remote</click-button>
 		</nav-group>
 	</nav-container>
 </template>

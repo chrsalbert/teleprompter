@@ -53,7 +53,7 @@ export default {
         },
         connect(id = this.playerId === undefined ? '' : this.playerId) {
             this.playerId = id
-            history.pushState(null, null, `/controller/${id}`);
+            history.pushState(null, null, `/remote/${id}`);
             const context = this
             this.$socket.emit('connectToPlayer', id)
             this.$socket.on('isConntectedToPlayer', function (isConnected) {

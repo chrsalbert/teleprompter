@@ -42,25 +42,9 @@
 	</TabContainer>
 </template>
 <script>
-import TabContainer from '~/components/ui/TabContainer'
-import TabItem from '~/components/ui/TabItem'
-import FormRow from '~/components/ui/FormRow'
-import FormHint from '~/components/ui/form/FormHint'
-import FormInput from '~/components/ui/FormInput'
-import FormInputRange from '~/components/ui/form/FormInputRange'
-import FormSwitch from '~/components/ui/FormSwitch'
-import FormRichInput from '~/components/ui/FormRichInput'
 import getSupport from '~/mixins/getSupport.js'
 
 export default {
-	components: {
-		TabContainer,
-		TabItem,
-		FormRow,
-		FormHint,
-		FormInput,
-		FormRichInput
-	},
 	mixins: [getSupport],
 	computed: {
 		settings() {
