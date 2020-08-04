@@ -37,6 +37,9 @@ io.on('connection', async (socket) => {
             socket.emit('isConntectedToPlayer', false)
         }
     })
+    socket.on('update-settings', function (playerId, object) {
+        socket.to(playerId).emit('update-settings', object)
+    })
     socket.on('isPlaying', function (playerId, val) {
         io.to(playerId).emit('isPlaying', val)
     })

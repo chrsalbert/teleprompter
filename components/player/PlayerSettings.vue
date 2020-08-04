@@ -46,6 +46,11 @@ import getSupport from '~/mixins/getSupport.js'
 
 export default {
 	mixins: [getSupport],
+	beforeMount(context = this) {
+		this.$socket.on('update-settings', function(object) {
+			context.$store.commit('player/SET_SETTINGS', object)
+		})
+	},
 	computed: {
 		settings() {
 			return this.$store.state.player.settings
@@ -61,7 +66,8 @@ export default {
 				return this.$store.state.player.settings.wordsPerMin
 			},
 			set(val) {
-				this.$store.commit('player/SET_WORDS_PER_MIN', parseInt(val))
+				this.$store.commit('player/SET_WORDS_PER_MIN', parseFloat(val))
+				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
 			}
 		},
 		mirror: {
@@ -70,6 +76,7 @@ export default {
 			},
 			set(val) {
 				this.$store.commit('player/SET_DISPLAY_MIRRORING_STATE', val)
+				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
 			}
 		},
 		speechRecognition: {
@@ -81,6 +88,7 @@ export default {
 					this.$store.dispatch('player/enableSpeechRecognition')
 				else
 					this.$store.dispatch('player/disableSpeechRecognition')
+				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
 			}
 		},
 		padding: {
@@ -88,7 +96,8 @@ export default {
 				return this.$store.state.player.settings.padding
 			},
 			set(val) {
-				this.$store.commit('player/SET_DISPLAY_PADDING', parseInt(val))
+				this.$store.commit('player/SET_DISPLAY_PADDING', parseFloat(val))
+				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
 			}
 		},
 		fontSize: {
@@ -96,7 +105,8 @@ export default {
 				return this.$store.state.player.settings.fontSize
 			},
 			set(val) {
-				this.$store.commit('player/SET_FONT_SIZE', parseInt(val))
+				this.$store.commit('player/SET_FONT_SIZE', parseFloat(val))
+				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
 			}
 		},
 		lineHeight: {
@@ -104,7 +114,8 @@ export default {
 				return this.$store.state.player.settings.lineHeight
 			},
 			set(val) {
-				this.$store.commit('player/SET_LINE_HEIGHT', parseInt(val))
+				this.$store.commit('player/SET_LINE_HEIGHT', parseFloat(val))
+				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
 			}
 		},
 		textColor: {
@@ -113,6 +124,7 @@ export default {
 			},
 			set(val) {
 				this.$store.commit('player/SET_TEXT_COLOR', val)
+				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
 			}
 		},
 		backgroundColor: {
@@ -121,6 +133,7 @@ export default {
 			},
 			set(val) {
 				this.$store.commit('player/SET_BACKGROUND_COLOR', val)
+				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
 			}
 		}
 	},

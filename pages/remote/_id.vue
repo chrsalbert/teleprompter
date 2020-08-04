@@ -8,6 +8,10 @@
                 <ControllerError v-on:connect="connect" :playerId="playerId" />
             </template>
             <template v-else>
+                <pop-up ref="settingsPopup" title="Settings" width="26rem">
+			    	<player-settings />
+			    </pop-up>
+                <ClickButton icon="settings" type="inverted" size="large" v-on:click.native="openSettings()" />
                 <ClickButton icon="reload" type="inverted" size="large" v-on:click.native="reset()" />
                 <transition mode="out-in">
                     <ClickButton v-if="isPlaying || isRecognizing" v-bind:icon="isRecognizing === true ? 'microphoneOff' : 'pause'" color="#FF6347" type="inverted" size="large" v-on:click.native="pause()" key="pause" />
@@ -18,6 +22,8 @@
     </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
+
 export default {
     layout: 'controller',
     data() {
@@ -29,6 +35,7 @@ export default {
     },
  	beforeMount() {
         this.connect()
+        this.initSettings()
     },
     computed: {
 		isPlaying() { 
@@ -42,6 +49,9 @@ export default {
         }
     },
     methods: {
+       ...mapActions({
+			initSettings: 'player/initSettings'
+		}),
         play() {
             this.$socket.emit('play', this.playerId)
         },
@@ -50,6 +60,9 @@ export default {
         },
         reset() {
             this.$socket.emit('reset', this.playerId)
+        },
+        openSettings() {
+            this.$refs.settingsPopup.open()
         },
         connect(id = this.playerId === undefined ? '' : this.playerId) {
             this.playerId = id

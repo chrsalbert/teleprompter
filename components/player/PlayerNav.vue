@@ -51,7 +51,6 @@ export default {
 			this.$refs.controllerPopup.open()
 		},
 		closeController() {
-			console.log('close')
 			this.$refs.controllerPopup.close()
 		},
 		openSettings() {

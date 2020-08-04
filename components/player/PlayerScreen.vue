@@ -31,7 +31,6 @@ export default {
     },
 	methods: {
         ...mapActions({
-			initSettings: 'player/initSettings',
 			initText: 'player/initText'
         }),
         setPaddingTop() {
@@ -39,7 +38,6 @@ export default {
         },
 	},
 	mounted() {
-		this.initSettings()
         this.initText()
         this.setPaddingTop()
 	},

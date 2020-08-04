@@ -28,6 +28,9 @@ export default {
 			}
 		})
 	},
+	mounted() {
+		this.initSettings()
+	},
 	computed: {
 		isPlaying() { 
 			return this.$store.state.player.isPlaying 
@@ -43,7 +46,8 @@ export default {
         ...mapActions({
 			play: 'player/play',
 			pause: 'player/pause',
-			reset: 'player/reset'
+			reset: 'player/reset',
+			initSettings: 'player/initSettings'
 		})
 	},
 	watch: {

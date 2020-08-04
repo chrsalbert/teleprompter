@@ -7,10 +7,10 @@
                 :max="max"
                 :step="step"
                 class="c-slider__input"
-                v-model="form.value"
+                :value="value"
                 v-on:input="handleInput">
         </div>
-        <p class="c-slider-value">{{ form.value }}</p>
+        <p class="c-slider-value">{{ value }}</p>
     </div>
 </template>
 <script>
@@ -24,13 +24,6 @@ export default {
         id: {
             type: String,
             required: true
-        }
-    },
-    data() {
-        return {
-            form: {
-                value: this.value
-            }
         }
     },
 	methods: {

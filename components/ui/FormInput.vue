@@ -24,11 +24,6 @@ export default {
 			default: 'text'
 		}
 	},
-	data () {
-		return {
-			content: this.value
-		}
-	},
 	methods: {
 		handleInput (e) {
 			this.$emit('input', e.target.value)
