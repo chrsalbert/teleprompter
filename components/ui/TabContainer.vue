@@ -16,12 +16,7 @@
 	</div>
 </template>
 <script>
-import ClickButton from '~/components/ui/ClickButton'
-
 export default {
-	components: {
-		ClickButton
-	},
 	data () {
 		return {
 			tabs: []

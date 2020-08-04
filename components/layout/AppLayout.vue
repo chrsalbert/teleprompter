@@ -18,14 +18,7 @@
     </div>
 </template>
 <script>
-import AppSidebar from '~/components/layout/AppSidebar'
-import AppHeader from '~/components/layout/AppHeader'
-
 export default {
-	components: {
-		AppSidebar,
-		AppHeader
-	},
 	props: {
 		modifier: {
 			type: String,

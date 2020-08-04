@@ -22,12 +22,7 @@
 	</nuxt-link>
 </template>
 <script>
-import AppIcon from '~/components/ui/AppIcon'
-
 export default {
-	components: {
-		AppIcon
-	},
 	props: {
 		classes: String,
 		icon: String,

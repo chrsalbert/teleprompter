@@ -4,12 +4,7 @@
 	</header>
 </template>
 <script>
-import MainNav from '~/components/common/MainNav'
-
 export default {
-	components: {
-		MainNav
-	},
 	computed: {
 		slotPassed() {
 			return !!(this.$slots.default || [])[0]

@@ -24,12 +24,7 @@
 </template>
 
 <script>
-import RichText from '~/components/ui/RichText'
-
 export default {
-	layout: 'meta',
-		components: {
-		RichText
-	}
+	layout: 'meta'
 }
 </script>

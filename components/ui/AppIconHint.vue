@@ -2,12 +2,7 @@
 	<AppIcon v-bind:icon="icon" class="c-iconHint" />
 </template>
 <script>
-import AppIcon from '~/components/ui/AppIcon'
-
 export default {
-	components: {
-		AppIcon
-	},
 	props: {
 		icon: String
 	}

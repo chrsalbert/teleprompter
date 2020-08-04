@@ -6,15 +6,6 @@
 		</div>
 	</div>
 </template>
-<script>
-import AppHeader from '~/components/layout/AppHeader'
-
-export default {
-	components: {
-        AppHeader
-    }
-}
-</script>
 <style scoped>
 .c-metapage {
 	min-height: 100vh;

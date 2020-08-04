@@ -14,12 +14,7 @@
 	</transition>
 </template>
 <script>
-import ClickButton from '~/components/ui/ClickButton'
-
 export default {
-	components: {
-		ClickButton
-	},
 	props: {
 		title: String,
 		width: {

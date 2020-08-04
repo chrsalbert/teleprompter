@@ -19,21 +19,8 @@
 </template>
 
 <script>
-import RichText from '~/components/ui/RichText'
-import ClickButton from '~/components/ui/ClickButton'
-import FormRow from '~/components/ui/FormRow'
-import FormInput from '~/components/ui/FormInput'
-import FormRichInput from '~/components/ui/FormRichInput'
-
 export default {
-	layout: 'meta',
-		components: {
-        RichText,
-        ClickButton,
-        FormRow,
-        FormInput,
-        FormRichInput
-	}
+	layout: 'meta'
 }
 </script>
 <style scoped>
