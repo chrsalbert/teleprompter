@@ -81,7 +81,7 @@ export default {
 		},
 		speechRecognition: {
 			get() {
-				return this.$store.state.player.settings.wordsPerMin
+				return this.$store.state.player.settings.speechRecognition
 			},
 			set(val) {
 				if(val === true)

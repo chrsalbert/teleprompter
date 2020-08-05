@@ -34,17 +34,16 @@ export default {
 </script>
 <style scoped>
 .c-layout {
-	position: relative;
-	left: 0;
-	height: 100vh;
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
+	min-height: 100vh;
 	transition: left .2s cubic-bezier(0.075, 0.82, 0.165, 1)
 }
 
 .c-layout__header {
-	position: relative;
+	z-index: 2;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
 	border-bottom: 1px solid var(--border-color)
 }
 
@@ -53,12 +52,13 @@ export default {
 }
 
 .c-layout__body {
+	z-index: 1;
 	position: relative;
 	flex: 1;
-	overflow-y: scroll;
 }
 
 .c-layout__footer {
+	z-index: 2;
 	position: relative;
 	border-top: 1px solid var(--border-color)
 }
@@ -67,7 +67,7 @@ export default {
 	display: none;
 }
 
-.c-layout__header::before,
+/* .c-layout__header::before,
 .c-layout__body::before,
 .c-layout__footer::before {
 	content: '';
@@ -80,7 +80,7 @@ export default {
 	pointer-events: none;
 	background-color: transparent;
 	transition: background-color .1s linear;
-}
+} */
 
 .c-layout__sidebar {
 	position: fixed;
@@ -92,8 +92,7 @@ export default {
 	transition: left .2s cubic-bezier(0.075, 0.82, 0.165, 1)
 }
 
-.c-layout--player .c-layout__body {
-	overflow: hidden
+/* .c-layout--player .c-layout__body {
 }
 
 .c-layout--sidebar-open {
@@ -109,5 +108,5 @@ export default {
 .c-layout--sidebar-open .c-layout__footer::before {
 	pointer-events: all;
 	background-color: rgba(0,0,0,.8)
-}
+} */
 </style>

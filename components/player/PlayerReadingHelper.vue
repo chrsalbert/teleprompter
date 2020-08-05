@@ -3,9 +3,8 @@
 </template>
 <style scoped>
 .c-teleprompter__middleLine {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    position: fixed;
+    top: 50vh;
     left: 0;
     width: 100%;
     height: 1px;

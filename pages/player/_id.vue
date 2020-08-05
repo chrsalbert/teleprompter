@@ -1,5 +1,5 @@
 <template>
- 	 <player-screen />
+ 	 <player-container />
 </template>
 <script>
 import { mapActions } from 'vuex'
@@ -13,6 +13,7 @@ export default {
 		}
 	},
  	beforeMount(context = this) {
+		this.initSettings()
 		this.$socket.emit('createPlayer', this.playerId)
 		this.$socket.on('action', function(action) {
 			switch(action) {
@@ -27,9 +28,6 @@ export default {
 				break
 			}
 		})
-	},
-	mounted() {
-		this.initSettings()
 	},
 	computed: {
 		isPlaying() { 

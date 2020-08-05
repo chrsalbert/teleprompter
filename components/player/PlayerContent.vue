@@ -1,11 +1,11 @@
 <template>
-    <div class="c-playerScreen__content" ref="container" v-bind:style="{ 
+    <div class="c-player__content" ref="container" v-bind:style="{ 
         '--height': `-${containerHeight}px`, 
         '--animation-duration': `${animationDuration}s`, 
         '--animation-play-state': `${animationPlayState}`,
-        '--offset': `-${containerOffset}px`,
+        '--offset': `${containerOffset}px`,
     }">
-        <ScriptBlocks />
+        <player-text />
     </div>
 </template>
 <script>
@@ -21,13 +21,13 @@ export default {
             return this.$store.state.player.resetAnimation
         },
         containerHeight() { 
-            return this.$store.state.player.containerHeight
+            return this.$store.state.player.text.containerHeight
         },
-        containerOffset() {
-            return this.$store.state.player.containerOffset
+        containerOffset() { 
+            return this.$store.state.player.text.containerOffset
         },
         ...mapGetters({
-            animationDuration: 'player/getAnimationDuration',
+            animationDuration: 'player/getRealReadingTimeInSec',
             animationPlayState: 'player/getAnimationPlayState'
         })
     },
@@ -62,22 +62,22 @@ export default {
 }
 </script>
 <style scoped>
-.c-playerScreen__content {
+.c-player__content {
     position: relative;
     z-index: 1;
-    /* top: calc(50% - calc(1em * var(--lineHeight) / 2)); */
     font-size: var(--fontSize);
     color: var(--textColor);
     line-height: var(--lineHeight);
+    top: calc(50vh - calc(calc(var(--fontSize) * var(--lineHeight)) / 2));
     transform: translateY(var(--offset));
     animation: scroll var(--animation-duration) linear 1 forwards var(--animation-play-state);
     transition: transform .3s linear;
     will-change: transform;
 }
-.c-playerScreen__content span {
+.c-player__content span {
     transition: color .1s
 }
-.c-playerScreen__content span.is-read {
+.c-player__content span.is-read {
     color: #333
 }
 @keyframes scroll {

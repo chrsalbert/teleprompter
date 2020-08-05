@@ -5,8 +5,6 @@ export const state = () => ({
     isSupportingSpeechRecognition: false,
     recognition: null,
     resetAnimation: false,
-    containerHeight: 0,
-    containerOffset: 0,
     settings: {
         wordsPerMin: 150,
         mirror: false,
@@ -16,20 +14,60 @@ export const state = () => ({
         textColor: '#ffffff',
         backgroundColor: '#000000'
     },
-    text: "",
-    scriptBlocks: []
+    text: {
+        containerOffset: 0,
+        containerHeight: 0,
+        raw: '',
+        blocks: []
+    }
 })
 
 export const getters = {
-    getAnimationDuration: (state) => {
-        let nWords = state.text.split(' ').length
-        let readingDuration = ((nWords / state.settings.wordsPerMin) / state.settings.lineHeight).toFixed(2)
+    getReadingTimeInSec: (state, getters) => {
+        let readingDuration = (getters.getWordCount / state.settings.wordsPerMin).toFixed(2)
         let minutes = readingDuration.toString().split('.')
         let seconds = Math.floor(minutes[1] * 0.6 + minutes[0] * 60)
         return seconds
     },
+    getRealReadingTimeInSec: (state, getters) => {
+        return getters.getReadingTimeInSec + getters.getSecondsPerLine * getters.getLinebreakCount
+    },
+    getSecondsPerLine: (state, getters) => {
+        return parseFloat(parseFloat(getters.getReadingTimeInSec / getters.getLineCount).toFixed(2))
+    },
     getAnimationPlayState: (state) => {
         return state.isPlaying === true && state.isRecognizing === false ? 'running' : 'paused'
+    },
+    getLineHeight: (state) => {
+        return Math.floor(state.settings.fontSize * state.settings.lineHeight)
+    },
+    getLineCount: (state, getters) => {
+        return parseInt((state.text.containerHeight / getters.getLineHeight) - getters.getLinebreakCount)
+    },
+    getLinebreakCount: (state) => {
+        let count = 0
+        let blocks = state.text.raw.split(' ')
+        blocks.forEach(block => {
+            let add = block.match(/\n/g)
+            let matched = add || []
+            let num = matched.length
+            if (num > 0) count += num
+        })
+        return count
+    },
+    getAllWords: (state) => {
+        let words = state.text.raw.replace(/[ ]{2,}/gi, ' ')
+        words = words.replace(/[/.!?]/gi, ' ')
+        words = words.split(' ')
+        words = words.filter(item => item.match(/\b([äöüÄÖÜß\w]+)'?(\w+)?\b/g))
+        return words
+    },
+    getWordCount: (state, getters) => {
+        return getters.getAllWords.length
+    },
+    getWordLength: (state, getters) => {
+        let wordsWithoutNumbers = getters.getAllWords.filter(item => item.match(/^([^0-9]*)$/))
+        return parseFloat(parseFloat(wordsWithoutNumbers.join('').length / getters.getWordCount).toFixed(2))
     }
 }
 
@@ -40,8 +78,8 @@ export const mutations = {
     SET_RECOGNIZING_STATE(state, boolean) {
         state.isRecognizing = boolean
     },
-    SET_SCRIPTBLOCKS(state, array) {
-        state.scriptBlocks = array
+    SET_TEXTBLOCKS(state, array) {
+        state.text.blocks = array
     },
     SET_SPEECH_RECOGNITION_SUPPORT(state, boolean) {
         state.isSupportingSpeechRecognition = boolean
@@ -56,10 +94,10 @@ export const mutations = {
         state.resetAnimation = boolean
     },
     SET_CONTAINER_HEIGHT(state, px) {
-        state.containerHeight = px
+        state.text.containerHeight = px
     },
     SET_CONTAINER_OFFSET(state, px) {
-        state.containerOffset = px
+        state.text.containerOffset = px
     },
     SET_RECOGNITION(state, { onstart, onend, onresult, onerror }) {
         state.recognition = new webkitSpeechRecognition()
@@ -96,13 +134,13 @@ export const mutations = {
         state.settings = object
     },
     SET_TEXT(state, string) {
-        state.text = string
+        state.text.raw = string
     },
     ADD_MARKED_WORD(state, index) {
-        state.scriptBlocks[index].isRead = true
+        state.text.blocks[index].isRead = true
     },
     REMOVE_MARKED_WORD(state, index) {
-        state.scriptBlocks[index].isRead = false
+        state.text.blocks[index].isRead = false
     }
 }
 
@@ -126,40 +164,46 @@ export const actions = {
         dispatch('rewindScript')
         commit('SET_RESET_ANIMATION_STATE', true)
     },
-    buildScriptBlocks({ commit, state }, text = state.text) {
-        commit('SET_TRANSCRIPT', text)
-        let scriptBlocks = []
-        state.text.split(' ').forEach(function (block, index) {
-            let word = block.match(/\b([äöüÄÖÜß\w]+)'?(\w+)?\b/g)
-            word = word === null ? '' : word[0].toLowerCase()
-            scriptBlocks.push({
-                id: index,
-                block: block,
-                word: word,
-                isRead: false
-            })
-        })
-        commit('SET_SCRIPTBLOCKS', scriptBlocks)
-    },
     rewindScript({ commit, state }) {
-        if (state.scriptBlocks.length > 0) {
-            commit('SET_CONTAINER_OFFSET', 0)
-            state.scriptBlocks.forEach((block, index) => {
-                if (block.isRead === true) {
-                    commit('REMOVE_MARKED_WORD', index)
-                }
-            })
-        }
+        commit('SET_CONTAINER_OFFSET', 0)
+        state.text.blocks.forEach((block, index) => {
+            if (block.isRead === true) {
+                commit('REMOVE_MARKED_WORD', index)
+            }
+        })
     },
     initSettings({ commit }) {
         if (localStorage.getItem('settings'))
             commit('SET_SETTINGS', JSON.parse(localStorage.getItem('settings')))
     },
-    initText({ commit }) {
+    initText({ commit, getters }) {
         if (localStorage.getItem('text'))
             commit('SET_TEXT', localStorage.getItem('text'))
         else
             commit('SET_TEXT', 'Hi! Starte, indem du ein Transskript hinzufügst, die Darstellung nach Belieben änderst und Play drückst.')
+    },
+    initTextBlocks({ state, commit }) {
+        let paragraphs = state.text.raw.split('\n')
+        let textBlocks = []
+        paragraphs.forEach(paragraph => {
+            paragraph.split(' ').forEach(block => {
+                if(block !== '') {
+                    let words = block.match(/\b([äöüÄÖÜß\w]+)'?(\w+)?\b/g)
+                    textBlocks.push({
+                        block: block,
+                        words: words ? words.map(word => word.toLowerCase()) : [],
+                        break: false,
+                        isRead: false
+                    })
+                }
+            })
+            textBlocks.push({
+                block: null,
+                words: [],
+                break: true
+            })
+        })
+        commit('SET_TEXTBLOCKS', textBlocks)
     },
     initSpeechRecognition({ state, commit }) {
         const onresult = function(event) {
@@ -167,17 +211,20 @@ export const actions = {
                 let result = event.results[i][0]
                 if (result.confidence >= 0.89 && event.results[i].isFinal === false) {
                     let recognizedWord = result.transcript.split(' ').pop()
-                    checkRecognizedWord(recognizedWord)
+                    findRecognizedWord(recognizedWord)
                 }
             }
-            function checkRecognizedWord(recognizedWord) {
+            function findRecognizedWord(recognizedWord = '', blocks = state.text.blocks) {
                 recognizedWord = recognizedWord.toLowerCase()
-                let firstUnread = state.scriptBlocks.map(el => el.isRead).lastIndexOf(true) + 1
-                let wordsToCompare = state.scriptBlocks.slice(firstUnread, firstUnread + 6)
-                let markTo = wordsToCompare.map(el => el.word).indexOf(recognizedWord)
-                if (markTo > -1) {
-                    markWords(firstUnread, firstUnread + markTo)
+                let firstIndex = blocks.map(el => el.isRead).lastIndexOf(true) + 1 // 0
+                let lastIndex = null
+                for (let i = firstIndex; i < firstIndex + 6; i ++) {
+                    if(lastIndex) break
+                    blocks[i].words.forEach(word => {
+                        if (word === recognizedWord) lastIndex = i
+                    })
                 }
+                markWords(firstIndex, lastIndex)
             }
             function markWords(from, to) {
                 let stagger = 0
@@ -197,14 +244,12 @@ export const actions = {
         }
         const onerror = function (event) {
             commit('SET_RECOGNIZING_STATE', false)
-            console.log('error', event)
         }
         commit('SET_RECOGNITION', { onstart, onend, onresult, onerror })
     },
     enableSpeechRecognition({ commit, state, dispatch }) {
         commit('SET_RECOGNITION_ENABLED_STATE', true)
         dispatch('reset')
-        dispatch('buildScriptBlocks')
         if(state.recognition === null) {
             dispatch('initSpeechRecognition')
         }
@@ -212,6 +257,5 @@ export const actions = {
     disableSpeechRecognition({ commit, dispatch }) {
         commit('SET_RECOGNITION_ENABLED_STATE', false)
         dispatch('reset')
-        commit('SET_SCRIPTBLOCKS', [])
     }
 }

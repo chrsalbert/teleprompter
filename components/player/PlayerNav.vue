@@ -71,11 +71,11 @@ export default {
 	mounted() {
 		document.addEventListener('keydown', function(event) {
 		// console.log('key' + event.which);
-		switch (event.which) {
-			case 32:
-			this.isPlaying ? this.pause() : this.play()
-			break
-		}
+		// switch (event.which) {
+		// 	case 32:
+		// 	this.isPlaying ? this.pause() : this.play()
+		// 	break
+		// }
 		}.bind(this), false )
 	}
 }
