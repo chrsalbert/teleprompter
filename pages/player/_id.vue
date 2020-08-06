@@ -35,9 +35,6 @@ export default {
 		},
 		isRecognizing() { 
 			return this.$store.state.player.isRecognizing 
-		},
-		isSpeechRecognitionEnabled() { 
-			return this.$store.state.player.isSpeechRecognitionEnabled 
 		}
 	},
 	methods: {

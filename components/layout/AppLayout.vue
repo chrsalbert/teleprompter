@@ -1,7 +1,7 @@
 <template>
     <div class="c-layout" v-bind:class="{ 
 		'c-layout--sidebar-open': isSidebarOpen,
-		'c-layout--player': modifier === 'player'
+		'c-layout--fixed': modifier === 'fixed'
 	}">
         <div class="c-layout__sidebar">
             <app-sidebar />
@@ -39,11 +39,8 @@ export default {
 }
 
 .c-layout__header {
+	position: relative;
 	z-index: 2;
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
 	border-bottom: 1px solid var(--border-color)
 }
 
@@ -65,6 +62,13 @@ export default {
 
 .c-layout__footer:empty {
 	display: none;
+}
+
+.c-layout--fixed .c-layout__header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
 }
 
 /* .c-layout__header::before,
@@ -92,7 +96,7 @@ export default {
 	transition: left .2s cubic-bezier(0.075, 0.82, 0.165, 1)
 }
 
-/* .c-layout--player .c-layout__body {
+/* .c-layout--fixed .c-layout__body {
 }
 
 .c-layout--sidebar-open {

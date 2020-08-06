@@ -15,7 +15,7 @@
                 <ClickButton icon="reload" type="inverted" size="large" v-on:click.native="reset()" />
                 <transition mode="out-in">
                     <ClickButton v-if="isPlaying || isRecognizing" v-bind:icon="isRecognizing === true ? 'microphoneOff' : 'pause'" color="#FF6347" type="inverted" size="large" v-on:click.native="pause()" key="pause" />
-                    <ClickButton v-else v-bind:icon="isSpeechRecognitionEnabled && isRecognizing === false ? 'microphone' : 'play'" color="#7FFF00" type="inverted" size="large" v-on:click.native="play()" key="play" />
+                    <ClickButton v-else v-bind:icon="settings.isSpeechRecognitionEnabled && isRecognizing === false ? 'microphone' : 'play'" color="#7FFF00" type="inverted" size="large" v-on:click.native="play()" key="play" />
                 </transition>
             </template>
         </template>
@@ -44,8 +44,8 @@ export default {
 		isRecognizing() { 
 			return this.$store.state.player.isRecognizing 
 		},
-		isSpeechRecognitionEnabled() { 
-			return this.$store.state.player.isSpeechRecognitionEnabled 
+		settings() { 
+			return this.$store.state.player.settings 
         }
     },
     methods: {
@@ -80,7 +80,7 @@ export default {
                 context.$store.commit('player/SET_RECOGNIZING_STATE', val)
             })
             this.$socket.on('isSpeechRecognitionEnabled', function (val) {
-                context.$store.commit('player/SET_RECOGNITION_ENABLED_STATE', val)
+                context.$store.commit('player/SET_SPEECH_RECOGNITION_ENABLED', val)
             })
         }
     }

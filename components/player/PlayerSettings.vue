@@ -81,7 +81,7 @@ export default {
 		},
 		speechRecognition: {
 			get() {
-				return this.$store.state.player.settings.speechRecognition
+				return this.$store.state.player.settings.isSpeechRecognitionEnabled
 			},
 			set(val) {
 				if(val === true)

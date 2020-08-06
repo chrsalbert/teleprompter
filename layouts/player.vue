@@ -1,5 +1,5 @@
 <template>
-	<app-layout modifier="player">
+	<app-layout modifier="fixed">
 		<Nuxt />
 		<template v-slot:header v-if="$device.isDesktop">
 			<app-header>

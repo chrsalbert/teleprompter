@@ -12,6 +12,8 @@
     </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
+
 export default {
     computed: {
         isMirrored() {
@@ -24,9 +26,15 @@ export default {
             return this.$store.state.player.text
         }
     },
+    methods: {
+        ...mapActions({
+			initSpeechRecognition: 'player/initSpeechRecognition'
+		})
+    },
 	beforeMount() {
 		if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-			this.$store.commit('player/SET_SPEECH_RECOGNITION_SUPPORT', true)
+            this.$store.commit('player/SET_SPEECH_RECOGNITION_SUPPORT', true)
+            this.initSpeechRecognition()
 		}
 	}
 }

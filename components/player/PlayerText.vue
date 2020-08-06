@@ -4,10 +4,12 @@
             <br v-if="block.break === true" :key="index" />
             <span 
                 v-else
-                v-bind:key="`block-${index}`" 
+                v-bind:key="`b${index}`" 
                 v-bind:class="{ 
                     'is-read': block.isRead
-                }" :title="index" ref="block">
+                }" 
+                :title="index" 
+                ref="block">
                 {{ block.block }}&nbsp;
             </span>
         </template>
@@ -43,10 +45,9 @@ export default {
         },
         scrollToLastRead() {
             const lastReadIndex = this.$refs.block.map(block => block.className).lastIndexOf('is-read')
-            if(lastReadIndex >= 0) {
-                const offsetTop = this.$refs.block[lastReadIndex].offsetTop
-                this.$store.commit('player/SET_CONTAINER_OFFSET', offsetTop * -1)
-            }
+            if(lastReadIndex < 0) return
+            const offsetTop = this.$refs.block[lastReadIndex].offsetTop
+            this.$store.commit('player/SET_CONTAINER_OFFSET', offsetTop * -1)
         }
     },
     mounted() {

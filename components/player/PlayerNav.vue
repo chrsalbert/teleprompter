@@ -7,7 +7,7 @@
 			<click-button icon="reload" type="inverted" v-on:click.native="reset()" />
 			<transition mode="out-in">
 				<click-button v-if="isPlaying || isRecognizing" v-bind:icon="isRecognizing === true ? 'microphoneOff' : 'pause'" color="#FF6347" type="inverted" v-on:click.native="pause()" key="pause" />
-				<click-button v-else v-bind:icon="isSpeechRecognitionEnabled && isRecognizing === false ? 'microphone' : 'play'" color="#7FFF00" type="inverted" v-on:click.native="play()" key="play" />
+				<click-button v-else v-bind:icon="settings.isSpeechRecognitionEnabled && isRecognizing === false ? 'microphone' : 'play'" color="#7FFF00" type="inverted" v-on:click.native="play()" key="play" />
 			</transition>
 		</nav-group>
 		<nav-group>
@@ -42,8 +42,8 @@ export default {
 		isRecognizing() { 
 			return this.$store.state.player.isRecognizing 
 		},
-		isSpeechRecognitionEnabled() { 
-			return this.$store.state.player.isSpeechRecognitionEnabled 
+		settings() { 
+			return this.$store.state.player.settings 
 		}
 	},
 	methods: {

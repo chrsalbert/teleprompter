@@ -1,11 +1,11 @@
 export const state = () => ({
     isPlaying: false,
     isRecognizing: false,
-    isSpeechRecognitionEnabled: false,
     isSupportingSpeechRecognition: false,
     recognition: null,
     resetAnimation: false,
     settings: {
+        isSpeechRecognitionEnabled: false,
         wordsPerMin: 150,
         mirror: false,
         padding: 30,
@@ -84,8 +84,8 @@ export const mutations = {
     SET_SPEECH_RECOGNITION_SUPPORT(state, boolean) {
         state.isSupportingSpeechRecognition = boolean
     },
-    SET_RECOGNITION_ENABLED_STATE(state, boolean) {
-        state.isSpeechRecognitionEnabled = boolean
+    SET_SPEECH_RECOGNITION_ENABLED(state, boolean) {
+        state.settings.isSpeechRecognitionEnabled = boolean
     },
     SET_TRANSCRIPT(state, text) {
         state.text = text
@@ -146,7 +146,8 @@ export const mutations = {
 
 export const actions = {
     play({ commit, state }) {
-        if(state.isSpeechRecognitionEnabled) {
+        if(state.settings.isSpeechRecognitionEnabled) {
+            commit('SET_RESET_ANIMATION_STATE', true)
             state.recognition.start()
         } else {
             commit('SET_PLAY_STATE', true)
@@ -180,7 +181,7 @@ export const actions = {
         if (localStorage.getItem('text'))
             commit('SET_TEXT', localStorage.getItem('text'))
         else
-            commit('SET_TEXT', 'Hi! Starte, indem du ein Transskript hinzufügst, die Darstellung nach Belieben änderst und Play drückst.')
+            commit('SET_TEXT', 'Hi! Starte, indem du ein Transkript hinzufügst, die Darstellung nach Belieben änderst und Play drückst.')
     },
     initTextBlocks({ state, commit }) {
         let paragraphs = state.text.raw.split('\n')
@@ -208,30 +209,32 @@ export const actions = {
     initSpeechRecognition({ state, commit }) {
         const onresult = function(event) {
             for (var i = 0; i < event.results.length; i++) {
-                let result = event.results[i][0]
-                if (result.confidence >= 0.89 && event.results[i].isFinal === false) {
-                    let recognizedWord = result.transcript.split(' ').pop()
-                    findRecognizedWord(recognizedWord)
-                }
+                let result = event.results[i]
+                if (result[0].confidence < 0.89) continue
+                let recognizedWord = result[0].transcript.split(' ').pop()
+                if(findRecognizedWord(recognizedWord)) break
             }
             function findRecognizedWord(recognizedWord = '', blocks = state.text.blocks) {
                 recognizedWord = recognizedWord.toLowerCase()
                 let firstIndex = blocks.map(el => el.isRead).lastIndexOf(true) + 1 // 0
                 let lastIndex = null
-                for (let i = firstIndex; i < firstIndex + 6; i ++) {
-                    if(lastIndex) break
+                for (let i = firstIndex; i < firstIndex + 10; i ++) {
+                    if (!blocks[i]) break
+                    if (lastIndex !== null) break
                     blocks[i].words.forEach(word => {
                         if (word === recognizedWord) lastIndex = i
                     })
                 }
                 markWords(firstIndex, lastIndex)
+                return lastIndex === null ? false : true
             }
             function markWords(from, to) {
                 let stagger = 0
                 for (let i = from; i <= to; i++) {
+                    let interval = stagger === 0 ? 0 : 30
                     setTimeout(function () {
                         commit('ADD_MARKED_WORD', i)
-                    }, 30 * stagger)
+                    }, interval * stagger)
                     stagger++
                 }
             }
@@ -248,14 +251,14 @@ export const actions = {
         commit('SET_RECOGNITION', { onstart, onend, onresult, onerror })
     },
     enableSpeechRecognition({ commit, state, dispatch }) {
-        commit('SET_RECOGNITION_ENABLED_STATE', true)
+        commit('SET_SPEECH_RECOGNITION_ENABLED', true)
         dispatch('reset')
         if(state.recognition === null) {
             dispatch('initSpeechRecognition')
         }
     },
     disableSpeechRecognition({ commit, dispatch }) {
-        commit('SET_RECOGNITION_ENABLED_STATE', false)
+        commit('SET_SPEECH_RECOGNITION_ENABLED', false)
         dispatch('reset')
     }
 }

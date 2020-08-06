@@ -1,9 +1,9 @@
 <template>
     <div class="c-player__content" ref="container" v-bind:style="{ 
-        '--height': `-${containerHeight}px`, 
+        '--height': `-${text.containerHeight}px`, 
         '--animation-duration': `${animationDuration}s`, 
         '--animation-play-state': `${animationPlayState}`,
-        '--offset': `${containerOffset}px`,
+        '--offset': `${text.containerOffset}px`,
     }">
         <player-text />
     </div>
@@ -14,17 +14,14 @@ import { mapActions } from 'vuex'
 
 export default {
     computed: {
-        isSpeechRecognitionEnabled() {
-            return this.$store.state.player.isSpeechRecognitionEnabled
+        text() {
+            return this.$store.state.player.text
+        },
+        settings() {
+            return this.$store.state.player.settings
         },
         isResetAnimation() {
             return this.$store.state.player.resetAnimation
-        },
-        containerHeight() { 
-            return this.$store.state.player.text.containerHeight
-        },
-        containerOffset() { 
-            return this.$store.state.player.text.containerOffset
         },
         ...mapGetters({
             animationDuration: 'player/getRealReadingTimeInSec',
@@ -38,7 +35,8 @@ export default {
         resetAnimation() {
             this.$refs.container.style.animation = 'none'
             this.$refs.container.offsetHeight // forces paint
-            if(!this.isSpeechRecognitionEnabled) {
+            if(!this.settings.isSpeechRecognitionEnabled) {
+                console.log('reset')
                 this.$refs.container.style.animation = null
             }
         },
