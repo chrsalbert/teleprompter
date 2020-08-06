@@ -71,6 +71,13 @@ export default {
 	right: 0;
 }
 
+.c-layout--fixed .c-layout__footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
 /* .c-layout__header::before,
 .c-layout__body::before,
 .c-layout__footer::before {

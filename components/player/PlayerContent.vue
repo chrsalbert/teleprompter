@@ -36,7 +36,6 @@ export default {
             this.$refs.container.style.animation = 'none'
             this.$refs.container.offsetHeight // forces paint
             if(!this.settings.isSpeechRecognitionEnabled) {
-                console.log('reset')
                 this.$refs.container.style.animation = null
             }
         },

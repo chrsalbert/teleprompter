@@ -1,6 +1,6 @@
 <template>
 	<label class="c-switch">
-        <input class="c-switch__input" v-bind="{ id: id }" type="checkbox" v-model="input" />
+        <input class="c-switch__input" :id="id" type="checkbox" v-model="input" />
         <div class="c-switch__control"></div>
     </label>
 </template>
@@ -12,7 +12,7 @@ export default {
 			type: String,
 			required: true
 		}
-	},
+    },
     computed: {
         input: {
             get() {

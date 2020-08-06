@@ -1,10 +1,10 @@
 <template>
-	<TabContainer>
-		<TabItem title="Display" :selected="true">
-			<FormRow label="Speech recognition" labelFor="speechRecognition">
+	<tab-container>
+		<tab-item title="Display" :selected="true">
+			<form-row label="Speech recognition" labelFor="speechRecognition">
 				<div>
 					<template v-if="isSupportingSpeechRecognition">
-						<FormSwitch id="speechRecognition" v-model="speechRecognition" />
+						<form-switch id="speechRecognition" v-model="speechRecognition" />
 						<form-hint>Lets the text scroll automatically as you speak.</form-hint>
 					</template>
 					<template v-else>
@@ -14,32 +14,32 @@
 						</form-hint>
 					</template>
 				</div>
-			</FormRow>
-			<FormRow label="Mirror screen" labelFor="mirror">
-				<FormSwitch id="mirror" v-model="mirror" />
-			</FormRow>
-			<FormRow label="Words per min." labelFor="wordsPerMin">
+			</form-row>
+			<form-row label="Mirror screen" labelFor="mirror">
+				<form-switch id="mirror" v-model="mirror" />
+			</form-row>
+			<form-row label="Words per min." labelFor="wordsPerMin">
 				<form-input-range id="wordsPerMin" :min="150" :max="350" :step="10" v-model="wordsPerMin" />
-			</FormRow>
-			<FormRow label="Text margin" labelFor="fontSize">
+			</form-row>
+			<form-row label="Text margin" labelFor="fontSize">
 				<form-input-range id="padding" :min="40" :max="160" :step="10" v-model="padding" />
-			</FormRow>
-		</TabItem>
-		<TabItem title="Font style">
-			<FormRow label="Font size" labelFor="fontSize">
+			</form-row>
+		</tab-item>
+		<tab-item title="Font style">
+			<form-row label="Font size" labelFor="fontSize">
 				<form-input-range id="fontSize" :min="24" :max="168" :step="8" v-model="fontSize" />
-			</FormRow>
-			<FormRow label="Line height" labelFor="lineHeight">
+			</form-row>
+			<form-row label="Line height" labelFor="lineHeight">
 				<form-input-range id="lineHeight" :min="1" :max="3" :step=".1" v-model="lineHeight" />
-			</FormRow>
-			<FormRow label="Text color" labelFor="textColor">
-				<FormInput id="textColor" type="color" v-model="textColor" />
-			</FormRow>
-			<FormRow label="Background color" labelFor="backgroundColor">
-				<FormInput id="backgroundColor" type="color" v-model="backgroundColor" />
-			</FormRow>
-		</TabItem>
-	</TabContainer>
+			</form-row>
+			<form-row label="Text color" labelFor="textColor">
+				<form-input id="textColor" type="color" v-model="textColor" />
+			</form-row>
+			<form-row label="Background color" labelFor="backgroundColor">
+				<form-input id="backgroundColor" type="color" v-model="backgroundColor" />
+			</form-row>
+		</tab-item>
+	</tab-container>
 </template>
 <script>
 import getSupport from '~/mixins/getSupport.js'
