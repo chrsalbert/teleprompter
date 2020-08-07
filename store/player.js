@@ -5,6 +5,7 @@ export const state = () => ({
     isMicrophonePermitted: false,
     recognition: null,
     resetAnimation: false,
+    lastRecognizedWord: '',
     settings: {
         isSpeechRecognitionEnabled: false,
         wordsPerMin: 150,
@@ -89,6 +90,9 @@ export const mutations = {
     },
     SET_SPEECH_RECOGNITION_ENABLED(state, boolean) {
         state.settings.isSpeechRecognitionEnabled = boolean
+    },
+    SET_LAST_RECOGNIZED_WORD(state, string) {
+        state.lastRecognizedWord = string
     },
     SET_TRANSCRIPT(state, text) {
         state.text = text
@@ -185,12 +189,15 @@ export const actions = {
             }
         })
     },
-    initMicrophonePermissions({ commit }) {
+    initMicrophonePermissions({ state, commit }) {
         navigator.permissions.query({ name: 'microphone' }).then(function (result) {
-            if (result.state == 'granted')
+            if (result.state == 'granted') {
+                if(state.isMicrophonePermitted === true) return
                 commit('SET_MICROPHONE_PERMISSIONS', true)
-            else
+            } else {
+                if (state.isMicrophonePermitted === false) return
                 commit('SET_MICROPHONE_PERMISSIONS', false)
+            }
         })
     },
     initSettings({ commit }) {
@@ -235,15 +242,19 @@ export const actions = {
                 if(findRecognizedWord(recognizedWord)) break
             }
             function findRecognizedWord(recognizedWord = '', blocks = state.text.blocks) {
+                console.log(recognizedWord)
                 recognizedWord = recognizedWord.toLowerCase()
                 let firstIndex = blocks.map(el => el.isRead).lastIndexOf(true) + 1 // 0
                 let lastIndex = null
-                for (let i = firstIndex; i < firstIndex + 10; i ++) {
+                for (let i = firstIndex; i < firstIndex + 6; i ++) {
                     if (!blocks[i]) break
                     if (lastIndex !== null) break
                     blocks[i].words.forEach(word => {
-                        if (word === recognizedWord) lastIndex = i
-                    })
+                        if (word === recognizedWord && word !== state.lastRecognizedWord) {
+                            lastIndex = i
+                            commit('SET_LAST_RECOGNIZED_WORD', word)
+                        }
+                    })  
                 }
                 markWords(firstIndex, lastIndex)
                 return lastIndex === null ? false : true

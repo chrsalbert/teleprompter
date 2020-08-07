@@ -46,7 +46,8 @@ export default {
         scrollToLastRead() {
             const lastReadIndex = this.$refs.block.map(block => block.className).lastIndexOf('is-read')
             if(lastReadIndex < 0) return
-            const offsetTop = this.$refs.block[lastReadIndex].offsetTop
+            if(!this.$refs.block[lastReadIndex + 1]) return
+            const offsetTop = this.$refs.block[lastReadIndex + 1].offsetTop
             this.$store.commit('player/SET_CONTAINER_OFFSET', offsetTop * -1)
         }
     },
