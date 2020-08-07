@@ -2,6 +2,7 @@ export const state = () => ({
     isPlaying: false,
     isRecognizing: false,
     isSupportingSpeechRecognition: false,
+    isMicrophonePermitted: false,
     recognition: null,
     resetAnimation: false,
     settings: {
@@ -92,6 +93,9 @@ export const mutations = {
     SET_TRANSCRIPT(state, text) {
         state.text = text
     },
+    SET_MICROPHONE_PERMISSIONS(state, boolean) {
+        state.isMicrophonePermitted = boolean
+    },
     SET_RESET_ANIMATION_STATE(state, boolean) {
         state.resetAnimation = boolean
     },
@@ -181,6 +185,14 @@ export const actions = {
             }
         })
     },
+    initMicrophonePermissions({ commit }) {
+        navigator.permissions.query({ name: 'microphone' }).then(function (result) {
+            if (result.state == 'granted')
+                commit('SET_MICROPHONE_PERMISSIONS', true)
+            else
+                commit('SET_MICROPHONE_PERMISSIONS', false)
+        })
+    },
     initSettings({ commit }) {
         if (localStorage.getItem('settings'))
             commit('SET_SETTINGS', JSON.parse(localStorage.getItem('settings')))
@@ -254,6 +266,7 @@ export const actions = {
             commit('SET_RECOGNIZING_STATE', false)
         }
         const onerror = function (event) {
+            console.log(event)
             commit('SET_RECOGNIZING_STATE', false)
         }
         commit('SET_RECOGNITION', { onstart, onend, onresult, onerror })

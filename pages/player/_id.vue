@@ -12,7 +12,11 @@ export default {
 			playerId: this.$cookies.get('playerId')
 		}
 	},
- 	beforeMount(context = this) {
+ 	beforeMount() {
+		const context = this
+		setInterval(function(){ 
+			context.initMicrophonePermissions()
+		}, 1000)
 		this.initSettings()
 		this.$socket.emit('createPlayer', this.playerId)
 		this.$socket.on('action', function(action) {
@@ -42,7 +46,8 @@ export default {
 			play: 'player/play',
 			pause: 'player/pause',
 			reset: 'player/reset',
-			initSettings: 'player/initSettings'
+			initSettings: 'player/initSettings',
+			initMicrophonePermissions: 'player/initMicrophonePermissions'
 		})
 	},
 	watch: {

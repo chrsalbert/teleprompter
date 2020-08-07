@@ -5,6 +5,9 @@
 				<div>
 					<template v-if="isSupportingSpeechRecognition">
 						<form-switch id="speechRecognition" v-model="speechRecognition" />
+						<form-hint v-if="!isMicrophonePermitted">
+							<strong>Important:</strong> You are currently not permitting access to your microphone. Please take a look at your browser settings and change your permissions.
+						</form-hint>
 					</template>
 					<template v-else>
 						<form-hint>
@@ -61,6 +64,9 @@ export default {
 	computed: {
 		settings() {
 			return this.$store.state.player.settings
+		},
+		isMicrophonePermitted() {
+			return this.$store.state.player.isMicrophonePermitted 
 		},
 		isSupportingSpeechRecognition() { 
 			return this.$store.state.player.isSupportingSpeechRecognition 
