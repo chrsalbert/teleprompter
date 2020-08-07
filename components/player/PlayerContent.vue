@@ -4,6 +4,7 @@
         '--animation-duration': `${animationDuration}s`, 
         '--animation-play-state': `${animationPlayState}`,
         '--offset': `${text.containerOffset}px`,
+        '--maxWidth': `${settings.charsPerLine}ch`,
     }">
         <player-text />
     </div>
@@ -60,12 +61,14 @@ export default {
 </script>
 <style scoped>
 .c-player__content {
-    position: relative;
     z-index: 1;
+    position: relative;
+    top: calc(50vh - calc(calc(var(--fontSize) * var(--lineHeight)) / 2));
+    max-width: var(--maxWidth);
+    margin: 0 auto;
     font-size: var(--fontSize);
     color: var(--textColor);
     line-height: var(--lineHeight);
-    top: calc(50vh - calc(calc(var(--fontSize) * var(--lineHeight)) / 2));
     transform: translateY(var(--offset));
     animation: scroll var(--animation-duration) linear 1 forwards var(--animation-play-state);
     transition: transform .3s linear;

@@ -7,10 +7,12 @@ export const state = () => ({
     settings: {
         isSpeechRecognitionEnabled: false,
         wordsPerMin: 150,
-        mirror: false,
-        padding: 30,
+        flipX: false,
+        flipY: false,
+        charsPerLine: 30,
         fontSize: 40,
         lineHeight: 1.5,
+        textMargin: 32,
         textColor: '#ffffff',
         backgroundColor: '#000000'
     },
@@ -112,8 +114,11 @@ export const mutations = {
     SET_WORDS_PER_MIN(state, amount) {
         state.settings.wordsPerMin = amount
     },
-    SET_DISPLAY_PADDING (state, px) {
-        state.settings.padding = px
+    SET_CHARS_PER_LINE (state, px) {
+        state.settings.charsPerLine = px
+    },
+    SET_TEXT_MARGIN(state, px) {
+        state.settings.textMargin = px
     },
     SET_FONT_SIZE (state, px) {
         state.settings.fontSize = px
@@ -127,8 +132,11 @@ export const mutations = {
     SET_BACKGROUND_COLOR (state, hex) {
         state.settings.backgroundColor = hex
     },
-    SET_DISPLAY_MIRRORING_STATE(state, boolean) {
-        state.settings.mirror = boolean
+    SET_FLIP_X(state, boolean) {
+        state.settings.flipX = boolean
+    },
+    SET_FLIP_Y(state, boolean) {
+        state.settings.flipY = boolean
     },
     SET_SETTINGS(state, object) {
         state.settings = object

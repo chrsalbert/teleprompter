@@ -1,8 +1,17 @@
 <template>
-    <div class="c-teleprompter__middleLine"></div>
+    <div class="c-readingHelper" v-bind:style="{ '--fontSize': `${settings.fontSize}px` }"></div>
 </template>
+<script>
+export default {
+    computed: {
+        settings() { 
+            return this.$store.state.player.settings
+        }
+    }
+}
+</script>
 <style scoped>
-.c-teleprompter__middleLine {
+.c-readingHelper {
     position: fixed;
     top: 50vh;
     left: 0;
@@ -10,16 +19,16 @@
     height: 1px;
     background: rgba(255,255,255,.3)
 }
-.c-teleprompter__middleLine::before {
+.c-readingHelper::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 32px;
-    height: 32px;
+    width: calc(var(--fontSize) / 4);
+    height: var(--fontSize);
     transform: translateY(-50%);
-    border-top: 16px solid transparent;
-    border-left: 32px solid blue;
-    border-bottom: 16px solid transparent;
+    border-top: calc(var(--fontSize) / 2) solid transparent;
+    border-left: calc(var(--fontSize) / 4) solid var(--color-primary);
+    border-bottom: calc(var(--fontSize) / 2) solid transparent;
 }
 </style>

@@ -1,12 +1,17 @@
 <template>
-    <div class="c-player" v-bind:style="{ 
-        '--padding': `${settings.padding}px`,
-        '--fontSize': `${settings.fontSize}px`,
-        '--lineHeight': `${settings.lineHeight}`,
-        '--textColor': `${settings.textColor}`,
-        '--backgroundColor': `${settings.backgroundColor}`
+    <div 
+        class="c-player" 
+        v-bind:style="{ 
+            '--padding': `${settings.textMargin}px`,
+            '--fontSize': `${settings.fontSize}px`,
+            '--lineHeight': `${settings.lineHeight}`,
+            '--textColor': `${settings.textColor}`,
+            '--backgroundColor': `${settings.backgroundColor}`
         }"
-        v-bind:class="{ 'c-player--mirrored': isMirrored }">
+        v-bind:class="{ 
+            'c-player--flipX': settings.flipX,
+            'c-player--flipY': settings.flipY,
+        }">
         <player-content ref="screenContent" />
         <player-reading-helper />
     </div>
@@ -16,9 +21,6 @@ import { mapActions } from 'vuex'
 
 export default {
     computed: {
-        isMirrored() {
-            return this.$store.state.player.settings.mirror
-        },
         settings() { 
             return this.$store.state.player.settings
         },
@@ -51,7 +53,13 @@ export default {
     font-family: 'Arial';
     font-weight: bold;
 }
-.c-player--mirrored {
+.c-player--flipX {
     transform: scale(-1, 1);
+}
+.c-player--flipY {
+    transform: scale(1, -1);
+}
+.c-player--flipX.c-player--flipY {
+    transform: scale(-1, -1);
 }
 </style>

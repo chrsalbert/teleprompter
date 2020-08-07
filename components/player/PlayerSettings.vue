@@ -1,11 +1,10 @@
 <template>
 	<tab-container>
-		<tab-item title="Display" :selected="true">
+		<tab-item title="Scrolling" :selected="true">
 			<form-row label="Speech recognition" labelFor="speechRecognition">
 				<div>
 					<template v-if="isSupportingSpeechRecognition">
 						<form-switch id="speechRecognition" v-model="speechRecognition" />
-						<form-hint>Lets the text scroll automatically as you speak.</form-hint>
 					</template>
 					<template v-else>
 						<form-hint>
@@ -15,14 +14,22 @@
 					</template>
 				</div>
 			</form-row>
-			<form-row label="Mirror screen" labelFor="mirror">
-				<form-switch id="mirror" v-model="mirror" />
-			</form-row>
 			<form-row label="Words per min." labelFor="wordsPerMin">
 				<form-input-range id="wordsPerMin" :min="150" :max="350" :step="10" v-model="wordsPerMin" />
 			</form-row>
-			<form-row label="Text margin" labelFor="fontSize">
-				<form-input-range id="padding" :min="40" :max="160" :step="10" v-model="padding" />
+		</tab-item>
+		<tab-item title="Display">
+			<form-row label="Mirror horizontally" labelFor="flipX">
+				<form-switch id="flipX" v-model="flipX" />
+			</form-row>
+			<form-row label="Mirror vertically" labelFor="flipY">
+				<form-switch id="flipY" v-model="flipY" />
+			</form-row>
+			<form-row label="Chars per line" labelFor="charsPerLine">
+				<form-input-range id="charsPerLine" :min="10" :max="100" :step="1" v-model="charsPerLine" />
+			</form-row>
+			<form-row label="Margin" labelFor="textMargin">
+				<form-input-range id="textMargin" :min="10" :max="100" :step="1" v-model="textMargin" />
 			</form-row>
 		</tab-item>
 		<tab-item title="Font style">
@@ -70,12 +77,21 @@ export default {
 				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
 			}
 		},
-		mirror: {
+		flipX: {
 			get() {
-				return this.$store.state.player.settings.mirror
+				return this.$store.state.player.settings.flipX
 			},
 			set(val) {
-				this.$store.commit('player/SET_DISPLAY_MIRRORING_STATE', val)
+				this.$store.commit('player/SET_FLIP_X', val)
+				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
+			}
+		},
+		flipY: {
+			get() {
+				return this.$store.state.player.settings.flipY
+			},
+			set(val) {
+				this.$store.commit('player/SET_FLIP_Y', val)
 				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
 			}
 		},
@@ -91,12 +107,21 @@ export default {
 				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
 			}
 		},
-		padding: {
+		charsPerLine: {
 			get() {
-				return this.$store.state.player.settings.padding
+				return this.$store.state.player.settings.charsPerLine
 			},
 			set(val) {
-				this.$store.commit('player/SET_DISPLAY_PADDING', parseFloat(val))
+				this.$store.commit('player/SET_CHARS_PER_LINE', parseFloat(val))
+				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
+			}
+		},
+		textMargin: {
+			get() {
+				return this.$store.state.player.settings.textMargin
+			},
+			set(val) {
+				this.$store.commit('player/SET_TEXT_MARGIN', parseFloat(val))
 				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
 			}
 		},
