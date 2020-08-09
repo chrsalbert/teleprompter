@@ -14,9 +14,9 @@ export default {
 	},
  	beforeMount() {
 		const context = this
-		setInterval(function(){ 
-			context.initMicrophonePermissions()
-		}, 1000)
+		// setInterval(function(){ 
+		// 	context.initMicrophonePermissions()
+		// }, 1000)
 		this.initSettings()
 		this.$socket.emit('createPlayer', this.playerId)
 		this.$socket.on('action', function(action) {

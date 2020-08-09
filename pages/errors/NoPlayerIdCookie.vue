@@ -8,7 +8,7 @@
 export default {
     data() {
         return {
-            playerId: app.$cookies.get('playerId')
+            playerId: this.$cookies.get('playerId')
         }
     }
 }
