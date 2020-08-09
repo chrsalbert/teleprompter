@@ -74,10 +74,10 @@ export default {
                 context.showLoading = false
             })
             this.$socket.on('isPlaying', function (val) {
-                context.$store.commit('player/SET_PLAY_STATE', val)
+                context.$store.commit('player/SET_IS_PLAYING', val)
             })
             this.$socket.on('isRecognizing', function (val) {
-                context.$store.commit('player/SET_RECOGNIZING_STATE', val)
+                context.$store.commit('player/SET_IS_RECOGNIZING', val)
             })
             this.$socket.on('isSpeechRecognitionEnabled', function (val) {
                 context.$store.commit('player/SET_SPEECH_RECOGNITION_ENABLED', val)

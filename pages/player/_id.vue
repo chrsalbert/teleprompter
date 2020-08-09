@@ -13,24 +13,26 @@ export default {
 		}
 	},
  	beforeMount() {
-		const context = this
-		// setInterval(function(){ 
-		// 	context.initMicrophonePermissions()
-		// }, 1000)
 		this.initSettings()
+		this.initSpeechRecognition()
 		this.$socket.emit('createPlayer', this.playerId)
-		this.$socket.on('action', function(action) {
+		this.$socket.on('action', action => {
 			switch(action) {
 				case 'play':
-					context.play()
+					this.play()
 				break
 				case 'pause':
-					context.pause()
+					this.pause()
 				break
 				case 'reset':
-					context.reset()
+					this.reset()
 				break
 			}
+		})
+	},
+	mounted() {
+        window.addEventListener('resize', () => {
+			$nuxt.$emit('resize')
 		})
 	},
 	computed: {
@@ -41,25 +43,22 @@ export default {
 			return this.$store.state.player.isRecognizing 
 		}
 	},
-	methods: {
-        ...mapActions({
-			play: 'player/play',
-			pause: 'player/pause',
-			reset: 'player/reset',
-			initSettings: 'player/initSettings',
-			initMicrophonePermissions: 'player/initMicrophonePermissions'
-		})
-	},
 	watch: {
 		isPlaying(val) {
 			this.$socket.emit('isPlaying', this.playerId, val)
 		},
 		isRecognizing(val) {
 			this.$socket.emit('isRecognizing', this.playerId, val)
-		},
-		isSpeechRecognitionEnabled(val) {
-			this.$socket.emit('isSpeechRecognitionEnabled', this.playerId, val)
 		}
+	},
+	methods: {
+        ...mapActions({
+			play: 'player/play',
+			pause: 'player/pause',
+			reset: 'player/reset',
+			initSettings: 'player/initSettings',
+			initSpeechRecognition: 'player/initSpeechRecognition'
+		})
 	}
 }
 </script>

@@ -2,9 +2,7 @@ export const state = () => ({
     isPlaying: false,
     isRecognizing: false,
     isSupportingSpeechRecognition: false,
-    isMicrophonePermitted: false,
     recognition: null,
-    resetAnimation: false,
     lastRecognizedWord: '',
     settings: {
         isSpeechRecognitionEnabled: false,
@@ -76,11 +74,11 @@ export const getters = {
 }
 
 export const mutations = {
-    SET_PLAY_STATE(state, boolean) {
-        state.isPlaying = boolean
-    },
-    SET_RECOGNIZING_STATE(state, boolean) {
+    SET_IS_RECOGNIZING(state, boolean) {
         state.isRecognizing = boolean
+    },
+    SET_IS_PLAYING(state, boolean) {
+        state.isPlaying = boolean
     },
     SET_TEXTBLOCKS(state, array) {
         state.text.blocks = array
@@ -96,12 +94,6 @@ export const mutations = {
     },
     SET_TRANSCRIPT(state, text) {
         state.text = text
-    },
-    SET_MICROPHONE_PERMISSIONS(state, boolean) {
-        state.isMicrophonePermitted = boolean
-    },
-    SET_RESET_ANIMATION_STATE(state, boolean) {
-        state.resetAnimation = boolean
     },
     SET_CONTAINER_HEIGHT(state, px) {
         state.text.containerHeight = px
@@ -161,61 +153,23 @@ export const mutations = {
 }
 
 export const actions = {
-    play({ commit, state }) {
-        if(state.settings.isSpeechRecognitionEnabled) {
-            commit('SET_RESET_ANIMATION_STATE', true)
-            state.recognition.start()
-        } else {
-            commit('SET_PLAY_STATE', true)
-        }
-    },
-    pause({ commit, state }) {
-        if (state.isRecognizing) {
-            state.recognition.stop()
-        } else {
-            commit('SET_PLAY_STATE', false)
-        }
-    },
-    reset({ commit, dispatch }) {
-        dispatch('pause')
-        dispatch('rewindScript')
-        commit('SET_RESET_ANIMATION_STATE', true)
-    },
-    rewindScript({ commit, state }) {
-        commit('SET_CONTAINER_OFFSET', 0)
-        state.text.blocks.forEach((block, index) => {
-            if (block.isRead === true) {
-                commit('REMOVE_MARKED_WORD', index)
-            }
-        })
-    },
-    initMicrophonePermissions({ state, commit }) {
-        navigator.permissions.query({ name: 'microphone' }).then(function (result) {
-            if (result.state == 'granted') {
-                if(state.isMicrophonePermitted === true) return
-                commit('SET_MICROPHONE_PERMISSIONS', true)
-            } else {
-                if (state.isMicrophonePermitted === false) return
-                commit('SET_MICROPHONE_PERMISSIONS', false)
-            }
-        })
-    },
     initSettings({ commit }) {
         if (localStorage.getItem('settings'))
             commit('SET_SETTINGS', JSON.parse(localStorage.getItem('settings')))
     },
-    initText({ commit, getters }) {
+    initText({ commit, dispatch }) {
         if (localStorage.getItem('text'))
             commit('SET_TEXT', localStorage.getItem('text'))
         else
-            commit('SET_TEXT', 'Hi! Starte, indem du ein Transkript hinzufügst, die Darstellung nach Belieben änderst und Play drückst.')
+            commit('SET_TEXT', 'Hello! Add a transcript, configure the player how you like it and press play.')
+        dispatch('initTextBlocks')
     },
     initTextBlocks({ state, commit }) {
         let paragraphs = state.text.raw.split('\n')
         let textBlocks = []
         paragraphs.forEach(paragraph => {
             paragraph.split(' ').forEach(block => {
-                if(block !== '') {
+                if (block !== '') {
                     let words = block.match(/\b([äöüÄÖÜß\w]+)'?(\w+)?\b/g)
                     textBlocks.push({
                         block: block,
@@ -234,19 +188,18 @@ export const actions = {
         commit('SET_TEXTBLOCKS', textBlocks)
     },
     initSpeechRecognition({ state, commit }) {
-        const onresult = function(event) {
+        const onresult = function (event) {
             for (var i = 0; i < event.results.length; i++) {
                 let result = event.results[i]
                 if (result[0].confidence < 0.89) continue
                 let recognizedWord = result[0].transcript.split(' ').pop()
-                if(findRecognizedWord(recognizedWord)) break
+                if (findRecognizedWord(recognizedWord)) break
             }
             function findRecognizedWord(recognizedWord = '', blocks = state.text.blocks) {
-                console.log(recognizedWord)
                 recognizedWord = recognizedWord.toLowerCase()
                 let firstIndex = blocks.map(el => el.isRead).lastIndexOf(true) + 1 // 0
                 let lastIndex = null
-                for (let i = firstIndex; i < firstIndex + 6; i ++) {
+                for (let i = firstIndex; i < firstIndex + 6; i++) {
                     if (!blocks[i]) break
                     if (lastIndex !== null) break
                     blocks[i].words.forEach(word => {
@@ -254,7 +207,7 @@ export const actions = {
                             lastIndex = i
                             commit('SET_LAST_RECOGNIZED_WORD', word)
                         }
-                    })  
+                    })
                 }
                 markWords(firstIndex, lastIndex)
                 return lastIndex === null ? false : true
@@ -270,24 +223,50 @@ export const actions = {
                 }
             }
         }
-        const onstart = function(event) {
-            commit('SET_RECOGNIZING_STATE', true)
+        const onstart = function (event) {
+            commit('SET_IS_RECOGNIZING', true)
         }
-        const onend = function(event) {
-            commit('SET_RECOGNIZING_STATE', false)
+        const onend = function (event) {
+            commit('SET_IS_RECOGNIZING', false)
         }
         const onerror = function (event) {
             console.log(event)
-            commit('SET_RECOGNIZING_STATE', false)
+            commit('SET_IS_RECOGNIZING', false)
         }
-        commit('SET_RECOGNITION', { onstart, onend, onresult, onerror })
+        if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+            commit('SET_RECOGNITION', { onstart, onend, onresult, onerror })
+            commit('SET_SPEECH_RECOGNITION_SUPPORT', true)
+        }
     },
-    enableSpeechRecognition({ commit, state, dispatch }) {
+    play({ commit, state }) {
+        if(state.settings.isSpeechRecognitionEnabled) {
+            state.recognition.start()
+        } else {
+            commit('SET_IS_PLAYING', true)
+        }
+    },
+    pause({ commit, state }) {
+        if (state.isRecognizing) {
+            state.recognition.stop()
+        } else {
+            commit('SET_IS_PLAYING', false)
+        }
+    },
+    reset({ commit, dispatch }) {
+        dispatch('rewindScript')
+        $nuxt.$emit('reset')
+    },
+    rewindScript({ commit, state }) {
+        commit('SET_CONTAINER_OFFSET', 0)
+        state.text.blocks.forEach((block, index) => {
+            if (block.isRead === true) {
+                commit('REMOVE_MARKED_WORD', index)
+            }
+        })
+    },
+    enableSpeechRecognition({ commit, dispatch }) {
         commit('SET_SPEECH_RECOGNITION_ENABLED', true)
         dispatch('reset')
-        if(state.recognition === null) {
-            dispatch('initSpeechRecognition')
-        }
     },
     disableSpeechRecognition({ commit, dispatch }) {
         commit('SET_SPEECH_RECOGNITION_ENABLED', false)

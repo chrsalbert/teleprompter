@@ -1,5 +1,5 @@
 <template>
-    <div class="c-readingHelper" v-bind:style="{ '--fontSize': `${settings.fontSize}px` }"></div>
+    <div class="c-readingHelper" :style="{ '--fontSize': `${settings.fontSize}px` }"></div>
 </template>
 <script>
 export default {

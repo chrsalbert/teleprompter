@@ -1,11 +1,14 @@
 <template>
-    <div class="c-player__content" ref="container" v-bind:style="{ 
-        '--height': `-${text.containerHeight}px`, 
-        '--animation-duration': `${animationDuration}s`, 
-        '--animation-play-state': `${animationPlayState}`,
-        '--offset': `${text.containerOffset}px`,
-        '--maxWidth': `${settings.charsPerLine}ch`,
-    }">
+    <div 
+        class="c-player__content" 
+        ref="container" 
+        :style="{ 
+            '--height': `-${text.containerHeight}px`, 
+            '--animation-duration': `${animationDuration}s`, 
+            '--animation-play-state': `${animationPlayState}`,
+            '--offset': `${text.containerOffset}px`,
+            '--maxWidth': `${settings.charsPerLine}ch`,
+        }">
         <player-text />
     </div>
 </template>
@@ -14,15 +17,23 @@ import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 
 export default {
+    mounted() {
+        this.updateContainerHeight()
+        this.$nuxt.$on('reset', () => this.resetAnimation())
+        this.$nuxt.$on('resize', () => {
+            this.reset()
+            this.updateContainerHeight()
+        })
+    },
+    updated() {
+        this.updateContainerHeight()
+    },
     computed: {
         text() {
             return this.$store.state.player.text
         },
         settings() {
             return this.$store.state.player.settings
-        },
-        isResetAnimation() {
-            return this.$store.state.player.resetAnimation
         },
         ...mapGetters({
             animationDuration: 'player/getRealReadingTimeInSec',
@@ -34,6 +45,7 @@ export default {
             this.$store.commit('player/SET_CONTAINER_HEIGHT', this.$refs.container.offsetHeight)
         },
         resetAnimation() {
+            if(!this.$refs.container) return
             this.$refs.container.style.animation = 'none'
             this.$refs.container.offsetHeight // forces paint
             if(!this.settings.isSpeechRecognitionEnabled) {
@@ -43,20 +55,7 @@ export default {
         ...mapActions({
             reset: 'player/reset'
         })
-    },
-    mounted() {
-        this.updateContainerHeight()
-        window.addEventListener('resize', this.reset)
-    },
-    updated() {
-        this.updateContainerHeight()
-    },
-    watch: {
-        isResetAnimation: function (newVal, oldVal) {
-            this.resetAnimation()
-            this.$store.commit('player/SET_RESET_ANIMATION_STATE', false)
-        }
-    },
+    }
 }
 </script>
 <style scoped>

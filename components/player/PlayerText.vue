@@ -4,12 +4,12 @@
             <br v-if="block.break === true" :key="index" />
             <span 
                 v-else
-                v-bind:key="`b${index}`" 
-                v-bind:class="{ 
-                    'is-read': block.isRead
-                }" 
+                ref="block"
+                :key="`b${index}`" 
                 :title="index" 
-                ref="block">
+                :class="{ 
+                    'is-read': block.isRead
+                }">
                 {{ block.block }}&nbsp;
             </span>
         </template>
@@ -19,6 +19,12 @@
 import { mapActions } from 'vuex'
 
 export default {
+    mounted() {
+        this.initText()
+    },
+    updated() {
+        this.scrollToLastRead()
+    },
     computed: {
         settings() { 
             return this.$store.state.player.settings
@@ -30,36 +36,22 @@ export default {
             return this.$store.state.player.text.blocks
         }
     },
+    watch: {
+        text(val) {
+            this.initTextBlocks()
+        }
+    },
     methods: {
         ...mapActions({
             initText: 'player/initText',
             initTextBlocks: 'player/initTextBlocks'
         }),
-        init() {
-            this.initText()
-            if(!this.text) return
-            this.initTextBlocks()
-            this.$nextTick(() => {
-                this.$store.commit('player/SET_CONTAINER_HEIGHT', parseInt(this.$refs.text.offsetHeight))
-            })
-        },
         scrollToLastRead() {
             const lastReadIndex = this.$refs.block.map(block => block.className).lastIndexOf('is-read')
             if(lastReadIndex < 0) return
             if(!this.$refs.block[lastReadIndex + 1]) return
             const offsetTop = this.$refs.block[lastReadIndex + 1].offsetTop
             this.$store.commit('player/SET_CONTAINER_OFFSET', offsetTop * -1)
-        }
-    },
-    mounted() {
-        this.init()
-    },
-    updated() {
-        this.scrollToLastRead()
-    },
-    watch: {
-        text(val) {
-            this.initTextBlocks()
         }
     }
 }
@@ -75,9 +67,6 @@ export default {
     span.is-space {
         display: block;
         height: calc(1em * var(--lineHeight))
-    }
-    span.is-newLine {
-        display: block;
     }
     span.is-read {
         transform: scale(.9);

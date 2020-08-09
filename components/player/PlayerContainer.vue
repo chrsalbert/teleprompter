@@ -1,18 +1,18 @@
 <template>
     <div 
         class="c-player" 
-        v-bind:style="{ 
+        :style="{ 
             '--padding': `${settings.textMargin}px`,
             '--fontSize': `${settings.fontSize}px`,
             '--lineHeight': `${settings.lineHeight}`,
             '--textColor': `${settings.textColor}`,
             '--backgroundColor': `${settings.backgroundColor}`
         }"
-        v-bind:class="{ 
+        :class="{ 
             'c-player--flipX': settings.flipX,
             'c-player--flipY': settings.flipY,
         }">
-        <player-content ref="screenContent" />
+        <player-content />
         <player-reading-helper />
     </div>
 </template>
@@ -23,22 +23,8 @@ export default {
     computed: {
         settings() { 
             return this.$store.state.player.settings
-        },
-        text() {
-            return this.$store.state.player.text
         }
-    },
-    methods: {
-        ...mapActions({
-			initSpeechRecognition: 'player/initSpeechRecognition'
-		})
-    },
-	beforeMount() {
-		if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-            this.$store.commit('player/SET_SPEECH_RECOGNITION_SUPPORT', true)
-            this.initSpeechRecognition()
-		}
-	}
+    }
 }
 </script>
 <style scoped>
