@@ -1,7 +1,8 @@
 <template>
     <div class="c-layout" v-bind:class="{ 
 		'c-layout--sidebar-open': isSidebarOpen,
-		'c-layout--fixed': modifier === 'fixed'
+		'c-layout--fixed': fixed === true,
+		'c-layout--centered': centered === true
 	}">
         <div class="c-layout__sidebar">
             <app-sidebar />
@@ -20,9 +21,13 @@
 <script>
 export default {
 	props: {
-		modifier: {
-			type: String,
-			default: null
+		fixed: {
+			type: Boolean,
+			default: false
+		},
+		centered: {
+			type: Boolean,
+			default: false
 		}
 	},
 	computed: {
@@ -34,6 +39,8 @@ export default {
 </script>
 <style scoped>
 .c-layout {
+	display: flex;
+	flex-direction: column;
 	min-height: 100vh;
 	transition: left .2s cubic-bezier(0.075, 0.82, 0.165, 1)
 }
@@ -76,6 +83,12 @@ export default {
 	bottom: 0;
 	left: 0;
 	right: 0;
+}
+
+.c-layout--centered .c-layout__body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 /* .c-layout__header::before,

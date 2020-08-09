@@ -20,6 +20,14 @@
 import { mapGetters } from 'vuex'
 
 export default {
+	beforeMount() {
+		this.$socket.on('update-textRaw', text => {
+			this.$store.commit('player/SET_TEXT', text)
+		})
+		this.$socket.on('send-player-properties', () => {
+			this.$socket.emit('update-textRaw', this.$route.params.id, this.$store.state.player.text.raw)
+		})
+	},
 	methods: {
 		toHHMMSS(int) {
 			var sec_num = parseInt(int, 10); // don't forget the second param
@@ -40,6 +48,7 @@ export default {
 			},
 			set(val) {
 				this.$store.commit('player/SET_TEXT', val)
+				this.$socket.emit('update-textRaw', this.$route.params.id, this.$store.state.player.text.raw)
 			}
 		},
         ...mapGetters({

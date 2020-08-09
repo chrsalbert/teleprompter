@@ -53,9 +53,12 @@ import getSupport from '~/mixins/getSupport.js'
 
 export default {
 	mixins: [getSupport],
-	beforeMount(context = this) {
-		this.$socket.on('update-settings', function(object) {
-			context.$store.commit('player/SET_SETTINGS', object)
+	beforeMount() {
+		this.$socket.on('update-settings', object => {
+			this.$store.commit('player/SET_SETTINGS', object)
+		})
+		this.$socket.on('send-player-properties', () => {
+			this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
 		})
 	},
 	computed: {

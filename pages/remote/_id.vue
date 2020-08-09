@@ -1,41 +1,50 @@
 <template>
- 	<div>
-        <template v-if="showLoading" name="loader">
+ 	<page-pad>
+        <template v-if="isLoading">
             <div style="color:#fff">Connecting to player…</div>
         </template>
-        <template v-else name="content">
-            <template v-if="showError">
-                <ControllerError v-on:connect="connect" :playerId="playerId" />
+        <template v-else>
+            <template v-if="!isConnected">
+                <remote-connect v-on:connect="connect" :playerId="playerId" />
             </template>
             <template v-else>
-                <pop-up ref="settingsPopup" title="Settings" width="26rem">
-			    	<player-settings />
-			    </pop-up>
-                <ClickButton icon="settings" type="inverted" size="large" v-on:click.native="openSettings()" />
-                <ClickButton icon="reload" type="inverted" size="large" v-on:click.native="reset()" />
-                <transition mode="out-in">
-                    <ClickButton v-if="isPlaying || isRecognizing" v-bind:icon="isRecognizing === true ? 'microphoneOff' : 'pause'" color="#FF6347" type="inverted" size="large" v-on:click.native="pause()" key="pause" />
-                    <ClickButton v-else v-bind:icon="settings.isSpeechRecognitionEnabled && isRecognizing === false ? 'microphone' : 'play'" color="#7FFF00" type="inverted" size="large" v-on:click.native="play()" key="play" />
-                </transition>
+                <div class="c-remote__buttons">
+                    <transition mode="out-in">
+                        <click-button v-if="isPlaying || isRecognizing" v-bind:icon="isRecognizing === true ? 'microphoneOff' : 'pause'" color="#FF6347" type="inverted" size="large" v-on:click.native="pause()" key="pause" />
+                        <click-button v-else v-bind:icon="settings.isSpeechRecognitionEnabled && isRecognizing === false ? 'microphone' : 'play'" color="#7FFF00" type="inverted" size="large" v-on:click.native="play()" key="play" />
+                    </transition>
+                    <ClickButton icon="reload" type="inverted" v-on:click.native="reset()" />
+                </div>
             </template>
         </template>
-    </div>
+    </page-pad>
 </template>
 <script>
 import { mapActions } from 'vuex'
 
 export default {
-    layout: 'controller',
+    layout: 'remote',
     data() {
         return {
             playerId: this.$route.params.id,
-            showLoading: true,
-            showError: false
+            isLoading: true
         }
     },
- 	beforeMount() {
+ 	mounted() {
         this.connect()
-        this.initSettings()
+        this.$socket.on('isConntectedToPlayer', isConnected => {
+            this.$store.commit('player/SET_IS_CONNECTED', isConnected)
+            this.isLoading = false
+        })
+        this.$socket.on('isPlaying', val => {
+            this.$store.commit('player/SET_IS_PLAYING', val)
+        })
+        this.$socket.on('isRecognizing', val => {
+            this.$store.commit('player/SET_IS_RECOGNIZING', val)
+        })
+        this.$socket.on('isSpeechRecognitionEnabled', val => {
+            this.$store.commit('player/SET_SPEECH_RECOGNITION_ENABLED', val)
+        })
     },
     computed: {
 		isPlaying() { 
@@ -43,6 +52,9 @@ export default {
 		},
 		isRecognizing() { 
 			return this.$store.state.player.isRecognizing 
+        },
+		isConnected() { 
+			return this.$store.state.player.isConnected 
 		},
 		settings() { 
 			return this.$store.state.player.settings 
@@ -61,29 +73,29 @@ export default {
         reset() {
             this.$socket.emit('reset', this.playerId)
         },
-        openSettings() {
-            this.$refs.settingsPopup.open()
-        },
-        connect(id = this.playerId === undefined ? '' : this.playerId) {
+        connect(id = this.playerId)  {
             this.playerId = id
+            if(!id) {
+                this.isLoading = false
+                return
+            } else {
+                this.$socket.emit('connectToPlayer', id)
+            }
             history.pushState(null, null, `/remote/${id}`);
-            const context = this
-            this.$socket.emit('connectToPlayer', id)
-            this.$socket.on('isConntectedToPlayer', function (isConnected) {
-                context.showError = !isConnected
-                context.showLoading = false
-            })
-            this.$socket.on('isPlaying', function (val) {
-                context.$store.commit('player/SET_IS_PLAYING', val)
-            })
-            this.$socket.on('isRecognizing', function (val) {
-                context.$store.commit('player/SET_IS_RECOGNIZING', val)
-            })
-            this.$socket.on('isSpeechRecognitionEnabled', function (val) {
-                context.$store.commit('player/SET_SPEECH_RECOGNITION_ENABLED', val)
-            })
         }
     }
     
 }
 </script>
+<style scoped>
+.c-remote__buttons {
+    display: flex;
+    align-items: center;
+    flex-direction: column;   
+}
+
+.c-remote__buttons button:first-child {
+    margin-bottom: var(--space-lg)
+}
+
+</style>

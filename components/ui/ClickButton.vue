@@ -81,6 +81,10 @@ export default {
 	outline: none
 }
 
+.c-button:disabled {
+	opacity: .5
+}
+
 .c-button >>> .c-icon {
 	width: calc(var(--control-height) / 1.6);
 	height: calc(var(--control-height) / 1.6);

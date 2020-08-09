@@ -2,6 +2,7 @@ export const state = () => ({
     isPlaying: false,
     isRecognizing: false,
     isSupportingSpeechRecognition: false,
+    isConnected: false,
     recognition: null,
     lastRecognizedWord: '',
     settings: {
@@ -76,6 +77,9 @@ export const getters = {
 export const mutations = {
     SET_IS_RECOGNIZING(state, boolean) {
         state.isRecognizing = boolean
+    },
+    SET_IS_CONNECTED(state, boolean) {
+        state.isConnected = boolean
     },
     SET_IS_PLAYING(state, boolean) {
         state.isPlaying = boolean
@@ -230,7 +234,6 @@ export const actions = {
             commit('SET_IS_RECOGNIZING', false)
         }
         const onerror = function (event) {
-            console.log(event)
             commit('SET_IS_RECOGNIZING', false)
         }
         if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {

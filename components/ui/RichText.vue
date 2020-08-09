@@ -74,6 +74,14 @@ export default {
 	text-decoration: none;
 }
 
+.c-richtext em {
+	font-style: italic
+}
+
+.c-richtext strong {
+	font-weight: 600
+}
+
 .c-richtext a:hover {
   	color: var(--color-link-hover)
 }

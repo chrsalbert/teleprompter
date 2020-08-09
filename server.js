@@ -32,6 +32,7 @@ io.on('connection', async (socket) => {
         if (socket.adapter.rooms[playerId]) {
             socket.join(playerId)
             socket.to(playerId).emit('close-popup')
+            socket.to(playerId).emit('send-player-properties')
             socket.emit('isConntectedToPlayer', true)
         } else {
             socket.emit('isConntectedToPlayer', false)
@@ -39,6 +40,9 @@ io.on('connection', async (socket) => {
     })
     socket.on('update-settings', function (playerId, object) {
         socket.to(playerId).emit('update-settings', object)
+    })
+    socket.on('update-textRaw', function (playerId, text) {
+        socket.to(playerId).emit('update-textRaw', text)
     })
     socket.on('isPlaying', function (playerId, val) {
         io.to(playerId).emit('isPlaying', val)
