@@ -1,11 +1,11 @@
 <template>
 	<nav-container>
 		<nav-group>
-			<click-button icon="home" type="inverted" href="/" />
+			<click-button icon="home" type="ghost" darkmode href="/" />
 		</nav-group>
 		<nav-group v-if="isConnected">
-			<click-button icon="documents" type="inverted" v-on:click.native="openDocuments()" />
-			<click-button icon="settings" type="inverted" v-on:click.native="openSettings()" />
+			<click-button icon="documents" type="ghost" darkmode v-on:click.native="openDocuments()" />
+			<click-button icon="settings" type="ghost" darkmode v-on:click.native="openSettings()" />
 			<pop-up ref="transcriptPopup" title="Edit transcript" width="40rem">
 				<player-transcript />
 			</pop-up>

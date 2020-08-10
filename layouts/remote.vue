@@ -1,5 +1,5 @@
 <template>
-	<app-layout centered>
+	<app-layout centered darkmode border>
 		<Nuxt />
 		<template v-slot:header>
 			<app-header>

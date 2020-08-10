@@ -7,15 +7,18 @@
 
     --color-text-lightr: #cfcfcf;
     --color-text-light: #707070;
-    --color-text: #111;
+    --color-text: #101030;
 
-    --color-gray-lighter: #ddd;
-    --color-gray-light: #ccc;
-    --color-gray: #999;
-    --color-gray-dark: #333;
+    --color-gray-lighter: #dedee0;
+    --color-gray-light: #c0c0c2;
+    --color-gray: #99999c;
+    --color-gray-dark: #303032;
+    --color-gray-darker: #19191b;
 
     --color-link: var(--color-primary);
     --color-link-hover: var(--color-primary-dark);
+    --color-link-light: var(--color-gray);
+    --color-link-light-hover: var(--color-gray-dark);
 
     --space-2xs: .25rem;
     --space-xs: .5rem;
@@ -28,7 +31,7 @@
     --space-3xl: 6rem;
     
     --font-family-scale: 1.414;
-    --font-family: 'Arial', 'Sans-Serif';
+    --font-family: 'Roboto', 'Arial', 'Sans-Serif';
     --font-size-global: 16px;
     --font-size-xs: .85rem;
     --font-size-sm: .9rem;
@@ -38,11 +41,15 @@
     --font-size-xl: 2rem;
     --font-size-2xl: 2.5rem;
     --font-size-3xl: 3rem;
+
+    --font-weight-regular: 400;
+    --font-weight-bold: 500;
+    --font-weight-heavy: 900;
     --line-height: 1.5;
     
     --header-height: 48px;
     
-    --breakpoint: 1200px;
+    --breakpoint: 1280px;
     --breakpoint-sm: 900px;
     --breakpoint-xs: 600px;
 
@@ -52,10 +59,12 @@
 
     --border-color: #333;
 
-    --body-background-color: #000;
+    --body-background-color: #fff;
 
     --control-height: 40px;
-    --control-height-large: 80px;
+    --control-height-md: 48px;
+    --control-height-lg: 64px;
+    --control-height-xl: 80px;
     --control-border: 2px solid var(--color-gray-light);
     
     --shadow: 0 1px 3px 0 rgba(6,0,14,.3), 0 1px 2px 0 rgba(6,0,14,.09);

@@ -47,7 +47,7 @@ export default {
 }
 .c-slider-value {
     font-size: var(--font-size-sm);
-    font-weight: 600;
+    font-weight: var(--font-weight-bold);
     width: 2rem;
     text-align: right;
 }

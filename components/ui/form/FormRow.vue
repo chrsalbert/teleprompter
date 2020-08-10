@@ -37,7 +37,7 @@ export default {
 	width: 40%;
 	padding-top: .6rem;
 	font-size: var(--font-size-sm);
-	font-weight: 600;
+	font-weight: var(--font-weight-bold);
 	margin-right: var(--space-sm);
 	text-overflow: ellipsis;
 	overflow: hidden; 

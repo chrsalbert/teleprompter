@@ -3,6 +3,11 @@
 </template>
 <script>
 import iconHome from "~/assets/images/icons/home.svg?raw"
+import iconEar from "~/assets/images/icons/ear.svg?raw"
+import iconPhone from "~/assets/images/icons/phone.svg?raw"
+import iconFlipVertical from "~/assets/images/icons/flip-vertical.svg?raw"
+import iconHuman from "~/assets/images/icons/human.svg?raw"
+import iconCustomize from "~/assets/images/icons/customize.svg?raw"
 import iconMenu from "~/assets/images/icons/menu.svg?raw"
 import iconDevices from "~/assets/images/icons/devices.svg?raw"
 import iconArrowLeft from "~/assets/images/icons/arrow-left.svg?raw"
@@ -25,6 +30,11 @@ export default {
 	data () {
 		return {
 			icons: {
+				ear: iconEar,
+				human: iconHuman,
+				phone: iconPhone,
+				flipVertical: iconFlipVertical,
+				customize: iconCustomize,
 				home: iconHome,
 				devices: iconDevices,
 				arrowLeft: iconArrowLeft,

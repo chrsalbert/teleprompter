@@ -7,7 +7,7 @@
                 <form-row label="Player ID" labelFor="id" direction="vertical">
                     <div class="form">
                         <form-input id="id" v-model="form.newPlayerId" darkmode required />
-                        <click-button type="inverted" @click.native="connect()" :disabled="form.newPlayerId === ''">Connect</click-button>
+                        <click-button type="secondary" darkmode @click.native="connect()" :disabled="form.newPlayerId === ''">Connect</click-button>
                     </div>
                 </form-row>
             </form>

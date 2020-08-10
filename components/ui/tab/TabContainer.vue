@@ -47,7 +47,7 @@ export default {
 	text-decoration: none;
 	color: var(--color-gray);
 	font-size: var(--font-size-sm);
-	font-weight: 600;
+	font-weight: var(--font-weight-bold);
 	text-transform: uppercase;
 	border: none;
 	background: none;

@@ -4,20 +4,23 @@
 			to: href, 
 			tag: buttonType, 
 			class: { 
+				'c-button--secondary': type === 'secondary',
+				'c-button--ghost': type === 'ghost',
+				'c-button--outstanding': outstanding,
+				'c-button--darkmode': darkmode,
+				'c-button--md': size === 'md',
+				'c-button--lg': size === 'lg',
+				'c-button--xl': size === 'xl',
 				'c-button--icon': hasIcon && !hasSlot, 
 				'c-button--hasIcon': hasIcon && hasSlot,
-				'c-button--colored': hasColor,
-				'c-button--secondary': this.type === 'secondary',
-				'c-button--optional': this.type === 'optional',
-				'c-button--inverted': this.type === 'inverted',
-				'c-button--large': this.size === 'large'
+				'c-button--colored': hasColor
 			}, 
 			style: { 
 				'--color': color 
 			}
 		}"
 		v-on:click="$event.target.blur()">
-		<AppIcon v-bind:icon="icon" v-if="hasIcon" />
+		<app-icon v-bind:icon="icon" v-if="hasIcon" />
 		<span><slot></slot></span>
 	</nuxt-link>
 </template>
@@ -25,10 +28,12 @@
 export default {
 	props: {
 		classes: String,
-		icon: String,
 		type: String,
+		icon: String,
 		size: String,
 		color: String,
+		darkmode: Boolean,
+		outstanding: Boolean,
 		submit: Boolean,
 		href: {
 			type: String,
@@ -59,131 +64,198 @@ export default {
 	display: inline-block;
 	height: var(--control-height);
 	line-height: calc(var(--control-height) - 4px);
-	padding: 0 var(--space-sm);
-	background: var(--color-gray-lighter);
+	padding: 0 calc(var(--control-height) / 2);
+	background: var(--color-primary);
 	border-radius: var(--border-radius-xs);
 	border: 2px transparent solid;
-	color: var(--color-primary);
-	font-weight: 600;
+	color: #fff;
+	font-weight: var(--font-weight-bold);
 	text-decoration: none;
 	text-align: center;
 	font-size: var(--font-size-sm);
-	transition: background .1s;
+	transition: background-color .1s, border-color .1s;
 }
 
 .c-button:focus {
-	border-color: var(--color-primary)
+	border-color: var(--color-primary-dark)
 }
 
 .c-button:hover {
-	background: var(--color-primary-lighter);
-	border-color: var(--color-primary-lighter);
+	background: var(--color-primary-dark);
+	border-color: var(--color-primary-dark);
+	color: #fff;
 	outline: none
 }
 
 .c-button:disabled {
-	opacity: .5
+	opacity: .5;
+	pointer-events: none
 }
 
 .c-button >>> .c-icon {
 	width: calc(var(--control-height) / 1.6);
 	height: calc(var(--control-height) / 1.6);
 	vertical-align: middle;
-	margin-top: -2px
+	margin-top: -2px;
 }
 
 .c-button >>> svg {
-	stroke: var(--color-primary);
-	color: var(--color-primary)
+	stroke: #fff;
+	color: #fff
 }
 
 /* secondary */
 
 .c-button--secondary {
 	background: var(--color-gray-lighter);
-	color: var(--color-text)
+	color: #444;
+	border-color: var(--color-gray-lighter);
 }
 
 .c-button--secondary >>> svg {
-	stroke: var(--color-text);
-	color: var(--color-text)
+	stroke: #444;
+	color: #444
 }
 
 .c-button--secondary:hover {
+	color: var(--color-text);
 	background: var(--color-gray-light);
 	border-color: var(--color-gray-light)
 }
 
-/* optional */
+.c-button--secondary:hover >>> svg {
+	stroke: #444;
+	color: #444
+}
 
-.c-button--optional {
+/* ghost */
+
+.c-button--ghost {
 	background: transparent;
-	color: var(--color-text-light)
+	color: #444;
 }
 
-.c-button--optional >>> svg {
-	stroke: var(--color-text-light);
-	color: var(--color-text-light)
+.c-button--ghost >>> svg {
+	stroke: #444;
+	color: #444
 }
 
-.c-button--optional:hover {
+.c-button--ghost:hover {
+	color: var(--color-text);
 	background: transparent;
-	border-color: transparent;
-	color: var(--color-text)
+	border-color: transparent
 }
 
-.c-button--optional:hover >>> svg  {
-	stroke: var(--color-text);
-	color: var(--color-text)
+.c-button--ghost:hover >>> svg {
+	stroke: #444;
+	color: #444
 }
 
-/* inverted */
+/* darkmode */
 
-.c-button--inverted {
-	background: transparent;
+.c-button--darkmode.c-button--secondary {
+	background: var(--color-gray-dark);
+	border-color: var(--color-gray-dark);
 	color: #fff
 }
 
-.c-button--inverted >>> svg {
+.c-button--darkmode.c-button--secondary >>> svg {
 	stroke: #fff;
 	color: #fff
 }
 
-.c-button--inverted:hover {
-	background: rgba(255,255,255,.15);
+.c-button--darkmode.c-button--secondary:hover {
+	background: var(--color-gray-darker);
 	border-color: transparent;
 	color: #fff
 }
 
-.c-button--inverted:hover >>> svg  {
+.c-button--darkmode.c-button--secondary:hover >>> svg  {
 	stroke: #fff;
 	color: #fff
 }
 
-/* colored */
-
-.c-button--colored,
-.c-button--colored >>> svg {
-	stroke: var(--color);
-	color: var(--color)
+.c-button--darkmode.c-button--ghost {
+	background: transparent;
+	border-color: transparent;
+	color: #fefeff
 }
 
-.c-button--colored:hover,
-.c-button--colored:hover >>> svg  {
-	stroke: var(--color);
-	color: var(--color)
+.c-button--darkmode.c-button--ghost >>> svg {
+	stroke: #fefeff;
+	color: #fefeff
 }
 
-/* controller */
-
-.c-button--large {
-	height: var(--control-height-large);
+.c-button--darkmode.c-button--ghost:hover {
+	background: var(--color-gray-darker);
+	border-color: transparent;
+	color: #fefeff
 }
 
-.c-button--large >>> .c-icon {
-	width: calc(var(--control-height-large) / 1.6);
-	height: calc(var(--control-height-large) / 1.6);
+.c-button--darkmode.c-button--ghost:hover >>> svg  {
+	stroke: #fff;
+	color: #fff
+}
+
+/* size md */
+
+.c-button--md {
+	height: var(--control-height-md);
+	line-height: calc(var(--control-height-md) - 4px);
+	padding: 0 calc(var(--control-height-md) / 2);
+	font-size: var(--font-size-md)
+}
+
+.c-button--md >>> .c-icon {
+	width: calc(var(--control-height-md) / 1.6);
+	height: calc(var(--control-height-md) / 1.6);
 	margin-top: 0
+}
+
+.c-button--md.c-button--icon {
+	width: var(--control-height-md);
+}
+
+/* size lg */
+
+.c-button--lg {
+	height: var(--control-height-lg);
+	line-height: calc(var(--control-height-lg) - 4px);
+	padding: 0 calc(var(--control-height-lg) / 2);
+}
+
+.c-button--lg >>> .c-icon {
+	width: calc(var(--control-height-lg) / 1.6);
+	height: calc(var(--control-height-lg) / 1.6);
+	margin-top: 0
+}
+
+.c-button--lg.c-button--icon {
+	width: var(--control-height-lg);
+}
+
+/* size xl */
+
+.c-button--xl {
+	height: var(--control-height-xl);
+	line-height: calc(var(--control-height-xl) - 4px);
+	padding: 0 calc(var(--control-height-xl) / 2);
+}
+
+.c-button--xl >>> .c-icon {
+	width: calc(var(--control-height-xl) / 1.6);
+	height: calc(var(--control-height-xl) / 1.6);
+	margin-top: 0
+}
+
+.c-button--xl.c-button--icon {
+	width: var(--control-height-xl);
+}
+
+/* shadow */
+
+.c-button--outstanding {
+	box-shadow: 0 5px 10px 2px rgba(0,0,255,.3)
 }
 
 /* misc */

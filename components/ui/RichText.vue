@@ -25,18 +25,22 @@ export default {
 
 .c-richtext h1 {
 	font-size: var(--font-size-3xl);
-	line-height: calc(var(--font-size-3xl) + var(--space-xs));
-	font-weight: 600;
+	font-weight: var(--font-weight-heavy);
+	line-height: calc(var(--font-size-3xl) + var(--space-2xs));
 	margin: var(--space-lg) 0 var(--space-md)
 }
 
 .c-richtext h2 {
 	font-size: var(--font-size-2xl);
+	font-weight: var(--font-weight-heavy);
+	line-height: calc(var(--font-size-2xl) + var(--space-2xs));
 	margin: var(--space-md) 0 var(--space-sm)
 }
 
 .c-richtext h3 {
 	font-size: var(--font-size-xl);
+	font-weight: var(--font-weight-bold);
+	line-height: calc(var(--font-size-xl) + var(--space-2xs));
 	margin: var(--space-sm) 0 var(--space)
 }
 
@@ -69,9 +73,13 @@ export default {
   	margin: 1rem 0;
 }
 
-.c-richtext a {
+.c-richtext a:not(.c-button) {
 	color: var(--color-link);
 	text-decoration: none;
+}
+
+.c-richtext a:not(.c-button):hover {
+  	color: var(--color-link-hover)
 }
 
 .c-richtext em {
@@ -79,11 +87,7 @@ export default {
 }
 
 .c-richtext strong {
-	font-weight: 600
-}
-
-.c-richtext a:hover {
-  	color: var(--color-link-hover)
+	font-weight: var(--font-weight-bold)
 }
 
 .c-richtext--darkmode {

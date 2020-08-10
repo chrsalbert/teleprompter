@@ -10,10 +10,24 @@
             <template v-else>
                 <div class="c-remote__buttons">
                     <transition mode="out-in">
-                        <click-button v-if="isPlaying || isRecognizing" v-bind:icon="isRecognizing === true ? 'microphoneOff' : 'pause'" color="#FF6347" type="inverted" size="large" v-on:click.native="pause()" key="pause" />
-                        <click-button v-else v-bind:icon="settings.isSpeechRecognitionEnabled && isRecognizing === false ? 'microphone' : 'play'" color="#7FFF00" type="inverted" size="large" v-on:click.native="play()" key="play" />
+                        <click-button 
+                            v-if="isPlaying || isRecognizing" 
+                            :icon="isRecognizing === true ? 'microphoneOff' : 'pause'"
+                            type="ghost"
+                            size="xl"
+                            key="pause"
+                            darkmode
+                            @click.native="pause()" />
+                        <click-button 
+                            v-else 
+                            :icon="settings.isSpeechRecognitionEnabled && isRecognizing === false ? 'microphone' : 'play'" 
+                            type="ghost"
+                            size="xl"
+                            key="play" 
+                            darkmode
+                            @click.native="play()" />
                     </transition>
-                    <ClickButton icon="reload" type="inverted" v-on:click.native="reset()" />
+                    <click-button icon="reload" type="ghost" size="md" darkmode v-on:click.native="reset()" />
                 </div>
             </template>
         </template>

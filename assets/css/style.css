@@ -13,8 +13,8 @@ html {
 }
 
 body {
-  font: 1rem/var(--line-height) Arial, Helvetica, sans-serif;
-  color: #fff;
+  font: 1rem/var(--line-height) 'Roboto', Arial, Helvetica, sans-serif;
+  color:var(--color-text);
   background: var(--body-background-color);
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;

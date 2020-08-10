@@ -83,7 +83,7 @@ export default {
 		align-items: center;
 		justify-content: space-between;
 		padding: var(--space-xs) var(--space);
-		font-weight: 600;
+		font-weight: var(--font-weight-bold);
 		font-size: var(--font-size-md)
 	}
 	.c-popup__body {

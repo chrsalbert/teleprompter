@@ -7,6 +7,8 @@
 .c-nav__group {
 	display: flex;
 	align-items: center;
-	height: 32px;
+}
+.c-nav__group > *:not(:last-child) {
+	margin-right: var(--space-xs)
 }
 </style>

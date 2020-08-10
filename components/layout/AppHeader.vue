@@ -16,8 +16,5 @@ export default {
 .c-head {
 	display: flex;
 	align-items: center;
-	padding: var(--space-sm) var(--space-md);
-	background: #000;
-	color: #fff;
 }
 </style>
