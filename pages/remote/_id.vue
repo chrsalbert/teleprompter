@@ -111,5 +111,4 @@ export default {
 .c-remote__buttons button:first-child {
     margin-bottom: var(--space-lg)
 }
-
 </style>

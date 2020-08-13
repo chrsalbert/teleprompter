@@ -3,8 +3,7 @@ export const state = () => ({
     isRecognizing: false,
     isSupportingSpeechRecognition: false,
     isConnected: false,
-    recognition: null,
-    lastRecognizedWord: '',
+    speechAPI: null,
     settings: {
         isSpeechRecognitionEnabled: false,
         wordsPerMin: 150,
@@ -93,9 +92,6 @@ export const mutations = {
     SET_SPEECH_RECOGNITION_ENABLED(state, boolean) {
         state.settings.isSpeechRecognitionEnabled = boolean
     },
-    SET_LAST_RECOGNIZED_WORD(state, string) {
-        state.lastRecognizedWord = string
-    },
     SET_TRANSCRIPT(state, text) {
         state.text = text
     },
@@ -105,15 +101,15 @@ export const mutations = {
     SET_CONTAINER_OFFSET(state, px) {
         state.text.containerOffset = px
     },
-    SET_RECOGNITION(state, { onstart, onend, onresult, onerror }) {
-        state.recognition = new webkitSpeechRecognition()
-        state.recognition.continuous = true
-        state.recognition.interimResults = true
-        state.recognition.onresult = onresult
-        state.recognition.onstart = onstart
-        state.recognition.onend = onend
-        state.recognition.onerror = onerror
-        state.recognition.maxAlternatives = 2
+    SET_SPEECH_API(state, { onstart, onend, onresult, onerror }) {
+        state.speechAPI = new webkitSpeechRecognition()
+        state.speechAPI.continuous = true
+        state.speechAPI.interimResults = true
+        state.speechAPI.onresult = onresult
+        state.speechAPI.onstart = onstart
+        state.speechAPI.onend = onend
+        state.speechAPI.onerror = onerror
+        state.speechAPI.maxAlternatives = 2
     },
     SET_WORDS_PER_MIN(state, amount) {
         state.settings.wordsPerMin = amount
@@ -193,6 +189,7 @@ export const actions = {
     },
     initSpeechRecognition({ state, commit }) {
         const onresult = function (event) {
+            let lastRecognizedWord = ''
             for (var i = 0; i < event.results.length; i++) {
                 let result = event.results[i]
                 if (result[0].confidence < 0.89) continue
@@ -207,9 +204,9 @@ export const actions = {
                     if (!blocks[i]) break
                     if (lastIndex !== null) break
                     blocks[i].words.forEach(word => {
-                        if (word === recognizedWord && word !== state.lastRecognizedWord) {
+                        if (word === recognizedWord && word !== lastRecognizedWord) {
                             lastIndex = i
-                            commit('SET_LAST_RECOGNIZED_WORD', word)
+                            lastRecognizedWord = word
                         }
                     })
                 }
@@ -237,34 +234,31 @@ export const actions = {
             commit('SET_IS_RECOGNIZING', false)
         }
         if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-            commit('SET_RECOGNITION', { onstart, onend, onresult, onerror })
+            commit('SET_SPEECH_API', { onstart, onend, onresult, onerror })
             commit('SET_SPEECH_RECOGNITION_SUPPORT', true)
         }
     },
     play({ commit, state }) {
-        if(state.settings.isSpeechRecognitionEnabled) {
-            state.recognition.start()
-        } else {
+        if(state.settings.isSpeechRecognitionEnabled)
+            state.speechAPI.start()
+        else
             commit('SET_IS_PLAYING', true)
-        }
     },
     pause({ commit, state }) {
-        if (state.isRecognizing) {
-            state.recognition.stop()
-        } else {
+        if (state.isRecognizing)
+            state.speechAPI.stop()
+        else
             commit('SET_IS_PLAYING', false)
-        }
     },
-    reset({ commit, dispatch }) {
+    reset({ dispatch, commit, state }) {
         dispatch('rewindScript')
+        if (!state.isRecognizing) commit('SET_IS_PLAYING', false)
         $nuxt.$emit('reset')
     },
     rewindScript({ commit, state }) {
         commit('SET_CONTAINER_OFFSET', 0)
         state.text.blocks.forEach((block, index) => {
-            if (block.isRead === true) {
-                commit('REMOVE_MARKED_WORD', index)
-            }
+            if (block.isRead === true) commit('REMOVE_MARKED_WORD', index)
         })
     },
     enableSpeechRecognition({ commit, dispatch }) {

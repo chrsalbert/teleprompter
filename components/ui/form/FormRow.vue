@@ -25,6 +25,7 @@ export default {
 <style scoped>
 .c-row {
 	display: flex;
+	align-items: center;
 	padding: var(--space-xs) 0;
 }
 
@@ -35,7 +36,6 @@ export default {
 .c-row__label {
 	flex-shrink: 0;
 	width: 40%;
-	padding-top: .6rem;
 	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-bold);
 	margin-right: var(--space-sm);

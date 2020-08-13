@@ -1,18 +1,22 @@
 <template>
-    <rich-text darkmode>
-        <template>
-            <h1>Connect to a player</h1>
-            <p style="text-align:center" v-if="playerId !== undefined">Sorry, we couldn't find a player with the ID <strong>{{ playerId }}</strong>. Please make sure that you have a player open and try again.</p>
-            <form>
-                <form-row label="Player ID" labelFor="id" direction="vertical">
-                    <div class="form">
-                        <form-input id="id" v-model="form.newPlayerId" darkmode required />
-                        <click-button type="secondary" darkmode @click.native="connect()" :disabled="form.newPlayerId === ''">Connect</click-button>
-                    </div>
-                </form-row>
-            </form>
-        </template>
-    </rich-text>
+    <page-pad>
+        <page-width>
+            <rich-text darkmode>
+                <template>
+                    <h1>Connect to a player</h1>
+                    <p style="text-align:center" v-if="playerId !== undefined">Sorry, we couldn't find a player with the ID <strong>{{ playerId }}</strong>. Please make sure that you have a player open and try again.</p>
+                    <form>
+                        <form-row label="Player ID" labelFor="id" direction="vertical">
+                            <div class="form">
+                                <form-input id="id" v-model="form.newPlayerId" darkmode required />
+                                <click-button type="secondary" darkmode @click.native="connect()" :disabled="form.newPlayerId === ''">Connect</click-button>
+                            </div>
+                        </form-row>
+                    </form>
+                </template>
+            </rich-text>
+        </page-width>
+    </page-pad>
 </template>
 <script>
 export default {

@@ -8,8 +8,8 @@
 					</template>
 					<template v-else>
 						<form-hint>
-							Your browser does not support speech recognition yet. Please try again with one of the following browsers:
-							<span v-for="(browser, index) in supportedBrowsers" :key="index">{{ browser }}, </span>
+							Sorry, it's not supported by your browser. 
+							<nuxt-link to="/faq#speechrecognition">Learn more</nuxt-link>
 						</form-hint>
 					</template>
 				</div>
@@ -49,10 +49,8 @@
 	</tab-container>
 </template>
 <script>
-import getSupport from '~/mixins/getSupport.js'
 
 export default {
-	mixins: [getSupport],
 	beforeMount() {
 		this.$socket.on('update-settings', object => {
 			this.$store.commit('player/SET_SETTINGS', object)
@@ -76,9 +74,6 @@ export default {
 		},
 		isSupportingSpeechRecognition() { 
 			return this.$store.state.player.isSupportingSpeechRecognition 
-		},
-		supportedBrowsers() {
-			return this.getSupport('speech-recognition')
 		},
 		wordsPerMin: {
 			get() {
