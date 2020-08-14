@@ -26,6 +26,12 @@ import getSupport from '~/mixins/getSupport.js'
 export default {
 	mixins: [getSupport],
 	layout: 'meta',
+	head() {
+		return {
+			title: 'Mr. Prompter – free online teleprompter',
+			description: "Beside many other features, Mr. Prompter scrolls your script while you're speaking. That makes you sound more natural to your audience."
+		}
+	},
 	computed: {
 		supportedBrowsers() {
 			return this.getSupport('speech-recognition')

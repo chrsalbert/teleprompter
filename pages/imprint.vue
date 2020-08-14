@@ -29,6 +29,17 @@
 
 <script>
 export default {
-	layout: 'meta'
+	layout: 'meta',
+	head() {
+		return {
+			title: 'Imprint – Mr. Prompter',
+			description: "Mr. Prompter is a private project by Christian Albert.",
+			meta: [
+				{
+					robots: 'none'
+				}
+			]
+		}
+	}
 }
 </script>

@@ -7,6 +7,12 @@ import { mapActions } from 'vuex'
 export default {
 	layout: 'player',
 	middleware: ['player'],
+	head() {
+		return {
+			title: 'Player – Mr. Prompter',
+			description: "This is the teleprompter player of Mr. Prompter. It scrolls your script while you're speaking. That makes you sound more natural to your audience."
+		}
+	},
 	data() {
 		return {
 			playerId: this.$cookies.get('playerId')

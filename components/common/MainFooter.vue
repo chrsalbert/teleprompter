@@ -6,7 +6,9 @@
                     <app-link href="/imprint" type="light">Imprint</app-link>
                 </div>
                 <div class="c-footer__copy">
-                    (C) 2020 // Christian Albert
+                    ©2020 {{ readableUrl }}
+                </div>
+                <div class="c-footer__copy">
                     <span class="c-logo" v-html="logo"></span>
                 </div>
             </div>
@@ -20,7 +22,12 @@ export default {
 		return {
 			logo: caLogo
 		}
-	}
+    },
+    computed: {
+        readableUrl() {
+            return process.env.READABLE_URL
+        }
+    }
 }
 </script>
 <style scoped>
@@ -31,12 +38,17 @@ export default {
     margin-top: var(--space-3xl);
     border-top: 2px dashed var(--color-gray-lighter);
     padding: var(--space-lg) 0;
-    font-size: var(--font-size-sm)
-}
-.c-footer__copy {
-    display: flex;
-    align-items: center;
+    font-size: var(--font-size-sm);
     color: var(--color-gray)
+}
+.c-footer > * {
+    width: 33.33%
+}
+.c-footer > *:nth-child(2) {
+    text-align: center
+}
+.c-footer > *:last-child {
+    text-align: right
 }
 .c-logo {
     margin-left: var(--space-md);

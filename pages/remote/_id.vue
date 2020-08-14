@@ -38,6 +38,12 @@ import { mapActions } from 'vuex'
 
 export default {
     layout: 'remote',
+	head() {
+		return {
+			title: 'Remote control – Mr. Prompter',
+			description: "This is the teleprompter remote control of Mr. Prompter. It lets you control your Mr. Prompter player on any other device."
+		}
+	},
     data() {
         return {
             playerId: this.$route.params.id,

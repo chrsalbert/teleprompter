@@ -56,6 +56,16 @@
 		</page-width>
 	</page-pad>
 </template>
+<script>
+export default {
+	head() {
+		return {
+			title: 'F.A.Q. – Mr. Prompter',
+			description: "Frequently asked questions about Mr. Prompter – your free online teleprompter."
+		}
+	}
+}
+</script>
 <style scoped>
 .c-hero {
 	display: flex;
