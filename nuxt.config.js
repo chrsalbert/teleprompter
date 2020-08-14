@@ -81,7 +81,7 @@ module.exports = {
 			description: "Mr. Prompter is an onlne teleprompter. It scrolls your script while you're speaking. That makes you sound more natural to your audience."
 		},
 		meta: {
-			appleStatusBarStyle: 'black-translucent',
+			appleMobileWebAppStatusBarStyle: 'black-translucent',
 			author: 'Christin Albert',
 			theme_color: '#0000FF',
 			ogTitle: 'Mr. Prompter'

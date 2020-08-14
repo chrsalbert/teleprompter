@@ -60,8 +60,8 @@
 export default {
 	head() {
 		return {
-			title: 'F.A.Q. – Mr. Prompter',
-			description: "Frequently asked questions about Mr. Prompter – your free online teleprompter."
+			title: 'Mr. Prompter – free online teleprompter',
+			description: "Beside many other features, Mr. Prompter scrolls your script while you're speaking. That makes you sound more natural to your audience."
 		}
 	}
 }

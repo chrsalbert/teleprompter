@@ -11,3 +11,16 @@
 		</template>
 	</app-layout>
 </template>
+<script>
+export default {
+	head() {
+		return {
+			meta: [
+				{
+					appleMobileWebAppStatusBarStyle: 'default'
+				}
+			]
+		}
+	}
+}
+</script>
