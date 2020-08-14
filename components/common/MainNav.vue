@@ -3,25 +3,18 @@
 		<page-width>
 			<nav-container large>
 				<nav-group>
-					<nuxt-link to="/" class="c-logo"><span v-html="logo"></span></nuxt-link>
+					<nuxt-link to="/" class="logo-link"><app-logo height="2rem"/></nuxt-link>
 				</nav-group>
 				<nav-group>
-					<click-button href="/player" :size="$device.isDektop ? 'md' : ''" type="ghost">Player</click-button>
-					<click-button href="/remote" :size="$device.isDektop ? 'md' : ''" type="ghost">Remote</click-button>
+					<nuxt-link to="/player" class="c-nav-link">Player</nuxt-link>
+					<nuxt-link to="/remote" class="c-nav-link">Remote</nuxt-link>
 				</nav-group>
 			</nav-container>
 		</page-width>
 	</page-pad>
 </template>
 <script>
-import Logo from '~/assets/images/logo.svg?svg=raw'
-
 export default {
-	data() {
-		return {
-			logo: Logo
-		}
-	},
 	methods: {
 		openSidebar() {
 			this.$store.commit('SET_SIDEBAR_OPEN', true)
@@ -30,10 +23,15 @@ export default {
 }
 </script>
 <style scoped>
-.c-logo >>> svg {
-    width: auto;
-	height: var(--control-height);
-	max-width: 100%;
-	max-height: 100%;
+.logo-link {
+	line-height: 0
+}
+.c-nav-link {
+	display: inline-block;
+	line-height: 32px;
+	font-size: var(--font-size-md);
+	color: var(--color-text);
+	text-decoration: none;
+	padding: 0 var(--space-sm)
 }
 </style>

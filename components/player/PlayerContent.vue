@@ -42,6 +42,7 @@ export default {
     },
     methods: {
         updateContainerHeight() {
+            if(!this.$refs.container) return
             this.$store.commit('player/SET_CONTAINER_HEIGHT', this.$refs.container.offsetHeight)
         },
         resetAnimation() {

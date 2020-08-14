@@ -31,7 +31,7 @@ export default {
 }
 
 .c-richtext h2 {
-	font-size: var(--font-size-xl);
+	font-size: var(--font-size-2xl);
 	font-weight: var(--font-weight-heavy);
 	line-height: calc(var(--font-size-2xl) + var(--space-2xs));
 	margin: var(--space-xl) 0 var(--space-sm)

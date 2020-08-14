@@ -1,5 +1,5 @@
 <template>
-	<AppIcon v-bind:icon="icon" class="c-iconHint" />
+	<app-icon v-bind:icon="icon" class="c-iconHint" />
 </template>
 <script>
 export default {

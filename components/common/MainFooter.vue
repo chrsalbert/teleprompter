@@ -4,6 +4,7 @@
             <div class="c-footer">
                 <div class="c-footer__meta">
                     <app-link href="/imprint" type="light">Imprint</app-link>
+                    <app-link href="/imprint" type="light">F.A.Q.</app-link>
                 </div>
                 <div class="c-footer__copy">
                     ©2020 {{ readableUrl }}
@@ -49,6 +50,9 @@ export default {
 }
 .c-footer > *:last-child {
     text-align: right
+}
+.c-footer__meta a:not(:last-child) {
+    margin-right: var(--space-md)
 }
 .c-logo {
     margin-left: var(--space-md);
