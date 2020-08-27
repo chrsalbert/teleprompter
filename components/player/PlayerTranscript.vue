@@ -1,17 +1,14 @@
 <template>
-	<div>
-		Reading time: {{ toHHMMSS(realReadingTime) }}<br>
-		<!-- realReadingTime time by: {{ realReadingTime }}
-		<br/>
-		words: {{ wordCount }}
-		<br/>
-		sec per line: {{ secondsPerLine }}
-		<br/>
-		lines: {{ lineCount }}
-		<br/>
-		breaks: {{ lineBreakCount }}
-		<br/> -->
-		<form-row direction="vertical" label="Transcript" labelFor="text">
+	<div class="c-transcript">
+		<app-tablet>
+			<app-tablet-item label="Reading time">
+				{{ toHHMMSS(realReadingTime) }}
+			</app-tablet-item>
+			<app-tablet-item label="Words">
+				{{ wordCount }}
+			</app-tablet-item>
+		</app-tablet>
+		<form-row direction="vertical" label="Transcript" labelFor="text" style="flex: 1" >
 			<form-textarea id="text" v-model="text" />
 		</form-row>
 	</div>
@@ -52,12 +49,8 @@ export default {
 			}
 		},
         ...mapGetters({
-			readingTime: 'player/getReadingTimeInSec',
 			realReadingTime: 'player/getRealReadingTimeInSec',
-			wordCount: 'player/getWordCount',
-			secondsPerLine: 'player/getSecondsPerLine',
-			lineCount: 'player/getLineCount',
-			lineBreakCount: 'player/getLinebreakCount',
+			wordCount: 'player/getWordCount'
         })
 	},
 	watch: {
@@ -67,3 +60,10 @@ export default {
 	}
 }
 </script>
+<style scoped>
+.c-transcript {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+</style>

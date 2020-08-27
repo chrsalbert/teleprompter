@@ -1,5 +1,9 @@
 <template>
-	<textarea v-bind="{ id: id }" v-on:input="handleInput" class="c-textarea">{{ value }}</textarea>
+	<textarea 
+		v-bind="{ id: id }" 
+		v-model="value"
+		v-on:input="handleInput"
+		class="c-textarea"></textarea>
 </template>
 <script>
 export default {
@@ -8,11 +12,6 @@ export default {
 		id: {
 			type: String,
 			required: true
-		}
-	},
-	data () {
-		return {
-			content: this.value
 		}
 	},
 	methods: {
@@ -31,6 +30,7 @@ export default {
     background: var(--color-gray-lightest);
     border: 2px var(--color-gray-light) solid;
 	border-radius: var(--border-radius-xs);
-	color: var(--color-text)
+	color: var(--color-text);
+	font-family: var(--font-family)
 }
 </style>
