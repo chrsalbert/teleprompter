@@ -26,10 +26,11 @@ export default {
 .c-textarea {
     width: 100%;
     line-height: 1.5;
-    height: calc(calc(10em * 1.5) + 16px);
+    height: calc(calc(4em * 1.5) + calc(var(--space-xs) * 2));
     padding: var(--space-xs);
-    background: none;
-    border: var(--control-border);
-    border-radius: var(--border-radius-xs);
+    background: var(--color-gray-lightest);
+    border: 2px var(--color-gray-light) solid;
+	border-radius: var(--border-radius-xs);
+	color: var(--color-text)
 }
 </style>

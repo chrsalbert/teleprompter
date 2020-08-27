@@ -1,15 +1,15 @@
 <template>
-	<app-layout fixed border darkmode>
+	<the-layout fixed border darkmode>
 		<Nuxt />
 		<template v-slot:header>
-			<app-header>
+			<the-header>
 				<player-nav />
-			</app-header>
+			</the-header>
 		</template>
 		<template v-slot:footer>
-			<app-header>
+			<the-header>
 				<player-menu />
-			</app-header>
+			</the-header>
 		</template>
-	</app-layout>
+	</the-layout>
 </template>

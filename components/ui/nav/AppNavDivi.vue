@@ -8,6 +8,6 @@
 	height: 32px;
 	width: 1px;
 	margin: 0 8px;
-	background: rgba(255,255,255,.2)
+	background: var(--color-gray-lighter)
 }
 </style>

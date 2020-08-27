@@ -1,15 +1,15 @@
 <template>
 	<page-pad style="flex: 1">
 		<page-width>
-			<nav-container large>
-				<nav-group>
+			<app-nav large>
+				<app-nav-group>
 					<nuxt-link to="/" class="logo-link"><app-logo height="2rem"/></nuxt-link>
-				</nav-group>
-				<nav-group>
+				</app-nav-group>
+				<app-nav-group>
 					<nuxt-link to="/player" class="c-nav-link">Player</nuxt-link>
 					<nuxt-link to="/remote" class="c-nav-link">Remote</nuxt-link>
-				</nav-group>
-			</nav-container>
+				</app-nav-group>
+			</app-nav>
 		</page-width>
 	</page-pad>
 </template>
@@ -30,7 +30,7 @@ export default {
 	display: inline-block;
 	line-height: 32px;
 	font-size: var(--font-size-md);
-	color: var(--color-text);
+	color: var(--text-color);
 	text-decoration: none;
 	padding: 0 var(--space-sm)
 }

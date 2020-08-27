@@ -2,6 +2,7 @@
 	<span class="c-icon" v-html="icons[icon]"></span>
 </template>
 <script>
+import iconInfo from "~/assets/images/icons/info.svg?raw"
 import iconHome from "~/assets/images/icons/home.svg?raw"
 import iconEar from "~/assets/images/icons/ear.svg?raw"
 import iconPhone from "~/assets/images/icons/phone.svg?raw"
@@ -30,6 +31,7 @@ export default {
 	data () {
 		return {
 			icons: {
+				info: iconInfo,
 				ear: iconEar,
 				human: iconHuman,
 				phone: iconPhone,
@@ -62,5 +64,6 @@ export default {
 .c-icon >>> svg {
 	width: 100%;
 	height: 100%;
+	stroke: var(--text-color)
 }
 </style>

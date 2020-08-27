@@ -1,25 +1,25 @@
 <template>
-	<nav-container>
-		<nav-group>
-			<click-button icon="home" darkmode type="ghost" href="/" />
-		</nav-group>
-		<nav-group>
-			<click-button icon="documents" darkmode type="ghost" v-on:click.native="openDocuments()" />
-			<click-button icon="settings" darkmode type="ghost" v-on:click.native="openSettings()" />
-			<click-button icon="devices" darkmode type="ghost" v-on:click.native="openController()" />
-			<pop-up ref="controllerPopup" title="Remote control" width="26rem">
-				<player-controller v-on:close="closeController()"/>
-			</pop-up>
-			<pop-up ref="settingsPopup" title="Settings" width="26rem">
+	<app-nav>
+		<app-nav-group>
+			<app-button icon="home" type="ghost" href="/" />
+		</app-nav-group>
+		<app-nav-group>
+			<app-button icon="documents" type="ghost" v-on:click.native="openTranscriptPopup()" />
+			<app-button icon="settings" type="ghost" v-on:click.native="openSettingsPopup()" />
+			<app-button icon="devices" type="ghost" v-on:click.native="openControllerPopup()" />
+			<app-sidebar ref="controllerPopup" title="Remote control" width="26rem">
+				<player-remote v-on:close="closeRemotePopup()"/>
+			</app-sidebar>
+			<app-sidebar ref="settingsPopup" title="Settings" width="26rem">
 				<player-settings />
-			</pop-up>
-			<pop-up ref="transcriptPopup" title="Edit transcript" width="40rem">
+			</app-sidebar>
+			<app-sidebar ref="transcriptPopup" title="Edit transcript" width="40rem">
 				<player-transcript />
-			</pop-up>
-			<nav-divi v-if="$device.isDesktop"/>
-			<click-button v-if="$device.isDesktop" icon="fullscreen" darkmode type="ghost" v-on:click.native="toggleFullscreen()"/>
-		</nav-group>
-	</nav-container>
+			</app-sidebar>
+			<app-nav-divi v-if="$device.isDesktop"/>
+			<app-button v-if="$device.isDesktop" icon="fullscreen" type="ghost" v-on:click.native="toggleFullscreen()"/>
+		</app-nav-group>
+	</app-nav>
 </template>
 <script>
 import { mapActions } from 'vuex'
@@ -29,20 +29,17 @@ import getSupport from '~/mixins/getSupport.js'
 export default {
 	mixins: [fullscreenFunctions, getSupport],
 	methods: {
-		openController() {
+		openControllerPopup() {
 			this.$refs.controllerPopup.open()
 		},
-		closeController() {
+		closeRemotePopup() {
 			this.$refs.controllerPopup.close()
 		},
-		openSettings() {
+		openSettingsPopup() {
 			this.$refs.settingsPopup.open()
 		},
-		openDocuments() {
+		openTranscriptPopup() {
 			this.$refs.transcriptPopup.open()
-		},
-		openSidebar() {
-			this.$store.commit('SET_SIDEBAR_OPEN', true)
 		}
 	}
 }

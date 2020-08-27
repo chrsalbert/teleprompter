@@ -1,52 +1,54 @@
 <template>
-	<tab-container>
-		<tab-item title="Scrolling" :selected="true">
-			<form-row label="Speech recognition" labelFor="speechRecognition">
-				<div>
-					<template v-if="isSupportingSpeechRecognition">
-						<form-switch id="speechRecognition" v-model="speechRecognition" />
-					</template>
-					<template v-else>
-						<form-hint>
-							Sorry, it's not supported by your browser. 
-							<nuxt-link to="/faq#speechrecognition">Learn more</nuxt-link>
-						</form-hint>
-					</template>
-				</div>
-			</form-row>
-			<form-row label="Words per min." labelFor="wordsPerMin">
-				<form-input-range id="wordsPerMin" :min="150" :max="350" :step="10" v-model="wordsPerMin" />
-			</form-row>
-		</tab-item>
-		<tab-item title="Display">
-			<form-row label="Mirror horizontally" labelFor="flipX">
-				<form-switch id="flipX" v-model="flipX" />
-			</form-row>
-			<form-row label="Mirror vertically" labelFor="flipY">
-				<form-switch id="flipY" v-model="flipY" />
-			</form-row>
-			<form-row label="Chars per line" labelFor="charsPerLine">
-				<form-input-range id="charsPerLine" :min="10" :max="100" :step="1" v-model="charsPerLine" />
-			</form-row>
-			<form-row label="Margin" labelFor="textMargin">
-				<form-input-range id="textMargin" :min="10" :max="100" :step="1" v-model="textMargin" />
-			</form-row>
-		</tab-item>
-		<tab-item title="Font style">
-			<form-row label="Font size" labelFor="fontSize">
-				<form-input-range id="fontSize" :min="24" :max="168" :step="8" v-model="fontSize" />
-			</form-row>
-			<form-row label="Line height" labelFor="lineHeight">
-				<form-input-range id="lineHeight" :min="1" :max="3" :step=".1" v-model="lineHeight" />
-			</form-row>
-			<form-row label="Text color" labelFor="textColor">
-				<form-input id="textColor" type="color" v-model="textColor" />
-			</form-row>
-			<form-row label="Background color" labelFor="backgroundColor">
-				<form-input id="backgroundColor" type="color" v-model="backgroundColor" />
-			</form-row>
-		</tab-item>
-	</tab-container>
+	<div class="darkmode">
+		<app-tabs>
+			<app-tabs-item title="Player" selected>
+				<form-row label="Speech recognition" labelFor="speechRecognition">
+					<div>
+						<template v-if="isSupportingSpeechRecognition">
+							<form-switch id="speechRecognition" v-model="speechRecognition" />
+						</template>
+						<template v-else>
+							<form-hint>
+								Sorry, it's not supported by your browser. 
+								<nuxt-link to="/faq#speechrecognition">Learn more</nuxt-link>
+							</form-hint>
+						</template>
+					</div>
+				</form-row>
+				<form-row label="Words per min." labelFor="wordsPerMin">
+					<form-input-range id="wordsPerMin" :min="150" :max="350" :step="10" v-model="wordsPerMin" />
+				</form-row>
+			</app-tabs-item>
+			<app-tabs-item title="Display">
+				<form-row label="Mirror horizontally" labelFor="flipX">
+					<form-switch id="flipX" v-model="flipX" />
+				</form-row>
+				<form-row label="Mirror vertically" labelFor="flipY">
+					<form-switch id="flipY" v-model="flipY" />
+				</form-row>
+				<form-row label="Minimum margin" labelFor="textMargin">
+					<form-input-range id="textMargin" :min="10" :max="100" :step="1" v-model="textMargin" />
+				</form-row>
+			</app-tabs-item>
+			<app-tabs-item title="Text">
+				<form-row label="Font size" labelFor="fontSize">
+					<form-input-range id="fontSize" :min="24" :max="168" :step="8" v-model="fontSize" />
+				</form-row>
+				<form-row label="Line height" labelFor="lineHeight">
+					<form-input-range id="lineHeight" :min="1" :max="3" :step=".1" v-model="lineHeight" />
+				</form-row>
+				<form-row label="Chars per line" labelFor="charsPerLine">
+					<form-input-range id="charsPerLine" :min="10" :max="100" :step="1" v-model="charsPerLine" />
+				</form-row>
+				<form-row label="Text color" labelFor="textColor">
+					<form-input id="textColor" type="color" v-model="textColor" />
+				</form-row>
+				<form-row label="Background color" labelFor="backgroundColor">
+					<form-input id="backgroundColor" type="color" v-model="backgroundColor" />
+				</form-row>
+			</app-tabs-item>
+		</app-tabs>
+	</div>
 </template>
 <script>
 

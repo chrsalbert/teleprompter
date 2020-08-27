@@ -2,13 +2,13 @@
     <div class="c-layout" v-bind:class="{ 
 		'c-layout--sidebar-open': isSidebarOpen,
 		'c-layout--fixed': fixed === true,
-		'c-layout--darkmode': darkmode === true,
+		'c-layout--darkmode darkmode': darkmode === true,
 		'c-layout--border': border === true,
 		'c-layout--centered': centered === true
 	}">
-        <div class="c-layout__sidebar">
-            <app-sidebar />
-        </div>
+        <!-- <div class="c-layout__sidebar">
+            <player-settings />
+        </div> -->
         <div class="c-layout__header" :class="{ 'c-layout__header--hidden': isPlaying }">
 			<slot name="header"></slot>
         </div>
@@ -43,13 +43,18 @@ export default {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-	transition: left .2s cubic-bezier(0.075, 0.82, 0.165, 1)
+	transition: all .2s cubic-bezier(0.075, 0.82, 0.165, 1)
+}
+
+.c-layout--sidebarOpen {
+	transform: translateX(-200px)
 }
 
 .c-layout__header {
 	position: relative;
-	z-index: 2;
-	transition: all .3s cubic-bezier(0.215, 0.610, 0.355, 1)
+	z-index: 3;
+	transition: all .3s cubic-bezier(0.215, 0.610, 0.355, 1);
+	background: var(--color-white)
 }
 
 .c-layout__header:empty {
@@ -71,6 +76,7 @@ export default {
 .c-layout__footer {
 	z-index: 2;
 	position: relative;
+	background: var(--color-white);
 }
 
 .c-layout__footer:empty {
@@ -97,27 +103,15 @@ export default {
 	align-items: center;
 }
 
-.c-layout--darkmode {
-	background: #000;
-}
-
-.c-layout--darkmode.c-layout--border .c-layout__header {
-	background: #000;
-	border-bottom: 1px var(--color-gray-darker) solid
-}
-
-.c-layout--darkmode.c-layout--border .c-layout__footer {
-	background: #000;
-	border-top: 1px var(--color-gray-darker) solid
-}
-
 .c-layout__sidebar {
+	z-index: 3;
 	position: fixed;
 	top: 0;
 	bottom: 0;
-	left: -200px;
+	right: -200px;
 	width: 200px;
 	border-right: 1px solid var(--border-color);
+	background: #19191a;
 	transition: left .2s cubic-bezier(0.075, 0.82, 0.165, 1)
 }
 

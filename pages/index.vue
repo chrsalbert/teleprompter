@@ -1,12 +1,12 @@
 <template>
 	<page-pad>
 		<page-width>
-			<rich-text>
+			<app-richtext>
 				<div class="c-hero">
 					<div class="c-hero__text">
 						<h1>Start a free teleprompter in seconds</h1>
 						<p>Mr. Prompter scrolls your script while you're speaking. That makes you sound more natural to your audience.</p>
-						<click-button href="/player" size="md" outstanding class="c-hero__cta">Open the player</click-button>
+						<app-button href="/player" size="md" outstanding class="c-hero__cta">Open the player</app-button>
 					</div>
 					<figure class="c-hero__figure">
 						<img src="~/assets/images/mr-prompter-teleprompter-app-hero.png" class="c-hero__image" alt="Teleprompter player on a desktop browser window and remote control on a smartphone browser." />
@@ -16,29 +16,29 @@
 					<app-logo height="6rem" symbol />
 					<h2>Mr. Prompter fits your purpose</h2>
 					<p>It does not matter if you speak on stage or to your camera. Set up your teleprompter for all purposes.</p>
-					<benefits-list>
-						<benefits-list-item icon="ear" title="Recognizes speech">
+					<app-showing-list>
+						<app-showing-item icon="ear" title="Recognizes speech">
 							<p>Mr. Prompter listens to you and scrolls your transcript automaticaly while you're speaking.</p>
-						</benefits-list-item>
-						<benefits-list-item icon="devices" title="Remote controlable">
+						</app-showing-item>
+						<app-showing-item icon="devices" title="Remote controlable">
 							<p>Use your smartphone to set up and control your player over a regular internet connection.</p>
-						</benefits-list-item>
-						<benefits-list-item icon="human" title="Human friendly">
+						</app-showing-item>
+						<app-showing-item icon="human" title="Human friendly">
 							<h3></h3>
 							<p>While other teleprompters let you choose a random scroll speed, Mr. Prompter asks you for words per minute.</p>
-						</benefits-list-item>
-						<benefits-list-item icon="phone" title="Offline available">
+						</app-showing-item>
+						<app-showing-item icon="phone" title="Offline available">
 							<p>Save Mr. Prompter to your mobile home screen and use it like your native apps – even offline!</p>
-						</benefits-list-item>
-						<benefits-list-item icon="flipVertical" title="Physical setup ready">
+						</app-showing-item>
+						<app-showing-item icon="flipVertical" title="Physical setup ready">
 							<p>Mirror your text horizontal and vertical for using Mr. Prompter with your physical setup.</p>
-						</benefits-list-item>
-						<benefits-list-item icon="customize" title="Customizable">
+						</app-showing-item>
+						<app-showing-item icon="customize" title="Customizable">
 							<p>Adjust colors, font styles and display options to fully fit your purpose.</p>
-						</benefits-list-item>
-					</benefits-list>
+						</app-showing-item>
+					</app-showing-list>
 				</section>
-			</rich-text>
+			</app-richtext>
 		</page-width>
 	</page-pad>
 </template>
@@ -102,7 +102,7 @@ export default {
 		padding: var(--space-xl) 0 0;
 	}
 
-	.c-benefits li { 
+	.c-app-showing li { 
 		flex-basis: 100%
 	}
 }

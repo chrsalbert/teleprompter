@@ -37,10 +37,13 @@ export default {
 <style>
 .c-tabs__nav {
 	display: flex;
-	border-bottom: 1px solid var(--color-gray-lighter);
+	background: var(--color-gray-lightest);
+	border-radius: var(--border-radius-sm);
+	margin-bottom: var(--space-sm)
 }
 .c-tabs__button {
-	display: inline-block;
+	position: relative;
+	flex: 1;
 	height: var(--control-height);
 	line-height: var(--control-height);
 	padding: 0 var(--space-sm);
@@ -48,19 +51,15 @@ export default {
 	color: var(--color-gray);
 	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-bold);
-	text-transform: uppercase;
 	border: none;
 	background: none;
-	border-bottom: 2px transparent solid;
+	border-radius: var(--border-radius-sm)
 }
 .c-tabs__button:hover {
-	color: var(--color-text)
+	color: var(--text-color)
 }
 .c-tabs__button--active {
-	border-color: var(--color-primary);
-	color: var(--color-text)
-}
-.c-tabs__content {
-	padding: var(--space-sm)
+	color: var(--text-color);
+	background: var(--color-gray-lighter);
 }
 </style>

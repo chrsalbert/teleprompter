@@ -1,26 +1,11 @@
 <template>
-	<div class="c-richtext" v-bind:class="{ 'c-richtext--darkmode': hasDarkmode }">
+	<div class="c-richtext">
 		<slot></slot>
 	</div>
 </template>
-<script>
-export default {
-	props: {
-		darkmode: {
-			type: Boolean,
-			default: false
-		}
-	},
-	computed: {
-		hasDarkmode() {
-			return this.darkmode
-		}
-	}
-}
-</script>
 <style scoped>
 .c-richtext {
-	line-height: 1.6
+	line-height: 1.6;
 }
 
 .c-richtext h1 {
@@ -34,19 +19,19 @@ export default {
 	font-size: var(--font-size-2xl);
 	font-weight: var(--font-weight-heavy);
 	line-height: calc(var(--font-size-2xl) + var(--space-2xs));
-	margin: var(--space-xl) 0 var(--space-sm)
+	margin: var(--space-xl) 0 var(--space-md)
 }
 
 .c-richtext h3 {
 	font-size: var(--font-size-xl);
 	font-weight: var(--font-weight-bold);
 	line-height: calc(var(--font-size-xl) + var(--space-2xs));
-	margin: var(--space-sm) 0 var(--space)
+	margin: var(--space-lg) 0 var(--space-md)
 }
 
 .c-richtext h4 {
 	font-size: var(--font-size-lg);
-	margin: var(--space) 0 var(--space-xs)
+	margin: var(--space-md) 0 var(--space-sm)
 }
 
 .c-richtext h5 {
@@ -73,13 +58,13 @@ export default {
   	margin: 1rem 0;
 }
 
-.c-richtext a:not(.c-button) {
-	color: var(--color-link);
+.c-richtext p > a:not(.c-button) {
+	color: var(--link-color);
 	text-decoration: none;
 }
 
-.c-richtext a:not(.c-button):hover {
-  	color: var(--color-link-hover)
+.c-richtext p > a:not(.c-button):hover {
+  	color: var(--link-color-hover)
 }
 
 .c-richtext em {
@@ -88,18 +73,5 @@ export default {
 
 .c-richtext strong {
 	font-weight: var(--font-weight-bold)
-}
-
-.c-richtext--darkmode {
-	color: #fff;
-}
-
-.c-richtext--darkmode a {
-	color: #aaf;
-}
-
-.c-richtext--darkmode a:hover {
-	color: #aaf;
-	text-decoration: underline;
 }
 </style>

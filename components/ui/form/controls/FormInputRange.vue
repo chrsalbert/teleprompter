@@ -3,27 +3,43 @@
         <div class="c-slider__control">
             <input 
                 type="range"
+                :id="id"
                 :min="min"
                 :max="max"
                 :step="step"
                 class="c-slider__input"
-                :value="value"
-                v-on:input="handleInput">
+                v-model="input"
+                v-on:input="handleInput"
+                :required="required">
         </div>
-        <p class="c-slider-value">{{ value }}</p>
+        <p class="c-slider-value">{{ input }}</p>
     </div>
 </template>
 <script>
 export default {
     props: {
-        min: Number,
-        max: Number,
-        step: Number,
-        value: Number,
-        required: Boolean,
         id: {
             type: String,
             required: true
+        },
+        min: {
+            type: Number,
+            required: true
+        },
+        max: {
+            type: Number,
+            required: true
+        },
+        value: {
+            type: Number,
+            required: true
+        },
+        step: Number,
+        required: Boolean
+    },
+    data() {
+        return {
+            input: this.value
         }
     },
 	methods: {
@@ -51,7 +67,6 @@ export default {
     width: 2rem;
     text-align: right;
 }
-
 .c-slider__input {
   -webkit-appearance: none;
   width: 100%;

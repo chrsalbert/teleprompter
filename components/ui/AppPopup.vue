@@ -4,7 +4,7 @@
 			<div class="c-popup__container" v-bind:style="{ '--width': width }" >
 				<header class="c-popup__head">
 					{{ title }}
-					<click-button type="ghost" icon="close" v-on:click.native="close()" />
+					<app-button type="ghost" icon="close" v-on:click.native="close()" />
 				</header>
 				<div class="c-popup__body">
 					<slot></slot>
@@ -74,7 +74,7 @@ export default {
 		background: #fff;
 		border-radius: var(--border-radius);
 		box-shadow: var(--shadow-xl);
-		color: var(--color-text);
+		color: var(--text-color);
 		transform: translate3d(-50%, 0, 0) scale(1);
 		transition: all .2s;
 	}

@@ -1,7 +1,7 @@
 <template>
 	<page-pad>
 		<page-width>
-			<rich-text>
+			<app-richtext>
 				<h1>F.A.Q.</h1>
 				<h2 id="speechrecognition">
 					How can I use speech recognition?
@@ -15,7 +15,7 @@
 				<p>
 					If you are using one of these browsers, you will be asked for microphone permission in order to get speech recognition work. Because this feature is still in the experimental phase, unexpected errors can occur.
 				</p>
-			</rich-text>
+			</app-richtext>
 		</page-width>
 	</page-pad>
 </template>

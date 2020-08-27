@@ -1,5 +1,9 @@
 <template>
-  <div class="c-row" v-bind:class="{ 'c-row--vertical': direction === 'vertical' }">
+  <div 
+  	class="c-row"
+	v-bind:class="{ 
+	  'c-row--vertical': direction === 'vertical'
+	}">
 	<label class="c-row__label" v-bind="{ for: labelFor }">{{ label }}</label>
 	<slot></slot>
   </div>

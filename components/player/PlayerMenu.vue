@@ -1,36 +1,33 @@
 <template>
-	<nav-container>
-		<nav-group>
-		</nav-group>
-		<nav-group>
-			<click-button 
+	<app-nav>
+		<app-nav-group>
+		</app-nav-group>
+		<app-nav-group>
+			<app-button 
                 icon="reload"
                 type="ghost" 
                 :size="$device.isDesktop ? 'lg' : ''"
-                darkmode
                 @click.native="reset()" />
 			<transition mode="out-in">
-				<click-button 
+				<app-button 
                     v-if="isPlaying || isRecognizing" 
                     :icon="isRecognizing === true ? 'microphoneOff' : 'pause'" 
                     :size="$device.isDesktop ? 'lg' : ''"
                     type="ghost" 
                     key="pause"
-                    darkmode
                     @click.native="pause()" />
-				<click-button 
+				<app-button 
                     v-else
                     :icon="settings.isSpeechRecognitionEnabled && isRecognizing === false ? 'microphone' : 'play'" 
                     :size="$device.isDesktop ? 'lg' : ''"
                     type="ghost"
                     key="play"
-                    darkmode 
                     @click.native="play()" />
 			</transition>
-		</nav-group>
-        <nav-group>
-		</nav-group>
-	</nav-container>
+		</app-nav-group>
+        <app-nav-group>
+		</app-nav-group>
+	</app-nav>
 </template>
 <script>
 import { mapActions } from 'vuex'

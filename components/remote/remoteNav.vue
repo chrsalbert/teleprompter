@@ -1,19 +1,19 @@
 <template>
-	<nav-container>
-		<nav-group>
-			<click-button icon="home" type="ghost" darkmode href="/" />
-		</nav-group>
-		<nav-group v-if="isConnected">
-			<click-button icon="documents" type="ghost" darkmode v-on:click.native="openDocuments()" />
-			<click-button icon="settings" type="ghost" darkmode v-on:click.native="openSettings()" />
-			<pop-up ref="transcriptPopup" title="Edit transcript" width="40rem">
+	<app-nav>
+		<app-nav-group>
+			<app-button icon="home" type="ghost" href="/" />
+		</app-nav-group>
+		<app-nav-group v-if="isConnected">
+			<app-button icon="documents" type="ghost" v-on:click.native="openDocuments()" />
+			<app-button icon="settings" type="ghost" v-on:click.native="openSettings()" />
+			<app-popup ref="transcriptPopup" title="Edit transcript" width="40rem">
 				<player-transcript />
-			</pop-up>
-			<pop-up ref="settingsPopup" title="Settings" width="26rem">
+			</app-popup>
+			<app-popup ref="settingsPopup" title="Settings" width="26rem">
 				<player-settings />
-			</pop-up>
-		</nav-group>
-	</nav-container>
+			</app-popup>
+		</app-nav-group>
+	</app-nav>
 </template>
 <script>
 import { mapActions } from 'vuex'

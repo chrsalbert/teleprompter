@@ -1,8 +1,7 @@
 <template>
 	<input 
 		v-bind="{ id: id, type: type, required: required, step: step, value: value, class: {
-			'c-input--color': type === 'color',
-			'c-input--darkmode': darkmode === true
+			'c-input--color': type === 'color'
 		} 
 		}" 
 		v-on:input="handleInput" 
@@ -13,7 +12,6 @@ export default {
 	props: {
 		value: [String, Number],
 		step: Number,
-		darkmode: Boolean,
 		required: Boolean,
 		id: {
 			type: String,
@@ -36,8 +34,10 @@ export default {
 	width: 100%;
 	height: var(--control-height);
 	padding: 0 var(--space-xs);
-	border: var(--control-border);
-	border-radius: var(--border-radius-xs)
+	border: 2px solid var(--color-gray-light);
+	border-radius: var(--border-radius-xs);
+	background: var(--color-gray-lightest);
+	color: var(--text-color)
 }
 
 .c-input:focus {
@@ -55,11 +55,5 @@ export default {
 
 .c-input--color::-webkit-color-swatch {
 	border: none
-}
-
-.c-input--darkmode {
-	background: #222;
-	color: #fff;
-	border-color: #444
 }
 </style>

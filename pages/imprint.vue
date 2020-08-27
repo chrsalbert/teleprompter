@@ -1,7 +1,7 @@
 <template>
 	<page-pad>
 		<page-width>
-			<rich-text>
+			<app-richtext>
 				<h1>Impressum</h1>
 				<p>
 					Informationspflicht laut § 5 TMG.
@@ -22,7 +22,7 @@
 					Icons von 
 					<nuxt-link to="https://tablericons.com">tablericons.com</nuxt-link>
 				</p>
-			</rich-text>
+			</app-richtext>
 		</page-width>
 	</page-pad>
 </template>
