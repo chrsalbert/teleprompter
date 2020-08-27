@@ -8,8 +8,8 @@
 				</p>
 				<p>
 					Christian Albert<br/>
-					Jenaer Str. 47<br/>
-					07549 Gera<br/>
+					Weißhausstr. 36<br/>
+					50939 Köln<br/>
 					Deutschland
 				</p>
 				<h2>
