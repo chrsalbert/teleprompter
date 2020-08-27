@@ -3,8 +3,6 @@
 		<dl>
 			<dt>Player ID</dt>
 			<dd>{{ playerId }}</dd>
-			<dt>Remote status</dt>
-			<dd>disconnected</dd>
 		</dl>
 		<div class="qrWrapper">
 			<figure><qrcode-vue :value="url"></qrcode-vue></figure>
