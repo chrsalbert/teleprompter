@@ -6,6 +6,7 @@
 <style scoped>
 .c-richtext {
 	line-height: 1.6;
+	color: var(--text-color)
 }
 
 .c-richtext h1 {

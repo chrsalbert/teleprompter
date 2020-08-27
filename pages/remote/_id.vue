@@ -1,7 +1,7 @@
 <template>
  	<page-pad>
         <template v-if="isLoading">
-            <div style="color:#fff">Connecting to player…</div>
+            <p>Connecting to player…</p>
         </template>
         <template v-else>
             <template v-if="!isConnected">

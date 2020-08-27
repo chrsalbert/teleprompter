@@ -1,14 +1,10 @@
 <template>
     <div class="c-layout" v-bind:class="{ 
-		'c-layout--sidebar-open': isSidebarOpen,
 		'c-layout--fixed': fixed === true,
-		'c-layout--darkmode darkmode': darkmode === true,
+		'darkmode': darkmode === true,
 		'c-layout--border': border === true,
 		'c-layout--centered': centered === true
 	}">
-        <!-- <div class="c-layout__sidebar">
-            <player-settings />
-        </div> -->
         <div class="c-layout__header" :class="{ 'c-layout__header--hidden': isPlaying }">
 			<slot name="header"></slot>
         </div>
@@ -29,9 +25,6 @@ export default {
 		border: Boolean
 	},
 	computed: {
-		isSidebarOpen() {
-			return this.$store.state.isSidebarOpen
-		},
 		isPlaying() {
 			return this.$store.state.player.isPlaying
 		}
@@ -43,6 +36,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
+	background: var(--color-white);
 	transition: all .2s cubic-bezier(0.075, 0.82, 0.165, 1)
 }
 
@@ -114,22 +108,4 @@ export default {
 	background: #19191a;
 	transition: left .2s cubic-bezier(0.075, 0.82, 0.165, 1)
 }
-
-/* .c-layout--fixed .c-layout__body {
-}
-
-.c-layout--sidebar-open {
-	left: 200px
-}
-
-.c-layout--sidebar-open .c-layout__sidebar {
-	left: 0;
-}
-
-.c-layout--sidebar-open .c-layout__header::before,
-.c-layout--sidebar-open .c-layout__body::before,
-.c-layout--sidebar-open .c-layout__footer::before {
-	pointer-events: all;
-	background-color: rgba(0,0,0,.8)
-} */
 </style>

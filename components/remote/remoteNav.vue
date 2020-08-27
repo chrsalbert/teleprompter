@@ -6,12 +6,12 @@
 		<app-nav-group v-if="isConnected">
 			<app-button icon="documents" type="ghost" v-on:click.native="openDocuments()" />
 			<app-button icon="settings" type="ghost" v-on:click.native="openSettings()" />
-			<app-popup ref="transcriptPopup" title="Edit transcript" width="40rem">
+			<app-sidebar ref="transcriptPopup" title="Edit transcript" width="40rem">
 				<player-transcript />
-			</app-popup>
-			<app-popup ref="settingsPopup" title="Settings" width="26rem">
+			</app-sidebar>
+			<app-sidebar ref="settingsPopup" title="Settings" width="26rem">
 				<player-settings />
-			</app-popup>
+			</app-sidebar>
 		</app-nav-group>
 	</app-nav>
 </template>

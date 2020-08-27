@@ -3,13 +3,14 @@
         <page-width>
             <app-richtext>
                 <template>
-                    <h1>Connect to a player</h1>
-                    <p style="text-align:center" v-if="playerId !== undefined">Sorry, we couldn't find a player with the ID <strong>{{ playerId }}</strong>. Please make sure that you have a player open and try again.</p>
+                    <h1 v-if="playerId === undefined">Connect to a player</h1>
+                    <h1 v-else>Not found. Please try again</h1>
+                    <p v-if="playerId !== undefined">Sorry, we couldn't find a player with the ID <strong>{{ playerId }}</strong>.</p>
                     <form>
                         <form-row label="Player ID" labelFor="id" direction="vertical">
                             <div class="form">
                                 <form-input id="id" v-model="form.newPlayerId" required />
-                                <app-button type="secondary" @click.native="connect()" :disabled="form.newPlayerId === ''">Connect</app-button>
+                                <app-button @click.native="connect()" :disabled="form.newPlayerId === ''">Connect</app-button>
                             </div>
                         </form-row>
                     </form>

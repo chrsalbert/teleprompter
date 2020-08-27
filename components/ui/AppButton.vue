@@ -77,7 +77,7 @@ export default {
 .c-button:focus {
 	border-color: var(--button-primary-focus-border-color)
 }
-.c-button:hover {
+.c-button:hover:not(:disabled) {
 	background: var(--button-primary-hover-bg-color);
 	border-color: var(--button-primary-hover-border-color);
 	color: var(--button-primary-hover-text-color);
@@ -85,7 +85,7 @@ export default {
 }
 .c-button:disabled {
 	opacity: .5;
-	pointer-events: none
+	cursor: not-allowed;
 }
 .c-button >>> .c-icon {
 	width: calc(var(--control-height) / 1.6);
@@ -104,7 +104,7 @@ export default {
 	border-color: var(--button-secondary-border-color);
 	color: var(--button-secondary-text-color);
 }
-.c-button--secondary:hover {
+.c-button--secondary:hover:not(:disabled) {
 	background: var(--button-secondary-hover-bg-color);
 	border-color: var(--button-secondary-hover-border-color);
 	color: var(--button-secondary-hover-text-color);
@@ -113,7 +113,7 @@ export default {
 	stroke: var(--button-secondary-text-color);
 	color: var(--button-secondary-text-color)
 }
-.c-button--secondary:hover >>> .c-icon svg {
+.c-button--secondary:hover:not(:disabled) >>> .c-icon svg {
 	stroke: var(--button-secondary-text-color);
 	color: var(--button-secondary-text-color)
 }
@@ -124,7 +124,7 @@ export default {
 	border-color: var(--button-ghost-border-color);
 	color: var(--button-ghost-text-color);
 }
-.c-button--ghost:hover {
+.c-button--ghost:hover:not(:disabled) {
 	background: var(--button-ghost-hover-bg-color);
 	border-color: var(--button-ghost-hover-border-color);
 	color: var(--button-ghost-hover-text-color);
@@ -133,7 +133,7 @@ export default {
 	stroke: var(--button-ghost-text-color);
 	color: var(--button-ghost-text-color)
 }
-.c-button--ghost:hover >>> .c-icon svg {
+.c-button--ghost:hover:not(:disabled) >>> .c-icon svg {
 	stroke: var(--button-ghost-text-color);
 	color: var(--button-ghost-text-color)
 }
