@@ -4,12 +4,12 @@
 			<div class="c-sidebar__container" v-bind:style="{ '--width': width }" >
 				<header class="c-sidebar__header">
 					<app-nav>
-						<nav-group>
+						<app-nav-group>
 							{{ title }}
-						</nav-group>
-						<nav-group>
+						</app-nav-group>
+						<app-nav-group>
 							<app-button type="ghost" icon="close" v-on:click.native="close()" />
-						</nav-group>
+						</app-nav-group>
 					</app-nav>
 				</header>
 				<div class="c-sidebar__body">

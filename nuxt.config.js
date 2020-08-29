@@ -40,7 +40,8 @@ module.exports = {
 	** https://nuxtjs.org/guide/plugins
 	*/
 	plugins: [
-		{ src: '~/plugins/socket.io-client.js', ssr: false }
+		{ src: '~/plugins/socket.io-client.js', ssr: false },
+		{ src: '~/plugins/helpers.js' }
 	],
 	/*
 	** Auto import components

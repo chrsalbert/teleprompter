@@ -1,5 +1,8 @@
 <template>
-    <div class="c-readingHelper" :style="{ '--fontSize': `${settings.fontSize}px` }"></div>
+    <div class="c-readingHelper" :style="{ 
+        '--textColor': settings.textColor, 
+        '--backgroundColor-light': lightenColor(settings.backgroundColor, 10), 
+        '--fontSize': `${settings.fontSize}px` }"></div>
 </template>
 <script>
 export default {
@@ -17,7 +20,7 @@ export default {
     left: 0;
     width: 100%;
     height: 1px;
-    background: rgba(255,255,255,.3)
+    background: var(--backgroundColor-light)
 }
 .c-readingHelper::before {
     content: '';
@@ -28,7 +31,7 @@ export default {
     height: var(--fontSize);
     transform: translateY(-50%);
     border-top: calc(var(--fontSize) / 2) solid transparent;
-    border-left: calc(var(--fontSize) / 4) solid var(--color-primary);
+    border-left: calc(var(--fontSize) / 4) solid var(--textColor);
     border-bottom: calc(var(--fontSize) / 2) solid transparent;
 }
 </style>

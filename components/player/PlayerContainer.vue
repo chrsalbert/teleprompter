@@ -5,13 +5,13 @@
             '--padding': `${settings.textMargin}px`,
             '--fontSize': `${settings.fontSize}px`,
             '--lineHeight': `${settings.lineHeight}`,
-            '--textColor': `${settings.textColor}`,
-            '--backgroundColor': `${settings.backgroundColor}`
+            '--textColor': `${settings.textColor}`
         }"
         :class="{ 
             'c-player--flipX': settings.flipX,
             'c-player--flipY': settings.flipY,
-        }">
+        }"
+        @click="checkPause()">
         <player-content />
         <player-reading-helper />
     </div>
@@ -23,8 +23,20 @@ export default {
     computed: {
         settings() { 
             return this.$store.state.player.settings
-        }
-    }
+        },
+		isPlaying() {
+			return this.$store.state.player.isPlaying
+		}
+    },
+	methods: {
+		checkPause() {
+			if(!this.isPlaying) return
+			this.pause()
+		},
+		...mapActions({
+			pause: 'player/pause'
+		})
+	}
 }
 </script>
 <style scoped>
@@ -34,12 +46,11 @@ export default {
     overflow: hidden;
     padding-right: var(--padding);
     padding-left: var(--padding);
-    background-color: var(--backgroundColor);
     color: #fff;
     font-family: 'Arial';
     font-weight: bold;
 }
-.c-player::before,
+/* .c-player::before,
 .c-player::after {
     z-index: 2;
     content: '';
@@ -55,7 +66,7 @@ export default {
     bottom: 0;
     height: 162px;
     background: linear-gradient(to top, rgba(0,0,0,.6) 88px, rgba(0,0,0,0))
-}
+} */
 .c-player--flipX {
     transform: scale(-1, 1);
 }

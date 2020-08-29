@@ -5,7 +5,7 @@
 		'c-layout--border': border === true,
 		'c-layout--centered': centered === true
 	}">
-        <div class="c-layout__header" :class="{ 'c-layout__header--hidden': isPlaying }">
+        <div class="c-layout__header">
 			<slot name="header"></slot>
         </div>
         <div class="c-layout__body">
@@ -23,11 +23,6 @@ export default {
 		centered: Boolean,
 		darkmode: Boolean,
 		border: Boolean
-	},
-	computed: {
-		isPlaying() {
-			return this.$store.state.player.isPlaying
-		}
 	}
 }
 </script>
@@ -47,18 +42,11 @@ export default {
 .c-layout__header {
 	position: relative;
 	z-index: 3;
-	transition: all .3s cubic-bezier(0.215, 0.610, 0.355, 1);
-	background: var(--color-white)
+	background: var(--color-white);
 }
 
 .c-layout__header:empty {
 	display: none;
-}
-
-.c-layout__header--hidden {
-	position: relative;
-	opacity: 0;
-	transform: translateY(-100%);
 }
 
 .c-layout__body {
