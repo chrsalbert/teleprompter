@@ -26,7 +26,7 @@ export default {
 	margin: 0 !important;
     text-align: center;
 }
-.c-benefits__item >>> svg {
+.c-benefits__item >>> .c-icon svg {
 	width: var(--font-size-3xl);
 	height: var(--font-size-3xl);
 	stroke: var(--color-primary)
