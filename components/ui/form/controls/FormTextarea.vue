@@ -1,7 +1,7 @@
 <template>
 	<textarea 
 		v-bind="{ id: id }" 
-		v-model="value"
+		:value="value"
 		v-on:input="handleInput"
 		class="c-textarea"></textarea>
 </template>

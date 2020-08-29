@@ -26,11 +26,14 @@ export default {
         },
 		isPlaying() {
 			return this.$store.state.player.isPlaying
+		},
+		isRecognizing() {
+			return this.$store.state.player.isRecognizing
 		}
     },
 	methods: {
 		checkPause() {
-			if(!this.isPlaying) return
+			if(!this.isPlaying && !this.isRecognizing) return
 			this.pause()
 		},
 		...mapActions({

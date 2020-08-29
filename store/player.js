@@ -239,10 +239,11 @@ export const actions = {
         }
     },
     play({ commit, state }) {
-        if(state.settings.isSpeechRecognitionEnabled)
+        if(state.settings.isSpeechRecognitionEnabled) {
             state.speechAPI.start()
-        else
+        } else {
             commit('SET_IS_PLAYING', true)
+        }
     },
     pause({ commit, state }) {
         if (state.isRecognizing)

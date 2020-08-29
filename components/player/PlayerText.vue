@@ -1,5 +1,5 @@
 <template>
-    <div ref="text">
+    <div ref="text" class="c-playerText">
         <template v-for="(block, index) in textBlocks">
             <br v-if="block.break === true" :key="index" />
             <span 
@@ -57,6 +57,9 @@ export default {
 }
 </script>
 <style scoped>
+    .c-playerText {
+        user-select: none
+    }
     .is-invisible {
         opacity: 0
     }
@@ -70,6 +73,6 @@ export default {
     }
     span.is-read {
         transform: scale(.9);
-        color: #333
+        opacity: .2
     }
 </style>

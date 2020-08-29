@@ -9,7 +9,7 @@
 			</app-tablet-item>
 		</app-tablet>
 		<form-row direction="vertical" label="Transcript" labelFor="text" style="flex: 1" >
-			<form-textarea id="text" v-model="text" />
+			<form-textarea class="c-transcript__text" id="text" v-model="text" />
 		</form-row>
 	</div>
 </template>
@@ -65,5 +65,8 @@ export default {
 	min-height: 100%;
 	display: flex;
 	flex-direction: column;
+}
+.c-transcript__text {
+	flex: 1
 }
 </style>

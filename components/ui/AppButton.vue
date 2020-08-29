@@ -6,16 +6,13 @@
 			class: { 
 				'c-button--secondary': type === 'secondary',
 				'c-button--ghost': type === 'ghost',
+				'c-button--play': type === 'play',
 				'c-button--outstanding': outstanding,
 				'c-button--md': size === 'md',
 				'c-button--lg': size === 'lg',
 				'c-button--xl': size === 'xl',
 				'c-button--icon': hasIcon && !hasSlot, 
-				'c-button--hasIcon': hasIcon && hasSlot,
-				'c-button--colored': hasColor
-			}, 
-			style: { 
-				'--color': color 
+				'c-button--hasIcon': hasIcon && hasSlot
 			}
 		}"
 		v-on:click="$event.target.blur()">
@@ -30,7 +27,6 @@ export default {
 		type: String,
 		icon: String,
 		size: String,
-		color: String,
 		outstanding: Boolean,
 		submit: Boolean,
 		href: {
@@ -41,9 +37,6 @@ export default {
 	computed: {
 		hasIcon() {
 			return !!this.icon ? true : false
-		},
-		hasColor() {
-			return !!this.color ? true : false
 		},
 		hasSlot() {
 			return !!this.$slots.default
@@ -116,6 +109,26 @@ export default {
 .c-button--secondary:hover:not(:disabled) >>> .c-icon svg {
 	stroke: var(--button-secondary-text-color);
 	color: var(--button-secondary-text-color)
+}
+
+/* type play */
+.c-button--play {
+	background: var(--button-play-bg-color);
+	border-color: var(--button-play-border-color);
+	color: var(--button-play-text-color);
+}
+.c-button--play:hover:not(:disabled) {
+	background: var(--button-play-hover-bg-color);
+	border-color: var(--button-play-hover-border-color);
+	color: var(--button-play-hover-text-color);
+}
+.c-button--play >>> .c-icon svg {
+	stroke: var(--button-play-text-color);
+	color: var(--button-play-text-color)
+}
+.c-button--play:hover:not(:disabled) >>> .c-icon svg {
+	stroke: var(--button-play-text-color);
+	color: var(--button-play-text-color)
 }
 
 /* type ghost */

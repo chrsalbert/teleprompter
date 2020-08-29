@@ -25,23 +25,23 @@ export default {
             return this.$store.state.player.settings
 		},
 		isPlaying() {
-			return this.$store.state.player.isPlaying
+			return this.$store.state.player.isPlaying || this.$store.state.player.isRecognizing
 		}
 	}
 }
 </script>
 <style scoped>
-.c-layout--player {
+.c-layout.c-layout--player {
 	background: var(--user-backgroundColor)
 }
-.c-layout--player >>> .c-layout__header,
-.c-layout--player >>> .c-layout__footer {
+.c-layout.c-layout--player >>> .c-layout__header,
+.c-layout.c-layout--player >>> .c-layout__footer {
 	transition: all .3s cubic-bezier(0.39, 0.575, 0.565, 1);
 }
-.c-layout--playerPlaying >>> .c-layout__header {
+.c-layout.c-layout--playerPlaying >>> .c-layout__header {
 	transform: translateY(-100%);
 }
-.c-layout--playerPlaying >>> .c-layout__footer {
+.c-layout.c-layout--playerPlaying >>> .c-layout__footer {
 	transform: translateY(100%);
 }
 </style>

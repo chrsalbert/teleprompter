@@ -8,7 +8,7 @@
 	display: flex;
 	align-items: center;
 }
-.c-nav__group > *:not(:last-child) {
+.c-nav__group > .c-button:not(:last-child) {
 	margin-right: var(--space-xs)
 }
 </style>

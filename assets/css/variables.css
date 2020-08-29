@@ -16,6 +16,14 @@
     --color-gray-darker: #39393a;
     --color-gray-darkest: #0e0e0f;
 
+    --color-positive-lightest: #effae6;
+    --color-positive-lighter: #c1ea99;
+    --color-positive-light: #92da4d;
+    --color-positive: #63ca00;
+    --color-positive-dark: #458d00;
+    --color-positive-darker: #285100;
+    --color-positive-darkest: #0a1400;
+
     --color-white: #fdfdff;
     --color-black: #020204;
 
@@ -96,6 +104,15 @@
     --button-secondary-text-color: var(--color-black);
     --button-secondary-hover-text-color: var(--color-black);
 
+    --button-play-border-color: transparent;
+    --button-play-hover-border-color: var(--color-positive-lightest);
+    --button-play-focus-border-color: var(--color-positive-lighter);
+    --button-play-bg-color: transparent;
+    --button-play-hover-bg-color: var(--color-positive-lightest);
+    --button-play-focus-bg-color: var(--color-positive-lightest);
+    --button-play-text-color: var(--color-positive);
+    --button-play-hover-text-color: var(--color-positive-dark);
+
     --button-ghost-border-color: transparent;
     --button-ghost-hover-border-color: var(--color-gray-lightest);
     --button-ghost-focus-border-color: var(--color-gray-lighter);
@@ -123,6 +140,14 @@
     --color-gray-dark: #b1b1b1;
     --color-gray-darker: #d2d2d3;
     --color-gray-darkest: #f4f4f4;
+
+    --color-positive-lightest: #0a1400;
+    --color-positive-lighter: #285100;
+    --color-positive-light: #458d00;
+    --color-positive: #63ca00;
+    --color-positive-dark: #92da4d;
+    --color-positive-darker: #c1ea99;
+    --color-positive-darkest: #effae6;
 
     --color-white: #020204;
     --color-black: #fdfdff;
@@ -154,6 +179,15 @@
     --button-secondary-focus-bg-color: var(--color-gray-light);
     --button-secondary-text-color: var(--color-black);
     --button-secondary-hover-text-color: var(--color-black);
+
+    --button-play-border-color: transparent;
+    --button-play-hover-border-color: var(--color-positive-lightest);
+    --button-play-focus-border-color: var(--color-positive-lighter);
+    --button-play-bg-color: transparent;
+    --button-play-hover-bg-color: var(--color-positive-lightest);
+    --button-play-focus-bg-color: var(--color-positive-lightest);
+    --button-play-text-color: var(--color-positive);
+    --button-play-hover-text-color: var(--color-positive-dark);
 
     --button-ghost-border-color: transparent;
     --button-ghost-hover-border-color: var(--color-gray-lightest);

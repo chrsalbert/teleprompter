@@ -40,6 +40,9 @@ export default {
         window.addEventListener('resize', () => {
 			$nuxt.$emit('resize')
 		})
+        window.addEventListener('keydown', (event) => {
+			$nuxt.$emit('keydown', event.which)
+		})
 	},
 	computed: {
 		isPlaying() { 

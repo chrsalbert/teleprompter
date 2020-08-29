@@ -9,7 +9,7 @@
 						</template>
 						<template v-else>
 							<form-hint>
-								Sorry, it's not supported by your browser. 
+								Sorry, this feature is not supported by your browser. 
 								<nuxt-link to="/faq#speechrecognition">Learn more</nuxt-link>
 							</form-hint>
 						</template>

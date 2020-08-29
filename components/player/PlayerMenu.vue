@@ -20,7 +20,7 @@
                     v-else
                     :icon="settings.isSpeechRecognitionEnabled && isRecognizing === false ? 'microphone' : 'play'" 
                     :size="$device.isDesktop ? 'lg' : ''"
-                    type="ghost"
+                    type="play"
                     key="play"
                     @click.native="play()" />
 			</transition>
@@ -50,16 +50,6 @@ export default {
 			pause: 'player/pause',
 			reset: 'player/reset'
 		})
-	},
-	mounted() {
-		document.addEventListener('keydown', function(event) {
-		// console.log('key' + event.which);
-		// switch (event.which) {
-		// 	case 32:
-		// 	this.isPlaying ? this.pause() : this.play()
-		// 	break
-		// }
-		}.bind(this), false )
 	}
 }
 </script>
