@@ -24,10 +24,10 @@ export default {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: var(--space-sm)
+	padding: var(--space-sm) var(--space)
 }
 
 .c-nav--lg {
-	padding: var(--space-md) 0
+	padding: var(--space-md) var(--space)
 }
 </style>

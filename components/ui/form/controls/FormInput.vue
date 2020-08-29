@@ -45,8 +45,9 @@ export default {
 }
 
 .c-input--color {
-	padding: 2px;
-	background: #fff
+	padding: 0;
+	border-color: var(--color-gray-lightest);
+	background: var(--color-gray-lightest)
 }
 
 .c-input--color::-webkit-color-swatch-wrapper {

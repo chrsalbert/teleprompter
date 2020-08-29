@@ -91,8 +91,7 @@ export default {
 		transition: all .3s
 	}
 	.c-sidebar__header {
-		border-bottom: 1px #333 solid;
-		color: #999;
+		color: var(--text-color-light);
 		font-weight: var(--font-weight-bold)
 	}
 	.c-sidebar__container {

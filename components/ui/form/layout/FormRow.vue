@@ -34,7 +34,7 @@ export default {
 }
 
 .c-row:not(:last-of-type) {
-	border-bottom: 1px solid var(--color-gray-lighter)
+	border-bottom: 1px solid var(--color-gray-lightest)
 }
 
 .c-row__label {
@@ -42,6 +42,7 @@ export default {
 	width: 40%;
 	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-bold);
+	color: var(--text-color-light);
 	margin-right: var(--space-sm);
 	text-overflow: ellipsis;
 	overflow: hidden; 
