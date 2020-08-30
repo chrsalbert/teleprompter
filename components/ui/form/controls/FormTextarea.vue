@@ -1,24 +1,30 @@
 <template>
 	<textarea 
-		v-bind="{ id: id }" 
-		:value="value"
-		v-on:input="handleInput"
+		:id="id"
+		:required="required"
+		v-model="input"
 		class="c-textarea"></textarea>
 </template>
 <script>
 export default {
 	props: {
 		value: String,
+		required: Boolean,
 		id: {
 			type: String,
 			required: true
 		}
 	},
-	methods: {
-		handleInput (e) {
-			this.$emit('input', e.target.value)
-		}
-	}
+    computed: {
+        input: {
+            get() {
+                return this.value
+            },
+            set(val) {
+                this.$emit('input', val)
+            }
+        }
+    }
 }
 </script>
 <style>

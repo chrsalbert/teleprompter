@@ -1,17 +1,15 @@
 <template>
 	<input 
-		v-bind="{ id: id, type: type, required: required, step: step, value: value, class: {
-			'c-input--color': type === 'color'
-		} 
-		}" 
-		v-on:input="handleInput" 
+		:id="id"
+		:type="type"
+		:required="required"
+		v-model="input"
 		class="c-input" />
 </template>
 <script>
 export default {
 	props: {
 		value: [String, Number],
-		step: Number,
 		required: Boolean,
 		id: {
 			type: String,
@@ -22,11 +20,16 @@ export default {
 			default: 'text'
 		}
 	},
-	methods: {
-		handleInput (e) {
-			this.$emit('input', e.target.value)
-		}
-	}
+    computed: {
+        input: {
+            get() {
+                return this.value
+            },
+            set(val) {
+                this.$emit('input', val)
+            }
+        }
+    }
 }
 </script>
 <style scoped>
@@ -39,22 +42,18 @@ export default {
 	background: var(--color-gray-lightest);
 	color: var(--text-color)
 }
-
 .c-input:focus {
 	border-color: var(--color-primary)
 }
-
-.c-input--color {
+.c-input[type='color'] {
 	padding: 0;
 	border-color: var(--color-gray-lightest);
 	background: var(--color-gray-lightest)
 }
-
-.c-input--color::-webkit-color-swatch-wrapper {
+.c-input[type='color']::-webkit-color-swatch-wrapper {
 	padding: 0;
 }
-
-.c-input--color::-webkit-color-swatch {
+.c-input[type='color']::-webkit-color-swatch {
 	border: none
 }
 </style>

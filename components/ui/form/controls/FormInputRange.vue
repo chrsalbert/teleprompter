@@ -7,12 +7,11 @@
                 :min="min"
                 :max="max"
                 :step="step"
-                class="c-slider__input"
+                :required="required"
                 v-model="input"
-                v-on:input="handleInput"
-                :required="required">
+                class="c-slider__input" />
         </div>
-        <p class="c-slider-value">{{ input }}</p>
+        <p class="c-slider-value">{{ value }}</p>
     </div>
 </template>
 <script>
@@ -37,16 +36,16 @@ export default {
         step: Number,
         required: Boolean
     },
-    data() {
-        return {
-            input: this.value
+    computed: {
+        input: {
+            get() {
+                return this.value
+            },
+            set(val) {
+                this.$emit('input', val)
+            }
         }
-    },
-	methods: {
-		handleInput (e) {
-			this.$emit('input', e.target.value)
-		}
-	}
+    }
 }
 </script>
 <style scoped>

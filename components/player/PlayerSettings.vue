@@ -58,116 +58,107 @@ export default {
 			this.$store.commit('player/SET_SETTINGS', object)
 		})
 		this.$socket.on('send-player-properties', () => {
-			this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
+			this.$socket.emit('update-settings', this.$route.params.id, this.settings)
 		})
 	},
 	computed: {
 		settings() {
 			return this.$store.state.player.settings
 		},
-		askFor() {
-			navigator.mediaDevices.getUserMedia({ audio: true })
-				.then(function (stream) {
-					return true
-				})
-				.catch(function (err) {
-					return false
-				});
-		},
 		isSupportingSpeechRecognition() { 
 			return this.$store.state.player.isSupportingSpeechRecognition 
 		},
 		wordsPerMin: {
 			get() {
-				return this.$store.state.player.settings.wordsPerMin
+				return this.settings.wordsPerMin
 			},
 			set(val) {
 				this.$store.commit('player/SET_WORDS_PER_MIN', parseFloat(val))
-				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
+				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
 			}
 		},
 		flipX: {
 			get() {
-				return this.$store.state.player.settings.flipX
+				return this.settings.flipX
 			},
 			set(val) {
 				this.$store.commit('player/SET_FLIP_X', val)
-				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
+				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
 			}
 		},
 		flipY: {
 			get() {
-				return this.$store.state.player.settings.flipY
+				return this.settings.flipY
 			},
 			set(val) {
 				this.$store.commit('player/SET_FLIP_Y', val)
-				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
+				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
 			}
 		},
 		speechRecognition: {
 			get() {
-				return this.$store.state.player.settings.isSpeechRecognitionEnabled
+				return this.settings.isSpeechRecognitionEnabled
 			},
 			set(val) {
 				if(val === true)
 					this.$store.dispatch('player/enableSpeechRecognition')
 				else
 					this.$store.dispatch('player/disableSpeechRecognition')
-				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
+				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
 			}
 		},
 		charsPerLine: {
 			get() {
-				return this.$store.state.player.settings.charsPerLine
+				return this.settings.charsPerLine
 			},
 			set(val) {
 				this.$store.commit('player/SET_CHARS_PER_LINE', parseFloat(val))
-				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
+				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
 			}
 		},
 		textMargin: {
 			get() {
-				return this.$store.state.player.settings.textMargin
+				return this.settings.textMargin
 			},
 			set(val) {
 				this.$store.commit('player/SET_TEXT_MARGIN', parseFloat(val))
-				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
+				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
 			}
 		},
 		fontSize: {
 			get() {
-				return this.$store.state.player.settings.fontSize
+				return this.settings.fontSize
 			},
 			set(val) {
 				this.$store.commit('player/SET_FONT_SIZE', parseFloat(val))
-				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
+				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
 			}
 		},
 		lineHeight: {
 			get() {
-				return this.$store.state.player.settings.lineHeight
+				return this.settings.lineHeight
 			},
 			set(val) {
 				this.$store.commit('player/SET_LINE_HEIGHT', parseFloat(val))
-				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
+				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
 			}
 		},
 		textColor: {
 			get() {
-				return this.$store.state.player.settings.textColor
+				return this.settings.textColor
 			},
 			set(val) {
 				this.$store.commit('player/SET_TEXT_COLOR', val)
-				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
+				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
 			}
 		},
 		backgroundColor: {
 			get() {
-				return this.$store.state.player.settings.backgroundColor
+				return this.settings.backgroundColor
 			},
 			set(val) {
 				this.$store.commit('player/SET_BACKGROUND_COLOR', val)
-				this.$socket.emit('update-settings', this.$route.params.id, this.$store.state.player.settings)
+				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
 			}
 		}
 	},

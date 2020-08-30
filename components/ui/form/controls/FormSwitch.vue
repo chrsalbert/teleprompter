@@ -1,13 +1,20 @@
 <template>
-	<label class="c-switch">
-        <input class="c-switch__input" :id="id" type="checkbox" v-model="input" />
+	<label class="c-switch" :for="id">
+        <input 
+            type="checkbox" 
+            :id="id"
+            :value="value"
+            :required="required"
+            v-model="input"
+            class="c-switch__input" />
         <div class="c-switch__control"></div>
     </label>
 </template>
 <script>
 export default {
 	props: {
-		value: [Number, String, Boolean],
+        value: Boolean,
+        required: Boolean,
 		id: {
 			type: String,
 			required: true
