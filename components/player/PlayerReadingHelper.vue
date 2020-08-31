@@ -1,7 +1,7 @@
 <template>
     <div class="c-readingHelper" :style="{ 
         '--textColor': settings.textColor, 
-        '--backgroundColor-light': lightenColor(settings.backgroundColor, 10), 
+        '--backgroundColor-light': lightenColor(settings.backgroundColor, 30), 
         '--fontSize': `${settings.fontSize}px` }"></div>
 </template>
 <script>
