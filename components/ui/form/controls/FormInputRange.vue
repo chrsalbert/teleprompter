@@ -69,8 +69,8 @@ export default {
 .c-slider__input {
   -webkit-appearance: none;
   width: 100%;
-  height: .2rem;
-  background: var(--color-gray-lighter);
+  height: 2px;
+  background: var(--color-gray-light);
   border-radius: 99px;
   outline: none;
   -webkit-transition: .2s;
