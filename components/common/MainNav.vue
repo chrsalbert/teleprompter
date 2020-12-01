@@ -30,8 +30,14 @@ export default {
 	display: inline-block;
 	line-height: 32px;
 	font-size: var(--font-size-md);
+	font-weight: var(--font-weight-bold);
 	color: var(--text-color);
 	text-decoration: none;
-	padding: 0 var(--space-sm)
+	margin-left: var(--space-lg);
+	border-bottom: 2px var(--color-primary) solid;
+	transition: .2s color
+}
+.c-nav-link:hover {
+	color: var(--color-primary)
 }
 </style>

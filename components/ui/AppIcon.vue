@@ -23,6 +23,7 @@ import iconMicrophone from "~/assets/images/icons/microphone.svg?raw"
 import iconMicrophoneOff from "~/assets/images/icons/microphoneOff.svg?raw"
 import iconToggleOn from "~/assets/images/icons/toggleOn.svg?raw"
 import iconToggleOff from "~/assets/images/icons/toggleOff.svg?raw"
+import iconWifiOff from "~/assets/images/icons/wifiOff.svg?raw"
 
 export default {
 	props: {
@@ -52,6 +53,7 @@ export default {
 				microphoneOff: iconMicrophoneOff,
 				toggleOn: iconToggleOn,
 				toggleOff: iconToggleOff,
+				wifiOff: iconWifiOff
 			}
 		}
 	}

@@ -27,7 +27,8 @@ export default {
 </script>
 <style scoped>
 .c-logo {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     height: var(--height)
 }
 .c-logo >>> svg {
