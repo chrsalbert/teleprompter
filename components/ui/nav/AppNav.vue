@@ -24,7 +24,7 @@ export default {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: var(--space-sm) 0
+	padding: var(--space-sm)
 }
 
 .c-nav--lg {
