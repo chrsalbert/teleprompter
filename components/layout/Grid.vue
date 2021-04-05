@@ -26,7 +26,7 @@ export default {
 	}
 }
 </script>
-<style scoped>
+<style>
 .c-layout {
 	display: flex;
 	flex-direction: column;

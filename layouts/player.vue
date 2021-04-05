@@ -4,7 +4,7 @@
     border
     darkmode
     :style="{
-      '--bgColor': `${settings.backgroundColor}`,
+      '--user-bg-color': `${settings.backgroundColor}`,
     }"
     :class="{ 'c-layout--playerPlaying': isPlaying }"
     class="c-layout--player"
@@ -39,7 +39,7 @@ export default {
 </script>
 <style>
 .c-layout.c-layout--player {
-  background: var(--bgColor);
+  background: var(--user-bg-color);
 }
 .c-layout.c-layout--player .c-layout__header,
 .c-layout.c-layout--player .c-layout__footer {

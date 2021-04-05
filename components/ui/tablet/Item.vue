@@ -1,32 +1,33 @@
 <template>
-    <li class="c-tablet__item">
-        <span class="c-tablet__label">{{ label }}</span>
-        <div class="c-tablet__content"><slot></slot></div>
-    </li>
+  <li class="c-tablet__item">
+    <span class="c-tablet__label">{{ label }}</span>
+    <div class="c-tablet__content"><slot></slot></div>
+  </li>
 </template>
 <script>
 export default {
-    props: {
-        label: {
-            type: String,
-            required: true
-        }
-    }
+  props: {
+    label: {
+      type: String,
+      required: true,
+    },
+  },
 }
 </script>
-<style scoped>
+<style>
 .c-tablet__item {
-    display: flex;
-    flex-direction: column-reverse;
-    text-align: center
+  display: flex;
+  flex-direction: column-reverse;
+  text-align: right;
 }
 .c-tablet__label {
-    display: block;
-    text-transform: uppercase;
-    font-size: var(--font-size-xs);
-    color: var(--color-gray-light)
+  display: block;
+  text-transform: uppercase;
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-light);
 }
 .c-tablet__content {
-    font-size: var(--font-size-lg)
+  font-size: var(--font-size-lg);
+  color: var(--color-gray-dark);
 }
 </style>

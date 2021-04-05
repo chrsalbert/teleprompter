@@ -31,5 +31,6 @@ body,
   color: var(--text-color-lighter)
 }
 
-
-
+.u-mb-sm {
+  margin-bottom: var(--space-sm)
+}
