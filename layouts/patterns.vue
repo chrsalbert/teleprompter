@@ -1,17 +1,17 @@
 <template>
-	<the-layout>
+	<layout-grid>
 		<template v-slot:header>
 			<the-header>
-				<main-nav />
+				<common-nav />
 			</the-header>
 		</template>
-        <page-pad>
-            <page-body>
+        <ui-page-pad>
+            <ui-page-body>
                 <div class="l-patterns">
                     <div class="l-patterns__nav">
                         <ul>
                             <li v-for="(page, index) in pages" :key="index">
-                                <app-link :href="`/patterns/${page.href}`">{{ page.title }}</app-link>
+                                <ui-link :href="`/patterns/${page.href}`">{{ page.title }}</ui-link>
                             </li>
                         </ul>
                     </div>
@@ -19,12 +19,12 @@
                         <Nuxt />
                     </div>
                 </div>
-            </page-body>
-        </page-pad>
+            </ui-page-body>
+        </ui-page-pad>
 		<template v-slot:footer>
 			<the-footer />
 		</template>
-	</the-layout>
+	</layout-grid>
 </template>
 <script>
 export default {

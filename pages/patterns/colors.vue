@@ -1,5 +1,5 @@
 <template>
-    <app-richtext>
+    <ui-richtext>
         <h1>Colors</h1>
         <patterns-row>
             <template v-slot:normal>
@@ -13,7 +13,7 @@
                 <patterns-color :colors="colors.gray" />
             </template>
         </patterns-row>
-    </app-richtext>
+    </ui-richtext>
 </template>
 <script>
 export default {

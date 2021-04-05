@@ -1,37 +1,37 @@
 <template>
-    <app-richtext>
+    <ui-richtext>
         <h1>Nav</h1>
         <patterns-row>
             <template v-slot:normal>
-                <app-nav>
-                    <app-nav-group>
-                        <app-button icon="home" type="ghost" href="/" />
-                    </app-nav-group>
-                    <app-nav-group>
-                        <app-button icon="documents" type="ghost" />
-                        <app-button icon="settings" type="ghost" />
-                        <app-button icon="devices" type="ghost" />
-                        <app-nav-divi />
-                        <app-button icon="fullscreen" type="ghost" />
-                    </app-nav-group>
-                </app-nav>
+                <ui-nav-container>
+                    <ui-nav-group>
+                        <ui-button icon="home" type="ghost" href="/" />
+                    </ui-nav-group>
+                    <ui-nav-group>
+                        <ui-button icon="documents" type="ghost" />
+                        <ui-button icon="settings" type="ghost" />
+                        <ui-button icon="devices" type="ghost" />
+                        <ui-nav-divi />
+                        <ui-button icon="fullscreen" type="ghost" />
+                    </ui-nav-group>
+                </ui-nav-container>
             </template>
             <template v-slot:darkmode>
-                <app-nav>
-                    <app-nav-group>
-                        <app-button icon="home" type="ghost" href="/" />
-                    </app-nav-group>
-                    <app-nav-group>
-                        <app-button icon="documents" type="ghost" />
-                        <app-button icon="settings" type="ghost" />
-                        <app-button icon="devices" type="ghost" />
-                        <app-nav-divi />
-                        <app-button icon="fullscreen" type="ghost" />
-                    </app-nav-group>
-                </app-nav>
+                <ui-nav-container>
+                    <ui-nav-group>
+                        <ui-button icon="home" type="ghost" href="/" />
+                    </ui-nav-group>
+                    <ui-nav-group>
+                        <ui-button icon="documents" type="ghost" />
+                        <ui-button icon="settings" type="ghost" />
+                        <ui-button icon="devices" type="ghost" />
+                        <ui-nav-divi />
+                        <ui-button icon="fullscreen" type="ghost" />
+                    </ui-nav-group>
+                </ui-nav-container>
             </template>
         </patterns-row>
-    </app-richtext>
+    </ui-richtext>
 </template>
 <script>
 export default {

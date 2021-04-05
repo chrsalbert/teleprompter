@@ -1,15 +1,15 @@
 <template>
-	<the-layout>
+	<layout-grid>
 		<Nuxt />
 		<template v-slot:header>
-			<the-header>
-				<main-nav />
-			</the-header>
+			<layout-header>
+				<common-nav />
+			</layout-header>
 		</template>
 		<template v-slot:footer>
-			<the-footer />
+			<common-footer />
 		</template>
-	</the-layout>
+	</layout-grid>
 </template>
 <script>
 export default {

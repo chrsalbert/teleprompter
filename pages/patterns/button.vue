@@ -1,30 +1,30 @@
 <template>
-    <app-richtext>
+    <ui-richtext>
         <h1>Button</h1>
             <h2>Color</h2>
         <patterns-row>
             <template v-slot:normal>
                 <p>
-                    <app-button icon="play">Primary</app-button>
-                    <app-button icon="play" type="secondary">Secondary</app-button>
-                    <app-button icon="play" type="ghost">Ghost</app-button>
+                    <ui-button icon="play">Primary</ui-button>
+                    <ui-button icon="play" type="secondary">Secondary</ui-button>
+                    <ui-button icon="play" type="ghost">Ghost</ui-button>
                 </p>
                 <p>
-                    <app-button icon="play" />
-                    <app-button icon="play" type="secondary" />
-                    <app-button icon="play" type="ghost" />
+                    <ui-button icon="play" />
+                    <ui-button icon="play" type="secondary" />
+                    <ui-button icon="play" type="ghost" />
                 </p>    
             </template>
             <template v-slot:darkmode>
                 <p>
-                    <app-button icon="play">Primary</app-button>
-                    <app-button icon="play" type="secondary">Secondary</app-button>
-                    <app-button icon="play" type="ghost">Ghost</app-button>
+                    <ui-button icon="play">Primary</ui-button>
+                    <ui-button icon="play" type="secondary">Secondary</ui-button>
+                    <ui-button icon="play" type="ghost">Ghost</ui-button>
                 </p>
                 <p>
-                    <app-button icon="play" />
-                    <app-button icon="play" type="secondary" />
-                    <app-button icon="play" type="ghost" />
+                    <ui-button icon="play" />
+                    <ui-button icon="play" type="secondary" />
+                    <ui-button icon="play" type="ghost" />
                 </p>
             </template>
         </patterns-row>
@@ -32,13 +32,13 @@
         <h3>Outstanding</h3>
         <patterns-row>
             <template v-slot:normal>
-                <app-button icon="play" outstanding>Primary</app-button>
+                <ui-button icon="play" outstanding>Primary</ui-button>
             </template>
             <template v-slot:darkmode>
-                <app-button darkmode icon="play" outstanding>Primary</app-button>
+                <ui-button darkmode icon="play" outstanding>Primary</ui-button>
             </template>
         </patterns-row>
-    </app-richtext>
+    </ui-richtext>
 </template>
 <script>
 export default {

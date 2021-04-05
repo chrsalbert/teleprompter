@@ -1,28 +1,28 @@
 <template>
-	<page-pad>
-		<page-width>
+	<ui-page-pad>
+		<ui-page-width>
 			<div class="c-welcome-hero">
-				<app-richtext class="c-welcome-hero__body">
+				<ui-richtext class="c-welcome-hero__body">
 					<h1>Start a free teleprompter in seconds</h1>
 					<p>Mr. Prompter scrolls your script while you're speaking. That makes you sound more natural to your audience.</p>
-					<app-button href="/player" size="md" outstanding class="c-hero__cta">Open the player</app-button>
-				</app-richtext>
+					<ui-button href="/player" size="md" outstanding class="c-hero__cta">Open the player</ui-button>
+				</ui-richtext>
 				<figure class="c-welcome-hero__figure">
 					<img class="c-welcome-hero__image" src="~/assets/images/mr-prompter-teleprompter-app-hero.png" alt="Teleprompter player on a desktop browser window and remote control on a smartphone browser." />
 				</figure>
 			</div>
 			<div class="c-welcome-uspWrapper">
 				<div class="c-welcome-uspContainer">
-					<app-richtext class="c-welcome-usp">
-						<app-icon class="c-welcome-usp__icon" icon="microphone" />
+					<ui-richtext class="c-welcome-usp">
+						<ui-icon class="c-welcome-usp__icon" icon="microphone" />
 						<h3 class="c-welcome-usp__title">It recognizes your speech</h3>
 						<p>Try a new way of using your teleprompter. Mr. Prompter captures your spoken words and runs the script automatically. <nuxt-link to="/faq">Some browsers</nuxt-link> already support the speech recognition feature.</p>
-						<app-button href="/player" size="md" class="c-hero__cta">Try out now</app-button>
-					</app-richtext>
+						<ui-button href="/player" size="md" class="c-hero__cta">Try out now</ui-button>
+					</ui-richtext>
 				</div>
 				<div class="c-welcome-quoteContainer">
 					<div class="c-welcome-quote">
-						<app-logo class="c-welcome-quote__symbol" height="calc(6rem + 2vw)" symbol />
+						<common-logo class="c-welcome-quote__symbol" height="calc(6rem + 2vw)" symbol />
 						<div class="c-welcome-quote__body">
 							<p>Whether you want to use speech recognition or not, I'll will help you in many cases.</p>
 							<svg class="c-welcome-quote__svg" viewBox="0 0 600 300" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -35,30 +35,30 @@
 						</div>
 					</div>
 				</div>
-				<app-showing-list class="c-welcome-benefits">
-					<app-showing-item icon="devices" title="Remote controlable">
+				<ui-showing-list class="c-welcome-benefits">
+					<ui-showing-item icon="devices" title="Remote controlable">
 						<p>Use your smartphone to set up and control your player over a regular internet connection.</p>
-					</app-showing-item>
-					<app-showing-item icon="human" title="Human friendly">
+					</ui-showing-item>
+					<ui-showing-item icon="human" title="Human friendly">
 						<p>While other teleprompters let you choose a random scroll speed, Mr. Prompter asks you for words per minute.</p>
-					</app-showing-item>
-					<app-showing-item icon="wifiOff" title="Offline available">
+					</ui-showing-item>
+					<ui-showing-item icon="wifiOff" title="Offline available">
 						<p>Save Mr. Prompter to your mobile home screen and use it like your native apps – even offline!</p>
-					</app-showing-item>
-					<app-showing-item icon="flipVertical" title="Physical setup ready">
+					</ui-showing-item>
+					<ui-showing-item icon="flipVertical" title="Physical setup ready">
 						<p>Mirror your text horizontal and vertical for using Mr. Prompter with your physical setup.</p>
-					</app-showing-item>
-					<app-showing-item icon="customize" title="Customizable">
+					</ui-showing-item>
+					<ui-showing-item icon="customize" title="Customizable">
 						<p>Adjust colors, font styles and display options to fully fit your purpose.</p>
-					</app-showing-item>
-				</app-showing-list>
+					</ui-showing-item>
+				</ui-showing-list>
 			</div>
 			<div class="c-welcome-cta">
-				<app-button href="/player" size="md" class="c-hero__cta">Start a teleprompter</app-button>
+				<ui-button href="/player" size="md" class="c-hero__cta">Start a teleprompter</ui-button>
 				<p>Free, no registration needed.</p>
 			</div>
-		</page-width>
-	</page-pad>
+		</ui-page-width>
+	</ui-page-pad>
 </template>
 <script>
 export default {

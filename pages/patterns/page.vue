@@ -1,23 +1,23 @@
 <template>
-    <app-richtext>
+    <ui-richtext>
         <h1>Page</h1>
         <h2>Page pad</h2>
         <patterns-row>
             <template v-slot:normal>
-                <page-pad>
+                <ui-page-pad>
                     Page padding
-                </page-pad>
+                </ui-page-pad>
             </template>
         </patterns-row>
         <h2>Page width</h2>
         <patterns-row>
             <template v-slot:normal>
-                <page-width>
+                <ui-page-width>
                     Page max width
-                </page-width>
+                </ui-page-width>
             </template>
         </patterns-row>
-    </app-richtext>
+    </ui-richtext>
 </template>
 <script>
 export default {

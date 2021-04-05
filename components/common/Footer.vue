@@ -1,20 +1,20 @@
 <template>
-    <page-pad>
-        <page-width>
+    <ui-page-pad>
+        <ui-page-width>
             <div class="c-footer">
                 <div class="c-footer__meta">
-                    <app-link href="/imprint" type="light">Imprint</app-link>
-                    <app-link href="/faq" type="light">F.A.Q.</app-link>
+                    <ui-link href="/imprint" type="light">Imprint</ui-link>
+                    <ui-link href="/faq" type="light">F.A.Q.</ui-link>
                 </div>
                 <div class="c-footer__copy">
-                    ©2020 {{ readableUrl }}
+                    ©2021 {{ readableUrl }}
                 </div>
                 <div class="c-footer__copy">
                     <span class="c-logo" v-html="logo"></span>
                 </div>
             </div>
-        </page-width>
-    </page-pad>
+        </ui-page-width>
+    </ui-page-pad>
 </template>
 <script>
 import caLogo from "~/assets/images/ca-logo.svg?raw"

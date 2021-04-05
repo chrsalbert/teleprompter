@@ -1,29 +1,29 @@
 <template>
-    <app-richtext>
+    <ui-richtext>
         <h1>Tabs</h1>
         <patterns-row>
             <template v-slot:normal>
-                <app-tabs>
-                    <app-tabs-item title="Tab 1" selected>
+                <ui-tabs-container>
+                    <ui-tabs-item title="Tab 1" selected>
                         Content 1
-                    </app-tabs-item>
-                    <app-tabs-item title="Tab 2">
+                    </ui-tabs-item>
+                    <ui-tabs-item title="Tab 2">
                         Content 2
-                    </app-tabs-item>
-                </app-tabs>
+                    </ui-tabs-item>
+                </ui-tabs-container>
             </template>
             <template v-slot:darkmode>
-                <app-tabs>
-                    <app-tabs-item title="Tab 1" selected>
+                <ui-tabs-container>
+                    <ui-tabs-item title="Tab 1" selected>
                         Content 1
-                    </app-tabs-item>
-                    <app-tabs-item title="Tab 2">
+                    </ui-tabs-item>
+                    <ui-tabs-item title="Tab 2">
                         Content 2
-                    </app-tabs-item>
-                </app-tabs>
+                    </ui-tabs-item>
+                </ui-tabs-container>
             </template>
         </patterns-row>
-    </app-richtext>
+    </ui-richtext>
 </template>
 <script>
 export default {

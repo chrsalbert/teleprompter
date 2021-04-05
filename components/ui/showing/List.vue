@@ -1,6 +1,6 @@
 <template>
     <ul class="c-benefits">
-        <slot></slot>
+        <slot />
     </ul>
 </template>
 <style scoped>

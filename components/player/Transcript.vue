@@ -1,16 +1,16 @@
 <template>
 	<div class="c-transcript">
-		<app-tablet>
-			<app-tablet-item label="Reading time">
+		<ui-tablet-container>
+			<ui-tablet-item label="Reading time">
 				{{ toHHMMSS(realReadingTime) }}
-			</app-tablet-item>
-			<app-tablet-item label="Words">
+			</ui-tablet-item>
+			<ui-tablet-item label="Words">
 				{{ wordCount }}
-			</app-tablet-item>
-		</app-tablet>
-		<form-row direction="vertical" label="Transcript" labelFor="text" style="flex: 1" >
-			<form-textarea class="c-transcript__text" id="text" v-model="text" />
-		</form-row>
+			</ui-tablet-item>
+		</ui-tablet-container>
+		<ui-form-row direction="vertical" label="Transcript" labelFor="text" style="flex: 1" >
+			<ui-form-textarea class="c-transcript__text" id="text" v-model="text" />
+		</ui-form-row>
 	</div>
 </template>
 <script>

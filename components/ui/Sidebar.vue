@@ -8,14 +8,14 @@
 			:class="{ 'c-sidebar--full': fullWidth }">
 			<div class="c-sidebar__container" v-bind:style="{ '--width': responsiveWidth }" >
 				<header class="c-sidebar__header">
-					<app-nav>
-						<app-nav-group>
+					<ui-nav-container>
+						<ui-nav-group>
 							{{ title }}
-						</app-nav-group>
-						<app-nav-group>
-							<app-button type="ghost" icon="close" v-on:click.native="close()" />
-						</app-nav-group>
-					</app-nav>
+						</ui-nav-group>
+						<ui-nav-group>
+							<ui-button type="ghost" icon="close" v-on:click.native="close()" />
+						</ui-nav-group>
+					</ui-nav-container>
 				</header>
 				<div class="c-sidebar__body">
 					<slot></slot>

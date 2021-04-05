@@ -1,17 +1,17 @@
 <template>
-	<page-pad style="flex: 1">
-		<page-width>
-			<app-nav large>
-				<app-nav-group>
-					<nuxt-link to="/" class="logo-link"><app-logo height="2rem"/></nuxt-link>
-				</app-nav-group>
-				<app-nav-group>
+	<ui-page-pad style="flex: 1">
+		<ui-page-width>
+			<ui-nav-container large>
+				<ui-nav-group>
+					<nuxt-link to="/" class="logo-link"><common-logo height="2rem"/></nuxt-link>
+				</ui-nav-group>
+				<ui-nav-group>
 					<nuxt-link to="/player" class="c-nav-link">Player</nuxt-link>
 					<nuxt-link to="/remote" class="c-nav-link">Remote</nuxt-link>
-				</app-nav-group>
-			</app-nav>
-		</page-width>
-	</page-pad>
+				</ui-nav-group>
+			</ui-nav-container>
+		</ui-page-width>
+	</ui-page-pad>
 </template>
 <script>
 export default {

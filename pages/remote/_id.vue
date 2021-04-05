@@ -1,5 +1,5 @@
 <template>
- 	<page-pad>
+ 	<ui-page-pad>
         <template v-if="isLoading">
             <p>Connecting to player…</p>
         </template>
@@ -10,14 +10,14 @@
             <template v-else>
                 <div class="c-remote__buttons">
                     <transition mode="out-in">
-                        <app-button 
+                        <ui-button 
                             v-if="isPlaying || isRecognizing" 
                             :icon="isRecognizing === true ? 'microphoneOff' : 'pause'"
                             type="ghost"
                             size="xl"
                             key="pause"
                             @click.native="pause()" />
-                        <app-button 
+                        <ui-button 
                             v-else 
                             :icon="settings.isSpeechRecognitionEnabled && isRecognizing === false ? 'microphone' : 'play'" 
                             type="ghost"
@@ -25,11 +25,11 @@
                             key="play" 
                             @click.native="play()" />
                     </transition>
-                    <app-button icon="reload" type="ghost" size="md" v-on:click.native="reset()" />
+                    <ui-button icon="reload" type="ghost" size="md" v-on:click.native="reset()" />
                 </div>
             </template>
         </template>
-    </page-pad>
+    </ui-page-pad>
 </template>
 <script>
 import { mapActions } from 'vuex'

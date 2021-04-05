@@ -1,14 +1,14 @@
 <template>
     <li class="c-benefits__item">
-        <app-richtext>
+        <ui-richtext>
             <div class="c-benefits__header">
-                <app-icon class="c-benefits__icon" :icon="icon" />
+                <ui-icon class="c-benefits__icon" :icon="icon" />
                 <div>
                     <h3 class="c-benefits__title">{{ title }}</h3>
                     <slot></slot>
                 </div>
             </div>
-        </app-richtext>
+        </ui-richtext>
     </li>
 </template>
 <script>

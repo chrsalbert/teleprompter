@@ -1,11 +1,6 @@
 
 module.exports = {
 	/*
-	** Nuxt rendering mode
-	** See https://nuxtjs.org/api/configuration-mode
-	*/
-	mode: 'universal',
-	/*
 	** Nuxt target
 	** See https://nuxtjs.org/api/configuration-target
 	*/
@@ -79,12 +74,12 @@ module.exports = {
 			name: 'Mr. Prompter',
 			lang: 'en',
 			useWebmanifestExtension: false,
-			description: "Mr. Prompter is an onlne teleprompter. It scrolls your script while you're speaking. That makes you sound more natural to your audience."
+			description: "Mr. Prompter is an online teleprompter. It scrolls your script while you're speaking. That makes you sound more natural to your audience."
 		},
 		meta: {
 			appleMobileWebAppStatusBarStyle: 'black-translucent',
 			author: 'Christin Albert',
-			theme_color: '#0000FF',
+			theme_color: '#000000',
 			ogTitle: 'Mr. Prompter'
 		}
 	}

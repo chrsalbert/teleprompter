@@ -1,25 +1,25 @@
 <template>
-    <app-richtext>
+    <ui-richtext>
         <h1>Link</h1>
         <patterns-row>
             <template v-slot:normal>
                 <p>
-                    <app-link href="#">Link</app-link>
+                    <ui-link href="#">Link</ui-link>
                 </p>
                 <p>
-                    <app-link href="#" type="light">Link</app-link>
+                    <ui-link href="#" type="light">Link</ui-link>
                 </p>
             </template>
             <template v-slot:darkmode>
                 <p>
-                    <app-link href="#">Link</app-link>
+                    <ui-link href="#">Link</ui-link>
                 </p>
                 <p>
-                    <app-link href="#" type="light">Link</app-link>
+                    <ui-link href="#" type="light">Link</ui-link>
                 </p>
             </template>
         </patterns-row>
-    </app-richtext>
+    </ui-richtext>
 </template>
 <script>
 export default {

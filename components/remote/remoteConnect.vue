@@ -1,23 +1,23 @@
 <template>
-    <page-pad>
-        <page-width>
-            <app-richtext>
+    <ui-page-pad>
+        <ui-page-width>
+            <ui-richtext>
                 <template>
                     <h1 v-if="playerId === undefined">Connect to a player</h1>
                     <h1 v-else>Player not found.</h1>
                     <p v-if="playerId !== undefined">Sorry, we couldn't find a player with the ID <strong>{{ playerId }}</strong>. Please try again.</p>
                     <form>
-                        <form-row label="Player ID" labelFor="id" direction="vertical">
+                        <ui-form-row label="Player ID" labelFor="id" direction="vertical">
                             <div class="form">
-                                <form-input id="id" v-model="form.newPlayerId" required />
-                                <app-button type="secondary" @click.native="connect()" :disabled="form.newPlayerId === ''">Connect</app-button>
+                                <ui-form-input id="id" v-model="form.newPlayerId" required />
+                                <ui-button type="secondary" @click.native="connect()" :disabled="form.newPlayerId === ''">Connect</ui-button>
                             </div>
-                        </form-row>
+                        </ui-form-row>
                     </form>
                 </template>
-            </app-richtext>
-        </page-width>
-    </page-pad>
+            </ui-richtext>
+        </ui-page-width>
+    </ui-page-pad>
 </template>
 <script>
 export default {

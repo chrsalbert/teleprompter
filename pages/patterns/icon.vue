@@ -1,15 +1,15 @@
 <template>
-    <app-richtext>
+    <ui-richtext>
         <h1>Icon</h1>
         <patterns-row>
             <template v-slot:normal>
-                <app-icon icon="home" style="width: 3rem" />
+                <ui-icon icon="home" style="width: 3rem" />
             </template>
             <template v-slot:darkmode>
-                <app-icon icon="home" style="width: 3rem" />
+                <ui-icon icon="home" style="width: 3rem" />
             </template>
         </patterns-row>
-    </app-richtext>
+    </ui-richtext>
 </template>
 <script>
 export default {
