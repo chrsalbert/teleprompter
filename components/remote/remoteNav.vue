@@ -1,7 +1,7 @@
 <template>
 	<ui-nav-container>
 		<ui-nav-group>
-			<ui-button icon="home" type="ghost" href="/" />
+			<ui-button icon="home" type="ghost" to="/" />
 		</ui-nav-group>
 		<ui-nav-group v-if="isConnected">
 			<ui-button icon="documents" type="ghost" v-on:click.native="openDocuments()" />

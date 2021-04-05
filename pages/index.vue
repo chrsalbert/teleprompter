@@ -5,7 +5,7 @@
 				<ui-richtext class="c-welcome-hero__body">
 					<h1>Start a free teleprompter in seconds</h1>
 					<p>Mr. Prompter scrolls your script while you're speaking. That makes you sound more natural to your audience.</p>
-					<ui-button href="/player" size="md" outstanding class="c-hero__cta">Open the player</ui-button>
+					<ui-button to="/player" size="md" outstanding class="c-hero__cta">Open the player</ui-button>
 				</ui-richtext>
 				<figure class="c-welcome-hero__figure">
 					<img class="c-welcome-hero__image" src="~/assets/images/mr-prompter-teleprompter-app-hero.png" alt="Teleprompter player on a desktop browser window and remote control on a smartphone browser." />
@@ -17,7 +17,7 @@
 						<ui-icon class="c-welcome-usp__icon" icon="microphone" />
 						<h3 class="c-welcome-usp__title">It recognizes your speech</h3>
 						<p>Try a new way of using your teleprompter. Mr. Prompter captures your spoken words and runs the script automatically. <nuxt-link to="/faq">Some browsers</nuxt-link> already support the speech recognition feature.</p>
-						<ui-button href="/player" size="md" class="c-hero__cta">Try out now</ui-button>
+						<ui-button to="/player" size="md" class="c-hero__cta">Try out now</ui-button>
 					</ui-richtext>
 				</div>
 				<div class="c-welcome-quoteContainer">
@@ -54,7 +54,7 @@
 				</ui-showing-list>
 			</div>
 			<div class="c-welcome-cta">
-				<ui-button href="/player" size="md" class="c-hero__cta">Start a teleprompter</ui-button>
+				<ui-button to="/player" size="md" class="c-hero__cta">Start a teleprompter</ui-button>
 				<p>Free, no registration needed.</p>
 			</div>
 		</ui-page-width>

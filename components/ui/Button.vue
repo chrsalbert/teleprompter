@@ -1,7 +1,7 @@
 <template>
 	<nuxt-link class="c-button" 
 		v-bind="{ 
-			to: href, 
+			to: to, 
 			tag: buttonType, 
 			class: { 
 				'c-button--secondary': type === 'secondary',
@@ -29,7 +29,7 @@ export default {
 		size: String,
 		outstanding: Boolean,
 		submit: Boolean,
-		href: {
+		to: {
 			type: String,
 			default: '#'
 		}
