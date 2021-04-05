@@ -14,28 +14,11 @@ export default {
         "This is the teleprompter player of Mr. Prompter. It scrolls your script while you're speaking. That makes you sound more natural to your audience.",
     }
   },
-  data() {
-    return {
-      playerId: this.$cookies.get('playerId'),
-    }
-  },
   beforeMount() {
-    this.initSettings()
+    this.loadSettingsFromLocalStorage()
     this.initSpeechRecognition()
-    this.$socket.emit('createPlayer', this.playerId)
-    this.$socket.on('action', (action) => {
-      switch (action) {
-        case 'play':
-          this.play()
-          break
-        case 'pause':
-          this.pause()
-          break
-        case 'reset':
-          this.reset()
-          break
-      }
-    })
+    this.createPlayer()
+    this.initPlayerActions()
   },
   mounted() {
     window.addEventListener('resize', () => {
@@ -52,6 +35,9 @@ export default {
     isRecognizing() {
       return this.$store.state.player.isRecognizing
     },
+    playerId() {
+      return this.$cookies.get('playerId')
+    },
   },
   watch: {
     isPlaying(val) {
@@ -62,11 +48,29 @@ export default {
     },
   },
   methods: {
+    createPlayer() {
+      this.$socket.emit('createPlayer', this.playerId)
+    },
+    initPlayerActions() {
+      this.$socket.on('action', (action) => {
+        switch (action) {
+          case 'play':
+            this.play()
+            break
+          case 'pause':
+            this.pause()
+            break
+          case 'reset':
+            this.reset()
+            break
+        }
+      })
+    },
     ...mapActions({
       play: 'player/play',
       pause: 'player/pause',
       reset: 'player/reset',
-      initSettings: 'player/initSettings',
+      loadSettingsFromLocalStorage: 'player/loadSettingsFromLocalStorage',
       initSpeechRecognition: 'player/initSpeechRecognition',
     }),
   },
