@@ -272,8 +272,10 @@ export const actions = {
     }
   },
   pause({ commit, state }) {
-    if (state.isRecognizing) state.speechAPI.stop()
-    else commit('SET_IS_PLAYING', false)
+    if (state.isPlaying || state.isRecognizing) {
+      if (state.isRecognizing) state.speechAPI.stop()
+      else commit('SET_IS_PLAYING', false)
+    }
   },
   reset({ dispatch, commit, state }) {
     dispatch('rewindScript')
