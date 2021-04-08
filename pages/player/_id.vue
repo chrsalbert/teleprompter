@@ -14,11 +14,18 @@ export default {
         "This is the teleprompter player of Mr. Prompter. It scrolls your script while you're speaking. That makes you sound more natural to your audience.",
     }
   },
+  data() {
+    return {
+      loading: true,
+    }
+  },
   beforeMount() {
-    this.loadSettingsFromLocalStorage()
-    this.initSpeechRecognition()
-    this.createPlayer()
-    this.initPlayerActions()
+    this.loadSettingsFromLocalStorage().then(() => {
+      this.initSpeechRecognition()
+      this.registerPlayer()
+      this.initSocketListeners()
+      this.loading = false
+    })
   },
   mounted() {
     window.addEventListener('resize', () => {
@@ -29,50 +36,40 @@ export default {
     })
   },
   computed: {
-    isPlaying() {
-      return this.$store.state.player.isPlaying
-    },
-    isRecognizing() {
-      return this.$store.state.player.isRecognizing
-    },
     playerId() {
       return this.$cookies.get('playerId')
     },
-  },
-  watch: {
-    isPlaying(val) {
-      this.$socket.emit('isPlaying', this.playerId, val)
-    },
-    isRecognizing(val) {
-      this.$socket.emit('isRecognizing', this.playerId, val)
+    store() {
+      return this.$store.state.player
     },
   },
   methods: {
-    createPlayer() {
-      this.$socket.emit('createPlayer', this.playerId)
-    },
-    initPlayerActions() {
-      this.$socket.on('action', (action) => {
-        switch (action) {
-          case 'play':
-            this.play()
-            break
-          case 'pause':
-            this.pause()
-            break
-          case 'reset':
-            this.reset()
-            break
-        }
-      })
-    },
     ...mapActions({
-      play: 'player/play',
-      pause: 'player/pause',
-      reset: 'player/reset',
+      connect: 'player/connect',
+      disconnect: 'player/disconnect',
       loadSettingsFromLocalStorage: 'player/loadSettingsFromLocalStorage',
       initSpeechRecognition: 'player/initSpeechRecognition',
     }),
+    registerPlayer() {
+      console.log('register player')
+      this.$socket.emit('register-player', this.playerId)
+      this.$socket.emit('update-store', this.playerId, this.store)
+    },
+    initSocketListeners() {
+      this.$socket.on('disconnect', () => this.disconnect())
+      this.$socket.on('update-store', (object) => {
+        this.$store.commit('player/SET_STORE', object)
+      })
+      this.$socket.on('paired', () => {
+        this.connect()
+        this.$socket.emit('update-store', this.playerId, this.store)
+        this.$socket.emit(
+          'update-transcript',
+          this.playerId,
+          this.store.text.raw,
+        )
+      })
+    },
   },
 }
 </script>

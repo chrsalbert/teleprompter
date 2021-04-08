@@ -1,22 +1,20 @@
 <template>
 	<div class="c-richInput">
-		<p class="c-richInput__prepend" v-if="showPrepend">{{ prepend }}</p>
+		<p class="c-richInput__prepend" v-if="prepend">{{ prepend }}</p>
 		<slot></slot>
-		<p class="c-richInput__append" v-if="showAppend">{{ append }}</p>
+		<p class="c-richInput__append" v-if="append">{{ append }}</p>
 	</div>
 </template>
 <script>
 export default {
 	props: {
-		append: String,
-		prepend: String
-	},
-	computed: {
-		showPrepend() {
-			return this.prepend !== undefined && this.prepend !== ''
+		append: {
+			type: String,
+			default: null
 		},
-		showAppend() {
-			return this.append !== undefined && this.append !== ''
+		prepend: {
+			type: String,
+			default: null
 		}
 	}
 }
@@ -43,7 +41,7 @@ export default {
 	align-items: center;
 	height: var(--control-height);
 	padding: 0 var(--space-xs);
-	border: 2px var(--color-gray-light) solid;
+	border: 1px var(--color-gray-light) solid;
 	background: var(--color-gray-lighter);
 	color: var(--text-color)
 }

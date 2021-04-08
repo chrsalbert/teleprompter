@@ -1,9 +1,13 @@
 export const state = () => ({
+  playerId: null,
   isPlaying: false,
   isRecognizing: false,
   isSupportingSpeechRecognition: false,
   isConnected: false,
   speechAPI: null,
+  status: {
+
+  },
   settings: {
     isSpeechRecognitionEnabled: false,
     wordsPerMin: 150,
@@ -34,7 +38,7 @@ export const getters = {
     return seconds
   },
   getRealReadingTimeInSec: (state, getters) => {
-    return (
+    return parseFloat(
       getters.getReadingTimeInSec +
       getters.getSecondsPerLine * getters.getLinebreakCount
     )
@@ -92,6 +96,12 @@ export const getters = {
 }
 
 export const mutations = {
+  SET_STORE(state, store) {
+    Object.assign(state, store)
+  },
+  SET_PLAYER_ID(state, playerId) {
+    state.playerId = playerId
+  },
   SET_IS_RECOGNIZING(state, boolean) {
     state.isRecognizing = boolean
   },
@@ -171,9 +181,15 @@ export const mutations = {
 }
 
 export const actions = {
+  updateText({ commit }, text) {
+    localStorage.setItem('text', text)
+    commit('SET_TEXT', text)
+  },
   loadSettingsFromLocalStorage({ commit }) {
-    if (localStorage.getItem('settings')) {
-      commit('SET_SETTINGS', JSON.parse(localStorage.getItem('settings')))
+    if (localStorage.getItem('player')) {
+      console.log('öload')
+      console.log(JSON.parse(localStorage.getItem('player')))
+      commit('SET_STORE', JSON.parse(localStorage.getItem('player')))
     }
   },
   initText({ commit, dispatch }) {
@@ -264,6 +280,12 @@ export const actions = {
       commit('SET_SPEECH_RECOGNITION_SUPPORT', true)
     }
   },
+  connect({ commit }) {
+    commit('SET_IS_CONNECTED', true)
+  },
+  disconnect({ commit }) {
+    commit('SET_IS_CONNECTED', false)
+  },
   play({ commit, state }) {
     if (state.settings.isSpeechRecognitionEnabled) {
       state.speechAPI.start()
@@ -273,13 +295,18 @@ export const actions = {
   },
   pause({ commit, state }) {
     if (state.isPlaying || state.isRecognizing) {
-      if (state.isRecognizing) state.speechAPI.stop()
-      else commit('SET_IS_PLAYING', false)
+      if (state.isRecognizing) {
+        state.speechAPI.stop()
+      } else {
+        commit('SET_IS_PLAYING', false)
+      }
     }
   },
   reset({ dispatch, commit, state }) {
     dispatch('rewindScript')
-    if (!state.isRecognizing) commit('SET_IS_PLAYING', false)
+    if (!state.isRecognizing) {
+      commit('SET_IS_PLAYING', false)
+    }
     $nuxt.$emit('reset')
   },
   rewindScript({ commit, state }) {

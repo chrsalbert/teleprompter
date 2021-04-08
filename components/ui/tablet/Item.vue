@@ -18,7 +18,6 @@ export default {
 .c-tablet__item {
   display: flex;
   flex-direction: column-reverse;
-  text-align: right;
 }
 .c-tablet__label {
   display: block;

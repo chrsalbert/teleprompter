@@ -24,13 +24,13 @@ import { mapGetters } from 'vuex'
 
 export default {
   mounted() {
-    this.$socket.on('update-textRaw', (text) => {
+    this.$socket.on('update-transcript', (text) => {
       this.$store.commit('player/SET_TEXT', text)
     })
     this.$socket.on('send-player-properties', () => {
       this.$socket.emit(
-        'update-textRaw',
-        this.$route.params.id,
+        'update-transcript',
+        this.playerId,
         this.$store.state.player.text.raw,
       )
     })
@@ -41,14 +41,16 @@ export default {
         return this.$store.state.player.text.raw
       },
       set(val) {
-        localStorage.setItem('text', val)
-        this.$store.commit('player/SET_TEXT', val)
+        this.$store.dispatch('player/updateText', val)
         this.$socket.emit(
-          'update-textRaw',
+          'update-transcript',
           this.$route.params.id,
           this.$store.state.player.text.raw,
         )
       },
+    },
+    playerId() {
+      return this.$route.params.id
     },
     ...mapGetters({
       realReadingTime: 'player/getRealReadingTimeInSec',

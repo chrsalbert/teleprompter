@@ -53,20 +53,18 @@
 <script>
 
 export default {
-	beforeMount() {
-		this.$socket.on('update-settings', object => {
-			this.$store.commit('player/SET_SETTINGS', object)
-		})
-		this.$socket.on('send-player-properties', () => {
-			this.$socket.emit('update-settings', this.$route.params.id, this.settings)
-		})
-	},
 	computed: {
+		store() {
+			return this.$store.state.player
+		},
 		settings() {
 			return this.$store.state.player.settings
 		},
 		isSupportingSpeechRecognition() { 
 			return this.$store.state.player.isSupportingSpeechRecognition 
+		},
+		playerId() {
+			return this.$route.params.id
 		},
 		wordsPerMin: {
 			get() {
@@ -74,7 +72,7 @@ export default {
 			},
 			set(val) {
 				this.$store.commit('player/SET_WORDS_PER_MIN', parseFloat(val))
-				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
+				this.updateStore()
 			}
 		},
 		flipX: {
@@ -83,7 +81,7 @@ export default {
 			},
 			set(val) {
 				this.$store.commit('player/SET_FLIP_X', val)
-				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
+				this.updateStore()
 			}
 		},
 		flipY: {
@@ -92,7 +90,7 @@ export default {
 			},
 			set(val) {
 				this.$store.commit('player/SET_FLIP_Y', val)
-				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
+				this.updateStore()
 			}
 		},
 		speechRecognition: {
@@ -104,7 +102,7 @@ export default {
 					this.$store.dispatch('player/enableSpeechRecognition')
 				else
 					this.$store.dispatch('player/disableSpeechRecognition')
-				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
+				this.updateStore()
 			}
 		},
 		charsPerLine: {
@@ -113,7 +111,7 @@ export default {
 			},
 			set(val) {
 				this.$store.commit('player/SET_CHARS_PER_LINE', parseFloat(val))
-				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
+				this.updateStore()
 			}
 		},
 		textMargin: {
@@ -122,7 +120,7 @@ export default {
 			},
 			set(val) {
 				this.$store.commit('player/SET_TEXT_MARGIN', parseFloat(val))
-				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
+				this.updateStore()
 			}
 		},
 		fontSize: {
@@ -131,7 +129,7 @@ export default {
 			},
 			set(val) {
 				this.$store.commit('player/SET_FONT_SIZE', parseFloat(val))
-				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
+				this.updateStore()
 			}
 		},
 		lineHeight: {
@@ -140,7 +138,7 @@ export default {
 			},
 			set(val) {
 				this.$store.commit('player/SET_LINE_HEIGHT', parseFloat(val))
-				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
+				this.updateStore()
 			}
 		},
 		textColor: {
@@ -149,7 +147,7 @@ export default {
 			},
 			set(val) {
 				this.$store.commit('player/SET_TEXT_COLOR', val)
-				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
+				this.updateStore()
 			}
 		},
 		backgroundColor: {
@@ -158,16 +156,14 @@ export default {
 			},
 			set(val) {
 				this.$store.commit('player/SET_BACKGROUND_COLOR', val)
-				this.$socket.emit('update-settings', this.$route.params.id, this.settings)
+				this.updateStore()
 			}
 		}
 	},
-	watch: {
-		settings: {
-			deep: true,
-			handler(newValue, oldValue) {
-				localStorage.setItem('settings', JSON.stringify(newValue))
-			}
+	methods: {
+		updateStore() {
+			this.$socket.emit('update-store', this.playerId, this.store)
+			localStorage.setItem('player', JSON.stringify(this.store))
 		}
 	}
 }

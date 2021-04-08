@@ -10,8 +10,8 @@
       />
       <transition mode="out-in">
         <ui-button
-          v-if="isPlaying || isRecognizing"
-          :icon="isRecognizing === true ? 'microphoneOff' : 'pause'"
+          v-if="player.isPlaying || player.isRecognizing"
+          :icon="player.isRecognizing === true ? 'microphoneOff' : 'pause'"
           :size="$device.isDesktop ? 'lg' : ''"
           type="ghost"
           key="pause"
@@ -20,7 +20,8 @@
         <ui-button
           v-else
           :icon="
-            settings.isSpeechRecognitionEnabled && isRecognizing === false
+            player.settings.isSpeechRecognitionEnabled &&
+            player.isRecognizing === false
               ? 'microphone'
               : 'play'
           "
@@ -35,26 +36,33 @@
   </ui-nav-container>
 </template>
 <script>
-import { mapActions } from 'vuex'
-
 export default {
+  mounted() {
+    this.$socket.on('play', () => this.$store.dispatch('player/play'))
+    this.$socket.on('pause', () => this.$store.dispatch('player/pause'))
+    this.$socket.on('reset', () => this.$store.dispatch('player/reset'))
+  },
   computed: {
-    isPlaying() {
-      return this.$store.state.player.isPlaying
+    player() {
+      return this.$store.state.player
     },
-    isRecognizing() {
-      return this.$store.state.player.isRecognizing
-    },
-    settings() {
-      return this.$store.state.player.settings
+    playerId() {
+      return this.$route.params.id
     },
   },
   methods: {
-    ...mapActions({
-      play: 'player/play',
-      pause: 'player/pause',
-      reset: 'player/reset',
-    }),
+    play() {
+      this.$store.dispatch('player/play')
+      this.$socket.emit('play', this.playerId)
+    },
+    pause() {
+      this.$store.dispatch('player/pause')
+      this.$socket.emit('pause', this.playerId)
+    },
+    reset() {
+      this.$store.dispatch('player/reset')
+      this.$socket.emit('reset', this.playerId)
+    },
   },
 }
 </script>

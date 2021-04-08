@@ -17,8 +17,6 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
-
 export default {
   computed: {
     settings() {
@@ -32,9 +30,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions({
-      pause: 'player/pause',
-    }),
+    pause() {
+      this.$store.dispatch('player/pause')
+      this.$socket.emit('pause', this.playerId)
+    },
   },
 }
 </script>

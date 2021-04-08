@@ -27,10 +27,14 @@ body,
   color: var(--text-color-light)
 }
 
+.u-text-center {
+  text-align: center;
+}
+
 .u-text-lighter {
   color: var(--text-color-lighter)
 }
 
-.u-mb-sm {
-  margin-bottom: var(--space-sm)
-}
+.u-mb-sm { margin-bottom: var(--space-sm) }
+.u-mb-md { margin-bottom: var(--space-md) }
+.u-mb-lg { margin-bottom: var(--space-lg) }

@@ -14,8 +14,8 @@ config.dev = !isProd
 const nuxt = new Nuxt(config)
 // Start build process in dev mode
 if (config.dev) {
-    const builder = new Builder(nuxt)
-    builder.build()
+  const builder = new Builder(nuxt)
+  builder.build()
 }
 app.use(nuxt.render)
 
@@ -25,41 +25,48 @@ console.log('Server listening on localhost:' + port) // eslint-disable-line no-c
 
 // Socket.io
 io.on('connection', async (socket) => {
-    socket.on('createPlayer', function (playerId) {
-        socket.join(playerId)
-    })
-    socket.on('connectToPlayer', function (playerId) {
-        if (socket.adapter.rooms[playerId]) {
-            socket.join(playerId)
-            socket.to(playerId).emit('close-popup')
-            socket.to(playerId).emit('send-player-properties')
-            socket.emit('isConntectedToPlayer', true)
-        } else {
-            socket.emit('isConntectedToPlayer', false)
-        }
-    })
-    socket.on('update-settings', function (playerId, object) {
-        socket.to(playerId).emit('update-settings', object)
-    })
-    socket.on('update-textRaw', function (playerId, text) {
-        socket.to(playerId).emit('update-textRaw', text)
-    })
-    socket.on('isPlaying', function (playerId, val) {
-        io.to(playerId).emit('isPlaying', val)
-    })
-    socket.on('isRecognizing', function (playerId, val) {
-        io.to(playerId).emit('isRecognizing', val)
-    })
-    socket.on('isSpeechRecognitionEnabled', function (playerId, val) {
-        io.to(playerId).emit('isSpeechRecognitionEnabled', val)
-    })
-    socket.on('play', function (playerId) {
-        io.to(playerId).emit('action', 'play')
-    })
-    socket.on('pause', function (playerId) {
-        io.to(playerId).emit('action', 'pause')
-    })
-    socket.on('reset', function (playerId) {
-        io.to(playerId).emit('action', 'reset')
-    })
+  const isRoomExistent = (playerId) => {
+    return !!socket.adapter.rooms[playerId]
+  }
+  socket.on('disconnecting', (reason) => {
+    console.log('disconnecting')
+    console.log(Object.entries(socket.rooms))
+    for (const [key, value] of Object.entries(socket.rooms)) {
+      if(key != socket.id) {
+        console.log('send disconnect ' + reason)
+        socket.to(key).emit('disconnect', reason);
+      }
+    }
+  })
+  socket.on('register-player', function (playerId) {
+    socket.join(playerId)
+    socket.to(playerId).emit('paired', playerId)
+  })
+  socket.on('connect-to-player', function (playerId) {
+    if (isRoomExistent(playerId)) {
+      socket.join(playerId)
+      socket.emit('paired', playerId)
+      socket.to(playerId).emit('paired', playerId)
+    } else {
+      socket.emit('player-not-found')
+    }
+  })
+  socket.on('play', function (playerId) {
+    io.to(playerId).emit('play')
+    io.emit('play')
+  })
+  socket.on('pause', function (playerId) {
+    io.to(playerId).emit('pause')
+    io.emit('pause')
+  })
+  socket.on('reset', function (playerId) {
+    io.to(playerId).emit('reset')
+    io.emit('reset')
+  })
+  socket.on('update-store', function (playerId, object) {
+    socket.to(playerId).emit('update-store', object)
+  })
+  socket.on('update-transcript', function (playerId, text) {
+    socket.to(playerId).emit('update-transcript', text)
+  })
 })

@@ -1,10 +1,10 @@
 <template>
-	<the-layout centered darkmode border>
+	<layout-grid centered darkmode border>
 		<Nuxt />
 		<template v-slot:header>
-			<the-header>
+			<layout-header>
 				<remote-nav />
-			</the-header>
+			</layout-header>
 		</template>
-	</the-layout>
+	</layout-grid>
 </template>

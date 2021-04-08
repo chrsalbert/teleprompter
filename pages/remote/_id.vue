@@ -1,118 +1,72 @@
 <template>
- 	<ui-page-pad>
-        <template v-if="isLoading">
-            <p>Connecting to player…</p>
-        </template>
-        <template v-else>
-            <template v-if="!isConnected">
-                <remote-connect v-on:connect="connect" :playerId="playerId" />
-            </template>
-            <template v-else>
-                <div class="c-remote__buttons">
-                    <transition mode="out-in">
-                        <ui-button 
-                            v-if="isPlaying || isRecognizing" 
-                            :icon="isRecognizing === true ? 'microphoneOff' : 'pause'"
-                            type="ghost"
-                            size="xl"
-                            key="pause"
-                            @click.native="pause()" />
-                        <ui-button 
-                            v-else 
-                            :icon="settings.isSpeechRecognitionEnabled && isRecognizing === false ? 'microphone' : 'play'" 
-                            type="ghost"
-                            size="xl"
-                            key="play" 
-                            @click.native="play()" />
-                    </transition>
-                    <ui-button icon="reload" type="ghost" size="md" v-on:click.native="reset()" />
-                </div>
-            </template>
-        </template>
-    </ui-page-pad>
+  <ui-page-pad>
+    <template v-if="isLoading">Connecting to player…</template>
+    <remote-controls v-else-if="isConnected" />
+    <remote-connect v-else @connect="connectToPlayer" />
+  </ui-page-pad>
 </template>
 <script>
 import { mapActions } from 'vuex'
 
 export default {
-    layout: 'remote',
-	head() {
-		return {
-			title: 'Remote control – Mr. Prompter',
-			description: "This is the teleprompter remote control of Mr. Prompter. It lets you control your Mr. Prompter player on any other device."
-		}
-	},
-    data() {
-        return {
-            playerId: this.$route.params.id,
-            isLoading: true
-        }
-    },
- 	mounted() {
-        this.connect()
-        this.$socket.on('isConntectedToPlayer', isConnected => {
-            this.$store.commit('player/SET_IS_CONNECTED', isConnected)
-            this.isLoading = false
-        })
-        this.$socket.on('isPlaying', val => {
-            this.$store.commit('player/SET_IS_PLAYING', val)
-        })
-        this.$socket.on('isRecognizing', val => {
-            this.$store.commit('player/SET_IS_RECOGNIZING', val)
-        })
-        this.$socket.on('isSpeechRecognitionEnabled', val => {
-            this.$store.commit('player/SET_SPEECH_RECOGNITION_ENABLED', val)
-        })
-    },
-    computed: {
-		isPlaying() { 
-			return this.$store.state.player.isPlaying 
-		},
-		isRecognizing() { 
-			return this.$store.state.player.isRecognizing 
-        },
-		isConnected() { 
-			return this.$store.state.player.isConnected 
-		},
-		settings() { 
-			return this.$store.state.player.settings 
-        }
-    },
-    methods: {
-       ...mapActions({
-			initSettings: 'player/initSettings'
-		}),
-        play() {
-            this.$socket.emit('play', this.playerId)
-        },
-        pause() {
-            this.$socket.emit('pause', this.playerId)
-        },
-        reset() {
-            this.$socket.emit('reset', this.playerId)
-        },
-        connect(id = this.playerId)  {
-            this.playerId = id
-            if(!id) {
-                this.isLoading = false
-                return
-            } else {
-                this.$socket.emit('connectToPlayer', id)
-            }
-            history.pushState(null, null, `/remote/${id}`);
-        }
+  layout: 'remote',
+  head() {
+    return {
+      title: 'Remote control – Mr. Prompter',
+      description:
+        'This is the teleprompter remote control of Mr. Prompter. It lets you control your Mr. Prompter player on any other device.',
     }
-    
+  },
+  data() {
+    return {
+      isLoading: true,
+    }
+  },
+  mounted() {
+    console.log('mounteds')
+    this.connectToPlayer(this.playerId)
+    this.initSocketListener()
+  },
+  computed: {
+    isConnected() {
+      return this.$store.state.player.isConnected
+    },
+    playerId() {
+      return this.$route.params.id
+    },
+  },
+  methods: {
+    ...mapActions({
+      connect: 'player/connect',
+      disconnect: 'player/disconnect',
+    }),
+    connectToPlayer(playerId = this.playerId) {
+      this.$socket.emit('connect-to-player', playerId)
+    },
+    stopLoading() {
+      this.isLoading = false
+    },
+    initSocketListener() {
+      this.$socket.on('paired', (playerId) => {
+        console.log('paired ' + playerId)
+        this.$router.push({ path: `/remote/${playerId}` })
+        this.connect().then(() => {
+          this.stopLoading()
+          console.log('Äoks')
+        })
+      })
+      this.$socket.on('update-store', (object) => {
+        this.$store.commit('player/SET_STORE', object)
+      })
+      this.$socket.on('update-transcript', (string) => {
+        this.$store.commit('player/SET_TEXT', string)
+      })
+      this.$socket.on('player-not-found', () => this.stopLoading())
+      this.$socket.on('disconnect', () => {
+        console.log('disconnect')
+        this.disconnect()
+      })
+    },
+  },
 }
 </script>
-<style scoped>
-.c-remote__buttons {
-    display: flex;
-    align-items: center;
-    flex-direction: column;   
-}
-
-.c-remote__buttons button:first-child {
-    margin-bottom: var(--space-lg)
-}
-</style>

@@ -1,6 +1,6 @@
 import customId from 'custom-id'
 
-export default function ({ app, route, redirect }) {
+export default function ({ app, route, redirect, store }) {
   const isCookiePlayerIdInRoute = (playerId) =>
     route.params.id !== undefined && route.params.id === playerId
 
