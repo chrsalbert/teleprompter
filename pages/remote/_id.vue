@@ -1,12 +1,12 @@
 <template>
   <ui-page-pad>
     <template v-if="isLoading">Connecting to player…</template>
-    <remote-controls v-else-if="isConnected" />
-    <remote-connect v-else @connect="connectToPlayer" />
+    <player-controls v-else-if="isConnected" />
+    <remote-connect v-else @connect="joinPlayer" />
   </ui-page-pad>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
 
 export default {
   layout: 'remote',
@@ -23,9 +23,8 @@ export default {
     }
   },
   mounted() {
-    console.log('mounteds')
-    this.connectToPlayer(this.playerId)
     this.initSocketListener()
+    this.joinPlayer(this.playerId)
   },
   computed: {
     isConnected() {
@@ -36,35 +35,33 @@ export default {
     },
   },
   methods: {
-    ...mapActions({
-      connect: 'player/connect',
-      disconnect: 'player/disconnect',
+    ...mapMutations({
+      SET_IS_CONNECTED: 'player/SET_IS_CONNECTED',
+      SET_SETTINGS: 'player/SET_SETTINGS',
     }),
-    connectToPlayer(playerId = this.playerId) {
-      this.$socket.emit('connect-to-player', playerId)
-    },
     stopLoading() {
       this.isLoading = false
     },
+    joinPlayer(playerId = this.playerId) {
+      this.$socket.emit('join-player', playerId)
+    },
     initSocketListener() {
-      this.$socket.on('paired', (playerId) => {
-        console.log('paired ' + playerId)
+      this.$socket.on('player-room-created', (playerId) => {
+        this.joinPlayer(playerId)
+      })
+      this.$socket.on('player-joined', (playerId) => {
         this.$router.push({ path: `/remote/${playerId}` })
-        this.connect().then(() => {
-          this.stopLoading()
-          console.log('Äoks')
-        })
+        this.SET_IS_CONNECTED(true)
+        this.stopLoading()
       })
-      this.$socket.on('update-store', (object) => {
-        this.$store.commit('player/SET_STORE', object)
+      this.$socket.on('update-settings', (settings) => {
+        this.SET_SETTINGS(settings)
       })
-      this.$socket.on('update-transcript', (string) => {
-        this.$store.commit('player/SET_TEXT', string)
+      this.$socket.on('player-not-found', () => {
+        this.stopLoading()
       })
-      this.$socket.on('player-not-found', () => this.stopLoading())
       this.$socket.on('disconnect', () => {
-        console.log('disconnect')
-        this.disconnect()
+        this.SET_CONNECTED(false)
       })
     },
   },

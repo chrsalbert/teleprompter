@@ -21,7 +21,6 @@ app.use(nuxt.render)
 
 // Listen the server
 server.listen(port, '0.0.0.0')
-console.log('Server listening on localhost:' + port) // eslint-disable-line no-console
 
 // Socket.io
 io.on('connection', async (socket) => {
@@ -29,44 +28,35 @@ io.on('connection', async (socket) => {
     return !!socket.adapter.rooms[playerId]
   }
   socket.on('disconnecting', (reason) => {
-    console.log('disconnecting')
-    console.log(Object.entries(socket.rooms))
     for (const [key, value] of Object.entries(socket.rooms)) {
       if(key != socket.id) {
-        console.log('send disconnect ' + reason)
         socket.to(key).emit('disconnect', reason);
       }
     }
   })
-  socket.on('register-player', function (playerId) {
+  socket.on('create-player-room', function (playerId) {
     socket.join(playerId)
-    socket.to(playerId).emit('paired', playerId)
+    socket.to(playerId).emit('player-room-created', playerId)
   })
-  socket.on('connect-to-player', function (playerId) {
+  socket.on('join-player', function (playerId) {
     if (isRoomExistent(playerId)) {
       socket.join(playerId)
-      socket.emit('paired', playerId)
-      socket.to(playerId).emit('paired', playerId)
+      socket.emit('player-joined', playerId)
+      socket.to(playerId).emit('player-joined', playerId)
     } else {
       socket.emit('player-not-found')
     }
   })
   socket.on('play', function (playerId) {
-    io.to(playerId).emit('play')
-    io.emit('play')
+    socket.to(playerId).emit('play')
   })
   socket.on('pause', function (playerId) {
-    io.to(playerId).emit('pause')
-    io.emit('pause')
+    socket.to(playerId).emit('pause')
   })
   socket.on('reset', function (playerId) {
-    io.to(playerId).emit('reset')
-    io.emit('reset')
+    socket.to(playerId).emit('reset')
   })
-  socket.on('update-store', function (playerId, object) {
-    socket.to(playerId).emit('update-store', object)
-  })
-  socket.on('update-transcript', function (playerId, text) {
-    socket.to(playerId).emit('update-transcript', text)
+  socket.on('update-settings', function (playerId, settings) {
+    socket.to(playerId).emit('update-settings', settings)
   })
 })

@@ -3,6 +3,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
 
 export default {
   layout: 'player',
@@ -20,10 +21,10 @@ export default {
     }
   },
   beforeMount() {
-    this.loadSettingsFromLocalStorage().then(() => {
+    this.initSocketListeners()
+    this.loadDataFromLocalStorage().then(() => {
       this.initSpeechRecognition()
-      this.registerPlayer()
-      this.initSocketListeners()
+      this.createPlayerRoom()
       this.loading = false
     })
   },
@@ -39,35 +40,31 @@ export default {
     playerId() {
       return this.$cookies.get('playerId')
     },
-    store() {
-      return this.$store.state.player
-    },
+    settings() {
+      return this.$store.state.player.settings
+    }
   },
   methods: {
     ...mapActions({
-      connect: 'player/connect',
       disconnect: 'player/disconnect',
-      loadSettingsFromLocalStorage: 'player/loadSettingsFromLocalStorage',
+      loadDataFromLocalStorage: 'player/loadDataFromLocalStorage',
       initSpeechRecognition: 'player/initSpeechRecognition',
     }),
-    registerPlayer() {
-      console.log('register player')
-      this.$socket.emit('register-player', this.playerId)
-      this.$socket.emit('update-store', this.playerId, this.store)
+    ...mapMutations({
+      SET_IS_CONNECTED: 'player/SET_IS_CONNECTED',
+      SET_SETTINGS: 'player/SET_SETTINGS',
+    }),
+    createPlayerRoom() {
+      this.$socket.emit('create-player-room', this.playerId)
     },
     initSocketListeners() {
-      this.$socket.on('disconnect', () => this.disconnect())
-      this.$socket.on('update-store', (object) => {
-        this.$store.commit('player/SET_STORE', object)
+      this.$socket.on('disconnect', () => this.SET_IS_CONNECTED(false))
+      this.$socket.on('update-settings', (settings) => {
+        this.SET_SETTINGS(settings)
       })
-      this.$socket.on('paired', () => {
-        this.connect()
-        this.$socket.emit('update-store', this.playerId, this.store)
-        this.$socket.emit(
-          'update-transcript',
-          this.playerId,
-          this.store.text.raw,
-        )
+      this.$socket.on('player-joined', () => {
+        this.SET_IS_CONNECTED(true)
+        this.$socket.emit('update-settings', this.playerId, this.settings)
       })
     },
   },

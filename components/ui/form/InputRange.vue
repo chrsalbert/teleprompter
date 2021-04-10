@@ -1,80 +1,81 @@
 <template>
-    <div class="c-slider">
-        <div class="c-slider__control">
-            <input 
-                type="range"
-                :id="id"
-                :min="min"
-                :max="max"
-                :step="step"
-                :required="required"
-                v-model="input"
-                class="c-slider__input" />
-        </div>
-        <p class="c-slider-value">{{ value }}</p>
+  <div class="c-slider">
+    <div class="c-slider__control">
+      <input
+        type="range"
+        :id="id"
+        :min="min"
+        :max="max"
+        :step="step"
+        :required="required"
+        v-model="input"
+        class="c-slider__input"
+      />
     </div>
+    <p class="c-slider-value">{{ value }}</p>
+  </div>
 </template>
 <script>
 export default {
-    props: {
-        id: {
-            type: String,
-            required: true
-        },
-        min: {
-            type: Number,
-            required: true
-        },
-        max: {
-            type: Number,
-            required: true
-        },
-        value: {
-            type: Number,
-            required: true
-        },
-        step: Number,
-        required: Boolean
+  props: {
+    id: {
+      type: String,
+      required: true,
     },
-    computed: {
-        input: {
-            get() {
-                return this.value
-            },
-            set(val) {
-                this.$emit('input', val)
-            }
-        }
-    }
+    min: {
+      type: Number,
+      required: true,
+    },
+    max: {
+      type: Number,
+      required: true,
+    },
+    value: {
+      type: Number,
+      required: true,
+    },
+    step: Number,
+    required: Boolean,
+  },
+  computed: {
+    input: {
+      get() {
+        return this.value
+      },
+      set(val) {
+        this.$emit('input', val)
+      },
+    },
+  },
 }
 </script>
 <style scoped>
 .c-slider {
-    display: flex;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 .c-slider__control {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    height: var(--control-height);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: var(--control-height);
 }
 .c-slider-value {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-bold);
-    width: 2rem;
-    text-align: right;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  width: 2rem;
+  text-align: right;
 }
 .c-slider__input {
   -webkit-appearance: none;
   width: 100%;
-  height: 2px;
+  height: 1px;
   background: var(--color-gray-light);
   border-radius: 99px;
   outline: none;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
 }
 
 .c-slider__input:hover {

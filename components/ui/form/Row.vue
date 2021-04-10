@@ -38,10 +38,6 @@ export default {
   padding: var(--space-xs) 0;
 }
 
-.c-row:not(:last-of-type) {
-  border-bottom: 1px solid var(--color-gray-lightest);
-}
-
 .c-row__label {
   flex-shrink: 0;
   width: 40%;

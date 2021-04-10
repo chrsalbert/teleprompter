@@ -17,7 +17,13 @@
     </template>
     <template v-slot:footer>
       <layout-header>
-        <player-menu />
+        <ui-nav-container>
+          <ui-nav-group></ui-nav-group>
+          <ui-nav-group>
+            <player-controls />
+          </ui-nav-group>
+          <ui-nav-group></ui-nav-group>
+        </ui-nav-container>
       </layout-header>
     </template>
   </layout-grid>
@@ -30,8 +36,8 @@ export default {
     },
     isPlaying() {
       return (
-        this.$store.state.player.isPlaying ||
-        this.$store.state.player.isRecognizing
+        this.$store.state.player.controls.isPlaying ||
+        this.$store.state.player.controls.isRecognizing
       )
     },
   },

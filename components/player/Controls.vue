@@ -1,49 +1,58 @@
 <template>
-  <div class="c-remote__buttons">
+  <div>
+    <ui-button
+      icon="reload"
+      type="ghost"
+      :size="$device.isDesktop ? 'lg' : ''"
+      @click.native="reset()"
+    />
     <transition mode="out-in">
       <ui-button
-        v-if="player.isPlaying || player.isRecognizing"
-        :icon="player.isRecognizing === true ? 'microphoneOff' : 'pause'"
+        v-if="controls.isPlaying || controls.isRecognizing"
+        :icon="controls.isRecognizing === true ? 'microphoneOff' : 'pause'"
+        :size="$device.isDesktop ? 'lg' : ''"
         type="ghost"
-        size="xl"
         key="pause"
         @click.native="pause()"
       />
       <ui-button
         v-else
         :icon="
-          player.settings.isSpeechRecognitionEnabled &&
-          player.isRecognizing === false
+          settings.isSpeechRecognitionEnabled &&
+          controls.isRecognizing === false
             ? 'microphone'
             : 'play'
         "
-        type="ghost"
-        size="xl"
+        :size="$device.isDesktop ? 'lg' : ''"
+        type="play"
         key="play"
         @click.native="play()"
       />
     </transition>
-    <ui-button
-      icon="reload"
-      type="ghost"
-      size="md"
-      v-on:click.native="reset()"
-    />
   </div>
 </template>
 <script>
 export default {
   mounted() {
-    this.$socket.on('play', () => this.$store.dispatch('player/play'))
+    this.$socket.on('play', () => {
+      console.log('server: play')
+      this.$store.dispatch('player/play')
+    })
     this.$socket.on('pause', () => this.$store.dispatch('player/pause'))
     this.$socket.on('reset', () => this.$store.dispatch('player/reset'))
   },
   computed: {
-    player() {
-      return this.$store.state.player
+    controls() {
+      return this.$store.state.player.controls
+    },
+    settings() {
+      return this.$store.state.player.settings
     },
     playerId() {
       return this.$route.params.id
+    },
+    isSpeechRecognitionEnabled() {
+      return this.$store.state.player.settings.isSpeechRecognitionEnabled
     },
   },
   methods: {
@@ -60,16 +69,10 @@ export default {
       this.$socket.emit('reset', this.playerId)
     },
   },
+  watch: {
+    isSpeechRecognitionEnabled: function () {
+      this.reset()
+    },
+  },
 }
 </script>
-<style>
-.c-remote__buttons {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.c-remote__buttons button:first-child {
-  margin-bottom: var(--space-lg);
-}
-</style>

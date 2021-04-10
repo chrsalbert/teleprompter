@@ -117,12 +117,13 @@ export default {
   bottom: 0;
   display: flex;
   flex-direction: column;
-  background: #101011;
+  background: var(--color-white);
+  border-left: 1px var(--color-gray-lightest) solid;
   width: var(--width);
   max-width: 100%;
   opacity: 1;
   box-shadow: var(--shadow-xl);
-  color: #fdfdfd;
+  color: var(--color-black);
   transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .c-sidebar__body {

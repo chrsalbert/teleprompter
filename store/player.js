@@ -1,14 +1,13 @@
 export const state = () => ({
-  playerId: null,
-  isPlaying: false,
-  isRecognizing: false,
-  isSupportingSpeechRecognition: false,
+  id: null,
   isConnected: false,
   speechAPI: null,
-  status: {
-
+  controls: {
+    isPlaying: false,
+    isRecognizing: false,
   },
   settings: {
+    isSupportingSpeechRecognition: false,
     isSpeechRecognitionEnabled: false,
     wordsPerMin: 150,
     flipX: false,
@@ -16,14 +15,13 @@ export const state = () => ({
     charsPerLine: 30,
     fontSize: 40,
     lineHeight: 1.5,
-    textMargin: 32,
     textColor: '#ffffff',
     backgroundColor: '#000000',
+    transcript: '',
   },
-  text: {
+  content: {
     containerOffset: 0,
     containerHeight: 0,
-    raw: '',
     blocks: [],
   },
 })
@@ -40,16 +38,18 @@ export const getters = {
   getRealReadingTimeInSec: (state, getters) => {
     return parseFloat(
       getters.getReadingTimeInSec +
-      getters.getSecondsPerLine * getters.getLinebreakCount
+        getters.getSecondsPerLine * getters.getLinebreakCount,
     )
   },
   getSecondsPerLine: (state, getters) => {
+    if (getters.getLineCount < 1) return 0
     return parseFloat(
       parseFloat(getters.getReadingTimeInSec / getters.getLineCount).toFixed(2),
     )
   },
   getAnimationPlayState: (state) => {
-    return state.isPlaying === true && state.isRecognizing === false
+    return state.controls.isPlaying === true &&
+      state.controls.isRecognizing === false
       ? 'running'
       : 'paused'
   },
@@ -58,13 +58,13 @@ export const getters = {
   },
   getLineCount: (state, getters) => {
     return parseInt(
-      state.text.containerHeight / getters.getLineHeight -
+      state.content.containerHeight / getters.getLineHeight -
         getters.getLinebreakCount,
     )
   },
   getLinebreakCount: (state) => {
     let count = 0
-    let blocks = state.text.raw.split(' ')
+    let blocks = state.settings.transcript.split(' ')
     blocks.forEach((block) => {
       let add = block.match(/\n/g)
       let matched = add || []
@@ -74,7 +74,7 @@ export const getters = {
     return count
   },
   getAllWords: (state) => {
-    let words = state.text.raw.replace(/[ ]{2,}/gi, ' ')
+    let words = state.settings.transcript.replace(/[ ]{2,}/gi, ' ')
     words = words.replace(/[/.!?]/gi, ' ')
     words = words.split(' ')
     words = words.filter((item) => item.match(/\b([äöüÄÖÜß\w]+)'?(\w+)?\b/g))
@@ -99,35 +99,32 @@ export const mutations = {
   SET_STORE(state, store) {
     Object.assign(state, store)
   },
-  SET_PLAYER_ID(state, playerId) {
-    state.playerId = playerId
+  SET_PLAYER_ID(state, id) {
+    state.id = id
   },
   SET_IS_RECOGNIZING(state, boolean) {
-    state.isRecognizing = boolean
+    state.controls.isRecognizing = boolean
   },
   SET_IS_CONNECTED(state, boolean) {
     state.isConnected = boolean
   },
   SET_IS_PLAYING(state, boolean) {
-    state.isPlaying = boolean
+    state.controls.isPlaying = boolean
   },
   SET_TEXTBLOCKS(state, array) {
-    state.text.blocks = array
+    state.content.blocks = array
   },
   SET_SPEECH_RECOGNITION_SUPPORT(state, boolean) {
-    state.isSupportingSpeechRecognition = boolean
+    state.settings.isSupportingSpeechRecognition = boolean
   },
   SET_SPEECH_RECOGNITION_ENABLED(state, boolean) {
     state.settings.isSpeechRecognitionEnabled = boolean
   },
-  SET_TRANSCRIPT(state, text) {
-    state.text = text
-  },
   SET_CONTAINER_HEIGHT(state, px) {
-    state.text.containerHeight = px
+    state.content.containerHeight = px
   },
   SET_CONTAINER_OFFSET(state, px) {
-    state.text.containerOffset = px
+    state.content.containerOffset = px
   },
   SET_SPEECH_API(state, { onstart, onend, onresult, onerror }) {
     state.speechAPI = new webkitSpeechRecognition()
@@ -169,42 +166,43 @@ export const mutations = {
   SET_SETTINGS(state, object) {
     state.settings = object
   },
-  SET_TEXT(state, string) {
-    state.text.raw = string
+  SET_TRANSCRIPT(state, string) {
+    state.settings.transcript = string
   },
   ADD_MARKED_WORD(state, index) {
-    state.text.blocks[index].isRead = true
+    state.content.blocks[index].isRead = true
   },
   REMOVE_MARKED_WORD(state, index) {
-    state.text.blocks[index].isRead = false
+    state.content.blocks[index].isRead = false
   },
 }
 
 export const actions = {
-  updateText({ commit }, text) {
-    localStorage.setItem('text', text)
-    commit('SET_TEXT', text)
+  updateSettings({ commit }, settings) {
+    localStorage.setItem('settings', settings)
+    commit('SET_SETTINGS', settings)
   },
-  loadSettingsFromLocalStorage({ commit }) {
-    if (localStorage.getItem('player')) {
-      console.log('öload')
-      console.log(JSON.parse(localStorage.getItem('player')))
-      commit('SET_STORE', JSON.parse(localStorage.getItem('player')))
+  loadDataFromLocalStorage({ commit }) {
+    if (localStorage.getItem('settings')) {
+      commit('SET_SETTINGS', JSON.parse(localStorage.getItem('settings')))
+    }
+    if (localStorage.getItem('transcript')) {
+      commit('SET_TRANSCRIPT', localStorage.getItem('transcript'))
     }
   },
-  initText({ commit, dispatch }) {
-    if (localStorage.getItem('text')) {
-      commit('SET_TEXT', localStorage.getItem('text'))
+  initTranscript({ commit, dispatch }) {
+    if (localStorage.getItem('transcript')) {
+      commit('SET_TRANSCRIPT', localStorage.getItem('transcript'))
     } else {
       commit(
-        'SET_TEXT',
+        'SET_TRANSCRIPT',
         'Hello! Add a transcript, configure the player how you like it and press play.',
       )
-      dispatch('initTextBlocks')
     }
+    dispatch('initTextBlocks')
   },
   initTextBlocks({ state, commit }) {
-    let paragraphs = state.text.raw.split('\n')
+    let paragraphs = state.settings.transcript.split('\n')
     let textBlocks = []
     paragraphs.forEach((paragraph) => {
       paragraph.split(' ').forEach((block) => {
@@ -237,7 +235,7 @@ export const actions = {
       }
       function findRecognizedWord(
         recognizedWord = '',
-        blocks = state.text.blocks,
+        blocks = state.content.blocks,
       ) {
         recognizedWord = recognizedWord.toLowerCase()
         let firstIndex = blocks.map((el) => el.isRead).lastIndexOf(true) + 1 // 0
@@ -287,6 +285,10 @@ export const actions = {
     commit('SET_IS_CONNECTED', false)
   },
   play({ commit, state }) {
+    if(!state.speechAPI) {
+      commit('SET_IS_RECOGNIZING', true)
+      return
+    }
     if (state.settings.isSpeechRecognitionEnabled) {
       state.speechAPI.start()
     } else {
@@ -294,8 +296,12 @@ export const actions = {
     }
   },
   pause({ commit, state }) {
-    if (state.isPlaying || state.isRecognizing) {
-      if (state.isRecognizing) {
+    if (state.controls.isPlaying || state.controls.isRecognizing) {
+      if (state.controls.isRecognizing) {
+        if(!state.speechAPI) {
+          commit('SET_IS_RECOGNIZING', false)
+          return
+        }
         state.speechAPI.stop()
       } else {
         commit('SET_IS_PLAYING', false)
@@ -311,7 +317,7 @@ export const actions = {
   },
   rewindScript({ commit, state }) {
     commit('SET_CONTAINER_OFFSET', 0)
-    state.text.blocks.forEach((block, index) => {
+    state.content.blocks.forEach((block, index) => {
       if (block.isRead === true) commit('REMOVE_MARKED_WORD', index)
     })
   },

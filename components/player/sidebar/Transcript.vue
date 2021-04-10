@@ -15,37 +15,30 @@
       labelFor="text"
       class="c-transcript__row"
     >
-      <ui-form-textarea class="c-transcript__textarea" id="text" v-model="text" />
+      <ui-form-textarea
+        class="c-transcript__textarea"
+        id="text"
+        v-model="text"
+      />
     </ui-form-row>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { mapMutations } from 'vuex'
 
 export default {
-  mounted() {
-    this.$socket.on('update-transcript', (text) => {
-      this.$store.commit('player/SET_TEXT', text)
-    })
-    this.$socket.on('send-player-properties', () => {
-      this.$socket.emit(
-        'update-transcript',
-        this.playerId,
-        this.$store.state.player.text.raw,
-      )
-    })
-  },
   computed: {
     text: {
       get() {
-        return this.$store.state.player.text.raw
+        return this.$store.state.player.settings.transcript
       },
       set(val) {
-        this.$store.dispatch('player/updateText', val)
+        this.SET_TRANSCRIPT(val)
         this.$socket.emit(
-          'update-transcript',
-          this.$route.params.id,
-          this.$store.state.player.text.raw,
+          'update-settings',
+          this.playerId,
+          this.$store.state.player.settings,
         )
       },
     },
@@ -55,6 +48,11 @@ export default {
     ...mapGetters({
       realReadingTime: 'player/getRealReadingTimeInSec',
       wordCount: 'player/getWordCount',
+    }),
+  },
+  methods: {
+    ...mapMutations({
+      SET_TRANSCRIPT: 'player/SET_TRANSCRIPT',
     }),
   },
 }

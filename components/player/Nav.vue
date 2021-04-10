@@ -29,13 +29,13 @@
         />
       </div>
       <ui-sidebar ref="controllerPopup" title="Remote control" width="26rem">
-        <player-remote v-on:close="closeRemotePopup()" />
+        <player-sidebar-remote v-on:close="closeRemotePopup()" />
       </ui-sidebar>
       <ui-sidebar ref="settingsPopup" title="Settings" width="26rem">
-        <player-settings />
+        <player-sidebar-settings />
       </ui-sidebar>
       <ui-sidebar ref="transcriptPopup" title="Edit transcript" width="40rem">
-        <player-transcript />
+        <player-sidebar-transcript />
       </ui-sidebar>
       <ui-nav-divi v-if="$device.isDesktop" />
       <ui-button

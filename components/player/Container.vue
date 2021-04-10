@@ -5,6 +5,11 @@
       '--fontSize': `${settings.fontSize}px`,
       '--lineHeight': `${settings.lineHeight}`,
       '--textColor': `${settings.textColor}`,
+      '--height': `-${content.containerHeight}px`,
+      '--animation-duration': `${animationDuration}s`,
+      '--animation-play-state': `${animationPlayState}`,
+      '--offset': `${content.containerOffset}px`,
+      '--maxWidth': `${settings.charsPerLine}ch`,
     }"
     :class="{
       'c-player--flipX': settings.flipX,
@@ -17,17 +22,20 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   computed: {
     settings() {
       return this.$store.state.player.settings
     },
-    isPlaying() {
-      return this.$store.state.player.isPlaying
+    content() {
+      return this.$store.state.player.content
     },
-    isRecognizing() {
-      return this.$store.state.player.isRecognizing
-    },
+    ...mapGetters({
+      animationDuration: 'player/getRealReadingTimeInSec',
+      animationPlayState: 'player/getAnimationPlayState',
+    }),
   },
   methods: {
     pause() {

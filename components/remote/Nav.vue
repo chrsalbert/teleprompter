@@ -7,10 +7,10 @@
 			<ui-button icon="documents" type="ghost" v-on:click.native="openDocuments()" />
 			<ui-button icon="settings" type="ghost" v-on:click.native="openSettings()" />
 			<ui-sidebar ref="transcriptPopup" title="Edit transcript" width="40rem">
-				<player-transcript />
+				<player-sidebar-transcript />
 			</ui-sidebar>
 			<ui-sidebar ref="settingsPopup" title="Settings" width="26rem">
-				<player-settings />
+				<player-sidebar-settings />
 			</ui-sidebar>
 		</ui-nav-group>
 	</ui-nav-container>

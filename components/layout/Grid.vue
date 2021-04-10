@@ -93,7 +93,6 @@ export default {
 	right: -200px;
 	width: 200px;
 	border-right: 1px solid var(--border-color);
-	background: #19191a;
 	transition: left .2s cubic-bezier(0.075, 0.82, 0.165, 1)
 }
 </style>
