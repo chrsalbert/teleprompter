@@ -6,25 +6,25 @@
             <template v-slot:normal>
                 <p>
                     <ui-button icon="play">Primary</ui-button>
-                    <ui-button icon="play" type="secondary">Secondary</ui-button>
-                    <ui-button icon="play" type="ghost">Ghost</ui-button>
+                    <ui-button icon="play" variant="secondary">Secondary</ui-button>
+                    <ui-button icon="play" variant="ghost">Ghost</ui-button>
                 </p>
                 <p>
                     <ui-button icon="play" />
-                    <ui-button icon="play" type="secondary" />
-                    <ui-button icon="play" type="ghost" />
+                    <ui-button icon="play" variant="secondary" />
+                    <ui-button icon="play" variant="ghost" />
                 </p>    
             </template>
             <template v-slot:darkmode>
                 <p>
                     <ui-button icon="play">Primary</ui-button>
-                    <ui-button icon="play" type="secondary">Secondary</ui-button>
-                    <ui-button icon="play" type="ghost">Ghost</ui-button>
+                    <ui-button icon="play" variant="secondary">Secondary</ui-button>
+                    <ui-button icon="play" variant="ghost">Ghost</ui-button>
                 </p>
                 <p>
                     <ui-button icon="play" />
-                    <ui-button icon="play" type="secondary" />
-                    <ui-button icon="play" type="ghost" />
+                    <ui-button icon="play" variant="secondary" />
+                    <ui-button icon="play" variant="ghost" />
                 </p>
             </template>
         </patterns-row>

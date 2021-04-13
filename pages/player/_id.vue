@@ -42,7 +42,7 @@ export default {
   },
   mounted() {
     this.initSpeechRecognition()
-    this.joinRoom()
+    this.createRoom()
   },
   computed: {
     playerId() {
@@ -72,14 +72,17 @@ export default {
       this.$store.dispatch('player/pause')
       this.$socket.emit('pause', this.playerId)
     },
-    joinRoom() {
-      this.$socket.emit('join-room', { roomId: this.playerId })
+    createRoom() {
+      this.$socket.emit('create-room', { roomId: this.playerId })
     },
     initEventListeners() {
       this.$socket.on('user-count', (count) => {
         this.SET_CONNECTED_COUNT(count)
       })
       this.$socket.on('user-joined', () => {
+        this.$socket.emit('update-settings', this.settings)
+      })
+      this.$socket.on('room-created', () => {
         this.$socket.emit('update-settings', this.settings)
       })
       this.$socket.on('update-settings', (settings) => {

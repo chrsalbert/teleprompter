@@ -24,8 +24,10 @@ server.listen(port, '0.0.0.0')
 
 // Socket.io
 io.on('connection', (socket) => {
-  const isRoomExistent = (playerId) => {
-    return !!socket.adapter.rooms[playerId]
+  const isRoomExistent = (roomId) => {
+    console.log('check for room ' + roomId)
+    console.log(socket.adapter.rooms)
+    return !!socket.adapter.rooms[roomId]
   }
   const getUserCount = (roomId) => {
     if (socket.adapter.rooms[roomId]) {
@@ -34,11 +36,23 @@ io.on('connection', (socket) => {
       return 0
     }
   }
-  socket.on('join-room', function (data) {
+  socket.on('create-room', function (data) {
+    console.log('crate room')
     socket.join(data.roomId)
+    console.log(socket.adapter.rooms)
     io.in(data.roomId).emit('user-count', getUserCount(data.roomId))
-    io.in(data.roomId).emit('user-joined', { userId: socket.id })
-    socket.emit('joined')
+    io.in(data.roomId).emit('room-created', { userId: socket.id })
+  })
+  socket.on('join-room', function (data) {
+    console.log('join room')
+    if (isRoomExistent(data.roomId)) {
+      socket.join(data.roomId)
+      io.in(data.roomId).emit('user-count', getUserCount(data.roomId))
+      io.in(data.roomId).emit('user-joined', { userId: socket.id })
+      socket.emit('joined')
+    } else {
+      socket.emit('room-not-found')
+    }
   })
   socket.on('leave-room', function (data) {
     socket.leave(data.roomId)

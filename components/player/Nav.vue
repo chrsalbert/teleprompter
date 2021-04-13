@@ -1,17 +1,17 @@
 <template>
   <ui-nav-container>
     <ui-nav-group>
-      <ui-button icon="home" type="ghost" to="/" />
+      <ui-button icon="home" variant="ghost" to="/" />
     </ui-nav-group>
     <ui-nav-group>
       <ui-button
         icon="documents"
-        type="ghost"
+        variant="ghost"
         v-on:click.native="openTranscriptPopup()"
       />
       <ui-button
         icon="settings"
-        type="ghost"
+        variant="ghost"
         v-on:click.native="openSettingsPopup()"
       />
       <div
@@ -24,7 +24,7 @@
       >
         <ui-button
           icon="devices"
-          type="ghost"
+          variant="ghost"
           v-on:click.native="openControllerPopup()"
         />
       </div>
@@ -41,7 +41,7 @@
       <ui-button
         v-if="$device.isDesktop"
         icon="fullscreen"
-        type="ghost"
+        variant="ghost"
         v-on:click.native="toggleFullscreen()"
       />
     </ui-nav-group>

@@ -16,7 +16,7 @@
               {{ title }}
           </div>
           <ui-button
-            type="ghost"
+            variant="ghost"
             icon="close"
             v-on:click.native="close()"
           />

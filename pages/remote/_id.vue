@@ -1,9 +1,8 @@
 <template>
   <ui-page-pad>
     <client-only>
-      <p v-if="isLoading">Connecting to player…</p>
-      <player-controls v-else-if="isConnected" />
-      <remote-connect v-else />
+      <player-controls v-if="isConnected" />
+      <remote-connect v-else :isLoading="isLoading" />
     </client-only>
   </ui-page-pad>
 </template>
@@ -59,6 +58,9 @@ export default {
         this.isLoading = false
       })
       this.$socket.on('joined', (socketId) => {
+        this.isLoading = false
+      })
+      this.$socket.on('room-not-found', () => {
         this.isLoading = false
       })
       this.$socket.on('user-count', (count) => {

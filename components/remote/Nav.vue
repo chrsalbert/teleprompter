@@ -1,11 +1,11 @@
 <template>
 	<ui-nav-container>
 		<ui-nav-group>
-			<ui-button icon="home" type="ghost" to="/" />
+			<ui-button icon="home" variant="ghost" to="/#" />
 		</ui-nav-group>
 		<ui-nav-group v-if="isConnected">
-			<ui-button icon="documents" type="ghost" v-on:click.native="openDocuments()" />
-			<ui-button icon="settings" type="ghost" v-on:click.native="openSettings()" />
+			<ui-button icon="documents" variant="ghost" v-on:click.native="openDocuments()" />
+			<ui-button icon="settings" variant="ghost" v-on:click.native="openSettings()" />
       <div
         class="c-player-nav__status"
         :class="
@@ -16,7 +16,7 @@
       >
         <ui-button
           icon="devices"
-          type="ghost"
+          variant="ghost"
           v-on:click.native="openSettings()"
         />
       </div>

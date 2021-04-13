@@ -13,9 +13,11 @@
           <div class="form">
             <ui-form-input id="id" v-model="form.newPlayerId" required />
             <ui-button
-              type="secondary"
+              variant="secondary"
               @click.native="connect()"
+              submit
               :disabled="form.newPlayerId === ''"
+              :loading="isLoading"
             >
               Connect
             </ui-button>
@@ -28,7 +30,7 @@
 <script>
 export default {
   props: {
-    error: {
+    isLoading: {
       type: Boolean,
       default: false,
     },

@@ -2,7 +2,7 @@
   <div>
     <ui-button
       icon="reload"
-      type="ghost"
+      variant="ghost"
       :size="$device.isDesktop ? 'lg' : ''"
       @click.native="reset()"
     />
@@ -11,7 +11,7 @@
         v-if="controls.isPlaying || controls.isRecognizing"
         :icon="controls.isRecognizing === true ? 'microphoneOff' : 'pause'"
         :size="$device.isDesktop ? 'lg' : ''"
-        type="ghost"
+        variant="ghost"
         key="pause"
         @click.native="pause()"
       />
@@ -24,7 +24,7 @@
             : 'play'
         "
         :size="$device.isDesktop ? 'lg' : ''"
-        type="play"
+        variant="play"
         key="play"
         @click.native="play()"
       />
