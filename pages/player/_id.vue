@@ -92,10 +92,11 @@ export default {
         $nuxt.$emit('keydown', event.which)
       })
     },
-    beforeRouteLeave(to, from, next) {
-      this.$socket.disconnect()
-      next()
-    },
+  },
+  beforeRouteLeave(to, from, next) {
+    this.$socket.emit('leave-room', { roomId: this.playerId })
+    this.SET_CONNECTED_COUNT(0)
+    next()
   },
 }
 </script>

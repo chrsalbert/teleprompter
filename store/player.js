@@ -282,7 +282,7 @@ export const actions = {
     }
   },
   play({ commit, state }) {
-    if(!state.speechAPI) {
+    if (!state.speechAPI) {
       commit('SET_IS_RECOGNIZING', true)
       return
     }

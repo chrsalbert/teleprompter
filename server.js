@@ -38,6 +38,11 @@ io.on('connection', (socket) => {
     socket.join(data.roomId)
     io.in(data.roomId).emit('user-count', getUserCount(data.roomId))
     io.in(data.roomId).emit('user-joined', { userId: socket.id })
+    socket.emit('joined')
+  })
+  socket.on('leave-room', function (data) {
+    socket.leave(data.roomId)
+    io.in(data.roomId).emit('user-count', getUserCount(data.roomId))
   })
   socket.on('disconnecting', (reason) => {
     for (const [key, value] of Object.entries(socket.rooms)) {

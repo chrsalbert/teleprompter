@@ -58,6 +58,9 @@ export default {
       this.$socket.on('connect', () => {
         this.isLoading = false
       })
+      this.$socket.on('joined', (socketId) => {
+        this.isLoading = false
+      })
       this.$socket.on('user-count', (count) => {
         this.SET_CONNECTED_COUNT(count)
       })
@@ -67,7 +70,8 @@ export default {
     },
   },
   beforeRouteLeave(to, from, next) {
-    this.$socket.disconnect()
+    this.$socket.emit('leave-room', { roomId: this.playerId })
+    this.SET_CONNECTED_COUNT(0)
     next()
   },
 }
