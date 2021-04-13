@@ -8,8 +8,8 @@
 				</p>
 				<p>
 					Christian Albert<br/>
-					Weißhausstr. 36<br/>
-					50939 Köln<br/>
+					Vereinsstraße 123<br/>
+					51103 Köln<br/>
 					Deutschland
 				</p>
 				<h2>
