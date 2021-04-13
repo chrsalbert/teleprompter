@@ -23,28 +23,36 @@ app.use(nuxt.render)
 server.listen(port, '0.0.0.0')
 
 // Socket.io
-io.on('connection', async (socket) => {
+io.on('connection', (socket) => {
   const isRoomExistent = (playerId) => {
     return !!socket.adapter.rooms[playerId]
   }
+  const getUserCount = (roomId) => {
+    if (socket.adapter.rooms[roomId]) {
+      return socket.adapter.rooms[roomId].length
+    } else {
+      return 0
+    }
+  }
+  socket.on('join-room', function (data) {
+    socket.join(data.roomId)
+    io.in(data.roomId).emit('user-count', getUserCount(data.roomId))
+    io.in(data.roomId).emit('user-joined', { userId: socket.id })
+  })
   socket.on('disconnecting', (reason) => {
     for (const [key, value] of Object.entries(socket.rooms)) {
-      if(key != socket.id) {
-        socket.to(key).emit('disconnect', reason);
+      if (key != socket.id) {
+        socket.leave(key)
+        socket.to(key).emit('user-left', reason)
+        io.in(key).emit('user-count', getUserCount(key))
       }
     }
   })
-  socket.on('create-player-room', function (playerId) {
-    socket.join(playerId)
-    socket.to(playerId).emit('player-room-created', playerId)
-  })
-  socket.on('join-player', function (playerId) {
-    if (isRoomExistent(playerId)) {
-      socket.join(playerId)
-      socket.emit('player-joined', playerId)
-      socket.to(playerId).emit('player-joined', playerId)
-    } else {
-      socket.emit('player-not-found')
+  socket.on('update-settings', function (settings) {
+    for (const [key, value] of Object.entries(socket.rooms)) {
+      if (key != socket.id) {
+        socket.to(key).emit('update-settings', settings)
+      }
     }
   })
   socket.on('play', function (playerId) {
@@ -55,8 +63,5 @@ io.on('connection', async (socket) => {
   })
   socket.on('reset', function (playerId) {
     socket.to(playerId).emit('reset')
-  })
-  socket.on('update-settings', function (playerId, settings) {
-    socket.to(playerId).emit('update-settings', settings)
   })
 })

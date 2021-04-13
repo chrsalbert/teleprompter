@@ -67,7 +67,7 @@ export default {
 			title: 'Mr. Prompter – free online teleprompter',
 			description: "Beside many other features, Mr. Prompter scrolls your script while you're speaking. That makes you sound more natural to your audience."
 		}
-	}
+	},
 }
 </script>
 <style scoped>

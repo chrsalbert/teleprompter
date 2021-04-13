@@ -34,10 +34,7 @@
 <script>
 export default {
   mounted() {
-    this.$socket.on('play', () => {
-      console.log('server: play')
-      this.$store.dispatch('player/play')
-    })
+    this.$socket.on('play', () => this.$store.dispatch('player/play'))
     this.$socket.on('pause', () => this.$store.dispatch('player/pause'))
     this.$socket.on('reset', () => this.$store.dispatch('player/reset'))
   },

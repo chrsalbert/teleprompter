@@ -2,7 +2,7 @@
 	<nuxt-link class="c-button" 
 		v-bind="{ 
 			to: to, 
-			tag: buttonType, 
+			is: buttonType, 
 			class: { 
 				'c-button--secondary': type === 'secondary',
 				'c-button--ghost': type === 'ghost',
@@ -42,7 +42,7 @@ export default {
 			return !!this.$slots.default
 		},
 		buttonType() {
-			return this.href != '#' ? 'a' : 'button'
+			return this.href != '#' ? 'nuxt-link' : 'button'
 		},
 		isSubmit() {
 			return this.submit ? 'submit' : ''

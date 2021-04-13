@@ -1,6 +1,6 @@
 export const state = () => ({
   id: null,
-  isConnected: false,
+  connectedCount: 0,
   speechAPI: null,
   controls: {
     isPlaying: false,
@@ -93,9 +93,15 @@ export const getters = {
       ).toFixed(2),
     )
   },
+  isConnected: (state) => {
+    return state.connectedCount > 1
+  },
 }
 
 export const mutations = {
+  SET_CONNECTED_COUNT(state, count) {
+    state.connectedCount = count
+  },
   SET_STORE(state, store) {
     Object.assign(state, store)
   },
@@ -104,9 +110,6 @@ export const mutations = {
   },
   SET_IS_RECOGNIZING(state, boolean) {
     state.controls.isRecognizing = boolean
-  },
-  SET_IS_CONNECTED(state, boolean) {
-    state.isConnected = boolean
   },
   SET_IS_PLAYING(state, boolean) {
     state.controls.isPlaying = boolean
@@ -278,12 +281,6 @@ export const actions = {
       commit('SET_SPEECH_RECOGNITION_SUPPORT', true)
     }
   },
-  connect({ commit }) {
-    commit('SET_IS_CONNECTED', true)
-  },
-  disconnect({ commit }) {
-    commit('SET_IS_CONNECTED', false)
-  },
   play({ commit, state }) {
     if(!state.speechAPI) {
       commit('SET_IS_RECOGNIZING', true)
@@ -298,7 +295,7 @@ export const actions = {
   pause({ commit, state }) {
     if (state.controls.isPlaying || state.controls.isRecognizing) {
       if (state.controls.isRecognizing) {
-        if(!state.speechAPI) {
+        if (!state.speechAPI) {
           commit('SET_IS_RECOGNIZING', false)
           return
         }

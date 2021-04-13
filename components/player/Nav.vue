@@ -48,16 +48,16 @@
   </ui-nav-container>
 </template>
 <script>
-import { mapActions } from 'vuex'
 import fullscreenFunctions from '~/mixins/fullscreenFunctions.js'
 import getSupport from '~/mixins/getSupport.js'
+import { mapGetters } from 'vuex'
 
 export default {
   mixins: [fullscreenFunctions, getSupport],
   computed: {
-    isConnected() {
-      return this.$store.state.player.isConnected
-    },
+    ...mapGetters({
+      isConnected: 'player/isConnected',
+    }),
   },
   methods: {
     openControllerPopup() {

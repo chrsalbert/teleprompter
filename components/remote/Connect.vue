@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     connect() {
-      this.$emit('connect', this.form.newPlayerId)
+      this.$router.push({ path: `/remote/${this.form.newPlayerId}` })
       this.form.newPlayerId = ''
     },
   },

@@ -6,6 +6,20 @@
 		<ui-nav-group v-if="isConnected">
 			<ui-button icon="documents" type="ghost" v-on:click.native="openDocuments()" />
 			<ui-button icon="settings" type="ghost" v-on:click.native="openSettings()" />
+      <div
+        class="c-player-nav__status"
+        :class="
+          isConnected
+            ? 'c-player-nav__status--positive'
+            : 'c-player-nav__status--negative'
+        "
+      >
+        <ui-button
+          icon="devices"
+          type="ghost"
+          v-on:click.native="openSettings()"
+        />
+      </div>
 			<ui-sidebar ref="transcriptPopup" title="Edit transcript" width="40rem">
 				<player-sidebar-transcript />
 			</ui-sidebar>
@@ -16,14 +30,14 @@
 	</ui-nav-container>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
-	computed: {
-		isConnected() {
-			return this.$store.state.player.isConnected
-		}
-	},
+  computed: {
+    ...mapGetters({
+      isConnected: 'player/isConnected',
+    }),
+  },
 	methods: {
 		openSettings() {
 			this.$refs.settingsPopup.open()
@@ -34,3 +48,24 @@ export default {
 	}
 }
 </script>
+<style>
+.c-player-nav__status {
+  position: relative;
+}
+.c-player-nav__status::before {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 0.5rem;
+  background: var(--color-positive);
+}
+.c-player-nav__status--positive::before {
+  background: var(--color-positive);
+}
+.c-player-nav__status--negative::before {
+  background: var(--color-negative);
+}
+</style>

@@ -1,12 +1,15 @@
 <template>
   <ui-page-pad>
-    <template v-if="isLoading">Connecting to player…</template>
-    <player-controls v-else-if="isConnected" />
-    <remote-connect v-else @connect="joinPlayer" />
+    <client-only>
+      <p v-if="isLoading">Connecting to player…</p>
+      <player-controls v-else-if="isConnected" />
+      <remote-connect v-else />
+    </client-only>
   </ui-page-pad>
 </template>
 <script>
 import { mapMutations } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   layout: 'remote',
@@ -19,51 +22,58 @@ export default {
   },
   data() {
     return {
+      socketId: null,
       isLoading: true,
+      error: false,
     }
   },
+  beforeMount() {
+    this.initEventIsteners()
+  },
   mounted() {
-    this.initSocketListener()
-    this.joinPlayer(this.playerId)
+    this.joinRoom()
   },
   computed: {
-    isConnected() {
-      return this.$store.state.player.isConnected
-    },
     playerId() {
       return this.$route.params.id
     },
+    ...mapGetters({
+      isConnected: 'player/isConnected',
+    }),
   },
   methods: {
     ...mapMutations({
-      SET_IS_CONNECTED: 'player/SET_IS_CONNECTED',
+      SET_CONNECTED_COUNT: 'player/SET_CONNECTED_COUNT',
       SET_SETTINGS: 'player/SET_SETTINGS',
     }),
-    stopLoading() {
-      this.isLoading = false
+    joinRoom(playerId = this.playerId) {
+      if (!playerId) {
+        this.isLoading = false
+        this.error = true
+        return
+      }
+      this.$socket.emit('join-room', { roomId: this.playerId })
     },
-    joinPlayer(playerId = this.playerId) {
-      this.$socket.emit('join-player', playerId)
-    },
-    initSocketListener() {
-      this.$socket.on('player-room-created', (playerId) => {
-        this.joinPlayer(playerId)
+    initEventIsteners() {
+      this.$socket.on('connect', () => {
+        this.isLoading = false
       })
-      this.$socket.on('player-joined', (playerId) => {
-        this.$router.push({ path: `/remote/${playerId}` })
-        this.SET_IS_CONNECTED(true)
-        this.stopLoading()
+      this.$socket.on('user-count', (count) => {
+        this.SET_CONNECTED_COUNT(count)
       })
       this.$socket.on('update-settings', (settings) => {
         this.SET_SETTINGS(settings)
       })
-      this.$socket.on('player-not-found', () => {
-        this.stopLoading()
-      })
-      this.$socket.on('disconnect', () => {
-        this.SET_CONNECTED(false)
-      })
     },
+  },
+  beforeRouteLeave(to, from, next) {
+    this.$socket.disconnect()
+    next()
   },
 }
 </script>
+<style scoped>
+p {
+  color: #fff;
+}
+</style>

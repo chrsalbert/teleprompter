@@ -1,7 +1,10 @@
 <template>
   <div>
     <p class="u-text-center u-mb-lg">
-      <ui-status :status="player.isConnected ? 'positive' : 'negative'" :text="player.isConnected ? 'connected' : 'disconnected'" />
+      <ui-status
+        :status="isConnected ? 'positive' : 'negative'"
+        :text="isConnected ? 'connected' : 'disconnected'"
+      />
     </p>
     <div class="qrWrapper">
       <figure><qrcode-vue :value="url"></qrcode-vue></figure>
@@ -20,12 +23,16 @@
 </template>
 <script>
 import QrcodeVue from 'qrcode.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     QrcodeVue,
   },
   computed: {
+    ...mapGetters({
+      isConnected: 'player/isConnected',
+    }),
     player() {
       return this.$store.state.player
     },
