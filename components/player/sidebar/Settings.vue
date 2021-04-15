@@ -175,6 +175,7 @@ export default {
   },
   methods: {
     updateSettings() {
+      $nuxt.$emit('resize')
       this.$socket.emit('update-settings', this.settings)
       localStorage.setItem('settings', JSON.stringify(this.settings))
     },
