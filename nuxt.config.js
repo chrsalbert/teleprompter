@@ -55,16 +55,21 @@ module.exports = {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: [],
+  buildModules: ['@aceforth/nuxt-optimized-images'],
+  optimizedImages: {
+    optimizeImages: true,
+    inlineImageLimit: 2000,
+    webp: {
+      quality: 50,
+    },
+    optipng: {
+      optimizationLevel: 3,
+    },
+  },
   /*
    ** Nuxt.js modules
    */
-  modules: [
-    '@nuxtjs/svg',
-    '@nuxtjs/pwa',
-    '@nuxtjs/device',
-    'cookie-universal-nuxt',
-  ],
+  modules: ['@nuxtjs/pwa', '@nuxtjs/device', 'cookie-universal-nuxt'],
   env: {
     WS_URL: process.env.WS_URL || 'http://localhost:3000',
     BASE_URL: process.env.BASE_URL || 'http://localhost:3000',

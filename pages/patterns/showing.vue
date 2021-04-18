@@ -17,7 +17,7 @@
                     <ui-showing-item icon="phone" title="Offline available">
                         <p>Save Mr. Prompter to your mobile home screen and use it like your native apps – even offline!</p>
                     </ui-showing-item>
-                    <ui-showing-item icon="flipVertical" title="Physical setup ready">
+                    <ui-showing-item icon="flip-vertical" title="Physical setup ready">
                         <p>Mirror your text horizontal and vertical for using Mr. Prompter with your physical setup.</p>
                     </ui-showing-item>
                     <ui-showing-item icon="customize" title="Customizable">
@@ -40,7 +40,7 @@
                     <ui-showing-item icon="phone" title="Offline available">
                         <p>Save Mr. Prompter to your mobile home screen and use it like your native apps – even offline!</p>
                     </ui-showing-item>
-                    <ui-showing-item icon="flipVertical" title="Physical setup ready">
+                    <ui-showing-item icon="flip-vertical" title="Physical setup ready">
                         <p>Mirror your text horizontal and vertical for using Mr. Prompter with your physical setup.</p>
                     </ui-showing-item>
                     <ui-showing-item icon="customize" title="Customizable">

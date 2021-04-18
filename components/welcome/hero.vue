@@ -16,14 +16,26 @@
           <ui-button to="/player" class="c-welcomeHero__cta">
             Open Player
           </ui-button>
-          <ui-button to="/remote" variant="secondary" class="c-welcomeHero__cta ">
+          <ui-button
+            to="/remote"
+            variant="secondary"
+            class="c-welcomeHero__cta"
+          >
             Remote control
           </ui-button>
         </ui-richtext>
       </div>
     </div>
     <div class="c-welcomeHero__player">
-      <welcome-animation />
+      <picture>
+        <source srcset="~/assets/images/mr-prompter-teleprompter-app-hero.png?webp" type="image/webp" />
+        <img
+          src="~/assets/images/mr-prompter-teleprompter-app-hero.png"
+          alt="Illustration mit Häusern und Solaranlagen"
+          class="c-welcomeHero__figure"
+          loading="lazy"
+        />
+      </picture>
     </div>
   </div>
 </template>
@@ -45,17 +57,34 @@
   margin: 0 auto;
 }
 
-.c-welcomeHero__copy :is(p,h1) {
+.c-welcomeHero__copy :is(p, h1) {
   margin: 0 0 var(--space-8) !important;
 }
 
 .c-welcomeHero__cta {
-  margin: 0 var(--space-2) 0 0
+  margin: 0 var(--space-2) 0 0;
 }
 
 .c-welcomeHero__player {
+  --stripeWidth: 16rem;
   position: relative;
   grid-area: 1 / 2 / 2 / 3;
-  background: #000;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--color-gray-darkest),
+    var(--color-gray-darkest) var(--stripeWidth),
+    var(--color-black) var(--stripeWidth),
+    var(--color-black) calc(var(--stripeWidth) * 2)
+  );
+}
+
+.c-welcomeHero__figure {
+  position: absolute;
+  top: 0;
+  z-index: 9;
+  height: 50vh;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -5vw;
 }
 </style>

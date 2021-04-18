@@ -42,7 +42,7 @@ export default {
         },
         {
           title: 'Physical setup ready',
-          icon: 'flipVertical',
+          icon: 'flip-vertical',
           paragraph:
             'Mirror your text horizontal and vertical for using Mr. Prompter with your physical setup.',
         },
