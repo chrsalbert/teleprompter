@@ -42,7 +42,7 @@ export default {
     },
     strokeWidth: {
       type: Number,
-      default: 1.5,
+      default: 1,
     },
     size: {
       type: String,

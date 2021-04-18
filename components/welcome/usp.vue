@@ -27,7 +27,7 @@
 }
 .c-welcomeUsp__icon {
   display: inline-block;
-  background: linear-gradient(156.49deg, #169ae4 13.76%, #7e0ac6 86.51%);
+  background: linear-gradient(156.49deg, var(--color-primary-500) 13.76%, var(--color-secondary-500) 86.51%);
   box-shadow: 8px 2px 16px rgba(123, 14, 199, 0.17),
     -8px -2px 16px rgba(22, 154, 228, 0.2);
   padding: var(--space-1);

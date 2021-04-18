@@ -204,8 +204,8 @@ export default {
   color: var(--button-play-text-color);
 }
 .c-button--play:hover:not(:disabled) .c-icon svg {
-  stroke: var(--button-play-text-color);
-  color: var(--button-play-text-color);
+  stroke: var(--button-play-hover-text-color);
+  color: var(--button-play-hover-text-color);
 }
 
 /* type ghost */
@@ -224,8 +224,8 @@ export default {
   color: var(--button-ghost-text-color);
 }
 .c-button--ghost:hover:not(:disabled) .c-icon svg {
-  stroke: var(--button-ghost-text-color);
-  color: var(--button-ghost-text-color);
+  stroke: var(--button-ghost-hover-text-color);
+  color: var(--button-ghost-hover-text-color);
 }
 
 /* size md */

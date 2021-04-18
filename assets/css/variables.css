@@ -11,13 +11,16 @@
   --color-primary-800: #2a3eb0;
   --color-primary-900: #243597;
 
-  --color-secondary-lightest: #e7f4ff;
-  --color-secondary-lighter: #9ed1ff;
-  --color-secondary-light: #56afff;
+  --color-secondary-0: #f2e7f9;
+  --color-secondary-100: #b06edd;
+  --color-secondary-200: #a356d7;
+  --color-secondary-300: #963dd1;
+  --color-secondary-400: #8925cc;
   --color-secondary-500: #7c0dc6;
-  --color-secondary-dark: #0962b3;
-  --color-secondary-darker: #053866;
-  --color-secondary-darkest: #010e19;
+  --color-secondary-600: #700cb2;
+  --color-secondary-700: #630a9e;
+  --color-secondary-800: #57098b;
+  --color-secondary-900: #4a0877;
 
   --color-gray-lightest: #f4f4f4;
   --color-gray-lighter: #d2d2d3;
@@ -120,7 +123,7 @@
   --button-secondary-bg-color: transparent;
   --button-secondary-hover-bg-color: var(--color-primary-0);
   --button-secondary-focus-bg-color: var(--color-primary-0);
-  --button-secondary-text-color: var(--color-primary-900);
+  --button-secondary-text-color: var(--color-primary-700);
   --button-secondary-hover-text-color: var(--color-primary-900);
 
   --button-play-border-color: transparent;
@@ -133,16 +136,16 @@
   --button-play-hover-text-color: var(--color-positive-dark);
 
   --button-ghost-border-color: transparent;
-  --button-ghost-hover-border-color: var(--color-gray-lightest);
-  --button-ghost-focus-border-color: var(--color-gray-lighter);
+  --button-ghost-hover-border-color: transparent;
+  --button-ghost-focus-border-color:transparent;
   --button-ghost-bg-color: transparent;
-  --button-ghost-hover-bg-color: var(--color-gray-lightest);
-  --button-ghost-focus-bg-color: var(--color-gray-lightest);
+  --button-ghost-hover-bg-color: transparent;
+  --button-ghost-focus-bg-color: transparent;
   --button-ghost-text-color: var(--color-gray-dark);
-  --button-ghost-hover-text-color: var(--color-gray-darkest);
+  --button-ghost-hover-text-color: var(--color-black);
 }
 
-.darkmode {
+.is-darkmode {
   /* COLORS */
   --color-primary-lightest: #010e19;
   --color-primary-lighter: #053866;
@@ -216,14 +219,15 @@
   --button-play-text-color: var(--color-positive);
   --button-play-hover-text-color: var(--color-positive-dark);
 
+
   --button-ghost-border-color: transparent;
-  --button-ghost-hover-border-color: var(--color-gray-lightest);
-  --button-ghost-focus-border-color: var(--color-gray-lighter);
+  --button-ghost-hover-border-color: transparent;
+  --button-ghost-focus-border-color:transparent;
   --button-ghost-bg-color: transparent;
-  --button-ghost-hover-bg-color: var(--color-gray-lightest);
-  --button-ghost-focus-bg-color: var(--color-gray-lightest);
+  --button-ghost-hover-bg-color: transparent;
+  --button-ghost-focus-bg-color: transparent;
   --button-ghost-text-color: var(--color-gray-dark);
-  --button-ghost-hover-text-color: var(--color-gray-darkest);
+  --button-ghost-hover-text-color: var(--color-black);
 }
 
 @media only screen and (max-width: 600px) {

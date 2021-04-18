@@ -80,6 +80,7 @@ export default {
   position: relative;
 }
 .c-player-nav__status::before {
+  z-index: 1;
   position: absolute;
   top: 0.2rem;
   right: 0.2rem;

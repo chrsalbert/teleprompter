@@ -11,20 +11,16 @@
   >
     <Nuxt />
     <template v-slot:header>
-      <layout-header>
-        <player-nav />
-      </layout-header>
+      <player-nav />
     </template>
     <template v-slot:footer>
-      <layout-header>
-        <ui-nav-container>
-          <ui-nav-group></ui-nav-group>
-          <ui-nav-group>
-            <player-controls />
-          </ui-nav-group>
-          <ui-nav-group></ui-nav-group>
-        </ui-nav-container>
-      </layout-header>
+      <ui-nav-container>
+        <ui-nav-group></ui-nav-group>
+        <ui-nav-group>
+          <player-controls />
+        </ui-nav-group>
+        <ui-nav-group></ui-nav-group>
+      </ui-nav-container>
     </template>
   </layout-grid>
 </template>

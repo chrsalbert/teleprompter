@@ -3,7 +3,7 @@
 		<slot></slot>
 	</div>
 </template>
-<style scoped>
+<style>
 .c-nav__divi {
 	height: 32px;
 	width: 1px;

@@ -2,15 +2,12 @@
   <layout-grid centered darkmode border>
     <Nuxt />
     <template v-slot:header>
-      <layout-header>
-        <remote-nav />
-      </layout-header>
+      <remote-nav />
     </template>
   </layout-grid>
 </template>
 <script>
 export default {
-	name: 'LayoutRemote',
+  name: 'LayoutRemote',
 }
 </script>
-

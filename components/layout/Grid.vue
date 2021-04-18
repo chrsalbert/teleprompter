@@ -1,18 +1,19 @@
 <template>
   <div
-    class="c-layout"
+    class="l-grid"
     :class="{
-      'c-layout--fixed': fixed === true,
-      'c-layout--centered': centered === true,
+      'is-darkmode': darkmode === true,
+      'l-grid--fixed': fixed === true,
+      'l-grid--centered': centered === true,
     }"
   >
-    <div class="c-layout__header">
+    <div class="l-grid__header">
       <slot name="header"></slot>
     </div>
-    <div class="c-layout__body">
+    <div class="l-grid__body">
       <slot></slot>
     </div>
-    <div class="c-layout__footer">
+    <div class="l-grid__footer">
       <slot name="footer"></slot>
     </div>
   </div>
@@ -20,71 +21,54 @@
 <script>
 export default {
   props: {
-    fixed: Boolean,
-    centered: Boolean,
+    fixed: {
+      type: Boolean,
+      default: false,
+    },
+    centered: {
+      type: Boolean,
+      default: false,
+    },
+    darkmode: {
+      type: Boolean,
+      default: false,
+    },
   },
 }
 </script>
 <style>
-.c-layout {
+.l-grid {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   background: var(--color-white);
   transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-
-.c-layout--sidebarOpen {
-  transform: translateX(-200px);
-}
-
-.c-layout__header {
-  position: relative;
+.l-grid__header {
   z-index: 3;
+  position: relative;
+  display: flex;
+  align-items: center;
+	justify-content: space-between;
   background: var(--color-white);
 }
-
-.c-layout__header:empty {
+.l-grid__header:empty {
   display: none;
 }
-
-.c-layout__body {
+.l-grid__body {
   z-index: 1;
   position: relative;
   flex: 1;
 }
-
-.c-layout__footer {
+.l-grid__footer {
   z-index: 2;
   position: relative;
   background: var(--color-white);
 }
-
-.c-layout__footer:empty {
+.l-grid__footer:empty {
   display: none;
 }
-
-.c-layout--fixed .c-layout__header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-.c-layout--fixed .c-layout__footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.c-layout--centered .c-layout__body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.c-layout__sidebar {
+.l-grid__sidebar {
   z-index: 3;
   position: fixed;
   top: 0;
@@ -93,5 +77,26 @@ export default {
   width: 200px;
   border-right: 1px solid var(--border-color);
   transition: left 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+/* fixed */
+.l-grid--fixed .l-grid__header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.l-grid--fixed .l-grid__footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* centered */
+.l-grid--centered .l-grid__body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

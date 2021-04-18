@@ -53,12 +53,13 @@ export default {
   right: var(--space-2);
   bottom: var(--space-2);
   left: calc(var(--space-2) * -1);
-  background: linear-gradient(164.6deg, #7c0dc6 0.38%, #169ae4 84.63%);
-  border-radius: inherit;
+  background: linear-gradient(164.6deg, var(--color-secondary-500) 0.38%, var(--color-primary-500) 84.63%);
+  border-radius: var(--border-radius-2) var(--border-radius-1);
 }
 .c-tiles__item:nth-child(2n + 4)::before {
   left: var(--space-2);
   right: calc(var(--space-2) * -1);
+  border-radius: var(--border-radius-1) var(--border-radius-2);
 }
 .c-tiles__item:nth-child(5n + 2)::before {
   top: var(--space-2);

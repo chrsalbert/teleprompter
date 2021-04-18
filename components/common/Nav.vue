@@ -1,17 +1,9 @@
 <template>
-  <div class="c-header">
-    <ui-nav-container large>
-      <ui-nav-group>
-        <nuxt-link to="/" class="logo-link">
-          <common-logo height="var(--font-size-lg)" />
-        </nuxt-link>
-      </ui-nav-group>
-      <ui-nav-group style="display: none">
-        <nuxt-link to="/player" class="c-nav-link">Player</nuxt-link>
-        <nuxt-link to="/remote" class="c-nav-link">Remote</nuxt-link>
-      </ui-nav-group>
-    </ui-nav-container>
-  </div>
+  <ui-nav-container size="lg">
+    <nuxt-link to="/" class="logo-link">
+      <common-logo height="var(--font-size-lg)" />
+    </nuxt-link>
+  </ui-nav-container>
 </template>
 <script>
 export default {
@@ -23,10 +15,6 @@ export default {
 }
 </script>
 <style>
-.c-header {
-	width: 50%;
-	padding: 0 var(--space-8);
-}
 .logo-link {
   line-height: 0;
 }
