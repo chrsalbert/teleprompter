@@ -23,6 +23,11 @@ body,
   -webkit-font-smoothing: antialiased;
 }
 
+picture {
+  display: block;
+  width: 100%;
+}
+
 .u-text-light {
   color: var(--text-color-light)
 }

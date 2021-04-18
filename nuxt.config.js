@@ -46,6 +46,8 @@ module.exports = {
     { src: '~/plugins/socket.io-client.js', ssr: false },
     { src: '~/plugins/helpers.js' },
     { src: '~/plugins/filters.js' },
+    { src: '~/plugins/caniuse.js' },
+    { src: '~/plugins/browserFeatureSupport.client.js' },
   ],
   /*
    ** Auto import components

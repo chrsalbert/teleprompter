@@ -1,9 +1,10 @@
 <template>
   <div>
-    <welcome-hero style="margin-bottom:var(--space-40)" />
-    <welcome-usp style="margin-bottom:var(--space-40)" />
+    <welcome-hero />
+    <welcome-usp />
     <ui-page-pad>
       <ui-page-width width="sm">
+        <p class="p-welcome__featureHeadline">More stunning features:</p>
         <ui-tiles-container>
           <ui-tiles-item
             v-for="tile in tiles"
@@ -70,5 +71,9 @@ export default {
 }
 </script>
 <style>
-
+.p-welcome__featureHeadline {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-500);
+  margin: 0 0 var(--space-12);
+}
 </style>

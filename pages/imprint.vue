@@ -1,6 +1,6 @@
 <template>
 	<ui-page-pad>
-		<ui-page-width>
+		<ui-page-width width="xs">
 			<ui-richtext>
 				<h1>Impressum</h1>
 				<p>
@@ -8,7 +8,7 @@
 				</p>
 				<p>
 					Christian Albert<br/>
-					Vereinsstraße 123<br/>
+					Vereinsstraße 13<br/>
 					51103 Köln<br/>
 					Deutschland
 				</p>

@@ -118,7 +118,7 @@ export default {
   display: flex;
   flex-direction: column;
   background: var(--color-white);
-  border-left: 1px var(--color-gray-lightest) solid;
+  border-left: 1px var(--color-gray-0) solid;
   width: var(--width);
   max-width: 100%;
   opacity: 1;

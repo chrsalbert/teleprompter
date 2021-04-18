@@ -7,7 +7,13 @@
       'l-grid--centered': centered === true,
     }"
   >
-    <div class="l-grid__header">
+    <div
+      class="l-grid__header"
+      :class="{
+        'l-grid__header--absolute': headerPosition === 'absolute',
+        'l-grid__header--padding-1': headerPadding === '1',
+      }"
+    >
       <slot name="header"></slot>
     </div>
     <div class="l-grid__body">
@@ -33,6 +39,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    headerPosition: {
+      type: String,
+      default: null,
+    },
+    headerPadding: {
+      type: String,
+      default: null,
+    },
   },
 }
 </script>
@@ -47,11 +61,15 @@ export default {
 .l-grid__header {
   z-index: 3;
   position: relative;
-  display: flex;
-  align-items: center;
-	justify-content: space-between;
-  background: var(--color-white);
 }
+.l-grid__header--absolute {
+  position: absolute;
+  width: 100%;
+}
+.l-grid__header--padding-1 {
+  padding: var(--space-3)
+}
+
 .l-grid__header:empty {
   display: none;
 }

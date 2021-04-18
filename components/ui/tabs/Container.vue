@@ -37,7 +37,7 @@ export default {
 <style>
 .c-tabs__nav {
 	display: flex;
-	background: var(--color-gray-lightest);
+	background: var(--color-gray-0);
 	border-radius: var(--border-radius-sm);
 	margin-bottom: var(--space-3)
 }
@@ -60,6 +60,6 @@ export default {
 }
 .c-tabs__button--active {
 	color: var(--text-color);
-	background: var(--color-gray-lighter);
+	background: var(--color-gray-100);
 }
 </style>

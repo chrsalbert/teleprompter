@@ -3,7 +3,8 @@
     :to="to"
     class="a-link"
     :class="{
-      'a-link--light': type === 'light',
+      'a-link--light': variant === 'light',
+      'a-link--text': variant === 'text',
     }"
   >
     <slot></slot>
@@ -16,9 +17,8 @@ export default {
       type: String,
       required: true,
     },
-    type: {
+    variant: {
       type: String,
-      required: false,
       default: null,
     },
   },
@@ -32,10 +32,22 @@ export default {
 .a-link:hover {
   color: var(--link-color-hover);
 }
+
+/* variant: light */
 .a-link--light {
   color: var(--link-color-light);
 }
 .a-link--light:hover {
   color: var(--link-color-light-hover);
+}
+
+/* variant: text */
+.a-link--text {
+  color: inherit;
+  text-decoration: underline;
+}
+.a-link--text:hover {
+  color: inherit;
+  text-decoration: none;
 }
 </style>

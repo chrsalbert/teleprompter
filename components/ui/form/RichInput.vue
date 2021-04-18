@@ -41,8 +41,8 @@ export default {
 	align-items: center;
 	height: var(--control-height);
 	padding: 0 var(--space-2);
-	border: 1px var(--color-gray-light) solid;
-	background: var(--color-gray-lighter);
+	border: 1px var(--color-gray-200) solid;
+	background: var(--color-gray-100);
 	color: var(--text-color)
 }
 .c-richInput__append {

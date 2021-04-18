@@ -23,10 +23,10 @@ export default {
   display: block;
   text-transform: uppercase;
   font-size: var(--font-size-xs);
-  color: var(--color-gray-light);
+  color: var(--color-gray-100);
 }
 .c-tablet__content {
   font-size: var(--font-size-lg);
-  color: var(--color-gray-dark);
+  color: var(--color-gray-700);
 }
 </style>

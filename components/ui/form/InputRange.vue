@@ -70,8 +70,8 @@ export default {
 .c-slider__input {
   -webkit-appearance: none;
   width: 100%;
-  height: 1px;
-  background: var(--color-gray-light);
+  height: 2px;
+  background: var(--color-gray-100);
   border-radius: 99px;
   outline: none;
   -webkit-transition: 0.2s;

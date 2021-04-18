@@ -47,7 +47,7 @@ export default {
   height: var(--switch-height);
   width: var(--switch-width);
   border-radius: var(--switch-height);
-  border: 1px solid var(--color-gray-light);
+  border: 1px solid var(--color-gray-800);
 }
 .c-switch__control::before {
   content: '';
@@ -57,7 +57,7 @@ export default {
   transform: translate3d(2px, -50%, 0);
   height: var(--switch-knob-size);
   width: var(--switch-knob-size);
-  border: 1px solid var(--color-gray-light);
+  border: 1px solid var(--color-gray-800);
   border-radius: 50%;
   transition: all 0.15s cubic-bezier(0.075, 0.82, 0.165, 1);
 }

@@ -1,22 +1,20 @@
 <template>
-  <ui-page-pad>
-    <ui-page-width>
-      <div class="c-footer">
-        <div class="c-footer__meta">
-          <nuxt-link to="/"><common-logo symbol height="var(--font-size-xl)" /></nuxt-link>
-          <ui-link to="/faq">F.A.Q.</ui-link>
-          <ui-link to="/imprint">Imprint</ui-link>
-        </div>
-        <div class="c-footer__copy">
-          ©{{ currentYear }}
-          <figure
-            v-html="require(`~/assets/images/ca-logo.svg?include`)"
-            class="c-footer__ca"
-          />
-        </div>
-      </div>
-    </ui-page-width>
-  </ui-page-pad>
+  <div class="c-footer">
+    <div class="c-footer__meta">
+      <nuxt-link to="/">
+        <common-logo symbol height="var(--font-size-xl)" />
+      </nuxt-link>
+      <ui-link to="/faq" variant="text">F.A.Q.</ui-link>
+      <ui-link to="/imprint" variant="text">Imprint</ui-link>
+    </div>
+    <div class="c-footer__copy">
+      ©{{ currentYear }}
+      <figure
+        v-html="require(`~/assets/images/ca-logo.svg?include`)"
+        class="c-footer__ca"
+      />
+    </div>
+  </div>
 </template>
 <script>
 export default {
@@ -26,7 +24,7 @@ export default {
     },
     currentYear() {
       return new Date().getFullYear()
-    }
+    },
   },
 }
 </script>

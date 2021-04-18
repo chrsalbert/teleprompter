@@ -38,7 +38,7 @@ export default {
   width: 100%;
   height: var(--control-height);
   padding: 0 var(--space-2);
-  border: 1px solid var(--color-gray-light);
+  border: 1px solid var(--color-gray-100);
   border-radius: var(--border-radius-xs);
   background: transparent;
   color: var(--text-color);
@@ -48,8 +48,8 @@ export default {
 }
 .c-input[type='color'] {
   padding: 0;
-  border-color: var(--color-gray-lightest);
-  background: var(--color-gray-lightest);
+  border-color: var(--color-gray-0);
+  background: var(--color-gray-0);
 }
 .c-input[type='color']::-webkit-color-swatch-wrapper {
   padding: 0;

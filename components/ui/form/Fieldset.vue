@@ -24,6 +24,6 @@ export default {
   font-weight: var(--font-weight-bold);
   text-transform: uppercase;
   padding: 0 0 var(--space-2);
-  border-bottom: 1px var(--color-gray-lightest) solid
+  border-bottom: 1px var(--color-gray-0) solid
 }
 </style>

@@ -1,13 +1,13 @@
 <template>
   <layout-grid
     fixed
-    border
     darkmode
     :style="{
       '--user-bg-color': `${settings.backgroundColor}`,
     }"
     :class="{ 'c-layout--playerPlaying': isPlaying }"
     class="c-layout--player"
+    headerPadding="1"
   >
     <Nuxt />
     <template v-slot:header>

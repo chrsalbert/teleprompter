@@ -56,27 +56,39 @@ export default {
                 ],
                 gray: [
                     { 
-                        name: 'gray lightest',
-                        variable: 'var(--color-gray-lightest)'
+                        name: 'gray 0',
+                        variable: 'var(--color-gray-0)'
                     }, {
-                        name: 'gray lighter',
-                        variable: 'var(--color-gray-lighter)'
+                        name: 'gray 100',
+                        variable: 'var(--color-gray-100)'
                     }, {
-                        name: 'gray light',
-                        variable: 'var(--color-gray-light)'
+                        name: 'gray 200',
+                        variable: 'var(--color-gray-200)'
                     }, {
-                        name: 'gray',
-                        variable: 'var(--color-gray)'
+                        name: 'gray 300',
+                        variable: 'var(--color-gray-300)'
                     }, {
-                        name: 'gray dark',
-                        variable: 'var(--color-gray-dark)'
+                        name: 'gray 400',
+                        variable: 'var(--color-gray-400)'
                     }, {
-                        name: 'gray darker',
-                        variable: 'var(--color-gray-darker)'
+                        name: 'gray 500',
+                        variable: 'var(--color-gray-500)'
                     }, {
-                        name: 'gray darkest',
-                        variable: 'var(--color-gray-darkest)'
-                    }
+                        name: 'gray 600',
+                        variable: 'var(--color-gray-600)'
+                    }, {
+                        name: 'gray 700',
+                        variable: 'var(--color-gray-600)'
+                    }, {
+                        name: 'gray 800',
+                        variable: 'var(--color-gray-600)'
+                    }, {
+                        name: 'gray 900',
+                        variable: 'var(--color-gray-600)'
+                    }, {
+                        name: 'gray 1000',
+                        variable: 'var(--color-gray-600)'
+                    },
                 ]
             }
         }

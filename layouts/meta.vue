@@ -1,5 +1,5 @@
 <template>
-  <layout-grid headerPosition="absolute">
+  <layout-grid>
     <Nuxt />
     <template v-slot:header>
       <ui-page-pad>
