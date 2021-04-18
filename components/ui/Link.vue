@@ -29,15 +29,12 @@ export default {
   color: var(--link-color);
   text-decoration: none;
 }
-
 .a-link:hover {
   color: var(--link-color-hover);
 }
-
 .a-link--light {
   color: var(--link-color-light);
 }
-
 .a-link--light:hover {
   color: var(--link-color-light-hover);
 }
