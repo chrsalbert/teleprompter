@@ -50,10 +50,6 @@ export default {
           href: 'nav',
         },
         {
-          title: 'Showing',
-          href: 'showing',
-        },
-        {
           title: 'Tabs',
           href: 'tabs',
         },
