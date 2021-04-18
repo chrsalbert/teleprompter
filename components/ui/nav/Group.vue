@@ -9,6 +9,6 @@
 	align-items: center;
 }
 .c-nav__group > .c-button:not(:last-child) {
-	margin-right: var(--space-xs)
+	margin-right: var(--space-2)
 }
 </style>

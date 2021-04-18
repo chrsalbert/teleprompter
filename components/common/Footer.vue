@@ -34,9 +34,9 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: var(--space-3xl);
+  margin-top: var(--space-24);
   border-top: 2px dashed var(--color-gray-lighter);
-  padding: var(--space-lg) 0;
+  padding: var(--space-8) 0;
   font-size: var(--font-size-sm);
   color: var(--color-gray);
 }
@@ -50,10 +50,10 @@ export default {
   text-align: right;
 }
 .c-footer__meta a:not(:last-child) {
-  margin-right: var(--space-md);
+  margin-right: var(--space-6);
 }
 .c-logo {
-  margin-left: var(--space-md);
+  margin-left: var(--space-6);
   display: inline-block;
   height: var(--font-size-lg);
 }

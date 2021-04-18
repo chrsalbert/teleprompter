@@ -40,7 +40,7 @@ export default {
 	display: flex;
 	align-items: center;
 	height: var(--control-height);
-	padding: 0 var(--space-xs);
+	padding: 0 var(--space-2);
 	border: 1px var(--color-gray-light) solid;
 	background: var(--color-gray-lighter);
 	color: var(--text-color)

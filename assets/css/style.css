@@ -14,7 +14,7 @@ html {
 
 body,
 .body {
-  font: 1rem/var(--line-height) 'Roboto', Arial, Helvetica, sans-serif;
+  font: 1rem/var(--line-height) 'Rubik', Arial, Helvetica, sans-serif;
   color: var(--text-color);
   background: var(--color-white);
   -ms-text-size-adjust: 100%;
@@ -35,6 +35,6 @@ body,
   color: var(--text-color-lighter)
 }
 
-.u-mb-sm { margin-bottom: var(--space-sm) }
-.u-mb-md { margin-bottom: var(--space-md) }
-.u-mb-lg { margin-bottom: var(--space-lg) }
+.u-mb-sm { margin-bottom: var(--space-3) }
+.u-mb-md { margin-bottom: var(--space-6) }
+.u-mb-lg { margin-bottom: var(--space-8) }

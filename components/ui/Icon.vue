@@ -12,6 +12,7 @@ import iconCustomize from "~/assets/images/icons/customize.svg?raw"
 import iconMenu from "~/assets/images/icons/menu.svg?raw"
 import iconDevices from "~/assets/images/icons/devices.svg?raw"
 import iconArrowLeft from "~/assets/images/icons/arrow-left.svg?raw"
+import iconArrowRight from "~/assets/images/icons/arrow-right.svg?raw"
 import iconPause from "~/assets/images/icons/pause.svg?raw"
 import iconDocuments from "~/assets/images/icons/documents.svg?raw"
 import iconReload from "~/assets/images/icons/reload.svg?raw"
@@ -24,6 +25,7 @@ import iconMicrophoneOff from "~/assets/images/icons/microphoneOff.svg?raw"
 import iconToggleOn from "~/assets/images/icons/toggleOn.svg?raw"
 import iconToggleOff from "~/assets/images/icons/toggleOff.svg?raw"
 import iconWifiOff from "~/assets/images/icons/wifiOff.svg?raw"
+import iconArrowRightBold from "~/assets/images/icons/arrow-right-bold.svg?raw"
 
 export default {
 	props: {
@@ -41,6 +43,7 @@ export default {
 				home: iconHome,
 				devices: iconDevices,
 				arrowLeft: iconArrowLeft,
+				arrowRight: iconArrowRight,
 				menu: iconMenu,
 				pause: iconPause,
 				documents: iconDocuments,
@@ -53,19 +56,20 @@ export default {
 				microphoneOff: iconMicrophoneOff,
 				toggleOn: iconToggleOn,
 				toggleOff: iconToggleOff,
-				wifiOff: iconWifiOff
+				wifiOff: iconWifiOff,
+				arrowRightBold: iconArrowRightBold
 			}
 		}
 	}
 }
 </script>
-<style scoped>
+<style>
 .c-icon {
 	display: inline-block
 }
-.c-icon >>> svg {
+.c-icon > svg {
 	width: 100%;
 	height: 100%;
-	stroke: var(--text-color)
+	stroke: currentColor
 }
 </style>

@@ -100,7 +100,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space);
+  padding: var(--space-4);
 }
 .c-sidebar__title {
   font-size: var(--font-size-md);
@@ -127,7 +127,7 @@ export default {
   transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .c-sidebar__body {
-  padding: var(--space);
+  padding: var(--space-4);
   flex: 1;
   overflow-y: scroll;
   scroll-behavior: smooth;

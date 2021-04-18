@@ -7,6 +7,6 @@
 .c-benefits {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(20rem, max-content));
-	grid-gap: var(--space-lg);
+	grid-gap: var(--space-8);
 }
 </style>

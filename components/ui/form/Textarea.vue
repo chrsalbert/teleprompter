@@ -32,8 +32,8 @@ export default {
 .c-textarea {
   width: 100%;
   line-height: 1.5;
-  height: calc(calc(4em * 1.5) + calc(var(--space-xs) * 2));
-  padding: var(--space-xs);
+  height: calc(calc(4em * 1.5) + calc(var(--space-2) * 2));
+  padding: var(--space-2);
   background: transparent;
   border: 1px var(--color-gray-light) solid;
   border-radius: var(--border-radius-xs);

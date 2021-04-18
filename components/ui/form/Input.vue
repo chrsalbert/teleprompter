@@ -37,7 +37,7 @@ export default {
 .c-input {
   width: 100%;
   height: var(--control-height);
-  padding: 0 var(--space-xs);
+  padding: 0 var(--space-2);
   border: 1px solid var(--color-gray-light);
   border-radius: var(--border-radius-xs);
   background: transparent;

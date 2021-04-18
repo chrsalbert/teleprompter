@@ -39,14 +39,14 @@ export default {
 	display: flex;
 	background: var(--color-gray-lightest);
 	border-radius: var(--border-radius-sm);
-	margin-bottom: var(--space-sm)
+	margin-bottom: var(--space-3)
 }
 .c-tabs__button {
 	position: relative;
 	flex: 1;
 	height: var(--control-height);
 	line-height: var(--control-height);
-	padding: 0 var(--space-sm);
+	padding: 0 var(--space-3);
 	text-decoration: none;
 	color: var(--color-gray);
 	font-size: var(--font-size-sm);

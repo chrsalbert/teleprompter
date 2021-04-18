@@ -3,7 +3,7 @@
 		<slot></slot>
 	</div>
 </template>
-<style scoped>
+<style>
 .c-richtext {
 	line-height: 1.6;
 	color: var(--text-color)
@@ -11,33 +11,33 @@
 
 .c-richtext h1 {
 	font-size: var(--font-size-3xl);
-	font-weight: var(--font-weight-heavy);
-	line-height: calc(var(--font-size-3xl) + var(--space-2xs));
-	margin: var(--space-lg) 0 var(--space-md)
+	font-weight: var(--font-weight-bold);
+	line-height: calc(var(--font-size-3xl) + var(--space-1));
+	margin: var(--space-8) 0 var(--space-16)
 }
 
 .c-richtext h2 {
 	font-size: var(--font-size-2xl);
-	font-weight: var(--font-weight-heavy);
-	line-height: calc(var(--font-size-2xl) + var(--space-2xs));
-	margin: var(--space-xl) 0 var(--space-md)
+	font-weight: var(--font-weight-regular);
+	line-height: calc(var(--font-size-2xl) + var(--space-1));
+	margin: var(--space-16) 0 var(--space-md)
 }
 
 .c-richtext h3 {
 	font-size: var(--font-size-xl);
-	font-weight: var(--font-weight-bold);
-	line-height: calc(var(--font-size-xl) + var(--space-2xs));
-	margin: var(--space-lg) 0 var(--space-md)
+	font-weight: var(--font-weight-regular);
+	line-height: calc(var(--font-size-xl) + var(--space-1));
+	margin: var(--space-8) 0 var(--space-md)
 }
 
 .c-richtext h4 {
 	font-size: var(--font-size-lg);
-	margin: var(--space-md) 0 var(--space-sm)
+	margin: var(--space-md) 0 var(--space-3)
 }
 
 .c-richtext h5 {
 	font-size: var(--font-size-md);
-	margin: var(--space-xs) 0 var(--space-2xs)
+	margin: var(--space-2) 0 var(--space-1)
 }
 
 .c-richtext h6 {

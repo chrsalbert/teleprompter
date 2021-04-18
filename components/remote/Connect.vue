@@ -57,7 +57,7 @@ export default {
 </script>
 <style scoped>
 form {
-  margin-top: var(--space-xl);
+  margin-top: var(--space-16);
   display: flex;
   justify-content: center;
 }
@@ -76,6 +76,6 @@ h1 {
 
 .form > *:first-child {
   max-width: 8rem;
-  margin-right: var(--space-sm);
+  margin-right: var(--space-3);
 }
 </style>

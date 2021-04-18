@@ -31,7 +31,7 @@ figcaption {
     font-size: var(--font-size-xs);
     line-height: 1.2;
     text-align: center;
-    margin-top: var(--space-xs);
+    margin-top: var(--space-2);
     color: var(--text-color)
 }
 li {

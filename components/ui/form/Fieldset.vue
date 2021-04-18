@@ -23,7 +23,7 @@ export default {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
   text-transform: uppercase;
-  padding: 0 0 var(--space-xs);
+  padding: 0 0 var(--space-2);
   border-bottom: 1px var(--color-gray-lightest) solid
 }
 </style>

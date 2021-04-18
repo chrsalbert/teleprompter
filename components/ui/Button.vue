@@ -1,27 +1,29 @@
 <template>
   <component
     :is="isTag"
-		:href="href"
+    :href="href"
     :to="to"
-		:type="!!submit ? 'submit' : null"
+    :type="!!submit ? 'submit' : null"
     :disabled="disabled || loading"
     class="c-button"
     :class="{
       'c-button--secondary': variant === 'secondary',
       'c-button--ghost': variant === 'ghost',
       'c-button--play': variant === 'play',
-      'c-button--outstanding': outstanding,
+      'c-button--promi': promi,
       'c-button--md': size === 'md',
       'c-button--lg': size === 'lg',
       'c-button--xl': size === 'xl',
       'c-button--icon': hasIcon && !hasSlot,
+      'c-button--iconRight': iconRight,
       'c-button--hasIcon': hasIcon && hasSlot,
       'c-button--loading': loading,
     }"
     @click="$event.target.blur()"
   >
-    <ui-icon v-if="hasIcon" :icon="icon" />
+    <ui-icon v-if="hasIcon && !iconRight" :icon="icon" />
     <span><slot></slot></span>
+    <ui-icon v-if="hasIcon && iconRight" :icon="icon" />
     <svg
       v-if="loading"
       version="1.1"
@@ -55,15 +57,19 @@ export default {
   props: {
     icon: {
       type: String,
-      default: null
+      default: null,
+    },
+    iconRight: {
+      type: Boolean,
+      default: false,
     },
     size: {
       type: String,
       default: null,
     },
-    outstanding: {
+    promi: {
       type: Boolean,
-      default: false
+      default: false,
     },
     disabled: {
       type: Boolean,
@@ -71,11 +77,11 @@ export default {
     },
     submit: {
       type: Boolean,
-      default: false
+      default: false,
     },
     href: {
       type: String,
-      default: null
+      default: null,
     },
     to: {
       type: [String, Object],
@@ -101,8 +107,16 @@ export default {
     hasSlot() {
       return !!this.$slots.default
     },
-    isTag () {
-      if (this.href) { return 'a' } else if (this.to) { return 'nuxt-link' } else if (this.tag) { return this.tag } else { return 'button' }
+    isTag() {
+      if (this.href) {
+        return 'a'
+      } else if (this.to) {
+        return 'nuxt-link'
+      } else if (this.tag) {
+        return this.tag
+      } else {
+        return 'button'
+      }
     },
   },
 }
@@ -112,18 +126,18 @@ export default {
   position: relative;
   display: inline-block;
   height: var(--control-height);
-  line-height: calc(var(--control-height) - 4px);
+  line-height: calc(var(--control-height) - 2px);
   padding: 0 calc(var(--control-height) / 2);
   background: var(--button-primary-bg-color);
-  border-radius: var(--border-radius-xs);
-  border: 2px transparent solid;
-  border-color: var(--button-primary-border-color);
+  border-radius: 99rem;
+  border: 1px transparent solid;
   color: var(--button-primary-text-color);
   font-weight: var(--font-weight-bold);
   text-decoration: none;
   text-align: center;
   font-size: var(--font-size-sm);
-  transition: .15s;
+  transition: 0.15s;
+  cursor: pointer;
 }
 .c-button:focus {
   border-color: var(--button-primary-focus-border-color);
@@ -217,14 +231,13 @@ export default {
 /* size md */
 .c-button--md {
   height: var(--control-height-md);
-  line-height: calc(var(--control-height-md) - 4px);
+  line-height: calc(var(--control-height-md) - 2px);
   padding: 0 calc(var(--control-height-md) / 2);
   font-size: var(--font-size-md);
 }
 .c-button--md .c-icon {
   width: calc(var(--control-height-md) / 1.6);
   height: calc(var(--control-height-md) / 1.6);
-  margin-top: 0;
 }
 .c-button--md.c-button--icon {
   width: var(--control-height-md);
@@ -233,13 +246,12 @@ export default {
 /* size lg */
 .c-button--lg {
   height: var(--control-height-lg);
-  line-height: calc(var(--control-height-lg) - 4px);
+  line-height: calc(var(--control-height-lg) - 2px);
   padding: 0 calc(var(--control-height-lg) / 2);
 }
 .c-button--lg .c-icon {
   width: calc(var(--control-height-lg) / 1.6);
   height: calc(var(--control-height-lg) / 1.6);
-  margin-top: 0;
 }
 .c-button--lg.c-button--icon {
   width: var(--control-height-lg);
@@ -248,26 +260,20 @@ export default {
 /* size xl */
 .c-button--xl {
   height: var(--control-height-xl);
-  line-height: calc(var(--control-height-xl) - 4px);
+  line-height: calc(var(--control-height-xl) - 2px);
   padding: 0 calc(var(--control-height-xl) / 2);
 }
 .c-button--xl .c-icon {
   width: calc(var(--control-height-xl) / 1.6);
   height: calc(var(--control-height-xl) / 1.6);
-  margin-top: 0;
 }
 .c-button--xl.c-button--icon {
   width: var(--control-height-xl);
 }
 
-/* outstanding */
-.c-button--outstanding {
-  box-shadow: 0 6px 12px 2px rgba(0, 0, 255, 0.3);
-}
-
 /* misc */
-.c-button--hasIcon {
-  padding-left: var(--space-xs);
+.c-button--hasIcon:not(.c-button--iconRight) {
+  padding-left: var(--space-2);
 }
 .c-button--icon {
   padding: 0;
@@ -275,6 +281,12 @@ export default {
 }
 .c-button--icon.c-button--large {
   width: var(--control-height-large);
+}
+.c-button--iconRight {
+  padding-right: var(--space-4);
+}
+.c-button--iconRight .c-icon {
+  padding-left: var(--space-2);
 }
 
 /* loading */
@@ -288,5 +300,16 @@ export default {
 .c-button--loading > span,
 .c-button--loading > .c-icon {
   opacity: 0;
+}
+
+/* promi */
+.c-button--promi {
+  box-shadow: 20px 20px 50px #0000003b, -30px -30px 60px #0000003b;
+  border: none;
+  background: #fff;
+  border-radius: 8rem / 16rem;
+}
+.c-button--promi .c-icon svg {
+  stroke-width: 1.6;
 }
 </style>

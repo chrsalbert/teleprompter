@@ -35,7 +35,7 @@ export default {
 .c-row {
   display: flex;
   align-items: center;
-  padding: var(--space-xs) 0;
+  padding: var(--space-2) 0;
 }
 
 .c-row__label {
@@ -44,7 +44,7 @@ export default {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
   color: var(--text-color-light);
-  margin-right: var(--space-sm);
+  margin-right: var(--space-3);
   text-overflow: ellipsis;
   overflow: hidden;
 }

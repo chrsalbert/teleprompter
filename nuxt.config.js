@@ -29,7 +29,7 @@ module.exports = {
       {
         rel: 'stylesheet',
         href:
-          'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;900',
+          'https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap',
       },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     ],

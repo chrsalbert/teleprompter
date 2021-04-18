@@ -27,7 +27,7 @@ export default {
 .c-status {
   position: relative;
   display: inline-block;
-  padding-left: calc(1rem + var(--space-2xs));
+  padding-left: calc(1rem + var(--space-1));
 }
 
 .c-status::before {

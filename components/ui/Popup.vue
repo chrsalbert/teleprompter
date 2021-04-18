@@ -82,12 +82,12 @@ export default {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: var(--space-xs) var(--space);
+		padding: var(--space-2) var(--space-4);
 		font-weight: var(--font-weight-bold);
 		font-size: var(--font-size-md)
 	}
 	.c-popup__body {
-		padding: var(--space)
+		padding: var(--space-4)
 	}
 	.c-popup-enter,	
 	.c-popup-leave-to {

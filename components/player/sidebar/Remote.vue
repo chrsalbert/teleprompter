@@ -48,24 +48,24 @@ export default {
 <style scoped>
 figure {
   display: inline-block;
-  padding: var(--space-sm);
-  margin: 0 auto var(--space-sm);
+  padding: var(--space-3);
+  margin: 0 auto var(--space-3);
   background: #fff;
   border-radius: var(--border-radius-xs);
   line-height: 0;
 }
 dl {
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-8);
 }
 .qrWrapper {
   text-align: center;
-  margin: 0 0 var(--space-sm);
+  margin: 0 0 var(--space-3);
 }
 .info {
   font-size: var(--font-size-sm);
   text-align: center;
   color: #999;
-  margin: 0 0 var(--space-lg);
+  margin: 0 0 var(--space-8);
 }
 dl {
   display: grid;
@@ -74,7 +74,7 @@ dl {
 
 dt,
 dd {
-  padding: var(--space-xs) 0;
+  padding: var(--space-2) 0;
   border-bottom: 1px #333 solid;
 }
 
