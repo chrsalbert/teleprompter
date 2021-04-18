@@ -19,7 +19,12 @@
     <div class="l-grid__body">
       <slot></slot>
     </div>
-    <div class="l-grid__footer">
+    <div
+      class="l-grid__footer"
+      :class="{
+        'l-grid__footer--padding-1': headerPadding === '1',
+      }"
+    >
       <slot name="footer"></slot>
     </div>
   </div>
@@ -67,7 +72,7 @@ export default {
   width: 100%;
 }
 .l-grid__header--padding-1 {
-  padding: var(--space-3)
+  padding: var(--space-3);
 }
 
 .l-grid__header:empty {
@@ -81,7 +86,9 @@ export default {
 .l-grid__footer {
   z-index: 2;
   position: relative;
-  background: var(--color-white);
+}
+.l-grid__footer--padding-1 {
+  padding: var(--space-3);
 }
 .l-grid__footer:empty {
   display: none;

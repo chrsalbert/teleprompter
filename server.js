@@ -1,3 +1,4 @@
+
 const port = process.env.PORT || 3000
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -25,8 +26,6 @@ server.listen(port, '0.0.0.0')
 // Socket.io
 io.on('connection', (socket) => {
   const isRoomExistent = (roomId) => {
-    console.log('check for room ' + roomId)
-    console.log(socket.adapter.rooms)
     return !!socket.adapter.rooms[roomId]
   }
   const getUserCount = (roomId) => {
@@ -37,14 +36,11 @@ io.on('connection', (socket) => {
     }
   }
   socket.on('create-room', function (data) {
-    console.log('crate room')
     socket.join(data.roomId)
-    console.log(socket.adapter.rooms)
     io.in(data.roomId).emit('user-count', getUserCount(data.roomId))
     io.in(data.roomId).emit('room-created', { userId: socket.id })
   })
   socket.on('join-room', function (data) {
-    console.log('join room')
     if (isRoomExistent(data.roomId)) {
       socket.join(data.roomId)
       io.in(data.roomId).emit('user-count', getUserCount(data.roomId))

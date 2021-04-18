@@ -17,7 +17,8 @@ export const state = () => ({
     lineHeight: 1.5,
     textColor: '#ffffff',
     backgroundColor: '#000000',
-    transcript: '',
+    transcript:
+      'Hello! Add a transcript, configure the player how you like it and press play.',
   },
   content: {
     containerOffset: 0,
@@ -73,6 +74,29 @@ export const getters = {
     })
     return count
   },
+  getTextBlocks: (state) => {
+    let paragraphs = state.settings.transcript.split('\n')
+    let textBlocks = []
+    paragraphs.forEach((paragraph) => {
+      paragraph.split(' ').forEach((block) => {
+        if (block !== '') {
+          let words = block.match(/\b([äöüÄÖÜß\w]+)'?(\w+)?\b/g)
+          textBlocks.push({
+            block: block,
+            words: words ? words.map((word) => word.toLowerCase()) : [],
+            break: false,
+            isRead: false,
+          })
+        }
+      })
+      textBlocks.push({
+        block: null,
+        words: [],
+        break: true,
+      })
+    })
+    return textBlocks
+  },
   getAllWords: (state) => {
     let words = state.settings.transcript.replace(/[ ]{2,}/gi, ' ')
     words = words.replace(/[/.!?]/gi, ' ')
@@ -95,6 +119,9 @@ export const getters = {
   },
   isConnected: (state) => {
     return state.connectedCount > 1
+  },
+  isPlaying: (state) => {
+    return state.isRecognizing || state.isPlaying
   },
 }
 
@@ -185,47 +212,10 @@ export const actions = {
     localStorage.setItem('settings', settings)
     commit('SET_SETTINGS', settings)
   },
-  loadDataFromLocalStorage({ commit }) {
+  loadDataFromLocalStorage({ state, commit }) {
     if (localStorage.getItem('settings')) {
       commit('SET_SETTINGS', JSON.parse(localStorage.getItem('settings')))
     }
-    if (localStorage.getItem('transcript')) {
-      commit('SET_TRANSCRIPT', localStorage.getItem('transcript'))
-    }
-  },
-  initTranscript({ commit, dispatch }) {
-    if (localStorage.getItem('transcript')) {
-      commit('SET_TRANSCRIPT', localStorage.getItem('transcript'))
-    } else {
-      commit(
-        'SET_TRANSCRIPT',
-        'Hello! Add a transcript, configure the player how you like it and press play.',
-      )
-    }
-    dispatch('initTextBlocks')
-  },
-  initTextBlocks({ state, commit }) {
-    let paragraphs = state.settings.transcript.split('\n')
-    let textBlocks = []
-    paragraphs.forEach((paragraph) => {
-      paragraph.split(' ').forEach((block) => {
-        if (block !== '') {
-          let words = block.match(/\b([äöüÄÖÜß\w]+)'?(\w+)?\b/g)
-          textBlocks.push({
-            block: block,
-            words: words ? words.map((word) => word.toLowerCase()) : [],
-            break: false,
-            isRead: false,
-          })
-        }
-      })
-      textBlocks.push({
-        block: null,
-        words: [],
-        break: true,
-      })
-    })
-    commit('SET_TEXTBLOCKS', textBlocks)
   },
   initSpeechRecognition({ state, commit }) {
     const onresult = function (event) {

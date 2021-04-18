@@ -1,17 +1,24 @@
 <template>
   <ui-nav-container>
     <ui-nav-group>
-      <ui-button icon="home" variant="ghost" to="/" />
+      <ui-button
+        icon="home"
+        variant="ghost"
+        to="/"
+        :color="settings.textColor"
+      />
     </ui-nav-group>
     <ui-nav-group>
       <ui-button
         icon="documents"
         variant="ghost"
+        :color="settings.textColor"
         v-on:click.native="openTranscriptPopup()"
       />
       <ui-button
         icon="settings"
         variant="ghost"
+        :color="settings.textColor"
         v-on:click.native="openSettingsPopup()"
       />
       <div
@@ -25,6 +32,7 @@
         <ui-button
           icon="devices"
           variant="ghost"
+          :color="settings.textColor"
           v-on:click.native="openControllerPopup()"
         />
       </div>
@@ -42,6 +50,7 @@
         v-if="$device.isDesktop"
         icon="fullscreen"
         variant="ghost"
+        :color="settings.textColor"
         v-on:click.native="toggleFullscreen()"
       />
     </ui-nav-group>
@@ -58,6 +67,9 @@ export default {
     ...mapGetters({
       isConnected: 'player/isConnected',
     }),
+    settings() {
+      return this.$store.state.player.settings
+    },
   },
   methods: {
     openControllerPopup() {

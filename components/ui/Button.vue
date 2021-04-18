@@ -9,8 +9,6 @@
     :class="{
       'c-button--secondary': variant === 'secondary',
       'c-button--ghost': variant === 'ghost',
-      'c-button--play': variant === 'play',
-      'c-button--promi': promi,
       'c-button--md': size === 'md',
       'c-button--lg': size === 'lg',
       'c-button--xl': size === 'xl',
@@ -18,6 +16,11 @@
       'c-button--iconRight': iconRight,
       'c-button--hasIcon': hasIcon && hasSlot,
       'c-button--loading': loading,
+      'c-button--customColor': color,
+    }"
+    :style="{
+      '--button-custom-color': color,
+      '--button-custom-color-hover': `${color}20`,
     }"
     @click="$event.target.blur()"
   >
@@ -67,10 +70,6 @@ export default {
       type: String,
       default: null,
     },
-    promi: {
-      type: Boolean,
-      default: false,
-    },
     disabled: {
       type: Boolean,
       default: false,
@@ -96,6 +95,10 @@ export default {
       default: false,
     },
     variant: {
+      type: String,
+      default: null,
+    },
+    color: {
       type: String,
       default: null,
     },
@@ -186,26 +189,6 @@ export default {
 .c-button--secondary:hover:not(:disabled) .c-icon svg {
   stroke: var(--button-secondary-text-color);
   color: var(--button-secondary-text-color);
-}
-
-/* type play */
-.c-button--play {
-  background: var(--button-play-bg-color);
-  border-color: var(--button-play-border-color);
-  color: var(--button-play-text-color);
-}
-.c-button--play:hover:not(:disabled) {
-  background: var(--button-play-hover-bg-color);
-  border-color: var(--button-play-hover-border-color);
-  color: var(--button-play-hover-text-color);
-}
-.c-button--play .c-icon svg {
-  stroke: var(--button-play-text-color);
-  color: var(--button-play-text-color);
-}
-.c-button--play:hover:not(:disabled) .c-icon svg {
-  stroke: var(--button-play-hover-text-color);
-  color: var(--button-play-hover-text-color);
 }
 
 /* type ghost */
@@ -302,14 +285,20 @@ export default {
   opacity: 0;
 }
 
-/* promi */
-.c-button--promi {
-  box-shadow: 20px 20px 50px #0000003b, -30px -30px 60px #0000003b;
-  border: none;
-  background: #fff;
-  border-radius: 8rem / 16rem;
+/* custom color */
+.c-button--customColor {
+  color: var(--button-custom-color);
 }
-.c-button--promi .c-icon svg {
-  stroke-width: 1.6;
+.c-button--customColor:hover:not(:disabled) {
+  color: var(--button-custom-color);
+  background: var(--button-custom-color-hover);
+}
+.c-button--customColor .c-icon svg {
+  stroke: var(--button-custom-color);
+  color: var(--button-custom-color);
+}
+.c-button--customColor:hover:not(:disabled) .c-icon svg {
+  stroke: var(--button-custom-color);
+  color: var(--button-custom-color);
 }
 </style>

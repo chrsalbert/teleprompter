@@ -5,6 +5,7 @@
       variant="ghost"
       :size="$device.isDesktop ? 'lg' : ''"
       @click.native="reset()"
+      :color="settings.textColor"
     />
     <transition mode="out-in">
       <ui-button
@@ -14,6 +15,7 @@
         variant="ghost"
         key="pause"
         @click.native="pause()"
+        :color="settings.textColor"
       />
       <ui-button
         v-else
@@ -24,9 +26,10 @@
             : 'play'
         "
         :size="$device.isDesktop ? 'lg' : ''"
-        variant="play"
+        variant="ghost"
         key="play"
         @click.native="play()"
+        :color="settings.textColor"
       />
     </transition>
   </div>

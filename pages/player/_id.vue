@@ -10,6 +10,7 @@
       '--animation-play-state': `${animationPlayState}`,
       '--offset': `${content.containerOffset}px`,
       '--maxWidth': `${settings.charsPerLine}ch`,
+      '--backgroundColor': settings.backgroundColor,
     }"
     :class="{
       'c-player--flipX': settings.flipX,
@@ -17,8 +18,10 @@
     }"
     @click="pause()"
   >
-    <player-content />
-    <player-reading-helper />
+    <client-only>
+      <player-content />
+      <player-reading-helper />
+    </client-only>
   </div>
 </template>
 <script>
@@ -88,12 +91,6 @@ export default {
       this.$socket.on('update-settings', (settings) => {
         this.SET_SETTINGS(settings)
       })
-      window.addEventListener('resize', () => {
-        $nuxt.$emit('resize')
-      })
-      window.addEventListener('keydown', (event) => {
-        $nuxt.$emit('keydown', event.which)
-      })
     },
   },
   beforeRouteLeave(to, from, next) {
@@ -113,6 +110,7 @@ export default {
   color: #fff;
   font-family: arial, sans-serif;
   font-weight: bold;
+  background: var(--backgroundColor);
 }
 .c-player--flipX {
   transform: scale(-1, 1);

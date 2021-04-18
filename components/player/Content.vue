@@ -1,23 +1,36 @@
 <template>
-  <div class="c-player__content" ref="container">
-    <player-text />
+  <div ref="container" class="c-player__content">
+    <div ref="text" class="c-playerText">
+      <template v-for="(block, index) in textBlocks">
+        <br v-if="block.break === true" :key="index" />
+        <span
+          v-else
+          ref="block"
+          :key="`b${index}`"
+          :title="index"
+          :class="{
+            'is-read': block.isRead,
+          }"
+        >
+          {{ block.block }}&nbsp;
+        </span>
+      </template>
+    </div>
   </div>
 </template>
 <script>
 import { mapActions } from 'vuex'
 import { mapMutations } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   mounted() {
-    this.updateContainerHeight()
     this.$nuxt.$on('reset', () => this.resetAnimation())
-    this.$nuxt.$on('resize', () => {
-      this.reset()
-      this.updateContainerHeight()
-    })
+    this.$nuxt.$on('resize', () => this.updateContainerHeight())
+    this.updateContainerHeight()
   },
   updated() {
-    this.updateContainerHeight()
+    this.scrollToLastRead()
   },
   computed: {
     content() {
@@ -26,9 +39,25 @@ export default {
     settings() {
       return this.$store.state.player.settings
     },
+    fontSize() {
+      return this.$store.state.player.settings.fontSize
+    },
+    lineHeight() {
+      return this.$store.state.player.settings.lineHeight
+    },
+    charsPerLine() {
+      return this.$store.state.player.settings.charsPerLine
+    },
+    transcript() {
+      return this.$store.state.player.settings.transcript
+    },
+    ...mapGetters({
+      textBlocks: 'player/getTextBlocks',
+    }),
   },
   methods: {
     updateContainerHeight() {
+      console.log('update container height' + this.$refs.container.offsetHeight)
       if (!this.$refs.container) return
       this.SET_CONTAINER_HEIGHT(this.$refs.container.offsetHeight)
     },
@@ -46,10 +75,35 @@ export default {
     ...mapMutations({
       SET_CONTAINER_HEIGHT: 'player/SET_CONTAINER_HEIGHT',
     }),
+    scrollToLastRead() {
+      const lastReadIndex = this.$refs.block
+        .map((block) => block.className)
+        .lastIndexOf('is-read')
+      if (lastReadIndex < 0) return
+      if (!this.$refs.block[lastReadIndex + 1]) return
+      const offsetTop = this.$refs.block[lastReadIndex + 1].offsetTop
+      this.SET_CONTAINER_OFFSET(offsetTop * -1)
+    },
+  },
+  watch: {
+    textBlocks() {
+      this.$nextTick(() => {
+        this.updateContainerHeight()
+      })
+    },
+    fontSize() {
+      this.updateContainerHeight()
+    },
+    lineHeight() {
+      this.updateContainerHeight()
+    },
+    charsPerLine() {
+      this.updateContainerHeight()
+    },
   },
 }
 </script>
-<style scoped>
+<style>
 .c-player__content {
   z-index: 1;
   position: relative;
@@ -70,6 +124,24 @@ export default {
 }
 .c-player__content span.is-read {
   color: #333;
+}
+.c-playerText {
+  user-select: none;
+}
+.is-invisible {
+  opacity: 0;
+}
+span {
+  display: inline-block;
+  transition: color 0.1s, transform 0.1s;
+}
+span.is-space {
+  display: block;
+  height: calc(1em * var(--lineHeight));
+}
+span.is-read {
+  transform: scale(0.9);
+  opacity: 0.2;
 }
 @keyframes scroll {
   from {

@@ -21,7 +21,7 @@
         <ui-form-input-range
           id="wordsPerMin"
           :min="150"
-          :max="350"
+          :max="400"
           :step="10"
           v-model="wordsPerMin"
         />
@@ -175,7 +175,6 @@ export default {
   },
   methods: {
     updateSettings() {
-      $nuxt.$emit('resize')
       this.$socket.emit('update-settings', this.settings)
       localStorage.setItem('settings', JSON.stringify(this.settings))
     },

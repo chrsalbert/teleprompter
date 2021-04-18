@@ -25,25 +25,20 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { mapMutations } from 'vuex'
 
 export default {
   computed: {
+    settings() {
+      return this.$store.state.player.settings
+    },
     text: {
       get() {
-        return this.$store.state.player.settings.transcript
+        return this.settings.transcript
       },
       set(val) {
-        this.SET_TRANSCRIPT(val)
-        this.$socket.emit(
-          'update-settings',
-          this.playerId,
-          this.$store.state.player.settings,
-        )
+        this.$store.commit('player/SET_TRANSCRIPT', val)
+        this.updateSettings()
       },
-    },
-    playerId() {
-      return this.$route.params.id
     },
     ...mapGetters({
       realReadingTime: 'player/getRealReadingTimeInSec',
@@ -51,9 +46,10 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations({
-      SET_TRANSCRIPT: 'player/SET_TRANSCRIPT',
-    }),
+    updateSettings() {
+      this.$socket.emit('update-settings', this.settings)
+      localStorage.setItem('settings', JSON.stringify(this.settings))
+    },
   },
 }
 </script>

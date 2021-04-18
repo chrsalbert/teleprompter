@@ -2,11 +2,7 @@
   <layout-grid
     fixed
     darkmode
-    :style="{
-      '--user-bg-color': `${settings.backgroundColor}`,
-    }"
     :class="{ 'c-layout--playerPlaying': isPlaying }"
-    class="c-layout--player"
     headerPadding="1"
   >
     <Nuxt />
@@ -25,26 +21,20 @@
   </layout-grid>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   computed: {
-    settings() {
-      return this.$store.state.player.settings
-    },
-    isPlaying() {
-      return (
-        this.$store.state.player.controls.isPlaying ||
-        this.$store.state.player.controls.isRecognizing
-      )
-    },
+    ...mapGetters({
+      isPlaying: 'player/isPlaying'
+    })
   },
 }
 </script>
 <style>
-.c-layout.c-layout--player {
-  background: var(--user-bg-color);
-}
 .c-layout.c-layout--player .c-layout__header,
 .c-layout.c-layout--player .c-layout__footer {
+  background: var(--color-black);
   transition: all 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
 }
 .c-layout.c-layout--playerPlaying .c-layout__header {
