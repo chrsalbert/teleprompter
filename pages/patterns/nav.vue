@@ -1,37 +1,37 @@
 <template>
-  <ui-richtext>
+  <c-richtext>
     <h1>Nav</h1>
-    <patterns-row>
+    <v-patterns-row>
       <template v-slot:normal>
-        <ui-nav-container>
-          <ui-nav-group>
-            <ui-button icon="home" variant="ghost" to="/" />
-          </ui-nav-group>
-          <ui-nav-group>
-            <ui-button icon="documents" variant="ghost" />
-            <ui-button icon="settings" variant="ghost" />
-            <ui-button icon="devices" variant="ghost" />
-            <ui-nav-divi />
-            <ui-button icon="fullscreen" variant="ghost" />
-          </ui-nav-group>
-        </ui-nav-container>
+        <c-nav-container>
+          <c-nav-group>
+            <c-button icon="home" variant="ghost" to="/" />
+          </c-nav-group>
+          <c-nav-group>
+            <c-button icon="documents" variant="ghost" />
+            <c-button icon="settings" variant="ghost" />
+            <c-button icon="devices" variant="ghost" />
+            <c-nav-divi />
+            <c-button icon="fullscreen" variant="ghost" />
+          </c-nav-group>
+        </c-nav-container>
       </template>
       <template v-slot:darkmode>
-        <ui-nav-container>
-          <ui-nav-group>
-            <ui-button icon="home" variant="ghost" to="/" />
-          </ui-nav-group>
-          <ui-nav-group>
-            <ui-button icon="documents" variant="ghost" />
-            <ui-button icon="settings" variant="ghost" />
-            <ui-button icon="devices" variant="ghost" />
-            <ui-nav-divi />
-            <ui-button icon="fullscreen" variant="ghost" />
-          </ui-nav-group>
-        </ui-nav-container>
+        <c-nav-container>
+          <c-nav-group>
+            <c-button icon="home" variant="ghost" to="/" />
+          </c-nav-group>
+          <c-nav-group>
+            <c-button icon="documents" variant="ghost" />
+            <c-button icon="settings" variant="ghost" />
+            <c-button icon="devices" variant="ghost" />
+            <c-nav-divi />
+            <c-button icon="fullscreen" variant="ghost" />
+          </c-nav-group>
+        </c-nav-container>
       </template>
-    </patterns-row>
-  </ui-richtext>
+    </v-patterns-row>
+  </c-richtext>
 </template>
 <script>
 export default {

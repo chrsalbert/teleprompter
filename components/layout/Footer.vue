@@ -2,10 +2,10 @@
   <div class="c-footer">
     <div class="c-footer__meta">
       <nuxt-link to="/">
-        <common-logo symbol height="var(--font-size-xl)" />
+        <c-logo symbol height="var(--font-size-xl)" />
       </nuxt-link>
-      <ui-link to="/faq" variant="text">F.A.Q.</ui-link>
-      <ui-link to="/imprint" variant="text">Imprint</ui-link>
+      <c-link to="/faq" variant="text">F.A.Q.</c-link>
+      <c-link to="/imprint" variant="text">Imprint</c-link>
     </div>
     <div class="c-footer__copy">
       ©{{ currentYear }}

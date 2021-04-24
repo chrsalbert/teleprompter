@@ -1,16 +1,16 @@
 <template>
   <div class="v-sidebar-transcript">
     <div class="v-sidebar-transcript__stats">
-      <ui-tablet-container>
-        <ui-tablet-item label="Reading time">
+      <c-tablet-container>
+        <c-tablet-item label="Reading time">
           {{ realReadingTime | toHHMMSS }}
-        </ui-tablet-item>
-        <ui-tablet-item label="Words">
+        </c-tablet-item>
+        <c-tablet-item label="Words">
           {{ wordCount }}
-        </ui-tablet-item>
-      </ui-tablet-container>
+        </c-tablet-item>
+      </c-tablet-container>
     </div>
-    <ui-form-row
+    <c-form-row
       bgColor="var(--color-gray-800)" 
       direction="vertical"
       hide-label
@@ -18,12 +18,12 @@
       labelFor="text"
       class="v-sidebar-transcript__row"
     >
-      <ui-form-textarea
+      <c-form-textarea
         class="v-sidebar-transcript__textarea"
         id="text"
         v-model="text"
       />
-    </ui-form-row>
+    </c-form-row>
   </div>
 </template>
 <script>

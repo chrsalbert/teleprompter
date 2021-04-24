@@ -1,25 +1,25 @@
 <template>
-  <ui-richtext>
+  <c-richtext>
     <h1>Link</h1>
-    <patterns-row>
+    <v-patterns-row>
       <template v-slot:normal>
         <p>
-          <ui-link to="#">Link</ui-link>
+          <c-link to="#">Link</c-link>
         </p>
         <p>
-          <ui-link to="#" type="light">Link</ui-link>
+          <c-link to="#" type="light">Link</c-link>
         </p>
       </template>
       <template v-slot:darkmode>
         <p>
-          <ui-link to="#">Link</ui-link>
+          <c-link to="#">Link</c-link>
         </p>
         <p>
-          <ui-link to="#" type="light">Link</ui-link>
+          <c-link to="#" type="light">Link</c-link>
         </p>
       </template>
-    </patterns-row>
-  </ui-richtext>
+    </v-patterns-row>
+  </c-richtext>
 </template>
 <script>
 export default {

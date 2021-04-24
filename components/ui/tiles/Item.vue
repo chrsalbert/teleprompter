@@ -2,7 +2,7 @@
   <li class="c-tiles__item">
     <strong class="c-tiles__title" v-html="titleFormatted"></strong>
     <div>
-      <ui-icon :icon="icon" class="c-tiles__icon" />
+      <c-icon :icon="icon" class="c-tiles__icon" />
       <p class="c-tiles__text">
         {{ paragraph }}
       </p>

@@ -1,13 +1,13 @@
 <template>
-  <ui-page-pad>
-    <ui-page-width>
+  <c-page-pad>
+    <c-page-width>
       <div class="l-patterns">
         <div class="l-patterns__nav">
           <ul>
             <li v-for="(page, index) in pages" :key="index">
-              <ui-link :to="`/patterns/${page.href}`">
+              <c-link :to="`/patterns/${page.href}`">
                 {{ page.title }}
-              </ui-link>
+              </c-link>
             </li>
           </ul>
         </div>
@@ -15,8 +15,8 @@
           <Nuxt />
         </div>
       </div>
-    </ui-page-width>
-  </ui-page-pad>
+    </c-page-width>
+  </c-page-pad>
 </template>
 <script>
 export default {

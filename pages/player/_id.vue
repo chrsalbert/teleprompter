@@ -18,9 +18,9 @@
     }"
   >
     <client-only>
-      <player-content />
+      <v-player-content />
     </client-only>
-    <player-reading-helper />
+    <v-player-reading-helper />
   </div>
 </template>
 <script>

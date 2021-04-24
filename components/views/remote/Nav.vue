@@ -1,13 +1,13 @@
 <template>
-  <ui-nav-container>
-    <ui-nav-group v-if="isConnected">
-      <ui-button
+  <c-nav-container>
+    <c-nav-group v-if="isConnected">
+      <c-button
         icon="documents"
         variant="ghost"
         color="var(--color-gray-200)"
         v-on:click.native="openDocuments()"
       />
-      <ui-button
+      <c-button
         icon="settings"
         variant="ghost"
         color="var(--color-gray-200)"
@@ -21,24 +21,24 @@
             : 'c-player-nav__status--negative'
         "
       >
-        <ui-button
+        <c-button
           icon="devices"
           variant="ghost"
           color="var(--color-gray-200)"
           v-on:click.native="openSettings()"
         />
       </div>
-      <ui-sidebar ref="transcriptPopup" title="Edit transcript" width="40rem">
-        <player-sidebar-transcript />
-      </ui-sidebar>
-      <ui-sidebar ref="settingsPopup" title="Settings" width="26rem">
-        <player-sidebar-settings />
-      </ui-sidebar>
-    </ui-nav-group>
-    <ui-nav-group>
-      <ui-button icon="home" variant="ghost" color="var(--color-gray-200)" to="/#" />
-    </ui-nav-group>
-  </ui-nav-container>
+      <c-sidebar ref="transcriptPopup" title="Edit transcript" width="40rem">
+        <v-player-sidebar-transcript />
+      </c-sidebar>
+      <c-sidebar ref="settingsPopup" title="Settings" width="26rem">
+        <v-player-sidebar-settings />
+      </c-sidebar>
+    </c-nav-group>
+    <c-nav-group>
+      <c-button icon="home" variant="ghost" color="var(--color-gray-200)" to="/#" />
+    </c-nav-group>
+  </c-nav-container>
 </template>
 <script>
 import { mapGetters } from 'vuex'

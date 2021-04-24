@@ -1,9 +1,9 @@
 <template>
   <section class="c-welcomeUsp">
-    <ui-page-pad>
-      <ui-page-width width="xs">
+    <c-page-pad>
+      <c-page-width width="xs">
         <div class="c-welcomeUsp__wrapper">
-          <div class="c-welcomeUsp__icon"><ui-icon icon="microphone" /></div>
+          <div class="c-welcomeUsp__icon"><c-icon icon="microphone" /></div>
           <h2 class="c-welcomeUsp__title">Voice activated</h2>
           <p>
             Try a new way of using your teleprompter. Mr. Prompter captures your
@@ -11,8 +11,8 @@
             already support the speech recognition feature.
           </p>
         </div>
-      </ui-page-width>
-    </ui-page-pad>
+      </c-page-width>
+    </c-page-pad>
   </section>
 </template>
 <style>

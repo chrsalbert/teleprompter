@@ -53,7 +53,20 @@ module.exports = {
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
    */
-  components: true,
+  components: [
+    {
+      path: '~/components/ui/',
+      prefix: 'c'
+    },
+    {
+      path: '~/components/views/',
+      prefix: 'v'
+    },
+    {
+      path: '~/components/layout/',
+      prefix: 'l'
+    }
+  ],
   /*
    ** Nuxt.js dev-modules
    */

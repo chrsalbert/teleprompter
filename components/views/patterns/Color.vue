@@ -35,9 +35,8 @@ figcaption {
     color: var(--text-color)
 }
 li {
+    list-style-type: none !important;
     width: 4rem;
-}
-li {
     margin: 0 var(--space-md) var(--space-md) 0
 }
 </style>

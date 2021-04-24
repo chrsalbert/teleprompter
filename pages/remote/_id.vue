@@ -1,10 +1,10 @@
 <template>
-  <ui-page-pad>
+  <c-page-pad>
     <client-only>
-      <player-controls v-if="isConnected" />
-      <remote-connect v-else :isLoading="isLoading" />
+      <v-player-controls v-if="isConnected" />
+      <v-remote-connect v-else :isLoading="isLoading" />
     </client-only>
-  </ui-page-pad>
+  </c-page-pad>
 </template>
 <script>
 import { mapMutations } from 'vuex'

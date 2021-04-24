@@ -1,11 +1,11 @@
 <template>
-  <layout-grid fixed>
+  <l-grid fixed>
     <div @click="pause()">
       <Nuxt />
     </div>
     <template v-slot:header>
       <div class="l-player__nav" :class="{ 'l-player__nav--hide': isPlaying }">
-        <player-nav />
+        <v-player-nav />
       </div>
     </template>
     <template v-slot:footer>
@@ -13,10 +13,10 @@
         class="l-player__controls"
         :class="{ 'l-player__controls--hide': isPlaying }"
       >
-        <player-controls />
+        <v-player-controls />
       </div>
     </template>
-  </layout-grid>
+  </l-grid>
 </template>
 <script>
 import { mapGetters } from 'vuex'

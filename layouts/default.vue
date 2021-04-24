@@ -1,15 +1,15 @@
 <template>
-  <layout-grid headerPosition="absolute">
+  <l-grid headerPosition="absolute">
     <Nuxt />
     <template v-slot:header>
-      <ui-page-pad>
-        <common-nav />
-      </ui-page-pad>
+      <c-page-pad>
+        <l-nav />
+      </c-page-pad>
     </template>
     <template v-slot:footer>
-      <ui-page-pad>
-        <common-footer />
-      </ui-page-pad>
+      <c-page-pad>
+        <l-footer />
+      </c-page-pad>
     </template>
-  </layout-grid>
+  </l-grid>
 </template>

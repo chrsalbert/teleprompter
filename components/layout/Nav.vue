@@ -1,9 +1,9 @@
 <template>
-  <ui-nav-container size="lg">
+  <c-nav-container size="lg">
     <nuxt-link to="/" class="logo-link">
-      <common-logo height="var(--font-size-lg)" />
+      <c-logo height="var(--font-size-lg)" />
     </nuxt-link>
-  </ui-nav-container>
+  </c-nav-container>
 </template>
 <script>
 export default {

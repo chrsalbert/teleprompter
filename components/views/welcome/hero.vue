@@ -2,7 +2,7 @@
   <div class="c-welcomeHero">
     <div class="c-welcomeHero__body">
       <div class="c-welcomeHero__copy">
-        <ui-richtext>
+        <c-richtext>
           <h1>
             Sound more natural
             <span style="font-weight: 400;">
@@ -13,19 +13,19 @@
             Mr. Prompter scrolls your script while you're speaking. That makes
             you sound more natural to your audience.
           </p>
-          <ui-button-group>
-            <ui-button to="/player" class="c-welcomeHero__cta">
+          <c-button-group>
+            <c-button to="/player" class="c-welcomeHero__cta">
               Open Player
-            </ui-button>
-            <ui-button
+            </c-button>
+            <c-button
               to="/remote"
               variant="secondary"
               class="c-welcomeHero__cta"
             >
               Remote control
-            </ui-button>
-          </ui-button-group>
-        </ui-richtext>
+            </c-button>
+          </c-button-group>
+        </c-richtext>
       </div>
     </div>
     <div class="c-welcomeHero__stage">

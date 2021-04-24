@@ -1,44 +1,44 @@
 <template>
-    <ui-richtext>
+    <c-richtext>
         <h1>Button</h1>
             <h2>Color</h2>
-        <patterns-row>
+        <v-patterns-row>
             <template v-slot:normal>
                 <p>
-                    <ui-button icon="play">Primary</ui-button>
-                    <ui-button icon="play" variant="secondary">Secondary</ui-button>
-                    <ui-button icon="play" variant="ghost">Ghost</ui-button>
+                    <c-button icon="play">Primary</c-button>
+                    <c-button icon="play" variant="secondary">Secondary</c-button>
+                    <c-button icon="play" variant="ghost">Ghost</c-button>
                 </p>
                 <p>
-                    <ui-button icon="play" />
-                    <ui-button icon="play" variant="secondary" />
-                    <ui-button icon="play" variant="ghost" />
+                    <c-button icon="play" />
+                    <c-button icon="play" variant="secondary" />
+                    <c-button icon="play" variant="ghost" />
                 </p>    
             </template>
             <template v-slot:darkmode>
                 <p>
-                    <ui-button icon="play">Primary</ui-button>
-                    <ui-button icon="play" variant="secondary">Secondary</ui-button>
-                    <ui-button icon="play" variant="ghost">Ghost</ui-button>
+                    <c-button icon="play">Primary</c-button>
+                    <c-button icon="play" variant="secondary">Secondary</c-button>
+                    <c-button icon="play" variant="ghost">Ghost</c-button>
                 </p>
                 <p>
-                    <ui-button icon="play" />
-                    <ui-button icon="play" variant="secondary" />
-                    <ui-button icon="play" variant="ghost" />
+                    <c-button icon="play" />
+                    <c-button icon="play" variant="secondary" />
+                    <c-button icon="play" variant="ghost" />
                 </p>
             </template>
-        </patterns-row>
+        </v-patterns-row>
         <h2>Variations</h2>
         <h3>Outstanding</h3>
-        <patterns-row>
+        <v-patterns-row>
             <template v-slot:normal>
-                <ui-button icon="play" outstanding>Primary</ui-button>
+                <c-button icon="play" outstanding>Primary</c-button>
             </template>
             <template v-slot:darkmode>
-                <ui-button darkmode icon="play" outstanding>Primary</ui-button>
+                <c-button darkmode icon="play" outstanding>Primary</c-button>
             </template>
-        </patterns-row>
-    </ui-richtext>
+        </v-patterns-row>
+    </c-richtext>
 </template>
 <script>
 export default {

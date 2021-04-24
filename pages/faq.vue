@@ -1,7 +1,7 @@
 <template>
-  <ui-page-pad>
-    <ui-page-width width="xs">
-      <ui-richtext>
+  <c-page-pad>
+    <c-page-width width="xs">
+      <c-richtext>
         <h1>F.A.Q.</h1>
         <h2 id="speechrecognition">
           Does my browser support speech recognition?
@@ -30,9 +30,9 @@
           this feature is still in the experimental phase, unexpected errors can
           occur.
         </p>
-      </ui-richtext>
-    </ui-page-width>
-  </ui-page-pad>
+      </c-richtext>
+    </c-page-width>
+  </c-page-pad>
 </template>
 <script>
 export default {

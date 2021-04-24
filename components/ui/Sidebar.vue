@@ -15,7 +15,7 @@
           <div class="c-sidebar__title">
               {{ title }}
           </div>
-          <ui-button
+          <c-button
             variant="ghost"
             icon="close"
             color="var(--color-gray-200)"

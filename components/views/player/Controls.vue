@@ -1,8 +1,8 @@
 <template>
-  <ui-nav-container>
-    <ui-nav-group></ui-nav-group>
-    <ui-nav-group>
-      <ui-button
+  <c-nav-container>
+    <c-nav-group></c-nav-group>
+    <c-nav-group>
+      <c-button
         icon="reload"
         variant="ghost"
         :size="$device.isDesktop ? 'lg' : ''"
@@ -10,7 +10,7 @@
         :color="settings.textColor"
       />
       <transition mode="out-in">
-        <ui-button
+        <c-button
           v-if="controls.isPlaying || controls.isRecognizing"
           :icon="controls.isRecognizing === true ? 'microphoneOff' : 'pause'"
           :size="$device.isDesktop ? 'lg' : ''"
@@ -19,7 +19,7 @@
           @click.native="pause()"
           :color="settings.textColor"
         />
-        <ui-button
+        <c-button
           v-else
           :icon="
             settings.isSpeechRecognitionEnabled &&
@@ -34,9 +34,9 @@
           :color="settings.textColor"
         />
       </transition>
-    </ui-nav-group>
-    <ui-nav-group></ui-nav-group>
-  </ui-nav-container>
+    </c-nav-group>
+    <c-nav-group></c-nav-group>
+  </c-nav-container>
 </template>
 <script>
 import { mapGetters } from 'vuex'

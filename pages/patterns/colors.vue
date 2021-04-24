@@ -1,19 +1,19 @@
 <template>
-    <ui-richtext>
+    <c-richtext>
         <h1>Colors</h1>
-        <patterns-row>
+        <v-patterns-row>
             <template v-slot:normal>
-                <patterns-color :colors="colors.default" />
-                <patterns-color :colors="colors.primary" />
-                <patterns-color :colors="colors.gray" />
+                <v-patterns-color :colors="colors.default" />
+                <v-patterns-color :colors="colors.primary" />
+                <v-patterns-color :colors="colors.gray" />
             </template>
             <template v-slot:darkmode>
-                <patterns-color :colors="colors.default" />
-                <patterns-color :colors="colors.primary" />
-                <patterns-color :colors="colors.gray" />
+                <v-patterns-color :colors="colors.default" />
+                <v-patterns-color :colors="colors.primary" />
+                <v-patterns-color :colors="colors.gray" />
             </template>
-        </patterns-row>
-    </ui-richtext>
+        </v-patterns-row>
+    </c-richtext>
 </template>
 <script>
 export default {

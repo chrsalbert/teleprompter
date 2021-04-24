@@ -1,22 +1,22 @@
 <template>
   <div class="v-sidebar-remote">
     <p class="u-mb-lg">
-      <ui-status
+      <c-status
         :status="isConnected ? 'positive' : 'negative'"
         :text="isConnected ? 'connected' : 'disconnected'"
       />
     </p>
     <figure class="v-sidebar-remote__qr"><qrcode-vue :value="url"></qrcode-vue></figure>
-    <ui-form-input class="u-mb-sm" id="code" :value="url" />
+    <c-form-input class="u-mb-sm" id="code" :value="url" />
     <p>
       Please scan the QR code or browse to the address to connect a remote
       control to your player.
     </p>
-    <ui-tablet-container centered>
-      <ui-tablet-item label="your player ID">
+    <c-tablet-container centered>
+      <c-tablet-item label="your player ID">
         {{ playerId }}
-      </ui-tablet-item>
-    </ui-tablet-container>
+      </c-tablet-item>
+    </c-tablet-container>
   </div>
 </template>
 <script>

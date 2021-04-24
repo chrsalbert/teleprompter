@@ -1,21 +1,21 @@
 <template>
-    <ui-nav-container>
-      <ui-nav-group>
-        <ui-button
+    <c-nav-container>
+      <c-nav-group>
+        <c-button
           icon="home"
           variant="ghost"
           to="/"
           :color="settings.textColor"
         />
-      </ui-nav-group>
-      <ui-nav-group>
-        <ui-button
+      </c-nav-group>
+      <c-nav-group>
+        <c-button
           icon="documents"
           variant="ghost"
           :color="settings.textColor"
           v-on:click.native="openTranscriptPopup()"
         />
-        <ui-button
+        <c-button
           icon="settings"
           variant="ghost"
           :color="settings.textColor"
@@ -29,32 +29,32 @@
               : 'c-player-nav__status--negative'
           "
         >
-          <ui-button
+          <c-button
             icon="devices"
             variant="ghost"
             :color="settings.textColor"
             v-on:click.native="openControllerPopup()"
           />
         </div>
-        <ui-sidebar ref="controllerPopup" title="Remote control" width="26rem">
-          <player-sidebar-remote v-on:close="closeRemotePopup()" />
-        </ui-sidebar>
-        <ui-sidebar ref="settingsPopup" title="Settings" width="26rem">
-          <player-sidebar-settings />
-        </ui-sidebar>
-        <ui-sidebar ref="transcriptPopup" title="Edit transcript" width="40rem">
-          <player-sidebar-transcript />
-        </ui-sidebar>
-        <ui-nav-divi v-if="$device.isDesktop" />
-        <ui-button
+        <c-sidebar ref="controllerPopup" title="Remote control" width="26rem">
+          <v-player-sidebar-remote v-on:close="closeRemotePopup()" />
+        </c-sidebar>
+        <c-sidebar ref="settingsPopup" title="Settings" width="26rem">
+          <v-player-sidebar-settings />
+        </c-sidebar>
+        <c-sidebar ref="transcriptPopup" title="Edit transcript" width="40rem">
+          <v-player-sidebar-transcript />
+        </c-sidebar>
+        <c-nav-divi v-if="$device.isDesktop" />
+        <c-button
           v-if="$device.isDesktop"
           icon="fullscreen"
           variant="ghost"
           :color="settings.textColor"
           v-on:click.native="toggleFullscreen()"
         />
-      </ui-nav-group>
-    </ui-nav-container>
+      </c-nav-group>
+    </c-nav-container>
 </template>
 <script>
 import fullscreenFunctions from '~/mixins/fullscreenFunctions.js'

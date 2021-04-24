@@ -1,21 +1,21 @@
 <template>
   <div>
-    <welcome-hero />
-    <welcome-usp />
-    <ui-page-pad>
-      <ui-page-width width="sm">
+    <v-welcome-hero />
+    <v-welcome-usp />
+    <c-page-pad>
+      <c-page-width width="sm">
         <p class="p-welcome__featureHeadline">More stunning features:</p>
-        <ui-tiles-container>
-          <ui-tiles-item
+        <c-tiles-container>
+          <c-tiles-item
             v-for="tile in tiles"
             :icon="tile.icon"
             :title="tile.title"
             :paragraph="tile.paragraph"
             :key="tile.title"
           />
-        </ui-tiles-container>
-      </ui-page-width>
-    </ui-page-pad>
+        </c-tiles-container>
+      </c-page-width>
+    </c-page-pad>
   </div>
 </template>
 <script>

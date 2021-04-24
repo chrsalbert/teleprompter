@@ -4,7 +4,7 @@
 			<div class="c-popup__container" v-bind:style="{ '--width': width }" >
 				<header class="c-popup__head">
 					{{ title }}
-					<ui-button variant="ghost" icon="close" v-on:click.native="close()" />
+					<c-button variant="ghost" icon="close" v-on:click.native="close()" />
 				</header>
 				<div class="c-popup__body">
 					<slot></slot>

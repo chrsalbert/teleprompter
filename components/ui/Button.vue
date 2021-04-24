@@ -24,9 +24,9 @@
     }"
     @click="$event.target.blur()"
   >
-    <ui-icon v-if="hasIcon && !iconRight" :icon="icon" />
+    <c-icon v-if="hasIcon && !iconRight" :icon="icon" />
     <span v-if="hasSlot"><slot></slot></span>
-    <ui-icon v-if="hasIcon && iconRight" :icon="icon" />
+    <c-icon v-if="hasIcon && iconRight" :icon="icon" />
     <svg
       v-if="loading"
       version="1.1"

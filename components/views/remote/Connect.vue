@@ -1,6 +1,6 @@
 <template>
-  <ui-page-width>
-    <ui-richtext>
+  <c-page-width>
+    <c-richtext>
       <h1 v-if="playerId">Player not found.</h1>
       <h1 v-else>Connect to a player</h1>
       <p v-if="playerId">
@@ -9,10 +9,10 @@
         .
       </p>
       <form>
-        <ui-form-row label="Player ID" labelFor="id" direction="vertical">
+        <c-form-row label="Player ID" labelFor="id" direction="vertical">
           <div class="form">
-            <ui-form-input id="id" v-model="form.newPlayerId" required />
-            <ui-button
+            <c-form-input id="id" v-model="form.newPlayerId" required />
+            <c-button
               variant="secondary"
               @click.native="connect()"
               submit
@@ -20,12 +20,12 @@
               :loading="isLoading"
             >
               Connect
-            </ui-button>
+            </c-button>
           </div>
-        </ui-form-row>
+        </c-form-row>
       </form>
-    </ui-richtext>
-  </ui-page-width>
+    </c-richtext>
+  </c-page-width>
 </template>
 <script>
 export default {
