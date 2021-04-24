@@ -4,11 +4,13 @@
       <ui-button
         icon="documents"
         variant="ghost"
+        color="var(--color-gray-200)"
         v-on:click.native="openDocuments()"
       />
       <ui-button
         icon="settings"
         variant="ghost"
+        color="var(--color-gray-200)"
         v-on:click.native="openSettings()"
       />
       <div
@@ -22,6 +24,7 @@
         <ui-button
           icon="devices"
           variant="ghost"
+          color="var(--color-gray-200)"
           v-on:click.native="openSettings()"
         />
       </div>
@@ -33,7 +36,7 @@
       </ui-sidebar>
     </ui-nav-group>
     <ui-nav-group>
-      <ui-button icon="home" variant="ghost" to="/#" />
+      <ui-button icon="home" variant="ghost" color="var(--color-gray-200)" to="/#" />
     </ui-nav-group>
   </ui-nav-container>
 </template>

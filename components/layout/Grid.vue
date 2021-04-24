@@ -5,6 +5,10 @@
       'l-grid--fixed': fixed === true,
       'l-grid--centered': centered === true,
     }"
+    :style="{
+      '--l-grid-bgColor': bgColor ? bgColor : null,
+      '--l-grid-color': color ? color : null,
+    }"
   >
     <div
       class="l-grid__header"
@@ -37,6 +41,14 @@ export default {
       type: String,
       default: null,
     },
+    bgColor: {
+      type: String,
+      default: null,
+    },
+    color: {
+      type: String,
+      default: null,
+    },
   },
 }
 </script>
@@ -45,7 +57,8 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: var(--color-white);
+  color: var(--l-grid-color, inherit);
+  background: var(--l-grid-bgColor, transparent);
   transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .l-grid__header {
@@ -56,9 +69,6 @@ export default {
   position: absolute;
   width: 100%;
 }
-.l-grid__header:empty {
-  display: none;
-}
 .l-grid__body {
   z-index: 1;
   position: relative;
@@ -68,18 +78,9 @@ export default {
   z-index: 2;
   position: relative;
 }
+.l-grid__header:empty,
 .l-grid__footer:empty {
   display: none;
-}
-.l-grid__sidebar {
-  z-index: 3;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: -200px;
-  width: 200px;
-  border-right: 1px solid var(--border-color);
-  transition: left 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 /* fixed */

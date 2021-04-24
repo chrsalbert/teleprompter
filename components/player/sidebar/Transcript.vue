@@ -11,6 +11,7 @@
       </ui-tablet-container>
     </div>
     <ui-form-row
+      bgColor="var(--color-gray-800)" 
       direction="vertical"
       hide-label
       label="Transcript"

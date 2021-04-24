@@ -4,10 +4,6 @@
   </div>
 </template>
 <style>
-.c-richtext {
-  color: var(--text-color);
-}
-
 .c-richtext h1 {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);

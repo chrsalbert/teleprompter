@@ -38,7 +38,7 @@ export default {
 <style>
 .l-player__controls,
 .l-player__nav {
-  background: var(--color-black);
+  background: #000;
   position: relative;
   transition: all 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
   padding: var(--space-4);

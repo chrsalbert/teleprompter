@@ -1,5 +1,5 @@
 <template>
-  <layout-grid centered headerPadding="1">
+  <layout-grid centered headerPadding="1" bgColor="var(--color-black)" color="var(--color-gray-200)">
     <Nuxt />
     <template v-slot:footer>
       <div class="l-remote__nav">
@@ -15,7 +15,6 @@ export default {
 </script>
 <style>
 .l-remote__nav {
-  border-top: 1px var(--color-gray-200) solid;
   padding: var(--space-4);
 }
 </style>

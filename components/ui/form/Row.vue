@@ -1,8 +1,11 @@
 <template>
   <div
     class="c-row"
-    v-bind:class="{
+    :class="{
       'c-row--vertical': direction === 'vertical',
+    }"
+    :style="{
+      '--c-row--bgColor': bgColor ? bgColor : null,
     }"
   >
     <label class="c-row__label" v-bind="{ for: labelFor }" v-if="!hideLabel">{{ label }}</label>
@@ -28,6 +31,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    bgColor: {
+      type: String,
+      default: null
+    }
   },
 }
 </script>
@@ -37,7 +44,7 @@ export default {
   align-items: center;
   padding: var(--space-1) var(--space-4);
   border-bottom: 1px var(--color-gray-900) solid;
-  background: var(--color-gray-800);
+  background: var(--c-row--bgColor, transparent);
   min-height: var(--space-12)
 }
 
