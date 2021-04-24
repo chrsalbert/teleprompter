@@ -1,11 +1,16 @@
 <template>
-	<ui-nav-container>
-		<ui-nav-group>
-			<ui-button icon="home" variant="ghost" to="/#" />
-		</ui-nav-group>
-		<ui-nav-group v-if="isConnected">
-			<ui-button icon="documents" variant="ghost" v-on:click.native="openDocuments()" />
-			<ui-button icon="settings" variant="ghost" v-on:click.native="openSettings()" />
+  <ui-nav-container>
+    <ui-nav-group v-if="isConnected">
+      <ui-button
+        icon="documents"
+        variant="ghost"
+        v-on:click.native="openDocuments()"
+      />
+      <ui-button
+        icon="settings"
+        variant="ghost"
+        v-on:click.native="openSettings()"
+      />
       <div
         class="c-player-nav__status"
         :class="
@@ -20,14 +25,17 @@
           v-on:click.native="openSettings()"
         />
       </div>
-			<ui-sidebar ref="transcriptPopup" title="Edit transcript" width="40rem">
-				<player-sidebar-transcript />
-			</ui-sidebar>
-			<ui-sidebar ref="settingsPopup" title="Settings" width="26rem">
-				<player-sidebar-settings />
-			</ui-sidebar>
-		</ui-nav-group>
-	</ui-nav-container>
+      <ui-sidebar ref="transcriptPopup" title="Edit transcript" width="40rem">
+        <player-sidebar-transcript />
+      </ui-sidebar>
+      <ui-sidebar ref="settingsPopup" title="Settings" width="26rem">
+        <player-sidebar-settings />
+      </ui-sidebar>
+    </ui-nav-group>
+    <ui-nav-group>
+      <ui-button icon="home" variant="ghost" to="/#" />
+    </ui-nav-group>
+  </ui-nav-container>
 </template>
 <script>
 import { mapGetters } from 'vuex'
@@ -38,14 +46,14 @@ export default {
       isConnected: 'player/isConnected',
     }),
   },
-	methods: {
-		openSettings() {
-			this.$refs.settingsPopup.open()
-		},
-		openDocuments() {
-			this.$refs.transcriptPopup.open()
-		}
-	}
+  methods: {
+    openSettings() {
+      this.$refs.settingsPopup.open()
+    },
+    openDocuments() {
+      this.$refs.transcriptPopup.open()
+    },
+  },
 }
 </script>
 <style>

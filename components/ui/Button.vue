@@ -25,7 +25,7 @@
     @click="$event.target.blur()"
   >
     <ui-icon v-if="hasIcon && !iconRight" :icon="icon" />
-    <span><slot></slot></span>
+    <span v-if="hasSlot"><slot></slot></span>
     <ui-icon v-if="hasIcon && iconRight" :icon="icon" />
     <svg
       v-if="loading"
@@ -128,9 +128,8 @@ export default {
 .c-button {
   position: relative;
   display: inline-block;
-  height: var(--control-height);
-  line-height: calc(var(--control-height) - 2px);
-  padding: 0 calc(var(--control-height) / 2);
+  padding: var(--control-py) var(--control-px);
+  line-height: var(--control-line-height);
   background: var(--button-primary-bg-color);
   border-radius: 99rem;
   border: 1px transparent solid;
@@ -138,7 +137,7 @@ export default {
   font-weight: var(--font-weight-bold);
   text-decoration: none;
   text-align: center;
-  font-size: var(--font-size-sm);
+  font-size: .75rem;
   transition: 0.15s;
   cursor: pointer;
 }
@@ -156,10 +155,10 @@ export default {
   cursor: not-allowed;
 }
 .c-button .c-icon {
-  width: calc(var(--control-height) / 1.6);
-  height: calc(var(--control-height) / 1.6);
+  position: relative;
+  width: 1.25rem;
+  height: 1.25rem;
   vertical-align: middle;
-  margin-top: -2px;
 }
 .c-button .c-icon svg {
   stroke: var(--button-primary-text-color);
@@ -258,18 +257,18 @@ export default {
 .c-button--hasIcon:not(.c-button--iconRight) {
   padding-left: var(--space-2);
 }
-.c-button--icon {
-  padding: 0;
-  width: var(--control-height);
-}
-.c-button--icon.c-button--large {
-  width: var(--control-height-large);
-}
 .c-button--iconRight {
   padding-right: var(--space-4);
 }
 .c-button--iconRight .c-icon {
   padding-left: var(--space-2);
+}
+
+/* icon */
+.c-button--icon {
+  width: 2.5rem;
+  padding: .5rem 0;
+  line-height: 0;
 }
 
 /* loading */

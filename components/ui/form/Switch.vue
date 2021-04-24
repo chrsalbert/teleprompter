@@ -35,9 +35,9 @@ export default {
 </script>
 <style scoped>
 .c-switch {
-  --switch-height: calc(var(--control-height) / 1.4);
-  --switch-width: calc(var(--control-height) * 1.2);
-  --switch-knob-size: calc(var(--switch-height) - 8px);
+  --switch-height: calc(var(--control-height) / 1.6);
+  --switch-width: calc(var(--control-height));
+  --switch-knob-size: calc(var(--switch-height) - .4rem);
   display: inline-flex;
   align-items: center;
   height: var(--control-height);
@@ -47,17 +47,17 @@ export default {
   height: var(--switch-height);
   width: var(--switch-width);
   border-radius: var(--switch-height);
-  border: 1px solid var(--color-gray-800);
+  background: var(--color-gray-700)
 }
 .c-switch__control::before {
   content: '';
   position: absolute;
   top: 50%;
   left: 0;
-  transform: translate3d(2px, -50%, 0);
+  transform: translate3d(.2rem, -50%, 0);
   height: var(--switch-knob-size);
   width: var(--switch-knob-size);
-  border: 1px solid var(--color-gray-800);
+  background: var(--color-white);
   border-radius: 50%;
   transition: all 0.15s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
@@ -66,14 +66,12 @@ export default {
 }
 .c-switch__input:checked + .c-switch__control::before {
   transform: translate3d(
-    calc(var(--switch-width) - var(--switch-knob-size) - 6px),
+    calc(var(--switch-width) - var(--switch-knob-size) - .2rem),
     -50%,
     0
   );
-  border-color: var(--color-primary);
-  background-color: var(--color-primary);
 }
 .c-switch__input:checked + .c-switch__control {
-  border-color: var(--color-primary);
+  background: var(--color-primary-500)
 }
 </style>

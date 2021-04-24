@@ -35,15 +35,18 @@ export default {
 .c-row {
   display: flex;
   align-items: center;
-  padding: var(--space-2) 0;
+  padding: var(--space-1) var(--space-4);
+  border-bottom: 1px var(--color-gray-900) solid;
+  background: var(--color-gray-800);
+  min-height: var(--space-12)
 }
 
 .c-row__label {
   flex-shrink: 0;
   width: 40%;
+  color: var(--color-gray-400);
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-color-light);
+  font-weight: var(--font-weight-semibold);
   margin-right: var(--space-3);
   text-overflow: ellipsis;
   overflow: hidden;

@@ -121,7 +121,7 @@ export const getters = {
     return state.connectedCount > 1
   },
   isPlaying: (state) => {
-    return state.isRecognizing || state.isPlaying
+    return state.controls.isRecognizing || state.controls.isPlaying
   },
 }
 

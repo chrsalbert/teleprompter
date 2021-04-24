@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <p class="u-text-center u-mb-lg">
+  <div class="v-sidebar-remote">
+    <p class="u-mb-lg">
       <ui-status
         :status="isConnected ? 'positive' : 'negative'"
         :text="isConnected ? 'connected' : 'disconnected'"
       />
     </p>
-    <div class="qrWrapper">
-      <figure><qrcode-vue :value="url"></qrcode-vue></figure>
-      <ui-form-input id="code" :value="url" />
-    </div>
-    <p class="info">
+    <figure class="v-sidebar-remote__qr"><qrcode-vue :value="url"></qrcode-vue></figure>
+    <ui-form-input class="u-mb-sm" id="code" :value="url" />
+    <p>
       Please scan the QR code or browse to the address to connect a remote
       control to your player.
     </p>
@@ -29,6 +27,14 @@ export default {
   components: {
     QrcodeVue,
   },
+  data() {
+    return {
+      url: ''
+    }
+  },
+  mounted() {
+    this.url = `${window.location.origin}/remote/${this.playerId}`
+  },
   computed: {
     ...mapGetters({
       isConnected: 'player/isConnected',
@@ -38,52 +44,27 @@ export default {
     },
     playerId() {
       return this.$cookies.get('playerId')
-    },
-    url() {
-      return `${window.location.origin}/remote/${this.playerId}`
-    },
+    }
   },
 }
 </script>
-<style scoped>
-figure {
-  display: inline-block;
-  padding: var(--space-3);
-  margin: 0 auto var(--space-3);
-  background: #fff;
-  border-radius: var(--border-radius-xs);
-  line-height: 0;
+<style>
+.v-sidebar-remote {
+  padding: var(--space-4);
+  text-align: center
 }
-dl {
-  margin-bottom: var(--space-8);
-}
-.qrWrapper {
-  text-align: center;
-  margin: 0 0 var(--space-3);
-}
-.info {
+.v-sidebar-remote p {
   font-size: var(--font-size-sm);
   text-align: center;
-  color: #999;
+  color: var(--color-gray-200);
   margin: 0 0 var(--space-8);
 }
-dl {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-dt,
-dd {
-  padding: var(--space-2) 0;
-  border-bottom: 1px #333 solid;
-}
-
-dt {
-  font-weight: var(--font-weight-bold);
-  color: #aaa;
-}
-
-dd {
-  text-align: right;
+.v-sidebar-remote__qr {
+  display: inline-block;
+  padding: var(--space-3);
+  margin: 0 auto var(--space-4);
+  background: var(--color-gray-50);
+  border-radius: var(--border-radius-1);
+  line-height: 0;
 }
 </style>

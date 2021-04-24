@@ -1,39 +1,41 @@
 <template>
-  <div class="darkmode">
-    <ui-form-fieldset legend="Playback">
-      <ui-form-row label="Speech recognition" labelFor="speechRecognition">
-        <div>
-          <template v-if="settings.isSupportingSpeechRecognition">
-            <ui-form-switch
-              id="speechRecognition"
-              v-model="speechRecognition"
-            />
-          </template>
-          <template v-else>
-            <ui-form-hint>
-              Sorry, this feature is not supported by your browser.
-              <nuxt-link to="/faq#speechrecognition">Learn more</nuxt-link>
-            </ui-form-hint>
-          </template>
-        </div>
-      </ui-form-row>
-      <ui-form-row label="Words per min." labelFor="wordsPerMin">
-        <ui-form-input-range
-          id="wordsPerMin"
-          :min="150"
-          :max="400"
-          :step="10"
-          v-model="wordsPerMin"
-        />
-      </ui-form-row>
-    </ui-form-fieldset>
+  <div>
+    <client-only>
+      <ui-form-fieldset legend="Playback">
+        <ui-form-row label="Speech recognition" labelFor="speechRecognition">
+          <div>
+            <template v-if="settings.isSupportingSpeechRecognition">
+              <ui-form-switch
+                id="speechRecognition"
+                v-model="speechRecognition"
+              />
+            </template>
+            <template v-else>
+              <ui-form-hint>
+                Sorry, this feature is not supported by your browser.
+                <nuxt-link to="/faq#speechrecognition">Learn more</nuxt-link>
+              </ui-form-hint>
+            </template>
+          </div>
+        </ui-form-row>
+        <ui-form-row label="Words per min." labelFor="wordsPerMin">
+          <ui-form-input-range
+            id="wordsPerMin"
+            :min="150"
+            :max="400"
+            :step="10"
+            v-model="wordsPerMin"
+          />
+        </ui-form-row>
+      </ui-form-fieldset>
+    </client-only>
 
     <ui-form-fieldset legend="Text">
       <ui-form-row label="Font size" labelFor="fontSize">
         <ui-form-input-range
           id="fontSize"
           :min="24"
-          :max="168"
+          :max="192"
           :step="8"
           v-model="fontSize"
         />

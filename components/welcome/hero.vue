@@ -66,8 +66,8 @@
 
   background: repeating-linear-gradient(
     135deg,
-    var(--color-gray-1000),
-    var(--color-gray-1000) var(--stripeWidth),
+    var(--color-gray-900),
+    var(--color-gray-900) var(--stripeWidth),
     var(--color-black) var(--stripeWidth),
     var(--color-black) calc(var(--stripeWidth) * 2)
   );

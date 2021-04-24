@@ -1,60 +1,60 @@
 <template>
-  <ui-nav-container>
-    <ui-nav-group>
-      <ui-button
-        icon="home"
-        variant="ghost"
-        to="/"
-        :color="settings.textColor"
-      />
-    </ui-nav-group>
-    <ui-nav-group>
-      <ui-button
-        icon="documents"
-        variant="ghost"
-        :color="settings.textColor"
-        v-on:click.native="openTranscriptPopup()"
-      />
-      <ui-button
-        icon="settings"
-        variant="ghost"
-        :color="settings.textColor"
-        v-on:click.native="openSettingsPopup()"
-      />
-      <div
-        class="c-player-nav__status"
-        :class="
-          isConnected
-            ? 'c-player-nav__status--positive'
-            : 'c-player-nav__status--negative'
-        "
-      >
+    <ui-nav-container>
+      <ui-nav-group>
         <ui-button
-          icon="devices"
+          icon="home"
+          variant="ghost"
+          to="/"
+          :color="settings.textColor"
+        />
+      </ui-nav-group>
+      <ui-nav-group>
+        <ui-button
+          icon="documents"
           variant="ghost"
           :color="settings.textColor"
-          v-on:click.native="openControllerPopup()"
+          v-on:click.native="openTranscriptPopup()"
         />
-      </div>
-      <ui-sidebar ref="controllerPopup" title="Remote control" width="26rem">
-        <player-sidebar-remote v-on:close="closeRemotePopup()" />
-      </ui-sidebar>
-      <ui-sidebar ref="settingsPopup" title="Settings" width="26rem">
-        <player-sidebar-settings />
-      </ui-sidebar>
-      <ui-sidebar ref="transcriptPopup" title="Edit transcript" width="40rem">
-        <player-sidebar-transcript />
-      </ui-sidebar>
-      <ui-nav-divi v-if="$device.isDesktop" />
-      <ui-button
-        v-if="$device.isDesktop"
-        icon="fullscreen"
-        variant="ghost"
-        :color="settings.textColor"
-        v-on:click.native="toggleFullscreen()"
-      />
-    </ui-nav-group>
-  </ui-nav-container>
+        <ui-button
+          icon="settings"
+          variant="ghost"
+          :color="settings.textColor"
+          v-on:click.native="openSettingsPopup()"
+        />
+        <div
+          class="c-player-nav__status"
+          :class="
+            isConnected
+              ? 'c-player-nav__status--positive'
+              : 'c-player-nav__status--negative'
+          "
+        >
+          <ui-button
+            icon="devices"
+            variant="ghost"
+            :color="settings.textColor"
+            v-on:click.native="openControllerPopup()"
+          />
+        </div>
+        <ui-sidebar ref="controllerPopup" title="Remote control" width="26rem">
+          <player-sidebar-remote v-on:close="closeRemotePopup()" />
+        </ui-sidebar>
+        <ui-sidebar ref="settingsPopup" title="Settings" width="26rem">
+          <player-sidebar-settings />
+        </ui-sidebar>
+        <ui-sidebar ref="transcriptPopup" title="Edit transcript" width="40rem">
+          <player-sidebar-transcript />
+        </ui-sidebar>
+        <ui-nav-divi v-if="$device.isDesktop" />
+        <ui-button
+          v-if="$device.isDesktop"
+          icon="fullscreen"
+          variant="ghost"
+          :color="settings.textColor"
+          v-on:click.native="toggleFullscreen()"
+        />
+      </ui-nav-group>
+    </ui-nav-container>
 </template>
 <script>
 import fullscreenFunctions from '~/mixins/fullscreenFunctions.js'
@@ -66,6 +66,7 @@ export default {
   computed: {
     ...mapGetters({
       isConnected: 'player/isConnected',
+      isPlaying: 'player/isPlaying',
     }),
     settings() {
       return this.$store.state.player.settings

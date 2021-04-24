@@ -38,9 +38,9 @@ export default {
   width: 100%;
   height: var(--control-height);
   padding: 0 var(--space-2);
-  border: 1px solid var(--color-gray-100);
-  border-radius: var(--border-radius-xs);
-  background: transparent;
+  border-radius: var(--border-radius-1);
+  border: none;
+  background: var(--color-gray-300);
   color: var(--text-color);
 }
 .c-input:focus {
@@ -48,8 +48,10 @@ export default {
 }
 .c-input[type='color'] {
   padding: 0;
+  height: calc(var(--control-height) / 1.4);
   border-color: var(--color-gray-0);
   background: var(--color-gray-0);
+  overflow: hidden
 }
 .c-input[type='color']::-webkit-color-swatch-wrapper {
   padding: 0;

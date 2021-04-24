@@ -1,6 +1,6 @@
 <template>
   <fieldset class="c-fieldset">
-    <legend class="c-fieldset__legend">{{ legend }}</legend>
+    <legend class="c-fieldset__legend" v-if="!hideLegend">{{ legend }}</legend>
     <slot></slot>
   </fieldset>
 </template>
@@ -11,19 +11,23 @@ export default {
       type: String,
       required: true,
     },
+    hideLegend: {
+      type: Boolean,
+      default: false
+    }
   },
 }
 </script>
 <style scoped>
 .c-fieldset:not(:last-of-type) {
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-4);
 }
 .c-fieldset__legend {
   width: 100%;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-bold);
+  color: var(--color-gray-600);
   text-transform: uppercase;
-  padding: 0 0 var(--space-2);
-  border-bottom: 1px var(--color-gray-0) solid
+  padding: 0 0 var(--space-1) var(--space-4);
 }
 </style>

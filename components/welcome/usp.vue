@@ -19,7 +19,7 @@
 .c-welcomeUsp {
   position: relative;
   padding: 0 0 var(--space-32);
-  background: linear-gradient(var(--color-gray-0), var(--color-white));
+  background: linear-gradient(var(--color-gray-100), var(--color-white));
 }
 .c-welcomeUsp__wrapper {
   text-align: center;

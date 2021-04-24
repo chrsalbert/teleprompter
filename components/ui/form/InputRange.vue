@@ -1,18 +1,18 @@
 <template>
-  <div class="c-slider">
-    <div class="c-slider__control">
-      <input
-        type="range"
-        :id="id"
-        :min="min"
-        :max="max"
-        :step="step"
-        :required="required"
-        v-model="input"
-        class="c-slider__input"
-      />
-    </div>
-    <p class="c-slider-value">{{ value }}</p>
+
+  <div class="c-range">
+    <p class="c-range__value">{{ value }}</p>
+    <input
+      :id="id"
+      v-model="input"
+      type="range"
+      :min="min"
+      :max="max"
+      :step="step"
+      :required="required"
+      class="c-range__control"
+      :style="`--gradient-stop: ${gradientStop}`"
+    >
   </div>
 </template>
 <script>
@@ -20,83 +20,83 @@ export default {
   props: {
     id: {
       type: String,
-      required: true,
+      required: true
     },
     min: {
       type: Number,
-      required: true,
+      default: 0
     },
     max: {
       type: Number,
-      required: true,
+      required: true
     },
     value: {
-      type: Number,
-      required: true,
+      type: [String, Number],
+      required: true
     },
-    step: Number,
-    required: Boolean,
+    step: {
+      type: Number,
+      default: null
+    },
+    required: {
+      type: Boolean,
+      default: false
+    }
   },
   computed: {
     input: {
-      get() {
+      get () {
         return this.value
       },
-      set(val) {
+      set (val) {
         this.$emit('input', val)
-      },
+      }
     },
-  },
+    gradientStop () {
+      return `${Math.floor((this.value - this.min) / (this.max - this.min) * 100)}%`
+    }
+  }
 }
 </script>
-<style scoped>
-.c-slider {
+<style>
+.c-range {
+  width: 100%;
   display: flex;
   align-items: center;
-  width: 100%;
 }
-.c-slider__control {
+.c-range__value {
+  width: 2.5rem;
+  color: var(--color-gray-500)
+}
+.c-range__control {
   flex: 1;
-  display: flex;
-  align-items: center;
-  height: var(--control-height);
-}
-.c-slider-value {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-  width: 2rem;
-  text-align: right;
-}
-.c-slider__input {
   -webkit-appearance: none;
-  width: 100%;
-  height: 2px;
-  background: var(--color-gray-100);
-  border-radius: 99px;
-  outline: none;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.2s;
+  height: calc(var(--control-height) / 6);
+  background: linear-gradient(to right, var(--color-primary-500) var(--gradient-stop), var(--color-gray-700) var(--gradient-stop));
+  border-radius: calc(var(--control-height) / 3);
+  outline: none
+}
+.c-range__control:hover {
+  opacity: 1
 }
 
-.c-slider__input:hover {
-  opacity: 1;
-}
-
-.c-slider__input::-webkit-slider-thumb {
-  -webkit-appearance: none;
+/* thumb */
+.c-range__control::-webkit-slider-thumb {
   appearance: none;
   width: calc(var(--control-height) / 2);
   height: calc(var(--control-height) / 2);
   border-radius: 50%;
-  background: var(--color-primary);
-  cursor: pointer;
+  background: var(--color-white);
+  box-shadow: var(--shadow);
+  cursor: pointer
 }
-
-.c-slider__input::-moz-range-thumb {
+.c-range__control::-moz-range-thumb {
   width: calc(var(--control-height) / 2);
   height: calc(var(--control-height) / 2);
+  border-color: transparent;
   border-radius: 50%;
-  background: var(--color-primary);
-  cursor: pointer;
+  background: var(--color-white);
+  box-shadow: var(--shadow);
+  cursor: pointer
 }
 </style>

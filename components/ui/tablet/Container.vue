@@ -17,12 +17,9 @@ export default {
 .c-tablet {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
 }
-
-.c-tablet__item {
-  margin-right: var(--space-md);
-  text-align: right;
+.c-tablet__item:not(:last-child) {
+  margin-right: var(--space-6);
 }
 
 /* centered */

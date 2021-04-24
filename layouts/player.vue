@@ -1,46 +1,52 @@
 <template>
-  <layout-grid
-    fixed
-    darkmode
-    :class="{ 'c-layout--playerPlaying': isPlaying }"
-    headerPadding="1"
-  >
-    <Nuxt />
+  <layout-grid fixed>
+    <div @click="pause()">
+      <Nuxt />
+    </div>
     <template v-slot:header>
-      <player-nav />
+      <div class="l-player__nav" :class="{ 'l-player__nav--hide': isPlaying }">
+        <player-nav />
+      </div>
     </template>
     <template v-slot:footer>
-      <ui-nav-container>
-        <ui-nav-group></ui-nav-group>
-        <ui-nav-group>
-          <player-controls />
-        </ui-nav-group>
-        <ui-nav-group></ui-nav-group>
-      </ui-nav-container>
+      <div
+        class="l-player__controls"
+        :class="{ 'l-player__controls--hide': isPlaying }"
+      >
+        <player-controls />
+      </div>
     </template>
   </layout-grid>
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   computed: {
     ...mapGetters({
-      isPlaying: 'player/isPlaying'
-    })
+      isPlaying: 'player/isPlaying',
+    }),
+  },
+  methods: {
+    ...mapActions({
+      pause: 'player/pause',
+    }),
   },
 }
 </script>
 <style>
-.c-layout.c-layout--player .c-layout__header,
-.c-layout.c-layout--player .c-layout__footer {
+.l-player__controls,
+.l-player__nav {
   background: var(--color-black);
+  position: relative;
   transition: all 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
+  padding: var(--space-4);
 }
-.c-layout.c-layout--playerPlaying .c-layout__header {
-  transform: translateY(-100%);
-}
-.c-layout.c-layout--playerPlaying .c-layout__footer {
+.l-player__controls--hide {
   transform: translateY(100%);
+}
+.l-player__nav--hide {
+  transform: translateY(-100%);
 }
 </style>

@@ -16,12 +16,11 @@
       'c-player--flipX': settings.flipX,
       'c-player--flipY': settings.flipY,
     }"
-    @click="pause()"
   >
     <client-only>
       <player-content />
-      <player-reading-helper />
     </client-only>
+    <player-reading-helper />
   </div>
 </template>
 <script>
@@ -71,10 +70,10 @@ export default {
       SET_SETTINGS: 'player/SET_SETTINGS',
       SET_CONNECTED_COUNT: 'player/SET_CONNECTED_COUNT',
     }),
-    pause() {
-      this.$store.dispatch('player/pause')
-      this.$socket.emit('pause', this.playerId)
-    },
+    // pause() {
+    //   this.$store.dispatch('player/pause')
+    //   this.$socket.emit('pause', this.playerId)
+    // },
     createRoom() {
       this.$socket.emit('create-room', { roomId: this.playerId })
     },

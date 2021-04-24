@@ -33,11 +33,11 @@ export default {
   width: 100%;
   line-height: 1.5;
   height: calc(calc(4em * 1.5) + calc(var(--space-2) * 2));
-  padding: var(--space-2);
+  padding: var(--space-3) 0;
   background: transparent;
-  border: 1px var(--color-gray-800) solid;
+  border: none;
   border-radius: var(--border-radius-xs);
-  color: var(--color-text);
+  color: var(--color-gray-200);
   font-family: var(--font-family);
 }
 </style>

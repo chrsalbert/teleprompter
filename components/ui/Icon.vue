@@ -13,6 +13,7 @@ export default {
       default: null,
       validator: (value) => {
         return [
+          'line-height',
           'info',
           'home',
           'ear',

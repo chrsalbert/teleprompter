@@ -1,32 +1,22 @@
 <template>
-  <layout-grid>
-    <template v-slot:header>
-      <the-header>
-        <common-nav />
-      </the-header>
-    </template>
-    <ui-page-pad>
-      <ui-page-body>
-        <div class="l-patterns">
-          <div class="l-patterns__nav">
-            <ul>
-              <li v-for="(page, index) in pages" :key="index">
-                <ui-link :to="`/patterns/${page.href}`">
-                  {{ page.title }}
-                </ui-link>
-              </li>
-            </ul>
-          </div>
-          <div class="l-patterns__body">
-            <Nuxt />
-          </div>
+  <ui-page-pad>
+    <ui-page-width>
+      <div class="l-patterns">
+        <div class="l-patterns__nav">
+          <ul>
+            <li v-for="(page, index) in pages" :key="index">
+              <ui-link :to="`/patterns/${page.href}`">
+                {{ page.title }}
+              </ui-link>
+            </li>
+          </ul>
         </div>
-      </ui-page-body>
-    </ui-page-pad>
-    <template v-slot:footer>
-      <the-footer />
-    </template>
-  </layout-grid>
+        <div class="l-patterns__body">
+          <Nuxt />
+        </div>
+      </div>
+    </ui-page-width>
+  </ui-page-pad>
 </template>
 <script>
 export default {

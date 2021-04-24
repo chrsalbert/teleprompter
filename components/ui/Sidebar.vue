@@ -18,6 +18,7 @@
           <ui-button
             variant="ghost"
             icon="close"
+            color="var(--color-gray-200)"
             v-on:click.native="close()"
           />
         </header>
@@ -88,7 +89,7 @@ export default {
 </script>
 <style>
 .c-sidebar {
-  z-index: 9;
+  z-index: 10;
   position: fixed;
   top: 0;
   right: 0;
@@ -104,7 +105,7 @@ export default {
 }
 .c-sidebar__title {
   font-size: var(--font-size-md);
-  color: var(--text-color-light);
+  color: var(--color-gray-200);
 }
 .c-sidebar__header > * {
   flex-shrink: 0
@@ -117,17 +118,15 @@ export default {
   bottom: 0;
   display: flex;
   flex-direction: column;
-  background: var(--color-white);
-  border-left: 1px var(--color-gray-0) solid;
+  background: var(--color-gray-900);
   width: var(--width);
   max-width: 100%;
   opacity: 1;
   box-shadow: var(--shadow-xl);
-  color: var(--color-black);
+  color: var(--color-gray-400);
   transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .c-sidebar__body {
-  padding: var(--space-4);
   flex: 1;
   overflow-y: scroll;
   scroll-behavior: smooth;

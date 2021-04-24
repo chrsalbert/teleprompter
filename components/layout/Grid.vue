@@ -2,7 +2,6 @@
   <div
     class="l-grid"
     :class="{
-      'is-darkmode': darkmode === true,
       'l-grid--fixed': fixed === true,
       'l-grid--centered': centered === true,
     }"
@@ -11,7 +10,6 @@
       class="l-grid__header"
       :class="{
         'l-grid__header--absolute': headerPosition === 'absolute',
-        'l-grid__header--padding-1': headerPadding === '1',
       }"
     >
       <slot name="header"></slot>
@@ -19,12 +17,7 @@
     <div class="l-grid__body">
       <slot></slot>
     </div>
-    <div
-      class="l-grid__footer"
-      :class="{
-        'l-grid__footer--padding-1': headerPadding === '1',
-      }"
-    >
+    <div class="l-grid__footer">
       <slot name="footer"></slot>
     </div>
   </div>
@@ -40,15 +33,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    darkmode: {
-      type: Boolean,
-      default: false,
-    },
     headerPosition: {
-      type: String,
-      default: null,
-    },
-    headerPadding: {
       type: String,
       default: null,
     },
@@ -71,10 +56,6 @@ export default {
   position: absolute;
   width: 100%;
 }
-.l-grid__header--padding-1 {
-  padding: var(--space-3);
-}
-
 .l-grid__header:empty {
   display: none;
 }
@@ -86,9 +67,6 @@ export default {
 .l-grid__footer {
   z-index: 2;
   position: relative;
-}
-.l-grid__footer--padding-1 {
-  padding: var(--space-3);
 }
 .l-grid__footer:empty {
   display: none;
