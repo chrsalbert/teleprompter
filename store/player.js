@@ -74,29 +74,6 @@ export const getters = {
     })
     return count
   },
-  getTextBlocks: (state) => {
-    let paragraphs = state.settings.transcript.split('\n')
-    let textBlocks = []
-    paragraphs.forEach((paragraph) => {
-      paragraph.split(' ').forEach((block) => {
-        if (block !== '') {
-          let words = block.match(/\b([äöüÄÖÜß\w]+)'?(\w+)?\b/g)
-          textBlocks.push({
-            block: block,
-            words: words ? words.map((word) => word.toLowerCase()) : [],
-            break: false,
-            isRead: false,
-          })
-        }
-      })
-      textBlocks.push({
-        block: null,
-        words: [],
-        break: true,
-      })
-    })
-    return textBlocks
-  },
   getAllWords: (state) => {
     let words = state.settings.transcript.replace(/[ ]{2,}/gi, ' ')
     words = words.replace(/[/.!?]/gi, ' ')
@@ -141,8 +118,28 @@ export const mutations = {
   SET_IS_PLAYING(state, boolean) {
     state.controls.isPlaying = boolean
   },
-  SET_TEXTBLOCKS(state, array) {
-    state.content.blocks = array
+  SET_CONTENT_BLOCKS(state, transcript) {
+    let paragraphs = transcript.split('\n')
+    let textBlocks = []
+    paragraphs.forEach((paragraph) => {
+      paragraph.split(' ').forEach((block) => {
+        if (block !== '') {
+          let words = block.match(/\b([äöüÄÖÜß\w]+)'?(\w+)?\b/g)
+          textBlocks.push({
+            block: block,
+            words: words ? words.map((word) => word.toLowerCase()) : [],
+            break: false,
+            isRead: false,
+          })
+        }
+      })
+      textBlocks.push({
+        block: null,
+        words: [],
+        break: true,
+      })
+    })
+    state.content.blocks = textBlocks
   },
   SET_SPEECH_RECOGNITION_SUPPORT(state, boolean) {
     state.settings.isSupportingSpeechRecognition = boolean
@@ -212,9 +209,14 @@ export const actions = {
     localStorage.setItem('settings', settings)
     commit('SET_SETTINGS', settings)
   },
+  updateTranscript({ commit }, transcript) {
+    commit('SET_TRANSCRIPT', transcript)
+    commit('SET_CONTENT_BLOCKS', transcript)
+  },
   loadDataFromLocalStorage({ state, commit }) {
     if (localStorage.getItem('settings')) {
       commit('SET_SETTINGS', JSON.parse(localStorage.getItem('settings')))
+      commit('SET_CONTENT_BLOCKS', state.settings.transcript)
     }
   },
   initSpeechRecognition({ state, commit }) {

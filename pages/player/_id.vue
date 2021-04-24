@@ -2,24 +2,22 @@
   <div
     class="c-player"
     :style="{
-      '--fontSize': `${settings.fontSize}px`,
-      '--lineHeight': `${settings.lineHeight}`,
-      '--textColor': `${settings.textColor}`,
+      '--font-size': `${settings.fontSize}px`,
+      '--line-height': `${settings.lineHeight}`,
+      '--text-color': `${settings.textColor}`,
       '--height': `-${content.containerHeight}px`,
       '--animation-duration': `${animationDuration}s`,
       '--animation-play-state': `${animationPlayState}`,
       '--offset': `${content.containerOffset}px`,
-      '--maxWidth': `${settings.charsPerLine}ch`,
-      '--backgroundColor': settings.backgroundColor,
+      '--max-width': `${settings.charsPerLine}ch`,
+      '--background-color': settings.backgroundColor,
     }"
     :class="{
       'c-player--flipX': settings.flipX,
       'c-player--flipY': settings.flipY,
     }"
   >
-    <client-only>
-      <v-player-content />
-    </client-only>
+    <v-player-content />
     <v-player-reading-helper />
   </div>
 </template>
@@ -70,10 +68,6 @@ export default {
       SET_SETTINGS: 'player/SET_SETTINGS',
       SET_CONNECTED_COUNT: 'player/SET_CONNECTED_COUNT',
     }),
-    // pause() {
-    //   this.$store.dispatch('player/pause')
-    //   this.$socket.emit('pause', this.playerId)
-    // },
     createRoom() {
       this.$socket.emit('create-room', { roomId: this.playerId })
     },
@@ -104,12 +98,12 @@ export default {
   position: relative;
   height: 100vh;
   overflow: hidden;
-  padding-right: var(--fontSize);
-  padding-left: var(--fontSize);
+  padding-right: var(--font-size);
+  padding-left: var(--font-size);
   color: #fff;
   font-family: arial, sans-serif;
   font-weight: bold;
-  background: var(--backgroundColor);
+  background: var(--background-color);
 }
 .c-player--flipX {
   transform: scale(-1, 1);

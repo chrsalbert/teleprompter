@@ -13,7 +13,6 @@ export default {
       default: null,
       validator: (value) => {
         return [
-          'line-height',
           'info',
           'home',
           'ear',
@@ -33,11 +32,9 @@ export default {
           'settings',
           'fullscreen',
           'microphone',
-          'mirophoneOff',
-          'toggleOn',
-          'toggleOff',
-          'wifiOff',
-          'arrow-right-bold',
+          'microphone-off',
+          'wifi-off',
+          'arrow-right-bold'
         ].includes(value)
       },
     },

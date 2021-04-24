@@ -12,7 +12,7 @@
       <transition mode="out-in">
         <c-button
           v-if="controls.isPlaying || controls.isRecognizing"
-          :icon="controls.isRecognizing === true ? 'microphoneOff' : 'pause'"
+          :icon="controls.isRecognizing === true ? 'microphone-off' : 'pause'"
           :size="$device.isDesktop ? 'lg' : ''"
           variant="ghost"
           key="pause"

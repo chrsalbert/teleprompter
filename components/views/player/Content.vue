@@ -1,6 +1,6 @@
 <template>
   <div ref="container" class="c-player__content">
-    <div ref="text" class="c-playerText">
+    <div ref="text" class="c-player__text">
       <template v-for="(block, index) in textBlocks">
         <br v-if="block.break === true" :key="index" />
         <span
@@ -21,7 +21,6 @@
 <script>
 import { mapActions } from 'vuex'
 import { mapMutations } from 'vuex'
-import { mapGetters } from 'vuex'
 
 export default {
   mounted() {
@@ -51,13 +50,15 @@ export default {
     transcript() {
       return this.$store.state.player.settings.transcript
     },
-    ...mapGetters({
-      textBlocks: 'player/getTextBlocks',
-    }),
+    textBlocks() {
+      return this.$store.state.player.content.blocks
+    },
+    isRecognizing() {
+      return this.$store.state.player.controls.isRecognizing
+    }
   },
   methods: {
     updateContainerHeight() {
-      console.log('update container height' + this.$refs.container.offsetHeight)
       if (!this.$refs.container) return
       this.SET_CONTAINER_HEIGHT(this.$refs.container.offsetHeight)
     },
@@ -74,6 +75,7 @@ export default {
     }),
     ...mapMutations({
       SET_CONTAINER_HEIGHT: 'player/SET_CONTAINER_HEIGHT',
+      SET_CONTAINER_OFFSET: 'player/SET_CONTAINER_OFFSET',
     }),
     scrollToLastRead() {
       const lastReadIndex = this.$refs.block
@@ -89,6 +91,11 @@ export default {
     textBlocks() {
       this.$nextTick(() => {
         this.updateContainerHeight()
+      })
+    },
+    isRecognizing() {
+      this.$nextTick(() => {
+        this.resetAnimation()
       })
     },
     fontSize() {
@@ -107,12 +114,12 @@ export default {
 .c-player__content {
   z-index: 1;
   position: relative;
-  top: calc(50vh - calc(calc(var(--fontSize) * var(--lineHeight)) / 2));
-  max-width: var(--maxWidth);
+  top: calc(50vh - calc(calc(var(--font-size) * var(--line-height)) / 2));
+  max-width: var(--max-width);
   margin: 0 auto;
-  font-size: var(--fontSize);
-  color: var(--textColor);
-  line-height: var(--lineHeight);
+  font-size: var(--font-size);
+  color: var(--text-color);
+  line-height: var(--line-height);
   transform: translateY(var(--offset));
   animation: scroll var(--animation-duration) linear 1 forwards
     var(--animation-play-state);
@@ -120,26 +127,23 @@ export default {
   will-change: transform;
 }
 .c-player__content span {
-  transition: color 0.1s;
+  transition: color 0.1s ease-out;
 }
-.c-player__content span.is-read {
-  color: #333;
-}
-.c-playerText {
+.c-player__text {
   user-select: none;
 }
 .is-invisible {
   opacity: 0;
 }
-span {
+.c-player__content span {
   display: inline-block;
   transition: color 0.1s, transform 0.1s;
 }
-span.is-space {
+.c-player__content span.is-space {
   display: block;
-  height: calc(1em * var(--lineHeight));
+  height: calc(1em * var(--line-height));
 }
-span.is-read {
+.c-player__content span.is-read {
   transform: scale(0.9);
   opacity: 0.2;
 }

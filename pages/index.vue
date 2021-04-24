@@ -37,7 +37,7 @@ export default {
         },
         {
           title: 'Offline available',
-          icon: 'wifiOff',
+          icon: 'wifi-off',
           paragraph:
             'Save Mr. Prompter to your mobile home screen and use it like your native apps – even offline!',
         },

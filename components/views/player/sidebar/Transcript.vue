@@ -39,7 +39,7 @@ export default {
         return this.settings.transcript
       },
       set(val) {
-        this.$store.commit('player/SET_TRANSCRIPT', val)
+        this.$store.dispatch('player/updateTranscript', val)
         this.updateSettings()
       },
     },
