@@ -28,8 +28,6 @@ export default {
   },
   beforeMount() {
     this.initEventIsteners()
-  },
-  mounted() {
     this.joinRoom()
   },
   computed: {
@@ -44,6 +42,7 @@ export default {
     ...mapMutations({
       SET_CONNECTED_COUNT: 'player/SET_CONNECTED_COUNT',
       SET_SETTINGS: 'player/SET_SETTINGS',
+      SET_CONTROLS: 'player/SET_CONTROLS',
     }),
     joinRoom(playerId = this.playerId) {
       if (!playerId) {
@@ -68,6 +67,9 @@ export default {
       })
       this.$socket.on('update-settings', (settings) => {
         this.SET_SETTINGS(settings)
+      })
+      this.$socket.on('update-controls', (controls) => {
+        this.SET_CONTROLS(controls)
       })
     },
   },

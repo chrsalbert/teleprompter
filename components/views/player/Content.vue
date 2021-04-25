@@ -32,29 +32,32 @@ export default {
     this.scrollToLastRead()
   },
   computed: {
+    player() {
+      return this.$store.state.player
+    },
     content() {
-      return this.$store.state.player.content
+      return this.player.content
     },
     settings() {
-      return this.$store.state.player.settings
+      return this.player.settings
     },
     fontSize() {
-      return this.$store.state.player.settings.fontSize
+      return this.player.settings.fontSize
     },
     lineHeight() {
-      return this.$store.state.player.settings.lineHeight
+      return this.player.settings.lineHeight
     },
     charsPerLine() {
-      return this.$store.state.player.settings.charsPerLine
+      return this.player.settings.charsPerLine
     },
     transcript() {
-      return this.$store.state.player.settings.transcript
+      return this.player.settings.transcript
     },
     textBlocks() {
-      return this.$store.state.player.content.blocks
+      return this.player.content.blocks
     },
     isRecognizing() {
-      return this.$store.state.player.controls.isRecognizing
+      return this.player.controls.isRecognizing
     }
   },
   methods: {

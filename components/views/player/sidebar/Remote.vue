@@ -39,9 +39,6 @@ export default {
     ...mapGetters({
       isConnected: 'player/isConnected',
     }),
-    player() {
-      return this.$store.state.player
-    },
     playerId() {
       return this.$cookies.get('playerId')
     }

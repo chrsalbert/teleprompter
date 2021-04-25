@@ -11,8 +11,8 @@
       />
       <transition mode="out-in">
         <c-button
-          v-if="controls.isPlaying || controls.isRecognizing"
-          :icon="controls.isRecognizing === true ? 'microphone-off' : 'pause'"
+          v-if="isPlaying || isRecognizing"
+          :icon="isRecognizing === true ? 'microphone-off' : 'pause'"
           :size="$device.isDesktop ? 'lg' : ''"
           variant="ghost"
           key="pause"
@@ -23,7 +23,7 @@
           v-else
           :icon="
             settings.isSpeechRecognitionEnabled &&
-            controls.isRecognizing === false
+            isRecognizing === false
               ? 'microphone'
               : 'play'
           "
@@ -40,48 +40,14 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import controls from '~/mixins/controls.js'
 
 export default {
-  mounted() {
-    this.$socket.on('play', () => this.$store.dispatch('player/play'))
-    this.$socket.on('pause', () => this.$store.dispatch('player/pause'))
-    this.$socket.on('reset', () => this.$store.dispatch('player/reset'))
-  },
+  mixins: [controls],
   computed: {
-    controls() {
-      return this.$store.state.player.controls
-    },
-    settings() {
-      return this.$store.state.player.settings
-    },
-    playerId() {
-      return this.$route.params.id
-    },
-    isSpeechRecognitionEnabled() {
-      return this.$store.state.player.settings.isSpeechRecognitionEnabled
-    },
     ...mapGetters({
-      isPlaying: 'player/isPlaying',
-    }),
-  },
-  methods: {
-    play() {
-      this.$store.dispatch('player/play')
-      this.$socket.emit('play', this.playerId)
-    },
-    pause() {
-      this.$store.dispatch('player/pause')
-      this.$socket.emit('pause', this.playerId)
-    },
-    reset() {
-      this.$store.dispatch('player/reset')
-      this.$socket.emit('reset', this.playerId)
-    },
-  },
-  watch: {
-    isSpeechRecognitionEnabled: function () {
-      this.reset()
-    },
+      settings: 'player/getSettings',
+    })
   },
 }
 </script>

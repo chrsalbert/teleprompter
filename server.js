@@ -70,6 +70,13 @@ io.on('connection', (socket) => {
       }
     }
   })
+  socket.on('update-controls', function (controls) {
+    for (const [key, value] of Object.entries(socket.rooms)) {
+      if (key != socket.id) {
+        socket.to(key).emit('update-controls', controls)
+      }
+    }
+  })
   socket.on('play', function (playerId) {
     socket.to(playerId).emit('play')
   })

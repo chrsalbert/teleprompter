@@ -94,11 +94,26 @@ export const getters = {
       ).toFixed(2),
     )
   },
+  getSettings: (state) => {
+    return state.settings
+  },
+  getControls: (state) => {
+    return state.controls
+  },
+  getContent: (state) => {
+    return state.content
+  },
   isConnected: (state) => {
     return state.connectedCount > 1
   },
   isPlaying: (state) => {
     return state.controls.isRecognizing || state.controls.isPlaying
+  },
+  isRecognizing: (state) => {
+    return state.controls.isRecognizing
+  },
+  isSpeechRecognitionEnabled: (state) => {
+    return state.settings.isSpeechRecognitionEnabled
   },
 }
 
@@ -193,6 +208,9 @@ export const mutations = {
   SET_SETTINGS(state, object) {
     state.settings = object
   },
+  SET_CONTROLS(state, object) {
+    state.controls = object
+  },
   SET_TRANSCRIPT(state, string) {
     state.settings.transcript = string
   },
@@ -213,7 +231,7 @@ export const actions = {
     commit('SET_TRANSCRIPT', transcript)
     commit('SET_CONTENT_BLOCKS', transcript)
   },
-  loadDataFromLocalStorage({ state, commit }) {
+  loadSettingsFromLocalStorage({ state, commit }) {
     if (localStorage.getItem('settings')) {
       commit('SET_SETTINGS', JSON.parse(localStorage.getItem('settings')))
       commit('SET_CONTENT_BLOCKS', state.settings.transcript)
@@ -283,7 +301,6 @@ export const actions = {
     commit('SET_IS_PLAYING', true)
   },
   pause({ commit, state }) {
-    console.log('pause')
     if (state.controls.isPlaying) {
       return commit('SET_IS_PLAYING', false)
     }
@@ -296,7 +313,7 @@ export const actions = {
   },
   reset({ dispatch, commit, state }) {
     dispatch('rewindScript')
-    if (!state.isRecognizing) {
+    if (!state.controls.isRecognizing) {
       commit('SET_IS_PLAYING', false)
     }
     $nuxt.$emit('reset')

@@ -38,9 +38,7 @@ export default {
   },
   beforeMount() {
     this.initEventListeners()
-    this.loadDataFromLocalStorage()
-  },
-  mounted() {
+    this.loadSettingsFromLocalStorage()
     this.initSpeechRecognition()
     this.createRoom()
   },
@@ -48,21 +46,20 @@ export default {
     playerId() {
       return this.$route.params.id
     },
-    settings() {
-      return this.$store.state.player.settings
-    },
-    content() {
-      return this.$store.state.player.content
-    },
     ...mapGetters({
+      content: 'player/getContent',
+      settings: 'player/getSettings',
       animationDuration: 'player/getRealReadingTimeInSec',
       animationPlayState: 'player/getAnimationPlayState',
     }),
   },
   methods: {
     ...mapActions({
-      loadDataFromLocalStorage: 'player/loadDataFromLocalStorage',
+      loadSettingsFromLocalStorage: 'player/loadSettingsFromLocalStorage',
       initSpeechRecognition: 'player/initSpeechRecognition',
+      play: 'player/play',
+      pause: 'player/pause',
+      reset: 'player/reset',
     }),
     ...mapMutations({
       SET_SETTINGS: 'player/SET_SETTINGS',
@@ -75,14 +72,23 @@ export default {
       this.$socket.on('user-count', (count) => {
         this.SET_CONNECTED_COUNT(count)
       })
+      this.$socket.on('update-settings', (settings) => {
+        this.SET_SETTINGS(settings)
+      })
       this.$socket.on('user-joined', () => {
         this.$socket.emit('update-settings', this.settings)
       })
       this.$socket.on('room-created', () => {
         this.$socket.emit('update-settings', this.settings)
       })
-      this.$socket.on('update-settings', (settings) => {
-        this.SET_SETTINGS(settings)
+      this.$socket.on('play', () => {
+        this.play()
+      })
+      this.$socket.on('pause', () => {
+        this.pause()
+      })
+      this.$socket.on('reset', () => {
+        this.reset()
       })
     },
   },

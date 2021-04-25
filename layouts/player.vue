@@ -19,23 +19,10 @@
   </l-grid>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import controls from '~/mixins/controls.js'
 
 export default {
-  computed: {
-    ...mapGetters({
-      isPlaying: 'player/isPlaying',
-    }),
-    playerId() {
-      return this.$route.params.id
-    },
-  },
-  methods: {
-    pause() {
-      this.$store.dispatch('player/pause')
-      this.$socket.emit('pause', this.playerId)
-    }
-  },
+  mixins: [controls]
 }
 </script>
 <style>
