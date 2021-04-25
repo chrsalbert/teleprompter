@@ -4,12 +4,12 @@
       ref="backdrop"
       class="c-sidebar"
       v-show="isOpen"
-      v-on:click="backdropClose()"
-      :class="{ 'c-sidebar--full': fullWidth }"
+      @click="backdropClose($event)"
+      :class="{ 'c-sidebar--full': hasFullWidth }"
     >
       <div
         class="c-sidebar__container"
-        v-bind:style="{ '--width': responsiveWidth }"
+        v-bind:style="{ '--width': width }"
       >
         <header class="c-sidebar__header">
           <div class="c-sidebar__title">
@@ -19,7 +19,7 @@
             variant="ghost"
             icon="close"
             color="var(--color-gray-200)"
-            v-on:click.native="close()"
+            @click.native="close()"
           />
         </header>
         <div class="c-sidebar__body">
@@ -30,6 +30,7 @@
   </transition>
 </template>
 <script>
+import { mapMutations } from 'vuex'
 export default {
   props: {
     title: String,
@@ -37,54 +38,51 @@ export default {
       type: String,
       default: '26rem',
     },
-    opened: {
-      type: Boolean,
-      default: false,
-    },
   },
   data() {
     return {
-      isOpen: this.opened,
-      fullWidth: false,
+      hasFullWidth: false,
+      isOpen: false,
     }
   },
-  computed: {
-    responsiveWidth() {
-      return this.fullWidth ? '100%' : this.width
-    },
+  beforeMount() {
+    this.initEventListeners()
+    this.initFullWidth()
   },
   methods: {
     close() {
       this.isOpen = false
     },
-    backdropClose() {
-      event.target === this.$refs.backdrop
-        ? this.close()
-        : event.stopPropagation()
+    backdropClose(event) {
+      if(event) {
+        event.target === this.$refs.backdrop
+          ? this.close()
+          : event.stopPropagation()
+      }
     },
     open() {
-      this.setResponsiveWidth()
       this.isOpen = true
     },
-    setResponsiveWidth() {
-      this.fullWidth = window.innerWidth <= 600
+    initFullWidth() {
+      this.hasFullWidth = window.innerWidth <= 600
     },
-  },
-  mounted() {
-    this.setResponsiveWidth()
-    this.$nuxt.$on('resize', () => {
-      if (!this.isOpen) return
-      this.setResponsiveWidth()
-    })
-    this.$nuxt.$on('keydown', (key) => {
-      if (!this.isOpen) return
-      switch (key) {
-        case 27:
-          this.close()
-          break
-      }
+    initEventListeners() {
+      this.$nuxt.$on('resize', () => {
+        this.initFullWidth()
+      })
+      this.$nuxt.$on('close-sidebar', () => {
+        this.close()
+      })
+    },
+    ...mapMutations({
+      SET_IS_OPEN: 'sidebar/SET_IS_OPEN'
     })
   },
+  watch: {
+    isOpen: function (val) {
+      this.SET_IS_OPEN(val)
+    },
+  }
 }
 </script>
 <style>
@@ -144,5 +142,8 @@ export default {
 .c-sidebar--full.c-sidebar-leave-active .c-sidebar__container,
 .c-sidebar--full.c-sidebar-leave-to .c-sidebar__container {
   transform: translateX(100%);
+}
+.c-sidebar--full .c-sidebar__container {
+  width: 100%;
 }
 </style>

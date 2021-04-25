@@ -4,14 +4,14 @@
       <Nuxt />
     </div>
     <template v-slot:header>
-      <div class="l-player__nav" :class="{ 'l-player__nav--hide': isPlaying }">
+      <div class="l-player__nav" :class="{ 'l-player__nav--hide': hideLayout }">
         <v-player-nav />
       </div>
     </template>
     <template v-slot:footer>
       <div
         class="l-player__controls"
-        :class="{ 'l-player__controls--hide': isPlaying }"
+        :class="{ 'l-player__controls--hide': hideLayout }"
       >
         <v-player-controls />
       </div>
@@ -22,7 +22,21 @@
 import controls from '~/mixins/controls.js'
 
 export default {
-  mixins: [controls]
+  mixins: [controls],
+  data () {
+    return {
+      hideLayout: false
+    }
+  },
+  watch: {
+    isPlaying: function (val) {
+      const delay = this.$store.state.sidebar.isOpen ? 300 : 0
+      this.$nuxt.$emit('close-sidebar')
+      setTimeout(() => {
+        this.hideLayout = val
+      }, delay);
+    },
+  }
 }
 </script>
 <style>
