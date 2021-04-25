@@ -274,27 +274,24 @@ export const actions = {
     }
   },
   play({ commit, state }) {
-    if (!state.speechAPI) {
-      commit('SET_IS_RECOGNIZING', true)
-      return
-    }
     if (state.settings.isSpeechRecognitionEnabled) {
-      state.speechAPI.start()
-    } else {
-      commit('SET_IS_PLAYING', true)
+      if(state.speechAPI) {
+        state.speechAPI.start()
+      }
+      return commit('SET_IS_RECOGNIZING', true)
     }
+    commit('SET_IS_PLAYING', true)
   },
   pause({ commit, state }) {
-    if (state.controls.isPlaying || state.controls.isRecognizing) {
-      if (state.controls.isRecognizing) {
-        if (!state.speechAPI) {
-          commit('SET_IS_RECOGNIZING', false)
-          return
-        }
+    console.log('pause')
+    if (state.controls.isPlaying) {
+      return commit('SET_IS_PLAYING', false)
+    }
+    if (state.controls.isRecognizing) {
+      if(state.speechAPI) {
         state.speechAPI.stop()
-      } else {
-        commit('SET_IS_PLAYING', false)
       }
+      commit('SET_IS_RECOGNIZING', false)
     }
   },
   reset({ dispatch, commit, state }) {

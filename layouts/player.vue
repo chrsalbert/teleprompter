@@ -20,18 +20,21 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { mapActions } from 'vuex'
 
 export default {
   computed: {
     ...mapGetters({
       isPlaying: 'player/isPlaying',
     }),
+    playerId() {
+      return this.$route.params.id
+    },
   },
   methods: {
-    ...mapActions({
-      pause: 'player/pause',
-    }),
+    pause() {
+      this.$store.dispatch('player/pause')
+      this.$socket.emit('pause', this.playerId)
+    }
   },
 }
 </script>
